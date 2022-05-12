@@ -4,25 +4,27 @@ import type {Ref} from 'vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import FormLabel from '@/Components/Forms/FormLabel.vue'
-import PasswordInput from '@/Components/Forms/PasswordInput.vue'
 import EmailInput from '@/Components/Forms/EmailInput.vue'
 import PhoneInput from '@/Components/Forms/PhoneInput.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 
+const props = defineProps({
+    user: {
+        type: Object,
+        required: true
+    }
+})
+
 const emit = defineEmits(['nextStep'])
 
 interface HRSetup {
-    email: string,
-    password: string,
-    password_confirmation: string,
+    user_id: number,
     contact_number: string,
-    contact_email?: string,
+    contact_email: string,
 }
 
 const form: InertiaForm<HRSetup> = useForm({
-    email: '',
-    password: '',
-    password_confirmation: '',
+    user_id: props.user.id,
     contact_number: '',
     contact_email: ''
 })
@@ -31,7 +33,7 @@ const sameEmail: Ref<boolean> = ref(true)
 
 function submit(): void {
     if (sameEmail.value) {
-        form.contact_email = form.email
+        form.contact_email = props.user.email
     }
 
     form.post('/setup/hr', {
@@ -49,42 +51,6 @@ function submit(): void {
     >
         <div>
             <div>
-                <FormLabel>Email</FormLabel>
-                <div class="mt-1">
-                    <EmailInput
-                        v-model="form.email"
-                        :error="form.errors.email"
-                        input-id="email"
-                        input-name="email"
-                        @reset="form.clearErrors('email')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <FormLabel>Password</FormLabel>
-                <div class="mt-1">
-                    <PasswordInput
-                        v-model="form.password"
-                        :error="form.errors.password"
-                        input-id="password"
-                        input-name="password"
-                        @reset="form.clearErrors('password')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <FormLabel>Password confirmation</FormLabel>
-                <div class="mt-1">
-                    <PasswordInput
-                        v-model="form.password_confirmation"
-                        :error="form.errors.password"
-                        input-id="password_confirmation"
-                        input-name="password_confirmation"
-                        @reset="form.clearErrors('password')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
                 <FormLabel>Contact number</FormLabel>
                 <div class="mt-1">
                     <PhoneInput
@@ -97,7 +63,7 @@ function submit(): void {
                 </div>
             </div>
             <div class="mt-4">
-                <FormLabel>Contact email same as email address?</FormLabel>
+                <FormLabel>Contact email same as user email?</FormLabel>
                 <div class="mt-1">
                     <ToggleInput v-model="sameEmail" />
                 </div>

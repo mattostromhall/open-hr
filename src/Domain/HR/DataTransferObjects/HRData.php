@@ -2,7 +2,7 @@
 
 namespace Domain\HR\DataTransferObjects;
 
-use Illuminate\Foundation\Auth\User;
+use Domain\Auth\Models\User;
 
 class HRData
 {

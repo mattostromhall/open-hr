@@ -10,14 +10,16 @@ class StoreHRRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user' => ['required', 'int', 'unique:hr'],
+            'user_id' => ['required', 'int', 'unique:hr'],
             'contact_number' => ['required', 'string', 'min:2', 'max:20', 'unique:hr'],
             'contact_email' => ['required', 'string', 'email', 'max:255', 'unique:hr'],
         ];
     }
 
-    protected function passedValidation()
+    public function validatedWithUser(): array
     {
-        $this->merge(['user' => User::find($this->user)]);
+        return [
+            'user' => User::find($this->validated('user_id'))
+        ] + $this->safe(['contact_number', 'contact_email']);
     }
 }

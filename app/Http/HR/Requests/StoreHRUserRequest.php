@@ -2,6 +2,7 @@
 
 namespace App\Http\HR\Requests;
 
+use Domain\Auth\DataTransferObjects\UserData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -15,5 +16,12 @@ class StoreHRUserRequest extends FormRequest
             'contact_number' => ['required', 'string', 'min:2', 'max:20', 'unique:hr'],
             'contact_email' => ['required', 'string', 'email', 'max:255', 'unique:hr'],
         ];
+    }
+
+    public function validatedWithUserData(): array
+    {
+        return [
+            'user_data' => UserData::from($this->safe(['email', 'password']))
+        ] + $this->safe(['contact_number', 'contact_email']);
     }
 }

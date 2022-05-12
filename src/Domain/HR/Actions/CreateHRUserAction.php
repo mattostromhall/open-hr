@@ -15,7 +15,7 @@ class CreateHRUserAction
 
     public function execute(HRUserData $data): array
     {
-        $user = $this->createUser->execute($data->userData);
+        $user = $this->createUser->execute($data->user_data);
 
         $hr = $this->createHR->execute(
             new HRData(user: $user, contact_number: $data->contact_number, contact_email: $data->contact_email)

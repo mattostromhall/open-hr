@@ -13,7 +13,7 @@ class StoreHRController extends Controller
     public function __invoke(StoreHRRequest $request, CreateHRAction $createHR): RedirectResponse
     {
         $createHR->execute(
-            HRData::from($request->validated())
+            HRData::from($request->validatedWithUser())
         );
 
         return back();

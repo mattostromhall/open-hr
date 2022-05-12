@@ -4,7 +4,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import type {ComputedRef} from 'vue'
 import CreateOrganisation from '@/Pages/Setup/CreateOrganisation.vue'
 import ProgressStages from '@/Components/ProgressStages.vue'
-import CreateHRUser from '@/Pages/Setup/CreateHRUser.vue'
+import CreateHR from '@/Pages/Setup/CreateHR.vue'
 import CreatePerson from '@/Pages/Setup/CreatePerson.vue'
 
 interface SetupStages {
@@ -13,6 +13,10 @@ interface SetupStages {
 }
 
 const props = defineProps({
+    auth: {
+        type: Object,
+        required: true
+    },
     stage: {
         type: Number,
         default: 1
@@ -30,7 +34,7 @@ const setupText: ComputedRef<string> = computed(() => {
     }
 
     if (setupStages.current === 2) {
-        return 'Add an HR user'
+        return 'Add an HR contact information'
     }
 
     return 'Setup your Organisation'
@@ -60,8 +64,9 @@ export default {
                 v-if="setupStages.current === 1"
                 @next-step="setupStages.current = 2"
             />
-            <CreateHRUser
+            <CreateHR
                 v-if="setupStages.current === 2"
+                :user="props.auth.user"
                 @next-step="setupStages.current = 3"
             />
             <CreatePerson v-if="setupStages.current === 3" />

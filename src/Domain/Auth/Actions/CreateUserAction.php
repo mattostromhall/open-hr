@@ -2,9 +2,9 @@
 
 namespace Domain\Auth\Actions;
 
-use Illuminate\Support\Facades\Hash;
 use Domain\Auth\DataTransferObjects\UserData;
 use Domain\Auth\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUserAction
 {
