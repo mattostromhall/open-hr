@@ -1,0 +1,4 @@
+resources/js/app.ts
+webpack.config.js
+webpack.mix.js
+tailwind.config.js
