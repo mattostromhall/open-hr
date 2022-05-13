@@ -20689,8 +20689,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   props: {
-    userId: {
-      type: Number,
+    user: {
+      type: Object,
       required: true
     }
   },
@@ -20698,33 +20698,46 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var personForm = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_5__.useForm)({
-      user_id: props.userId,
-      email: '',
-      password: '',
-      password_confirmation: '',
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_5__.useForm)({
+      user_id: props.user.id,
+      first_name: '',
+      last_name: '',
+      pronouns: '',
+      dob: '',
+      position: '',
+      remuneration: 0,
+      remuneration_interval: 'yearly',
+      remuneration_currency: 'GBP',
+      holiday_allocation: 25,
+      sickness_allocation: 10,
       contact_number: '',
-      contact_email: ''
+      contact_email: '',
+      started_on: '',
+      title: '',
+      initials: '',
+      manager_id: undefined,
+      department_id: undefined,
+      finished_on: undefined
     });
     var sameEmail = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);
 
-    function submitHRForm() {
+    function submit() {
       if (sameEmail.value) {
-        personForm.contact_email = personForm.email;
+        form.contact_email = props.user.email;
       }
 
-      personForm.post('/setup/person');
+      form.post('/setup/person');
     }
 
     function skipStage() {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_6__.Inertia.post('hr/setup');
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_6__.Inertia.post('/setup');
     }
 
     var __returned__ = {
       props: props,
-      personForm: personForm,
+      form: form,
       sameEmail: sameEmail,
-      submitHRForm: submitHRForm,
+      submit: submit,
       skipStage: skipStage,
       PasswordInput: _Components_Forms_PasswordInput_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       EmailInput: _Components_Forms_EmailInput_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -22450,50 +22463,50 @@ var _hoisted_19 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div",
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     "class": "space-y-6",
-    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.submitHRForm, ["prevent"])
+    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.submit, ["prevent"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["EmailInput"], {
-    modelValue: $setup.personForm.email,
+    modelValue: $setup.form.email,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.personForm.email = $event;
+      return $setup.form.email = $event;
     }),
-    error: $setup.personForm.errors.email,
+    error: $setup.form.errors.email,
     "input-id": "email",
     "input-name": "email",
     onReset: _cache[1] || (_cache[1] = function ($event) {
-      return $setup.personForm.clearErrors('email');
+      return $setup.form.clearErrors('email');
     })
   }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
-    modelValue: $setup.personForm.password,
+    modelValue: $setup.form.password,
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $setup.personForm.password = $event;
+      return $setup.form.password = $event;
     }),
-    error: $setup.personForm.errors.password,
+    error: $setup.form.errors.password,
     "input-id": "password",
     "input-name": "password",
     onReset: _cache[3] || (_cache[3] = function ($event) {
-      return $setup.personForm.clearErrors('password');
+      return $setup.form.clearErrors('password');
     })
   }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
-    modelValue: $setup.personForm.password_confirmation,
+    modelValue: $setup.form.password_confirmation,
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-      return $setup.personForm.password_confirmation = $event;
+      return $setup.form.password_confirmation = $event;
     }),
-    error: $setup.personForm.errors.password,
+    error: $setup.form.errors.password,
     "input-id": "password_confirmation",
     "input-name": "password_confirmation",
     onReset: _cache[5] || (_cache[5] = function ($event) {
-      return $setup.personForm.clearErrors('password');
+      return $setup.form.clearErrors('password');
     })
   }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PhoneInput"], {
-    modelValue: $setup.personForm.contact_number,
+    modelValue: $setup.form.contact_number,
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
-      return $setup.personForm.contact_number = $event;
+      return $setup.form.contact_number = $event;
     }),
-    error: $setup.personForm.errors.contact_number,
+    error: $setup.form.errors.contact_number,
     "input-id": "contact_number",
     "input-name": "contact_number",
     onReset: _cache[7] || (_cache[7] = function ($event) {
-      return $setup.personForm.clearErrors('contact_number');
+      return $setup.form.clearErrors('contact_number');
     })
   }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ToggleInput"], {
     modelValue: $setup.sameEmail,
@@ -22501,15 +22514,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.sameEmail = $event;
     })
   }, null, 8, ["modelValue"])]), !$setup.sameEmail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
-    modelValue: $setup.personForm.contact_email,
+    modelValue: $setup.form.contact_email,
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-      return $setup.personForm.contact_email = $event;
+      return $setup.form.contact_email = $event;
     }),
-    error: $setup.personForm.errors.contact_email,
+    error: $setup.form.errors.contact_email,
     "input-id": "contact_email",
     "input-name": "contact_email",
     onReset: _cache[10] || (_cache[10] = function ($event) {
-      return $setup.personForm.clearErrors('contact_email');
+      return $setup.form.clearErrors('contact_email');
     })
   }, null, 8, ["modelValue", "error"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_19], 40, _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "mt-3 text-center"

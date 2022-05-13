@@ -9,60 +9,89 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
+import type {Currency, RecurrenceInterval} from '../../types'
 
 const props = defineProps({
-    userId: {
-        type: Number,
+    user: {
+        type: Object,
         required: true
     }
 })
 
-interface PersonSetup {
+interface PersonData {
     user_id: number,
-    email: string,
+    first_name: string,
+    last_name: string,
+    pronouns: string,
+    dob: string,
+    position: string,
+    remuneration: number,
+    remuneration_interval: RecurrenceInterval,
+    remuneration_currency: Currency,
+    holiday_allocation: number,
+    sickness_allocation: number,
     contact_number: string,
-    contact_email?: string,
+    contact_email: string,
+    started_on: string,
+    manager_id?: number,
+    department_id?: number,
+    title?: string,
+    initials?: string,
+    finished_on?: string
 }
 
-const personForm: InertiaForm<PersonSetup> = useForm({
-    user_id: props.userId,
-    email: '',
-    password: '',
-    password_confirmation: '',
+const form: InertiaForm<PersonData> = useForm({
+    user_id: props.user.id,
+    first_name: '',
+    last_name: '',
+    pronouns: '',
+    dob: '',
+    position: '',
+    remuneration: 0,
+    remuneration_interval: 'yearly',
+    remuneration_currency: 'GBP',
+    holiday_allocation: 25,
+    sickness_allocation: 10,
     contact_number: '',
-    contact_email: ''
+    contact_email: '',
+    started_on: '',
+    title: '',
+    initials: '',
+    manager_id: undefined,
+    department_id: undefined,
+    finished_on: undefined
 })
 
 const sameEmail: Ref<boolean> = ref(true)
 
-function submitHRForm(): void {
+function submit(): void {
     if (sameEmail.value) {
-        personForm.contact_email = personForm.email
+        form.contact_email = props.user.email
     }
 
-    personForm.post('/setup/person')
+    form.post('/setup/person')
 }
 
 function skipStage(): void {
-    Inertia.post('hr/setup')
+    Inertia.post('/setup')
 }
 </script>
 
 <template>
     <form
         class="space-y-6"
-        @submit.prevent="submitHRForm"
+        @submit.prevent="submit"
     >
         <div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">Email address</label>
                 <div class="mt-1">
                     <EmailInput
-                        v-model="personForm.email"
-                        :error="personForm.errors.email"
+                        v-model="form.email"
+                        :error="form.errors.email"
                         input-id="email"
                         input-name="email"
-                        @reset="personForm.clearErrors('email')"
+                        @reset="form.clearErrors('email')"
                     />
                 </div>
             </div>
@@ -70,11 +99,11 @@ function skipStage(): void {
                 <label class="block text-sm font-medium text-gray-700">Password</label>
                 <div class="mt-1">
                     <PasswordInput
-                        v-model="personForm.password"
-                        :error="personForm.errors.password"
+                        v-model="form.password"
+                        :error="form.errors.password"
                         input-id="password"
                         input-name="password"
-                        @reset="personForm.clearErrors('password')"
+                        @reset="form.clearErrors('password')"
                     />
                 </div>
             </div>
@@ -82,11 +111,11 @@ function skipStage(): void {
                 <label class="block text-sm font-medium text-gray-700">Password confirmation</label>
                 <div class="mt-1">
                     <PasswordInput
-                        v-model="personForm.password_confirmation"
-                        :error="personForm.errors.password"
+                        v-model="form.password_confirmation"
+                        :error="form.errors.password"
                         input-id="password_confirmation"
                         input-name="password_confirmation"
-                        @reset="personForm.clearErrors('password')"
+                        @reset="form.clearErrors('password')"
                     />
                 </div>
             </div>
@@ -94,11 +123,11 @@ function skipStage(): void {
                 <label class="block text-sm font-medium text-gray-700">Contact number</label>
                 <div class="mt-1">
                     <PhoneInput
-                        v-model="personForm.contact_number"
-                        :error="personForm.errors.contact_number"
+                        v-model="form.contact_number"
+                        :error="form.errors.contact_number"
                         input-id="contact_number"
                         input-name="contact_number"
-                        @reset="personForm.clearErrors('contact_number')"
+                        @reset="form.clearErrors('contact_number')"
                     />
                 </div>
             </div>
@@ -114,11 +143,11 @@ function skipStage(): void {
                     <label class="block text-sm font-medium text-gray-700">Contact email</label>
                     <div class="mt-1">
                         <TextInput
-                            v-model="personForm.contact_email"
-                            :error="personForm.errors.contact_email"
+                            v-model="form.contact_email"
+                            :error="form.errors.contact_email"
                             input-id="contact_email"
                             input-name="contact_email"
-                            @reset="personForm.clearErrors('contact_email')"
+                            @reset="form.clearErrors('contact_email')"
                         />
                     </div>
                 </div>

@@ -1,3 +1,7 @@
+export type Currency = 'GBP' | 'USD' | 'EUR'
+
+export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,

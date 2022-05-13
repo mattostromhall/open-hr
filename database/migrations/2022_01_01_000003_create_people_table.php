@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->string('position');
             $table->unsignedMediumInteger('remuneration');
             $table->enum('remuneration_interval', ['hourly', 'daily', 'weekly', 'monthly', 'yearly']);
+            $table->string('remuneration_currency');
             $table->unsignedMediumInteger('holiday_allocation');
             $table->unsignedMediumInteger('sickness_allocation');
             $table->string('contact_number')->unique();
