@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import FormLabel from '@/Components/Forms/FormLabel.vue'
-import EmailInput from '@/Components/Forms/EmailInput.vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
+import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
 defineProps({

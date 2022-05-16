@@ -15,7 +15,6 @@ class PersonData
         public readonly User $user,
         public readonly string $first_name,
         public readonly string $last_name,
-        public readonly string $pronouns,
         public readonly Carbon $dob,
         public readonly string $position,
         public readonly int $remuneration,
@@ -30,6 +29,7 @@ class PersonData
         public readonly ?Department $department,
         public readonly ?string $title,
         public readonly ?string $initials,
+        public readonly ?string $pronouns,
         public readonly ?Carbon $finished_on
     ) {
         //

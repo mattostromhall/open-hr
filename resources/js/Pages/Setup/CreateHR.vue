@@ -3,9 +3,9 @@ import {ref} from 'vue'
 import type {Ref} from 'vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import FormLabel from '@/Components/Forms/FormLabel.vue'
-import EmailInput from '@/Components/Forms/EmailInput.vue'
-import PhoneInput from '@/Components/Forms/PhoneInput.vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
+import EmailInput from '@/Components/Controls/EmailInput.vue'
+import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 
 const props = defineProps({

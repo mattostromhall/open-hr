@@ -3,9 +3,9 @@ import {useForm} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import type {ComputedRef} from 'vue'
-import FormLabel from '@/Components/Forms/FormLabel.vue'
-import TextInput from '@/Components/Forms/TextInput.vue'
-import FileInput from '@/Components/Forms/FileInput.vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
+import TextInput from '@/Components/Controls/TextInput.vue'
+import FileInput from '@/Components/Controls/FileInput.vue'
 import ImagePreview from '@/Components/ImagePreview.vue'
 
 const emit = defineEmits(['nextStep'])
