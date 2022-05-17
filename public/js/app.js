@@ -19421,6 +19421,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return new Date().toISOString().slice(0, 10);
       }
     },
+    error: {
+      type: String,
+      "default": ''
+    },
+    inputId: {
+      type: String,
+      "default": ''
+    },
+    inputName: {
+      type: String,
+      "default": ''
+    },
     config: {
       type: Object,
       "default": function _default() {
@@ -19429,10 +19441,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     timeEnabled: {
       type: Boolean,
-      "default": true
+      "default": false
     }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'reset'],
   setup: function setup(__props, _ref) {
     var expose = _ref.expose,
         emit = _ref.emit;
@@ -19473,6 +19485,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     function closePicker(dates, dateString, self) {
       datePickerOpen.value = false;
+      handleInput(dateString);
+    }
+
+    function handleInput(dateString) {
+      if (props.error) {
+        emit('reset');
+      }
+
       emit('update:modelValue', dateString);
     }
 
@@ -19485,7 +19505,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       input: input,
       datePickerOpen: datePickerOpen,
       openPicker: openPicker,
-      closePicker: closePicker
+      closePicker: closePicker,
+      handleInput: handleInput
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -19859,6 +19880,92 @@ __webpack_require__.r(__webpack_exports__);
     var __returned__ = {
       props: props,
       emit: emit,
+      handleInput: handleInput
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+}));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+  props: {
+    modelValue: {
+      type: String,
+      "default": ''
+    },
+    error: {
+      type: String,
+      "default": ''
+    },
+    inputId: {
+      type: String,
+      "default": ''
+    },
+    inputName: {
+      type: String,
+      "default": ''
+    },
+    options: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    placeholder: {
+      type: Boolean,
+      "default": true
+    },
+    placeholderValue: {
+      type: String,
+      "default": 'Please select'
+    }
+  },
+  emits: ['update:modelValue', 'reset'],
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose,
+        emit = _ref.emit;
+    expose();
+    var props = __props;
+
+    function value(option) {
+      return typeof option === 'string' || typeof option === 'number' ? option : option.value;
+    }
+
+    function display(option) {
+      return typeof option === 'string' || typeof option === 'number' ? option : option.display;
+    }
+
+    function handleInput(e) {
+      if (props.error) {
+        emit('reset');
+      }
+
+      emit('update:modelValue', e.target.value);
+    }
+
+    var __returned__ = {
+      props: props,
+      emit: emit,
+      value: value,
+      display: display,
       handleInput: handleInput
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -20791,8 +20898,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _Components_Controls_ToggleInput_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/Controls/ToggleInput.vue */ "./resources/js/Components/Controls/ToggleInput.vue");
-/* harmony import */ var _Components_RequiredIcon_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/RequiredIcon.vue */ "./resources/js/Components/RequiredIcon.vue");
-/* harmony import */ var _Components_Controls_DateInput_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Components/Controls/DateInput.vue */ "./resources/js/Components/Controls/DateInput.vue");
+/* harmony import */ var _Components_RequiredIcon_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Components/RequiredIcon.vue */ "./resources/js/Components/RequiredIcon.vue");
+/* harmony import */ var _Components_Controls_DateInput_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Components/Controls/DateInput.vue */ "./resources/js/Components/Controls/DateInput.vue");
+/* harmony import */ var _Components_Controls_SelectInput_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/Components/Controls/SelectInput.vue */ "./resources/js/Components/Controls/SelectInput.vue");
+/* harmony import */ var _Components_Controls_FormLabel_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/Components/Controls/FormLabel.vue */ "./resources/js/Components/Controls/FormLabel.vue");
+
+
 
 
 
@@ -20815,6 +20926,22 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
+    var remunerationIntervalOptions = [{
+      value: 'hourly',
+      display: 'Hourly'
+    }, {
+      value: 'daily',
+      display: 'Daily'
+    }, {
+      value: 'weekly',
+      display: 'Weekly'
+    }, {
+      value: 'monthly',
+      display: 'Monthly'
+    }, {
+      value: 'yearly',
+      display: 'Yearly'
+    }];
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_5__.useForm)({
       user_id: props.user.id,
       first_name: '',
@@ -20852,6 +20979,7 @@ __webpack_require__.r(__webpack_exports__);
 
     var __returned__ = {
       props: props,
+      remunerationIntervalOptions: remunerationIntervalOptions,
       form: form,
       sameEmail: sameEmail,
       submit: submit,
@@ -20862,7 +20990,9 @@ __webpack_require__.r(__webpack_exports__);
       PhoneInput: _Components_Controls_PhoneInput_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
       ToggleInput: _Components_Controls_ToggleInput_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
       RequiredIcon: _Components_RequiredIcon_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-      DateInput: _Components_Controls_DateInput_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+      DateInput: _Components_Controls_DateInput_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+      SelectInput: _Components_Controls_SelectInput_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+      FormLabel: _Components_Controls_FormLabel_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -20972,19 +21102,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
+var _hoisted_1 = ["id", "name"];
+var _hoisted_2 = {
   key: 0,
   "class": "mt-1 text-sm text-red-500"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    id: $setup.props.inputId,
     ref: "input",
+    name: $setup.props.inputName,
     type: "text",
-    "class": "block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm",
-    onInput: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.$emit('update:modelValue', $event.target.value);
-    })
-  }, null, 544), $setup.props.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.error), 1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm", {
+      'border-red-500': $setup.props.error
+    }])
+  }, null, 10, _hoisted_1), $setup.props.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.error), 1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -21184,6 +21316,50 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }]),
     onInput: $setup.handleInput
   }, null, 42, _hoisted_1), $setup.props.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.error), 1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = ["id", "name", "autocomplete"];
+var _hoisted_2 = {
+  key: 0,
+  value: "",
+  selected: ""
+};
+var _hoisted_3 = ["value", "selected"];
+var _hoisted_4 = {
+  key: 0,
+  "class": "mt-1 text-sm text-red-500"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    id: $setup.props.inputId,
+    name: $setup.props.inputName,
+    autocomplete: $setup.props.inputName,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["block py-2 px-3 mt-1 w-full bg-white rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm", {
+      'border-red-500': $setup.props.error
+    }]),
+    onChange: $setup.handleInput
+  }, [$props.placeholder ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.placeholderValue), 1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (option) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      key: option,
+      value: $setup.value(option),
+      selected: $setup.value(option) === $props.modelValue
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.display(option)), 9, _hoisted_3);
+  }), 128))], 42, _hoisted_1), $setup.props.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.error), 1)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -22548,136 +22724,161 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "col-span-6 sm:col-span-3"
 };
-var _hoisted_5 = {
-  "class": "block text-sm font-medium text-gray-700"
-};
 
-var _hoisted_6 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("First name ");
+var _hoisted_5 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("First name ");
 
-var _hoisted_7 = {
+var _hoisted_6 = {
   "class": "mt-1"
 };
-var _hoisted_8 = {
+var _hoisted_7 = {
   "class": "col-span-6 sm:col-span-3"
 };
+
+var _hoisted_8 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Last name ");
+
 var _hoisted_9 = {
-  "class": "block text-sm font-medium text-gray-700"
-};
-
-var _hoisted_10 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Last name ");
-
-var _hoisted_11 = {
   "class": "mt-1"
 };
-var _hoisted_12 = {
+var _hoisted_10 = {
   "class": "col-span-6 sm:col-span-6 lg:col-span-2"
 };
 
-var _hoisted_13 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "block text-sm font-medium text-gray-700"
-}, "Title", -1);
+var _hoisted_11 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Title");
 
-var _hoisted_14 = {
+var _hoisted_12 = {
   "class": "mt-1"
 };
+var _hoisted_13 = {
+  "class": "col-span-6 sm:col-span-3 lg:col-span-2"
+};
+
+var _hoisted_14 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Initials");
+
 var _hoisted_15 = {
+  "class": "mt-1"
+};
+var _hoisted_16 = {
   "class": "col-span-6 sm:col-span-3 lg:col-span-2"
 };
 
-var _hoisted_16 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "block text-sm font-medium text-gray-700"
-}, "Initials", -1);
+var _hoisted_17 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Pronouns");
 
-var _hoisted_17 = {
-  "class": "mt-1"
-};
 var _hoisted_18 = {
+  "class": "mt-1"
+};
+var _hoisted_19 = {
+  "class": "col-span-6 sm:col-span-3"
+};
+
+var _hoisted_20 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Date of birth ");
+
+var _hoisted_21 = {
+  "class": "mt-1"
+};
+var _hoisted_22 = {
+  "class": "col-span-6 sm:col-span-5"
+};
+
+var _hoisted_23 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Position ");
+
+var _hoisted_24 = {
+  "class": "mt-1"
+};
+var _hoisted_25 = {
+  "class": "col-span-6 sm:col-span-6 lg:col-span-2"
+};
+
+var _hoisted_26 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Remuneration");
+
+var _hoisted_27 = {
+  "class": "mt-1"
+};
+var _hoisted_28 = {
   "class": "col-span-6 sm:col-span-3 lg:col-span-2"
 };
 
-var _hoisted_19 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "block text-sm font-medium text-gray-700"
-}, "Pronouns", -1);
+var _hoisted_29 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Remuneration interval");
 
-var _hoisted_20 = {
-  "class": "mt-1"
-};
-var _hoisted_21 = {
-  "class": "col-span-6 sm:col-span-4"
-};
-
-var _hoisted_22 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "email-address",
-  "class": "block text-sm font-medium text-gray-700"
-}, "Email address", -1);
-
-var _hoisted_23 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-span-6 sm:col-span-3\"><label for=\"country\" class=\"block text-sm font-medium text-gray-700\">Country</label><select id=\"country\" name=\"country\" autocomplete=\"country-name\" class=\"block py-2 px-3 mt-1 w-full bg-white rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"><option>United States</option><option>Canada</option><option>Mexico</option></select></div><div class=\"col-span-6\"><label for=\"street-address\" class=\"block text-sm font-medium text-gray-700\">Street address</label><input id=\"street-address\" type=\"text\" name=\"street-address\" autocomplete=\"street-address\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-6 lg:col-span-2\"><label for=\"city\" class=\"block text-sm font-medium text-gray-700\">City</label><input id=\"city\" type=\"text\" name=\"city\" autocomplete=\"address-level2\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-3 lg:col-span-2\"><label for=\"region\" class=\"block text-sm font-medium text-gray-700\">State / Province</label><input id=\"region\" type=\"text\" name=\"region\" autocomplete=\"address-level1\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-3 lg:col-span-2\"><label for=\"postal-code\" class=\"block text-sm font-medium text-gray-700\">ZIP / Postal code</label><input id=\"postal-code\" type=\"text\" name=\"postal-code\" autocomplete=\"postal-code\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div>", 5);
-
-var _hoisted_28 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "block text-sm font-medium text-gray-700"
-}, "Email address", -1);
-
-var _hoisted_29 = {
-  "class": "mt-1"
-};
 var _hoisted_30 = {
+  "class": "mt-1"
+};
+var _hoisted_31 = {
+  "class": "col-span-6 sm:col-span-3 lg:col-span-2"
+};
+
+var _hoisted_32 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Pronouns");
+
+var _hoisted_33 = {
+  "class": "mt-1"
+};
+
+var _hoisted_34 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-span-6\"><label for=\"street-address\" class=\"block text-sm font-medium text-gray-700\">Street address</label><input id=\"street-address\" type=\"text\" name=\"street-address\" autocomplete=\"street-address\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-6 lg:col-span-2\"><label for=\"city\" class=\"block text-sm font-medium text-gray-700\">City</label><input id=\"city\" type=\"text\" name=\"city\" autocomplete=\"address-level2\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-3 lg:col-span-2\"><label for=\"region\" class=\"block text-sm font-medium text-gray-700\">State / Province</label><input id=\"region\" type=\"text\" name=\"region\" autocomplete=\"address-level1\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div><div class=\"col-span-6 sm:col-span-3 lg:col-span-2\"><label for=\"postal-code\" class=\"block text-sm font-medium text-gray-700\">ZIP / Postal code</label><input id=\"postal-code\" type=\"text\" name=\"postal-code\" autocomplete=\"postal-code\" class=\"block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm\"></div>", 4);
+
+var _hoisted_38 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "block text-sm font-medium text-gray-700"
+}, "Email address", -1);
+
+var _hoisted_39 = {
+  "class": "mt-1"
+};
+var _hoisted_40 = {
   "class": "mt-4"
 };
 
-var _hoisted_31 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_41 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-sm font-medium text-gray-700"
 }, "Password", -1);
 
-var _hoisted_32 = {
+var _hoisted_42 = {
   "class": "mt-1"
 };
-var _hoisted_33 = {
+var _hoisted_43 = {
   "class": "mt-4"
 };
 
-var _hoisted_34 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_44 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-sm font-medium text-gray-700"
 }, "Password confirmation", -1);
 
-var _hoisted_35 = {
+var _hoisted_45 = {
   "class": "mt-1"
 };
-var _hoisted_36 = {
+var _hoisted_46 = {
   "class": "mt-4"
 };
 
-var _hoisted_37 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_47 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-sm font-medium text-gray-700"
 }, "Contact number", -1);
 
-var _hoisted_38 = {
+var _hoisted_48 = {
   "class": "mt-1"
 };
-var _hoisted_39 = {
+var _hoisted_49 = {
   "class": "mt-4"
 };
 
-var _hoisted_40 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_50 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-sm font-medium text-gray-700"
 }, "Contact email same as email address?", -1);
 
-var _hoisted_41 = {
+var _hoisted_51 = {
   "class": "mt-1"
 };
-var _hoisted_42 = {
+var _hoisted_52 = {
   key: 0,
   "class": "mt-2"
 };
 
-var _hoisted_43 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_53 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-sm font-medium text-gray-700"
 }, "Contact email", -1);
 
-var _hoisted_44 = {
+var _hoisted_54 = {
   "class": "mt-1"
 };
 
-var _hoisted_45 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_55 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm"
 }, " Next ")], -1);
@@ -22686,7 +22887,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     "class": "space-y-6",
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.submit, ["prevent"])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.first_name,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.form.first_name = $event;
@@ -22697,7 +22903,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onReset: _cache[1] || (_cache[1] = function ($event) {
       return $setup.form.clearErrors('first_name');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.last_name,
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $setup.form.last_name = $event;
@@ -22708,7 +22919,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onReset: _cache[3] || (_cache[3] = function ($event) {
       return $setup.form.clearErrors('last_name');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_11];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.title,
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $setup.form.title = $event;
@@ -22719,7 +22935,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onReset: _cache[5] || (_cache[5] = function ($event) {
       return $setup.form.clearErrors('title');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_14];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.initials,
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $setup.form.initials = $event;
@@ -22730,7 +22951,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onReset: _cache[7] || (_cache[7] = function ($event) {
       return $setup.form.clearErrors('initials');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_17];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.pronouns,
     "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $setup.form.pronouns = $event;
@@ -22741,72 +22967,148 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onReset: _cache[9] || (_cache[9] = function ($event) {
       return $setup.form.clearErrors('pronouns');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["DateInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["DateInput"], {
     modelValue: $setup.form.dob,
     "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
       return $setup.form.dob = $event;
+    }),
+    error: $setup.form.errors.dob,
+    "input-id": "dob",
+    "input-name": "dob",
+    onReset: _cache[11] || (_cache[11] = function ($event) {
+      return $setup.form.clearErrors('dob');
     })
-  }, null, 8, ["modelValue"])]), _hoisted_23])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["EmailInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RequiredIcon"])];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+    modelValue: $setup.form.position,
+    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+      return $setup.form.position = $event;
+    }),
+    error: $setup.form.errors.position,
+    "input-id": "position",
+    "input-name": "position",
+    onReset: _cache[13] || (_cache[13] = function ($event) {
+      return $setup.form.clearErrors('position');
+    })
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_26];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+    modelValue: $setup.form.remuneration,
+    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+      return $setup.form.remuneration = $event;
+    }),
+    error: $setup.form.errors.remuneration,
+    "input-id": "remuneration",
+    "input-name": "remuneration",
+    onReset: _cache[15] || (_cache[15] = function ($event) {
+      return $setup.form.clearErrors('remuneration');
+    })
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_29];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SelectInput"], {
+    modelValue: $setup.form.remuneration_interval,
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+      return $setup.form.remuneration_interval = $event;
+    }),
+    error: $setup.form.errors.remuneration_interval,
+    "input-id": "remuneration_interval",
+    "input-name": "remuneration_interval",
+    options: $setup.remunerationIntervalOptions,
+    onReset: _cache[17] || (_cache[17] = function ($event) {
+      return $setup.form.clearErrors('remuneration_interval');
+    })
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_32];
+    }),
+    _: 1
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+    modelValue: $setup.form.pronouns,
+    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+      return $setup.form.pronouns = $event;
+    }),
+    error: $setup.form.errors.pronouns,
+    "input-id": "pronouns",
+    "input-name": "pronouns",
+    onReset: _cache[19] || (_cache[19] = function ($event) {
+      return $setup.form.clearErrors('pronouns');
+    })
+  }, null, 8, ["modelValue", "error"])])]), _hoisted_34])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["EmailInput"], {
     modelValue: $setup.form.email,
-    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+    "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
       return $setup.form.email = $event;
     }),
     error: $setup.form.errors.email,
     "input-id": "email",
     "input-name": "email",
-    onReset: _cache[12] || (_cache[12] = function ($event) {
+    onReset: _cache[21] || (_cache[21] = function ($event) {
       return $setup.form.clearErrors('email');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
     modelValue: $setup.form.password,
-    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+    "onUpdate:modelValue": _cache[22] || (_cache[22] = function ($event) {
       return $setup.form.password = $event;
     }),
     error: $setup.form.errors.password,
     "input-id": "password",
     "input-name": "password",
-    onReset: _cache[14] || (_cache[14] = function ($event) {
+    onReset: _cache[23] || (_cache[23] = function ($event) {
       return $setup.form.clearErrors('password');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PasswordInput"], {
     modelValue: $setup.form.password_confirmation,
-    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+    "onUpdate:modelValue": _cache[24] || (_cache[24] = function ($event) {
       return $setup.form.password_confirmation = $event;
     }),
     error: $setup.form.errors.password,
     "input-id": "password_confirmation",
     "input-name": "password_confirmation",
-    onReset: _cache[16] || (_cache[16] = function ($event) {
+    onReset: _cache[25] || (_cache[25] = function ($event) {
       return $setup.form.clearErrors('password');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PhoneInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PhoneInput"], {
     modelValue: $setup.form.contact_number,
-    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+    "onUpdate:modelValue": _cache[26] || (_cache[26] = function ($event) {
       return $setup.form.contact_number = $event;
     }),
     error: $setup.form.errors.contact_number,
     "input-id": "contact_number",
     "input-name": "contact_number",
-    onReset: _cache[18] || (_cache[18] = function ($event) {
+    onReset: _cache[27] || (_cache[27] = function ($event) {
       return $setup.form.clearErrors('contact_number');
     })
-  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ToggleInput"], {
+  }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [_hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ToggleInput"], {
     modelValue: $setup.sameEmail,
-    "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
+    "onUpdate:modelValue": _cache[28] || (_cache[28] = function ($event) {
       return $setup.sameEmail = $event;
     })
-  }, null, 8, ["modelValue"])]), !$setup.sameEmail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
+  }, null, 8, ["modelValue"])]), !$setup.sameEmail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_52, [_hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextInput"], {
     modelValue: $setup.form.contact_email,
-    "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
+    "onUpdate:modelValue": _cache[29] || (_cache[29] = function ($event) {
       return $setup.form.contact_email = $event;
     }),
     error: $setup.form.errors.contact_email,
     "input-id": "contact_email",
     "input-name": "contact_email",
-    onReset: _cache[21] || (_cache[21] = function ($event) {
+    onReset: _cache[30] || (_cache[30] = function ($event) {
       return $setup.form.clearErrors('contact_email');
     })
-  }, null, 8, ["modelValue", "error"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_45], 40, _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 8, ["modelValue", "error"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), _hoisted_55], 40, _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "mt-3 text-center"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
@@ -33806,6 +34108,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Components/Controls/SelectInput.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/Components/Controls/SelectInput.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SelectInput_vue_vue_type_template_id_9e1d9f00_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true */ "./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true");
+/* harmony import */ var _SelectInput_vue_vue_type_script_setup_true_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectInput.vue?vue&type=script&setup=true&lang=ts */ "./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts");
+/* harmony import */ var _Users_matt_Sites_open_hr_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_Users_matt_Sites_open_hr_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SelectInput_vue_vue_type_script_setup_true_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SelectInput_vue_vue_type_template_id_9e1d9f00_ts_true__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Components/Controls/SelectInput.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Controls/TextInput.vue":
 /*!********************************************************!*\
   !*** ./resources/js/Components/Controls/TextInput.vue ***!
@@ -34487,6 +34817,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectInput_vue_vue_type_script_setup_true_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectInput_vue_vue_type_script_setup_true_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectInput.vue?vue&type=script&setup=true&lang=ts */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=script&setup=true&lang=ts");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Components/Controls/TextInput.vue?vue&type=script&setup=true&lang=ts":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/Components/Controls/TextInput.vue?vue&type=script&setup=true&lang=ts ***!
@@ -34851,6 +35197,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PhoneInput_vue_vue_type_template_id_677d40cc_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PhoneInput_vue_vue_type_template_id_677d40cc_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PhoneInput.vue?vue&type=template&id=677d40cc&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/PhoneInput.vue?vue&type=template&id=677d40cc&ts=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectInput_vue_vue_type_template_id_9e1d9f00_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_ts_loader_index_js_clonedRuleSet_6_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectInput_vue_vue_type_template_id_9e1d9f00_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-6!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-6!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Controls/SelectInput.vue?vue&type=template&id=9e1d9f00&ts=true");
 
 
 /***/ }),

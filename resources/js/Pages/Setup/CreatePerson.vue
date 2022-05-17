@@ -9,9 +9,11 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import type {Currency, RecurrenceInterval} from '../../types'
-import RequiredIcon from '../../Components/RequiredIcon.vue'
-import DateInput from '../../Components/Controls/DateInput.vue'
+import type {ComplexSelectOption, Currency, RecurrenceInterval} from '../../types'
+import RequiredIcon from '@/Components/RequiredIcon.vue'
+import DateInput from '@/Components/Controls/DateInput.vue'
+import SelectInput from '@/Components/Controls/SelectInput.vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
 
 const props = defineProps({
     user: {
@@ -41,6 +43,29 @@ interface PersonData {
     pronouns?: string,
     finished_on?: string
 }
+
+const remunerationIntervalOptions: ComplexSelectOption[] = [
+    {
+        value: 'hourly',
+        display: 'Hourly'
+    },
+    {
+        value: 'daily',
+        display: 'Daily'
+    },
+    {
+        value: 'weekly',
+        display: 'Weekly'
+    },
+    {
+        value: 'monthly',
+        display: 'Monthly'
+    },
+    {
+        value: 'yearly',
+        display: 'Yearly'
+    }
+]
 
 const form: InertiaForm<PersonData> = useForm({
     user_id: props.user.id,
@@ -87,7 +112,7 @@ function skipStage(): void {
         <div class="space-y-6">
             <div class="grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
-                    <label class="block text-sm font-medium text-gray-700">First name <RequiredIcon /></label>
+                    <FormLabel>First name <RequiredIcon /></FormLabel>
                     <div class="mt-1">
                         <TextInput
                             v-model="form.first_name"
@@ -99,7 +124,7 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <label class="block text-sm font-medium text-gray-700">Last name <RequiredIcon /></label>
+                    <FormLabel>Last name <RequiredIcon /></FormLabel>
                     <div class="mt-1">
                         <TextInput
                             v-model="form.last_name"
@@ -111,7 +136,7 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">Title</label>
+                    <FormLabel>Title</FormLabel>
                     <div class="mt-1">
                         <TextInput
                             v-model="form.title"
@@ -122,9 +147,8 @@ function skipStage(): void {
                         />
                     </div>
                 </div>
-
                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">Initials</label>
+                    <FormLabel>Initials</FormLabel>
                     <div class="mt-1">
                         <TextInput
                             v-model="form.initials"
@@ -135,9 +159,8 @@ function skipStage(): void {
                         />
                     </div>
                 </div>
-
                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">Pronouns</label>
+                    <FormLabel>Pronouns</FormLabel>
                     <div class="mt-1">
                         <TextInput
                             v-model="form.pronouns"
@@ -148,30 +171,67 @@ function skipStage(): void {
                         />
                     </div>
                 </div>
-
-                <div class="col-span-6 sm:col-span-4">
-                    <label
-                        for="email-address"
-                        class="block text-sm font-medium text-gray-700"
-                    >Email address</label>
-                    <DateInput v-model="form.dob" />
+                <div class="col-span-6 sm:col-span-3">
+                    <FormLabel>Date of birth <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <DateInput
+                            v-model="form.dob"
+                            :error="form.errors.dob"
+                            input-id="dob"
+                            input-name="dob"
+                            @reset="form.clearErrors('dob')"
+                        />
+                    </div>
                 </div>
 
-                <div class="col-span-6 sm:col-span-3">
-                    <label
-                        for="country"
-                        class="block text-sm font-medium text-gray-700"
-                    >Country</label>
-                    <select
-                        id="country"
-                        name="country"
-                        autocomplete="country-name"
-                        class="block py-2 px-3 mt-1 w-full bg-white rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-                    >
-                        <option>United States</option>
-                        <option>Canada</option>
-                        <option>Mexico</option>
-                    </select>
+                <div class="col-span-6 sm:col-span-5">
+                    <FormLabel>Position <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <TextInput
+                            v-model="form.position"
+                            :error="form.errors.position"
+                            input-id="position"
+                            input-name="position"
+                            @reset="form.clearErrors('position')"
+                        />
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <FormLabel>Remuneration</FormLabel>
+                    <div class="mt-1">
+                        <TextInput
+                            v-model="form.remuneration"
+                            :error="form.errors.remuneration"
+                            input-id="remuneration"
+                            input-name="remuneration"
+                            @reset="form.clearErrors('remuneration')"
+                        />
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <FormLabel>Remuneration interval</FormLabel>
+                    <div class="mt-1">
+                        <SelectInput
+                            v-model="form.remuneration_interval"
+                            :error="form.errors.remuneration_interval"
+                            input-id="remuneration_interval"
+                            input-name="remuneration_interval"
+                            :options="remunerationIntervalOptions"
+                            @reset="form.clearErrors('remuneration_interval')"
+                        />
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <FormLabel>Pronouns</FormLabel>
+                    <div class="mt-1">
+                        <TextInput
+                            v-model="form.pronouns"
+                            :error="form.errors.pronouns"
+                            input-id="pronouns"
+                            input-name="pronouns"
+                            @reset="form.clearErrors('pronouns')"
+                        />
+                    </div>
                 </div>
 
                 <div class="col-span-6">

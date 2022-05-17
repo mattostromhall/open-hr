@@ -1,3 +1,6 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+.flatpickr-day.selected {
+    @apply bg-indigo-500 border-indigo-500 !important;
+}

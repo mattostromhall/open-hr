@@ -12,3 +12,8 @@ export interface FileType {
     value: string,
     display: string
 }
+
+export interface ComplexSelectOption {
+    value: string|number,
+    display: string|number
+}

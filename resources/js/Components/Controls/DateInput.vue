@@ -13,6 +13,18 @@ const props = defineProps({
         type: String,
         default: () => new Date().toISOString().slice(0, 10)
     },
+    error: {
+        type: String,
+        default: ''
+    },
+    inputId: {
+        type: String,
+        default: ''
+    },
+    inputName: {
+        type: String,
+        default: ''
+    },
     config: {
         type: Object,
         default: () => {{
@@ -21,11 +33,11 @@ const props = defineProps({
     },
     timeEnabled: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'reset'])
 
 interface FlatpickrConfig {
     altInput: boolean,
@@ -82,8 +94,17 @@ onBeforeUnmount(() => {
 function openPicker() {
     datePickerOpen.value = true
 }
+
 function closePicker(dates: Date[], dateString: string, self: Instance) {
     datePickerOpen.value = false
+    handleInput(dateString)
+}
+
+function handleInput(dateString: string): void {
+    if (props.error) {
+        emit('reset')
+    }
+
     emit('update:modelValue', dateString)
 }
 </script>
@@ -91,10 +112,12 @@ function closePicker(dates: Date[], dateString: string, self: Instance) {
 <template>
     <div>
         <input
+            :id="props.inputId"
             ref="input"
+            :name="props.inputName"
             type="text"
             class="block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm"
-            @input="$emit('update:modelValue', $event.target.value)"
+            :class="{'border-red-500': props.error}"
         >
         <p
             v-if="props.error"
