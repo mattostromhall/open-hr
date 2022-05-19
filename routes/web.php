@@ -4,6 +4,7 @@ use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\StoreHRController;
 use App\Http\Setup\Controllers\StoreOrganisationController;
+use App\Http\Setup\Controllers\StorePersonController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,19 +29,22 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth', 'setup'])->group(function () {
-    Route::get('/dashboard', DashboardController::class)
-        ->name('dashboard');
-});
 Route::middleware('auth')->group(function () {
-    Route::get('/setup', [SetupController::class, 'index'])
-        ->name('setup');
     Route::post('/setup', [SetupController::class, 'store'])
-        ->name('setup');
+        ->name('setup.store');
     Route::post('/setup/organisation', StoreOrganisationController::class)
         ->name('setup.organisation');
     Route::post('/setup/hr', StoreHRController::class)
         ->name('setup.hr');
+    Route::post('/setup/person', StorePersonController::class)
+        ->name('setup.person');
+});
+
+Route::middleware(['auth', 'setup'])->group(function () {
+    Route::get('/dashboard', DashboardController::class)
+        ->name('dashboard');
+    Route::get('/setup', [SetupController::class, 'index'])
+        ->name('setup.index');
 });
 
 require __DIR__. '/auth.php';

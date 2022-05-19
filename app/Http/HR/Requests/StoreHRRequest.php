@@ -12,7 +12,7 @@ class StoreHRRequest extends FormRequest
         return [
             'user_id' => ['required', 'int', 'unique:hr'],
             'contact_number' => ['required', 'string', 'min:2', 'max:20', 'unique:hr'],
-            'contact_email' => ['required', 'string', 'email', 'max:255', 'unique:hr'],
+            'contact_email' => ['required', 'email', 'max:255', 'unique:hr'],
         ];
     }
 

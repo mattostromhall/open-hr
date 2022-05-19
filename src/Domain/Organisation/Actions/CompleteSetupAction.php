@@ -9,7 +9,7 @@ class CompleteSetupAction
     public function execute()
     {
         Organisation::first()->update([
-            'set_up' => now()
+            'setup_at' => now()
         ]);
     }
 }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
@@ -13,7 +12,9 @@ import type {ComplexSelectOption, Currency, RecurrenceInterval} from '../../type
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
+import NumberInput from '@/Components/Controls/NumberInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
 const props = defineProps({
     user: {
@@ -45,27 +46,14 @@ interface PersonData {
 }
 
 const remunerationIntervalOptions: ComplexSelectOption[] = [
-    {
-        value: 'hourly',
-        display: 'Hourly'
-    },
-    {
-        value: 'daily',
-        display: 'Daily'
-    },
-    {
-        value: 'weekly',
-        display: 'Weekly'
-    },
-    {
-        value: 'monthly',
-        display: 'Monthly'
-    },
-    {
-        value: 'yearly',
-        display: 'Yearly'
-    }
+    {value: 'hourly', display: 'Hourly'},
+    {value: 'daily', display: 'Daily'},
+    {value: 'weekly', display: 'Weekly'},
+    {value: 'monthly', display: 'Monthly'},
+    {value: 'yearly', display: 'Yearly'}
 ]
+
+const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
 const form: InertiaForm<PersonData> = useForm({
     user_id: props.user.id,
@@ -183,7 +171,6 @@ function skipStage(): void {
                         />
                     </div>
                 </div>
-
                 <div class="col-span-6 sm:col-span-5">
                     <FormLabel>Position <RequiredIcon /></FormLabel>
                     <div class="mt-1">
@@ -197,10 +184,10 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <FormLabel>Remuneration</FormLabel>
+                    <FormLabel>Remuneration <RequiredIcon /></FormLabel>
                     <div class="mt-1">
-                        <TextInput
-                            v-model="form.remuneration"
+                        <NumberInput
+                            v-model.number="form.remuneration"
                             :error="form.errors.remuneration"
                             input-id="remuneration"
                             input-name="remuneration"
@@ -209,7 +196,7 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <FormLabel>Remuneration interval</FormLabel>
+                    <FormLabel>Remuneration interval <RequiredIcon /></FormLabel>
                     <div class="mt-1">
                         <SelectInput
                             v-model="form.remuneration_interval"
@@ -222,136 +209,73 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <FormLabel>Pronouns</FormLabel>
+                    <FormLabel>Remuneration currency <RequiredIcon /></FormLabel>
                     <div class="mt-1">
-                        <TextInput
-                            v-model="form.pronouns"
-                            :error="form.errors.pronouns"
-                            input-id="pronouns"
-                            input-name="pronouns"
-                            @reset="form.clearErrors('pronouns')"
+                        <SelectInput
+                            v-model="form.remuneration_currency"
+                            :error="form.errors.remuneration_currency"
+                            input-id="remuneration_currency"
+                            input-name="remuneration_currency"
+                            :options="remunerationCurrencies"
+                            @reset="form.clearErrors('remuneration_currency')"
                         />
                     </div>
                 </div>
-
-                <div class="col-span-6">
-                    <label
-                        for="street-address"
-                        class="block text-sm font-medium text-gray-700"
-                    >Street address</label>
-                    <input
-                        id="street-address"
-                        type="text"
-                        name="street-address"
-                        autocomplete="street-address"
-                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-                    >
+                <div class="col-span-6 sm:col-span-3">
+                    <FormLabel>Holiday allocation <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <NumberInput
+                            v-model.number="form.holiday_allocation"
+                            :error="form.errors.holiday_allocation"
+                            input-id="holiday_allocation"
+                            input-name="holiday_allocation"
+                            @reset="form.clearErrors('holiday_allocation')"
+                        />
+                    </div>
                 </div>
-
-                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label
-                        for="city"
-                        class="block text-sm font-medium text-gray-700"
-                    >City</label>
-                    <input
-                        id="city"
-                        type="text"
-                        name="city"
-                        autocomplete="address-level2"
-                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-                    >
+                <div class="col-span-6 sm:col-span-3">
+                    <FormLabel>Sickness allocation <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <NumberInput
+                            v-model.number="form.sickness_allocation"
+                            :error="form.errors.sickness_allocation"
+                            input-id="sickness_allocation"
+                            input-name="sickness_allocation"
+                            @reset="form.clearErrors('sickness_allocation')"
+                        />
+                    </div>
                 </div>
-
-                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                        for="region"
-                        class="block text-sm font-medium text-gray-700"
-                    >State / Province</label>
-                    <input
-                        id="region"
-                        type="text"
-                        name="region"
-                        autocomplete="address-level1"
-                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-                    >
+                <div class="col-span-6 sm:col-span-4">
+                    <FormLabel>Start date <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <DateInput
+                            v-model="form.started_on"
+                            :error="form.errors.started_on"
+                            input-id="started_on"
+                            input-name="started_on"
+                            @reset="form.clearErrors('started_on')"
+                        />
+                    </div>
                 </div>
-
-                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                        for="postal-code"
-                        class="block text-sm font-medium text-gray-700"
-                    >ZIP / Postal code</label>
-                    <input
-                        id="postal-code"
-                        type="text"
-                        name="postal-code"
-                        autocomplete="postal-code"
-                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-                    >
-                </div>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Email address</label>
-                <div class="mt-1">
-                    <EmailInput
-                        v-model="form.email"
-                        :error="form.errors.email"
-                        input-id="email"
-                        input-name="email"
-                        @reset="form.clearErrors('email')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700">Password</label>
-                <div class="mt-1">
-                    <PasswordInput
-                        v-model="form.password"
-                        :error="form.errors.password"
-                        input-id="password"
-                        input-name="password"
-                        @reset="form.clearErrors('password')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700">Password confirmation</label>
-                <div class="mt-1">
-                    <PasswordInput
-                        v-model="form.password_confirmation"
-                        :error="form.errors.password"
-                        input-id="password_confirmation"
-                        input-name="password_confirmation"
-                        @reset="form.clearErrors('password')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700">Contact number</label>
-                <div class="mt-1">
-                    <PhoneInput
-                        v-model="form.contact_number"
-                        :error="form.errors.contact_number"
-                        input-id="contact_number"
-                        input-name="contact_number"
-                        @reset="form.clearErrors('contact_number')"
-                    />
-                </div>
-            </div>
-            <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700">Contact email same as email address?</label>
-                <div class="mt-1">
-                    <ToggleInput v-model="sameEmail" />
+                <div class="col-span-6 sm:col-span-3">
+                    <FormLabel>Contact number <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <PhoneInput
+                            v-model="form.contact_number"
+                            :error="form.errors.contact_number"
+                            input-id="contact_number"
+                            input-name="contact_number"
+                            @reset="form.clearErrors('contact_number')"
+                        />
+                    </div>
                 </div>
                 <div
                     v-if="!sameEmail"
-                    class="mt-2"
+                    class="col-span-6 sm:col-span-3"
                 >
-                    <label class="block text-sm font-medium text-gray-700">Contact email</label>
+                    <FormLabel>Contact email <RequiredIcon /></FormLabel>
                     <div class="mt-1">
-                        <TextInput
+                        <EmailInput
                             v-model="form.contact_email"
                             :error="form.errors.contact_email"
                             input-id="contact_email"
@@ -360,15 +284,18 @@ function skipStage(): void {
                         />
                     </div>
                 </div>
+                <div class="col-span-6">
+                    <FormLabel>Contact email same as email address?</FormLabel>
+                    <div class="mt-1">
+                        <ToggleInput v-model="sameEmail" />
+                    </div>
+                </div>
             </div>
         </div>
         <div>
-            <button
-                type="submit"
-                class="flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm"
-            >
+            <IndigoButton :disabled="form.processing">
                 Next
-            </button>
+            </IndigoButton>
         </div>
     </form>
     <div class="mt-3 text-center">

@@ -4,7 +4,7 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
-import IndigoButton from '../../Components/Controls/IndigoButton.vue'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
 interface RegisterForm {
     email: string,
