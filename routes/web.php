@@ -3,8 +3,8 @@
 use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\StoreHRController;
-use App\Http\Setup\Controllers\StoreOrganisationController;
-use App\Http\Setup\Controllers\StorePersonController;
+use App\Http\Setup\Controllers\SetupOrganisationController;
+use App\Http\Setup\Controllers\SetupPersonController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,11 +32,9 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::post('/setup', [SetupController::class, 'store'])
         ->name('setup.store');
-    Route::post('/setup/organisation', StoreOrganisationController::class)
+    Route::post('/setup/organisation', SetupOrganisationController::class)
         ->name('setup.organisation');
-    Route::post('/setup/hr', StoreHRController::class)
-        ->name('setup.hr');
-    Route::post('/setup/person', StorePersonController::class)
+    Route::post('/setup/person', SetupPersonController::class)
         ->name('setup.person');
 });
 

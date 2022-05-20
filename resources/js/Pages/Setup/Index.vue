@@ -4,7 +4,6 @@ import {Head} from '@inertiajs/inertia-vue3'
 import type {ComputedRef} from 'vue'
 import CreateOrganisation from '@/Pages/Setup/CreateOrganisation.vue'
 import ProgressStages from '@/Components/ProgressStages.vue'
-import CreateHR from '@/Pages/Setup/CreateHR.vue'
 import CreatePerson from '@/Pages/Setup/CreatePerson.vue'
 
 interface SetupStages {
@@ -24,17 +23,13 @@ const props = defineProps({
 })
 
 const setupStages: SetupStages = reactive({
-    stages: [1, 2, 3],
+    stages: [1, 2],
     current: props.stage
 })
 
 const setupText: ComputedRef<string> = computed(() => {
-    if (setupStages.current === 3) {
-        return 'Add your personal information'
-    }
-
     if (setupStages.current === 2) {
-        return 'Add an HR contact information'
+        return 'Add your personal information'
     }
 
     return 'Setup your Organisation'
@@ -52,7 +47,7 @@ export default {
 <template>
     <Head title="Setup" />
 
-    <section class="mt-8">
+    <section class="mt-8 w-full">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <h1 class="text-4xl font-bold text-center text-indigo-400">
                 Open HR
@@ -61,18 +56,19 @@ export default {
                 {{ setupText }}
             </h2>
         </div>
-        <div class="py-8 px-4 bg-white shadow sm:px-10 sm:rounded-lg">
+        <div
+            class="py-8 px-4 bg-white shadow sm:px-10 sm:mx-auto sm:w-full sm:rounded-lg"
+            :class="{
+                'sm:max-w-md': setupStages.current === 1,
+                'sm:max-w-3xl': setupStages.current === 2
+            }"
+        >
             <CreateOrganisation
                 v-if="setupStages.current === 1"
                 @next-step="setupStages.current = 2"
             />
-            <CreateHR
-                v-if="setupStages.current === 2"
-                :user="props.auth.user"
-                @next-step="setupStages.current = 3"
-            />
             <CreatePerson
-                v-if="setupStages.current === 3"
+                v-if="setupStages.current === 2"
                 :user="props.auth.user"
             />
             <ProgressStages

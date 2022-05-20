@@ -50,6 +50,7 @@ module.exports = {
             'error',
             4
         ],
-        'vue/multi-word-component-names': 'off'
+        'vue/multi-word-component-names': 'off',
+        'tailwindcss/no-custom-classname': 'off'
     }
 }

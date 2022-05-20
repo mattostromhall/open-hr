@@ -294,7 +294,7 @@ function skipStage(): void {
         </div>
         <div>
             <IndigoButton :disabled="form.processing">
-                Next
+                Complete
             </IndigoButton>
         </div>
     </form>

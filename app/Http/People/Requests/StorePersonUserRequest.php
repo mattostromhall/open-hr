@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\HR\Requests;
+namespace App\Http\People\Requests;
 
 use Domain\Auth\DataTransferObjects\UserData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class StoreHRUserRequest extends FormRequest
+class StorePersonUserRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -18,7 +18,7 @@ class StoreHRUserRequest extends FormRequest
         ];
     }
 
-    public function validatedWithUserData(): array
+    public function validatedData(): array
     {
         return [
             'user_data' => UserData::from($this->safe(['email', 'password']))

@@ -38,7 +38,7 @@ class StorePersonRequest extends FormRequest
         ];
     }
 
-    public function validatedWithUser(): array
+    public function validatedData(): array
     {
         return array_merge(
             $this->safe([

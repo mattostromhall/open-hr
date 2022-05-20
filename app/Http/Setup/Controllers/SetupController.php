@@ -28,14 +28,8 @@ class SetupController extends Controller
 
     protected function calculatedStage(): int
     {
-        if (Auth::user()->hr) {
-            return 3;
-        }
-
-        if (Organisation::first()) {
-            return 2;
-        }
-
-        return 1;
+        return Organisation::first()
+            ? 2
+            : 1;
     }
 }

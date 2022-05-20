@@ -22,6 +22,7 @@ class CreatePersonAction
             'position' => $data->position,
             'remuneration' => $data->remuneration,
             'remuneration_interval' => $data->remuneration_interval,
+            'remuneration_currency' => $data->remuneration_currency,
             'holiday_allocation' => $data->holiday_allocation,
             'sickness_allocation' => $data->sickness_allocation,
             'contact_number' => $data->contact_number,

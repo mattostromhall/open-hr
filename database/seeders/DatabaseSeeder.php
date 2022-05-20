@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Domain\Auth\Models\User;
 use Illuminate\Database\Seeder;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +15,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->create([
+             'email' => 'matthewhall9999@gmail.com'
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'hr',
+            'title' => 'HR',
+        ]);
+
+        Bouncer::role()->firstOrCreate([
+            'name' => 'manager',
+            'title' => 'Manager',
+        ]);
+
+        Bouncer::role()->firstOrCreate([
+            'name' => 'department-head',
+            'title' => 'Head of Department',
+        ]);
     }
 }

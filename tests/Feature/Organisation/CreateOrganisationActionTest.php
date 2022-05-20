@@ -16,7 +16,6 @@ it('creates an organisation', function () {
 
     $this->assertDatabaseHas('organisation', [
         'name' => 'ACME',
-        'logo' => 'public/images/logo.png',
-        'setup_at' => now()
+        'logo' => 'public/images/logo.png'
     ]);
 });
