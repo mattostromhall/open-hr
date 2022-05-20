@@ -1,13 +1,26 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
 import {CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XIcon} from '@heroicons/vue/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link, usePage} from '@inertiajs/inertia-vue3'
+import {computed} from 'vue'
+import type {ComputedRef} from 'vue'
 
 const props = defineProps({
-    show: Boolean
+    person: {
+        type: Object,
+        required: true
+    },
+    show: {
+        type: Boolean,
+        default: false
+    }
 })
 
 defineEmits(['hide'])
+
+const name: ComputedRef<string|undefined> = computed(() => {
+    return usePage().props.value.person?.full_name
+})
 </script>
 
 <template>
@@ -263,7 +276,7 @@ defineEmits(['hide'])
                             >
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm font-medium text-white">Tom Cook</p>
+                            <p class="text-sm font-medium text-white">{{ name }}</p>
                             <p class="text-xs font-medium text-indigo-200 group-hover:text-white">View profile</p>
                             <Link
                                 href="/logout"

@@ -1,5 +1,19 @@
-<script setup>
+<script setup lang="ts">
 
+const props = defineProps({
+    person: {
+        type: Object,
+        required: true
+    },
+    holidayRemaining: {
+        type: Number,
+        default: 0
+    },
+    sickDaysRemaining: {
+        type: Number,
+        default: 0
+    }
+})
 </script>
 
 <template>
@@ -24,22 +38,15 @@
                             <div class="p-6 bg-white">
                                 <div class="sm:flex sm:justify-between sm:items-center">
                                     <div class="sm:flex sm:space-x-5">
-                                        <div class="shrink-0">
-                                            <img
-                                                class="mx-auto w-20 h-20 rounded-full"
-                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                alt=""
-                                            >
-                                        </div>
                                         <div class="mt-4 text-center sm:pt-1 sm:mt-0 sm:text-left">
                                             <p class="text-sm font-medium text-gray-600">
                                                 Welcome back,
                                             </p>
                                             <p class="text-xl font-bold text-gray-900 sm:text-2xl">
-                                                Chelsea Hagon
+                                                {{ props.person.full_name }}
                                             </p>
                                             <p class="text-sm font-medium text-gray-600">
-                                                Human Resources Manager
+                                                {{ props.person.position }}
                                             </p>
                                         </div>
                                     </div>
@@ -51,20 +58,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 bg-gray-50 border-t border-gray-200 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
+                            <div class="grid grid-cols-1 bg-gray-50 border-t border-gray-200 divide-y divide-gray-200 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
                                 <div class="py-5 px-6 text-sm font-medium text-center">
-                                    <span class="text-gray-900">12</span>
-                                    <span class="text-gray-600">Vacation days left</span>
+                                    <span class="font-semibold text-gray-900">{{ props.holidayRemaining }}</span>
+                                    <span class="text-gray-600"> Holiday days remaining</span>
                                 </div>
-
                                 <div class="py-5 px-6 text-sm font-medium text-center">
-                                    <span class="text-gray-900">4</span>
-                                    <span class="text-gray-600">Sick days left</span>
-                                </div>
-
-                                <div class="py-5 px-6 text-sm font-medium text-center">
-                                    <span class="text-gray-900">2</span>
-                                    <span class="text-gray-600">Personal days left</span>
+                                    <span class="font-semibold text-gray-900">{{ props.sickDaysRemaining }}</span>
+                                    <span class="text-gray-600"> Sick days remaining</span>
                                 </div>
                             </div>
                         </div>

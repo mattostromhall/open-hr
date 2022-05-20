@@ -4,6 +4,7 @@ namespace Domain\People\Models;
 
 use Domain\Absences\Models\Holiday;
 use Domain\Absences\Models\Sickness;
+use Domain\Auth\Models\User;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Models\Document;
 use Domain\Notifications\Models\Notification;
@@ -12,12 +13,12 @@ use Domain\People\Enums\RemunerationInterval;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\OneToOne;
 use Domain\Performance\Models\Training;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Shared\Models\User;
 use Support\Concerns\Unguarded;
 
 class Person extends Model
@@ -33,6 +34,8 @@ class Person extends Model
         'started_on' => 'date',
         'finished_on' => 'date',
     ];
+
+    protected $appends = ['full_name'];
 
     public function oneToOnes(): HasMany
     {
@@ -87,5 +90,12 @@ class Person extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => "{$this->first_name} {$this->last_name}",
+        );
     }
 }

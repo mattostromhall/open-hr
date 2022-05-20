@@ -12,7 +12,7 @@ interface SetupStages {
 }
 
 const props = defineProps({
-    auth: {
+    user: {
         type: Object,
         required: true
     },
@@ -69,7 +69,7 @@ export default {
             />
             <CreatePerson
                 v-if="setupStages.current === 2"
-                :user="props.auth.user"
+                :user="props.user"
             />
             <ProgressStages
                 :stages="setupStages.stages"
