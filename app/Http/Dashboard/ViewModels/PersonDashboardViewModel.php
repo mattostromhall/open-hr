@@ -8,7 +8,7 @@ class PersonDashboardViewModel extends ViewModel
 {
     public function person()
     {
-        return auth()->user()?->person->only('full_name', 'position');
+        return auth()->user()?->person->only('full_name', 'initials', 'position');
     }
 
     public function holidayRemaining()

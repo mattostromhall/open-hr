@@ -2,17 +2,18 @@
 
 namespace Domain\Absences\DataTransferObjects;
 
+use Domain\Absences\Enums\HalfDay;
+use Domain\Absences\Enums\HolidayStatus;
 use Domain\People\Models\Person;
 
 class HolidayData
 {
     public function __construct(
         public readonly Person $person,
-        public readonly int $status,
-        public readonly int $duration,
+        public readonly HolidayStatus $status,
         public readonly string $start_at,
         public readonly string $end_at,
-        public readonly bool $half_day,
+        public readonly ?HalfDay $half_day,
         public readonly ?string $notes
     ) {
         //

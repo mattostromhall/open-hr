@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {Head} from '@inertiajs/inertia-vue3'
 
 const props = defineProps({
     person: {
@@ -17,6 +18,8 @@ const props = defineProps({
 </script>
 
 <template>
+    <Head title="Dashboard" />
+
     <section class="p-8">
         <div class="px-4 mx-auto max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
             <h1 class="sr-only">
@@ -38,6 +41,28 @@ const props = defineProps({
                             <div class="p-6 bg-white">
                                 <div class="sm:flex sm:justify-between sm:items-center">
                                     <div class="sm:flex sm:space-x-5">
+                                        <div class="shrink-0">
+                                            <div class="flex justify-center items-center w-20 h-20 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full">
+                                                <span v-if="props.person.initials">
+                                                    {{ props.person.initials }}
+                                                </span>
+                                                <svg
+                                                    v-else
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    class="w-8 h-8"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    stroke-width="1"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
                                         <div class="mt-4 text-center sm:pt-1 sm:mt-0 sm:text-left">
                                             <p class="text-sm font-medium text-gray-600">
                                                 Welcome back,

@@ -2,6 +2,8 @@
 
 namespace Domain\Absences\Models;
 
+use Domain\Absences\Enums\HalfDay;
+use Domain\Absences\Enums\HolidayStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,14 +15,11 @@ class Holiday extends Model
     use HasFactory;
     use Unguarded;
 
-    public const PENDING = 1;
-    public const APPROVED = 2;
-    public const REJECTED = 3;
-
     protected $casts = [
+        'status' => HolidayStatus::class,
         'start_at' => 'datetime',
         'end_at' => 'datetime',
-        'half_day' => 'boolean',
+        'half_day' => HalfDay::class,
     ];
 
     public function person(): BelongsTo

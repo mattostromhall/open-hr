@@ -20267,15 +20267,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/transitions/transition.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/CalendarIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/ChartBarIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/FolderIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/HomeIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/InboxIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/UsersIcon.js");
-/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/XIcon.js");
+/* harmony import */ var _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @headlessui/vue */ "./node_modules/@headlessui/vue/dist/components/transitions/transition.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/CalendarIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/ChartBarIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/FolderIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/HomeIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/InboxIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/UsersIcon.js");
+/* harmony import */ var _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @heroicons/vue/outline */ "./node_modules/@heroicons/vue/outline/esm/XIcon.js");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types */ "./resources/js/types.ts");
+
 
 
 
@@ -20283,10 +20285,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   props: {
-    person: {
-      type: Object,
-      required: true
-    },
     show: {
       type: Boolean,
       "default": false
@@ -20298,22 +20296,26 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      var _usePage$props$value$;
-
-      return (_usePage$props$value$ = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.value.person) === null || _usePage$props$value$ === void 0 ? void 0 : _usePage$props$value$.full_name;
+      var person = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.value.person;
+      return (0,_types__WEBPACK_IMPORTED_MODULE_2__.isPerson)(person, 'full_name') && person.full_name ? person.full_name : '';
+    });
+    var initials = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      var person = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.value.person;
+      return (0,_types__WEBPACK_IMPORTED_MODULE_2__.isPerson)(person, 'initials') && person.initials ? person.initials : '';
     });
     var __returned__ = {
       props: props,
       name: name,
-      TransitionRoot: _headlessui_vue__WEBPACK_IMPORTED_MODULE_2__.TransitionRoot,
-      TransitionChild: _headlessui_vue__WEBPACK_IMPORTED_MODULE_2__.TransitionChild,
-      CalendarIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_3__["default"],
-      ChartBarIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_4__["default"],
-      FolderIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"],
-      HomeIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_6__["default"],
-      InboxIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_7__["default"],
-      UsersIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_8__["default"],
-      XIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__["default"],
+      initials: initials,
+      TransitionRoot: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionRoot,
+      TransitionChild: _headlessui_vue__WEBPACK_IMPORTED_MODULE_3__.TransitionChild,
+      CalendarIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_4__["default"],
+      ChartBarIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_5__["default"],
+      FolderIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_6__["default"],
+      HomeIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_7__["default"],
+      InboxIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_8__["default"],
+      UsersIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_9__["default"],
+      XIcon: _heroicons_vue_outline__WEBPACK_IMPORTED_MODULE_10__["default"],
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -20824,6 +20826,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   props: {
@@ -20845,7 +20849,8 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var __returned__ = {
-      props: props
+      props: props,
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21864,25 +21869,42 @@ var _hoisted_41 = {
 var _hoisted_42 = {
   "class": "flex items-center"
 };
-
-var _hoisted_43 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "inline-block w-9 h-9 rounded-full",
-  src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  alt: ""
-})], -1);
-
+var _hoisted_43 = {
+  "class": "flex justify-center items-center w-10 h-10 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full border border-white"
+};
 var _hoisted_44 = {
-  "class": "ml-3"
+  key: 0,
+  "class": "text-xs"
 };
 var _hoisted_45 = {
+  key: 1,
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "w-6 h-6",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  stroke: "currentColor",
+  "stroke-width": "1"
+};
+
+var _hoisted_46 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+}, null, -1);
+
+var _hoisted_47 = [_hoisted_46];
+var _hoisted_48 = {
+  "class": "ml-3"
+};
+var _hoisted_49 = {
   "class": "text-sm font-medium text-white"
 };
 
-var _hoisted_46 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_50 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "text-xs font-medium text-indigo-200 group-hover:text-white"
 }, "View profile", -1);
 
-var _hoisted_47 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Log Out ");
+var _hoisted_51 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Log Out ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TransitionRoot"], {
@@ -21977,14 +21999,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), _hoisted_37]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ChartBarIcon"], {
     "class": "shrink-0 mr-3 w-6 h-6 text-indigo-300",
     "aria-hidden": "true"
-  }), _hoisted_39])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [_hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.name), 1), _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
+  }), _hoisted_39])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [$setup.initials ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.initials), 1)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_45, _hoisted_47))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.name), 1), _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
     href: "/logout",
     method: "post",
     as: "button",
     "class": "text-xs font-medium text-indigo-200 group-hover:text-white"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_47];
+      return [_hoisted_51];
     }),
     _: 1
   })])])])])])])], 64);
@@ -22662,55 +22684,81 @@ var _hoisted_11 = {
   "class": "sm:flex sm:space-x-5"
 };
 var _hoisted_12 = {
+  "class": "shrink-0"
+};
+var _hoisted_13 = {
+  "class": "flex justify-center items-center w-20 h-20 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full"
+};
+var _hoisted_14 = {
+  key: 0
+};
+var _hoisted_15 = {
+  key: 1,
+  xmlns: "http://www.w3.org/2000/svg",
+  "class": "w-8 h-8",
+  fill: "none",
+  viewBox: "0 0 24 24",
+  stroke: "currentColor",
+  "stroke-width": "1"
+};
+
+var _hoisted_16 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round",
+  d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+}, null, -1);
+
+var _hoisted_17 = [_hoisted_16];
+var _hoisted_18 = {
   "class": "mt-4 text-center sm:pt-1 sm:mt-0 sm:text-left"
 };
 
-var _hoisted_13 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_19 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "text-sm font-medium text-gray-600"
 }, " Welcome back, ", -1);
 
-var _hoisted_14 = {
+var _hoisted_20 = {
   "class": "text-xl font-bold text-gray-900 sm:text-2xl"
 };
-var _hoisted_15 = {
+var _hoisted_21 = {
   "class": "text-sm font-medium text-gray-600"
 };
 
-var _hoisted_16 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_22 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex justify-center mt-5 sm:mt-0"
 }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "#",
   "class": "flex justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 shadow-sm"
 }, " View profile ")], -1);
 
-var _hoisted_17 = {
+var _hoisted_23 = {
   "class": "grid grid-cols-1 bg-gray-50 border-t border-gray-200 divide-y divide-gray-200 sm:grid-cols-2 sm:divide-y-0 sm:divide-x"
 };
-var _hoisted_18 = {
+var _hoisted_24 = {
   "class": "py-5 px-6 text-sm font-medium text-center"
 };
-var _hoisted_19 = {
+var _hoisted_25 = {
   "class": "font-semibold text-gray-900"
 };
 
-var _hoisted_20 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_26 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-gray-600"
 }, " Holiday days remaining", -1);
 
-var _hoisted_21 = {
+var _hoisted_27 = {
   "class": "py-5 px-6 text-sm font-medium text-center"
 };
-var _hoisted_22 = {
+var _hoisted_28 = {
   "class": "font-semibold text-gray-900"
 };
 
-var _hoisted_23 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_29 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-gray-600"
 }, " Sick days remaining", -1);
 
-var _hoisted_24 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section aria-labelledby=\"quick-links-title\"><div class=\"overflow-hidden bg-gray-200 rounded-lg divide-y divide-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0\"><h2 id=\"quick-links-title\" class=\"sr-only\"> Quick links </h2><div class=\"group relative p-6 bg-white rounded-t-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-none\"><div><span class=\"inline-flex p-3 text-teal-700 bg-teal-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/clock --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Request time off </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-lg\"><div><span class=\"inline-flex p-3 text-purple-700 bg-purple-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/badge-check --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Benefits </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500\"><div><span class=\"inline-flex p-3 text-sky-700 bg-sky-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/users --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Schedule a one-on-one </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500\"><div><span class=\"inline-flex p-3 text-yellow-700 bg-yellow-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/cash --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Payroll </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-lg\"><div><span class=\"inline-flex p-3 text-rose-700 bg-rose-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/receipt-refund --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Submit an expense </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white rounded-b-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-none\"><div><span class=\"inline-flex p-3 text-indigo-700 bg-indigo-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/academic-cap --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 14l9-5-9-5-9 5 9 5z\"></path><path d=\"M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Training </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div></div></section>", 1);
+var _hoisted_30 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<section aria-labelledby=\"quick-links-title\"><div class=\"overflow-hidden bg-gray-200 rounded-lg divide-y divide-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0\"><h2 id=\"quick-links-title\" class=\"sr-only\"> Quick links </h2><div class=\"group relative p-6 bg-white rounded-t-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-none\"><div><span class=\"inline-flex p-3 text-teal-700 bg-teal-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/clock --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Request time off </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-lg\"><div><span class=\"inline-flex p-3 text-purple-700 bg-purple-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/badge-check --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Benefits </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500\"><div><span class=\"inline-flex p-3 text-sky-700 bg-sky-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/users --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Schedule a one-on-one </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500\"><div><span class=\"inline-flex p-3 text-yellow-700 bg-yellow-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/cash --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Payroll </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-lg\"><div><span class=\"inline-flex p-3 text-rose-700 bg-rose-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/receipt-refund --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Submit an expense </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div><div class=\"group relative p-6 bg-white rounded-b-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-none\"><div><span class=\"inline-flex p-3 text-indigo-700 bg-indigo-50 rounded-lg ring-4 ring-white\"><!-- Heroicon name: outline/academic-cap --><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 14l9-5-9-5-9 5 9 5z\"></path><path d=\"M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222\"></path></svg></span></div><div class=\"mt-8\"><h3 class=\"text-lg font-medium\"><a href=\"#\" class=\"focus:outline-none\"><!-- Extend touch target to entire panel --><span class=\"absolute inset-0\" aria-hidden=\"true\"></span> Training </a></h3><p class=\"mt-2 text-sm text-gray-500\"> Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae. </p></div><span class=\"absolute top-6 right-6 text-gray-300 group-hover:text-gray-400 pointer-events-none\" aria-hidden=\"true\"><svg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path d=\"M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z\"></path></svg></span></div></div></section>", 1);
 
-var _hoisted_25 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_31 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "grid grid-cols-1 gap-4"
 }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Announcements "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
   "aria-labelledby": "announcements-title"
@@ -22871,7 +22919,9 @@ var _hoisted_25 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div",
 }, " View all ")])])])])], -1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main 3 column grid "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Left column "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Welcome panel "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.person.full_name), 1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.person.position), 1)])]), _hoisted_16])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.holidayRemaining), 1), _hoisted_20]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.sickDaysRemaining), 1), _hoisted_23])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Actions panel "), _hoisted_24]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Right column "), _hoisted_25])])]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
+    title: "Dashboard"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main 3 column grid "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Left column "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Welcome panel "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [$setup.props.person.initials ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.person.initials), 1)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", _hoisted_15, _hoisted_17))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.person.full_name), 1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.person.position), 1)])]), _hoisted_22])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.holidayRemaining), 1), _hoisted_26]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.sickDaysRemaining), 1), _hoisted_29])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Actions panel "), _hoisted_30]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Right column "), _hoisted_31])])])], 64);
 }
 
 /***/ }),
@@ -23500,6 +23550,29 @@ var appName = ((_window$document$getE = window.document.getElementsByTagName('ti
 _inertiajs_progress__WEBPACK_IMPORTED_MODULE_3__.InertiaProgress.init({
   color: '#4B5563'
 });
+
+/***/ }),
+
+/***/ "./resources/js/types.ts":
+/*!*******************************!*\
+  !*** ./resources/js/types.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isPerson": () => (/* binding */ isPerson)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function isPerson(person, property) {
+  if (_typeof(person) !== 'object' || !person) {
+    return false;
+  }
+
+  return Object.hasOwn(person, property);
+}
 
 /***/ }),
 

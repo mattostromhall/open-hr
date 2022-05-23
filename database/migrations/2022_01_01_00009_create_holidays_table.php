@@ -18,10 +18,9 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->unsignedTinyInteger('status')->index();
-            $table->unsignedTinyInteger('duration');
             $table->dateTime('start_at');
             $table->dateTime('end_at');
-            $table->boolean('half_day')->default(false);
+            $table->enum('half_day', ['am', 'pm'])->nullable();
             $table->text('notes')->nullable();
 
 

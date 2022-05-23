@@ -10,6 +10,7 @@ use Domain\Files\Models\Document;
 use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Models\Department;
 use Domain\People\Enums\RemunerationInterval;
+use Domain\People\QueryBuilders\PersonQueryBuilder;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\OneToOne;
 use Domain\Performance\Models\Training;
@@ -36,6 +37,11 @@ class Person extends Model
     ];
 
     protected $appends = ['full_name'];
+
+    public function newEloquentBuilder($query): PersonQueryBuilder
+    {
+        return new PersonQueryBuilder($query);
+    }
 
     public function oneToOnes(): HasMany
     {
