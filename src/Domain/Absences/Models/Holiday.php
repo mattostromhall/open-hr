@@ -4,6 +4,7 @@ namespace Domain\Absences\Models;
 
 use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
+use Domain\Absences\QueryBuilders\HolidayQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,9 +19,14 @@ class Holiday extends Model
     protected $casts = [
         'status' => HolidayStatus::class,
         'start_at' => 'datetime',
-        'end_at' => 'datetime',
+        'finish_at' => 'datetime',
         'half_day' => HalfDay::class,
     ];
+
+    public function newEloquentBuilder($query): HolidayQueryBuilder
+    {
+        return new HolidayQueryBuilder($query);
+    }
 
     public function person(): BelongsTo
     {

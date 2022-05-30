@@ -12,7 +12,7 @@ class HolidayData
         public readonly Person $person,
         public readonly HolidayStatus $status,
         public readonly string $start_at,
-        public readonly string $end_at,
+        public readonly string $finish_at,
         public readonly ?HalfDay $half_day,
         public readonly ?string $notes
     ) {

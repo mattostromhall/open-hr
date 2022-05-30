@@ -2,6 +2,7 @@
 
 namespace Domain\Absences\Models;
 
+use Domain\Absences\QueryBuilders\SicknessQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +16,13 @@ class Sickness extends Model
 
     protected $casts = [
         'start_at' => 'datetime',
-        'end_at' => 'datetime',
+        'finish_at' => 'datetime',
     ];
+
+    public function newEloquentBuilder($query): SicknessQueryBuilder
+    {
+        return new SicknessQueryBuilder($query);
+    }
 
     public function person(): BelongsTo
     {

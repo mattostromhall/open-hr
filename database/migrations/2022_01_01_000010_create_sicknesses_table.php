@@ -18,7 +18,7 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->dateTime('start_at');
-            $table->dateTime('end_at')->nullable();
+            $table->dateTime('finish_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -9,7 +9,7 @@ class SicknessData
     public function __construct(
         public readonly Person $person,
         public readonly string $start_at,
-        public readonly ?string $end_at,
+        public readonly ?string $finish_at,
         public readonly ?string $notes
     ) {
         //

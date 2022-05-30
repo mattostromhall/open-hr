@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class EnsureSetupComplete
 {
+    protected bool $setup;
+
     public function handle(Request $request, Closure $next)
     {
         if (! $this->isSetup() && ! $this->setupRoute()) {
@@ -23,7 +25,11 @@ class EnsureSetupComplete
 
     protected function isSetup(): bool
     {
-        return (bool) Organisation::first()?->setup_at;
+        if (! isset($this->setup)) {
+            $this->setup = (bool) Organisation::first()?->setup_at;
+        }
+
+        return $this->setup;
     }
 
     protected function setupRoute(): bool

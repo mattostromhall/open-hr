@@ -8,16 +8,16 @@ class PersonDashboardViewModel extends ViewModel
 {
     public function person()
     {
-        return auth()->user()?->person->only('full_name', 'initials', 'position');
+        return person()->only('full_name', 'initials', 'position');
     }
 
     public function holidayRemaining()
     {
-        return 10;
+        return person()->holiday_allocation - person()->holidayTaken();
     }
 
     public function sickDaysRemaining()
     {
-        return 3;
+        return person()->sickness_allocation - person()->sicknesses()->count();
     }
 }
