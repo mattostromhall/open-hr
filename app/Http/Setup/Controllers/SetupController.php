@@ -3,7 +3,6 @@
 namespace App\Http\Setup\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use Domain\Organisation\Actions\CompleteSetupAction;

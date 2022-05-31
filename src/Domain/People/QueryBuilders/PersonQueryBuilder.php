@@ -3,24 +3,25 @@
 namespace Domain\People\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PersonQueryBuilder extends Builder
 {
-    public function holidayTaken()
+    public function fullDayHolidayTaken(): HasMany
     {
-        $fullDays = $this->model
+        return $this->model
             ->holidays()
+            ->forCurrentYear()
             ->whereApproved()
-            ->whereNull('half_day')
-            ->get();
+            ->whereNull('half_day');
+    }
 
-        $halfDays = $this->model
+    public function halfDayHolidayTaken(): HasMany
+    {
+        return $this->model
             ->holidays()
+            ->forCurrentYear()
             ->whereApproved()
-            ->whereNotNull('half_day')
-            ->count();
-
-//        return $fullDays + ($halfDays / 2);
-        return $fullDays;
+            ->whereNotNull('half_day');
     }
 }

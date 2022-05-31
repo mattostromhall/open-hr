@@ -8,45 +8,60 @@ use Support\Exceptions\InvalidPeriodDatesException;
 class Period
 {
     protected Carbon $start;
-    protected Carbon $end;
+    protected Carbon $finish;
 
-    public function __construct(Carbon $start, Carbon $end)
+    public function __construct(Carbon $start, Carbon $finish)
     {
-        if ($end->isAfter($start)) {
-            InvalidPeriodDatesException::because('The End date cannot be before the Start date');
+        if ($finish->isAfter($start)) {
+            InvalidPeriodDatesException::because('The Finish date cannot be before the Start date');
         }
 
         $this->start = $start;
-        $this->end = $end;
+        $this->finish = $finish;
     }
 
-    public static function between(Carbon $start, Carbon $end): self
+    public static function from(Carbon $start, Carbon $finish): self
     {
-        return new self($start, $end);
+        return new self($start, $finish);
+    }
+
+    public static function fromDateStrings(string $start, string $finish): self
+    {
+        return new self(Carbon::parse($start), Carbon::parse($finish));
+    }
+
+    public function start(): Carbon
+    {
+        return $this->start;
+    }
+
+    public function finish(): Carbon
+    {
+        return $this->finish;
     }
 
     public function inHours(): int
     {
-        return $this->start->diffInHours($this->end);
+        return $this->start->diffInHours($this->finish);
     }
 
     public function inDays(): int
     {
-        return $this->start->diffInDays($this->end);
+        return $this->start->diffInDays($this->finish);
     }
 
     public function inWeeks(): int
     {
-        return $this->start->diffInWeeks($this->end);
+        return $this->start->diffInWeeks($this->finish);
     }
 
     public function inMonths(): int
     {
-        return $this->start->diffInMonths($this->end);
+        return $this->start->diffInMonths($this->finish);
     }
 
-    public function years(): int
+    public function inYears(): int
     {
-        return $this->start->diffInYears($this->end);
+        return $this->start->diffInYears($this->finish);
     }
 }
