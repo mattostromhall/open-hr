@@ -12,7 +12,7 @@ class PeriodCast implements CastsAttributes
     {
         return Period::fromDateStrings(
             $attributes['start_at'],
-            $attributes['finish_at']
+            $attributes['finish_at'] ?? now()->toDateString()
         );
     }
 

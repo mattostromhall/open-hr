@@ -25,6 +25,6 @@ class HolidayQueryBuilder extends Builder
 
     public function forCurrentYear(): self
     {
-        return $this->where('start_at', '>=', OrganisationYear::HOLIDAY->start());
+        return $this->where('start_at', '>=', OrganisationYear::ABSENCE->start());
     }
 }

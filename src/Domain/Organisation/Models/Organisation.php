@@ -17,7 +17,7 @@ class Organisation extends Model
     protected $table = 'organisation';
 
     protected $casts = [
-        'setup_at' => 'datetime',
+        'setup_at' => 'date',
     ];
 
     public function documents(): MorphMany

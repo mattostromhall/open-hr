@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 enum OrganisationYear : string
 {
-    case HOLIDAY = 'holiday';
+    case ABSENCE = 'absence';
     case FINANCIAL = 'financial';
 
     public function start(): Carbon

@@ -8,6 +8,6 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'holiday_year_start' => 'January',
+    'absence_year_start' => 'January',
     'financial_year_start' => 'January'
 ];

@@ -11,13 +11,25 @@ class PersonDashboardViewModel extends ViewModel
         return person()->only('full_name', 'initials', 'position');
     }
 
-    public function holidayRemaining()
+    public function holidayRemaining(): int|float
     {
-        return person()->holidayRemaining();
+        $allotted = person()->base_holiday_allocation + person()->holiday_carried;
+
+        $taken = person()->holidayThisYear()
+            ->get()
+            ->numberTaken();
+
+        return $allotted - $taken;
     }
 
-    public function sickDaysRemaining()
+    public function sickDaysRemaining(): int|float
     {
-        return person()->sickness_allocation - person()->sicknesses()->count();
+        $allotted = person()->sickness_allocation;
+
+        $taken = person()->sicknessThisYear()
+            ->get()
+            ->numberTaken();
+
+        return $allotted - $taken;
     }
 }

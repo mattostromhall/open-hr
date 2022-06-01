@@ -7,21 +7,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PersonQueryBuilder extends Builder
 {
-    public function fullDayHolidayTaken(): HasMany
+    public function holidayThisYear(): HasMany
     {
         return $this->model
             ->holidays()
             ->forCurrentYear()
-            ->whereApproved()
-            ->whereNull('half_day');
+            ->whereApproved();
     }
 
-    public function halfDayHolidayTaken(): HasMany
+    public function sicknessThisYear(): HasMany
     {
         return $this->model
-            ->holidays()
-            ->forCurrentYear()
-            ->whereApproved()
-            ->whereNotNull('half_day');
+            ->sicknesses()
+            ->forCurrentYear();
     }
 }
