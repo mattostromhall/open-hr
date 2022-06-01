@@ -21003,7 +21003,7 @@ __webpack_require__.r(__webpack_exports__);
       remuneration: 0,
       remuneration_interval: 'yearly',
       remuneration_currency: 'GBP',
-      holiday_allocation: 25,
+      base_holiday_allocation: 25,
       sickness_allocation: 10,
       contact_number: '',
       contact_email: '',
@@ -23115,7 +23115,7 @@ var _hoisted_34 = {
   "class": "col-span-6 sm:col-span-3"
 };
 
-var _hoisted_35 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Holiday allocation ");
+var _hoisted_35 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Base Holiday allocation ");
 
 var _hoisted_36 = {
   "class": "mt-1"
@@ -23344,18 +23344,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["NumberInput"], {
-    modelValue: $setup.form.holiday_allocation,
+    modelValue: $setup.form.base_holiday_allocation,
     "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
-      return $setup.form.holiday_allocation = $event;
+      return $setup.form.base_holiday_allocation = $event;
     }),
     modelModifiers: {
       number: true
     },
-    error: $setup.form.errors.holiday_allocation,
-    "input-id": "holiday_allocation",
-    "input-name": "holiday_allocation",
+    error: $setup.form.errors.base_holiday_allocation,
+    "input-id": "base_holiday_allocation",
+    "input-name": "base_holiday_allocation",
     onReset: _cache[21] || (_cache[21] = function ($event) {
-      return $setup.form.clearErrors('holiday_allocation');
+      return $setup.form.clearErrors('base_holiday_allocation');
     })
   }, null, 8, ["modelValue", "error"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormLabel"], null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {

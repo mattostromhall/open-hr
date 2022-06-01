@@ -27,7 +27,7 @@ class CreatePersonUserAction
                 remuneration: $data->remuneration,
                 remuneration_interval: $data->remuneration_interval,
                 remuneration_currency: $data->remuneration_currency,
-                holiday_allocation: $data->holiday_allocation,
+                base_holiday_allocation: $data->base_holiday_allocation,
                 sickness_allocation: $data->sickness_allocation,
                 contact_number: $data->contact_number,
                 contact_email: $data->contact_email,
@@ -37,7 +37,9 @@ class CreatePersonUserAction
                 title: $data->title,
                 initials: $data->initials,
                 pronouns: $data->pronouns,
-                finished_on: $data->finished_on
+                finished_on: $data->finished_on,
+                holiday_carry_allocation: $data->holiday_carry_allocation,
+                holiday_carried: $data->holiday_carried
             )
         );
 

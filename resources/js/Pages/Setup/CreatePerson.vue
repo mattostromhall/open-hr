@@ -32,7 +32,7 @@ interface PersonData {
     remuneration: number,
     remuneration_interval: RecurrenceInterval,
     remuneration_currency: Currency,
-    holiday_allocation: number,
+    base_holiday_allocation: number,
     sickness_allocation: number,
     contact_number: string,
     contact_email: string,
@@ -64,7 +64,7 @@ const form: InertiaForm<PersonData> = useForm({
     remuneration: 0,
     remuneration_interval: 'yearly',
     remuneration_currency: 'GBP',
-    holiday_allocation: 25,
+    base_holiday_allocation: 25,
     sickness_allocation: 10,
     contact_number: '',
     contact_email: '',
@@ -222,14 +222,14 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <FormLabel>Holiday allocation <RequiredIcon /></FormLabel>
+                    <FormLabel>Base Holiday allocation <RequiredIcon /></FormLabel>
                     <div class="mt-1">
                         <NumberInput
-                            v-model.number="form.holiday_allocation"
-                            :error="form.errors.holiday_allocation"
-                            input-id="holiday_allocation"
-                            input-name="holiday_allocation"
-                            @reset="form.clearErrors('holiday_allocation')"
+                            v-model.number="form.base_holiday_allocation"
+                            :error="form.errors.base_holiday_allocation"
+                            input-id="base_holiday_allocation"
+                            input-name="base_holiday_allocation"
+                            @reset="form.clearErrors('base_holiday_allocation')"
                         />
                     </div>
                 </div>

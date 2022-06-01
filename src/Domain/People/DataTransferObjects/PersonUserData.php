@@ -20,7 +20,7 @@ class PersonUserData
         public readonly int $remuneration,
         public readonly RemunerationInterval $remuneration_interval,
         public readonly Currency $remuneration_currency,
-        public readonly int $holiday_allocation,
+        public readonly int $base_holiday_allocation,
         public readonly int $sickness_allocation,
         public readonly string $contact_number,
         public readonly string $contact_email,
@@ -30,7 +30,9 @@ class PersonUserData
         public readonly ?string $title,
         public readonly ?string $initials,
         public readonly ?string $pronouns,
-        public readonly ?Carbon $finished_on
+        public readonly ?Carbon $finished_on,
+        public readonly ?int $holiday_carry_allocation = 0,
+        public readonly ?int $holiday_carried = 0
     ) {
         //
     }

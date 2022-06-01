@@ -19,8 +19,8 @@ class Holiday extends Model
 
     protected $casts = [
         'status' => HolidayStatus::class,
-        'start_at' => 'datetime',
-        'finish_at' => 'datetime',
+        'start_at' => 'date',
+        'finish_at' => 'date',
         'half_day' => HalfDay::class,
         'duration' => PeriodCast::class
     ];

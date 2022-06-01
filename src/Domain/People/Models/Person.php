@@ -9,6 +9,7 @@ use Domain\Expenses\Models\Expense;
 use Domain\Files\Models\Document;
 use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Models\Department;
+use Domain\People\Collections\PersonCollection;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\QueryBuilders\PersonQueryBuilder;
 use Domain\Performance\Models\Objective;
@@ -41,6 +42,11 @@ class Person extends Model
     public function newEloquentBuilder($query): PersonQueryBuilder
     {
         return new PersonQueryBuilder($query);
+    }
+
+    public function newCollection(array $models = []): PersonCollection
+    {
+        return new PersonCollection($models);
     }
 
     public function oneToOnes(): HasMany
@@ -96,6 +102,22 @@ class Person extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function holidayRemaining(): int|float
+    {
+        $allocated = $this->base_holiday_allocation + $this->holiday_carried;
+
+        $fullDays = $this->fullDayHolidayTaken()
+            ->get()
+            ->map(fn ($holiday) => $holiday->duration->inDays())
+            ->sum();
+
+        $halfDays = $this->halfDayHolidayTaken()->count();
+
+        $taken = $fullDays + ($halfDays ? $halfDays / 2 : 0);
+
+        return $allocated - $taken;
     }
 
     protected function fullName(): Attribute

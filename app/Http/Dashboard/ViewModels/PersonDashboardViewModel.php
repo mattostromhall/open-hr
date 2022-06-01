@@ -13,7 +13,7 @@ class PersonDashboardViewModel extends ViewModel
 
     public function holidayRemaining()
     {
-        return person()->holiday_allocation - person()->holidayTaken();
+        return person()->holidayRemaining();
     }
 
     public function sickDaysRemaining()
