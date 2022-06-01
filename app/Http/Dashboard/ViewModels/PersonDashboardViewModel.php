@@ -15,7 +15,8 @@ class PersonDashboardViewModel extends ViewModel
     {
         $allotted = person()->base_holiday_allocation + person()->holiday_carried;
 
-        $taken = person()->holidayThisYear()
+        $taken = person()
+            ->holidayThisYear()
             ->get()
             ->numberTaken();
 
@@ -26,10 +27,20 @@ class PersonDashboardViewModel extends ViewModel
     {
         $allotted = person()->sickness_allocation;
 
-        $taken = person()->sicknessThisYear()
+        $taken = person()
+            ->sicknessThisYear()
             ->get()
             ->numberTaken();
 
         return $allotted - $taken;
+    }
+
+    public function announcements()
+    {
+        return organisation()
+            ->notifications()
+            ->limit(3)
+            ->get()
+            ->map(fn ($notification) => $notification->body);
     }
 }
