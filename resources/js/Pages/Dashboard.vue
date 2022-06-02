@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
+import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue/outline'
 
 const props = defineProps({
     person: {
@@ -15,6 +16,10 @@ const props = defineProps({
         default: 0
     },
     announcements: {
+        type: Array,
+        default: () => []
+    },
+    objectives: {
         type: Array,
         default: () => []
     }
@@ -113,22 +118,7 @@ const props = defineProps({
                             <div class="group relative p-6 bg-white rounded-t-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-none">
                                 <div>
                                     <span class="inline-flex p-3 text-teal-700 bg-teal-50 rounded-lg ring-4 ring-white">
-                                        <!-- Heroicon name: outline/clock -->
-                                        <svg
-                                            class="w-6 h-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
-                                        </svg>
+                                        <ClockIcon class="w-6 h-6" />
                                     </span>
                                 </div>
                                 <div class="mt-8">
@@ -142,7 +132,7 @@ const props = defineProps({
                                                 class="absolute inset-0"
                                                 aria-hidden="true"
                                             />
-                                            Request time off
+                                            Request holiday
                                         </a>
                                     </h3>
                                     <p class="mt-2 text-sm text-gray-500">
@@ -167,22 +157,7 @@ const props = defineProps({
                             <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-lg">
                                 <div>
                                     <span class="inline-flex p-3 text-purple-700 bg-purple-50 rounded-lg ring-4 ring-white">
-                                        <!-- Heroicon name: outline/badge-check -->
-                                        <svg
-                                            class="w-6 h-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                                            />
-                                        </svg>
+                                        <DocumentTextIcon class="w-6 h-6" />
                                     </span>
                                 </div>
                                 <div class="mt-8">
@@ -196,7 +171,7 @@ const props = defineProps({
                                                 class="absolute inset-0"
                                                 aria-hidden="true"
                                             />
-                                            Benefits
+                                            Documents
                                         </a>
                                     </h3>
                                     <p class="mt-2 text-sm text-gray-500">
@@ -221,22 +196,7 @@ const props = defineProps({
                             <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                                 <div>
                                     <span class="inline-flex p-3 text-sky-700 bg-sky-50 rounded-lg ring-4 ring-white">
-                                        <!-- Heroicon name: outline/users -->
-                                        <svg
-                                            class="w-6 h-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                                            />
-                                        </svg>
+                                        <UsersIcon class="w-6 h-6" />
                                     </span>
                                 </div>
                                 <div class="mt-8">
@@ -250,7 +210,7 @@ const props = defineProps({
                                                 class="absolute inset-0"
                                                 aria-hidden="true"
                                             />
-                                            Schedule a one-on-one
+                                            Schedule a one-to-one
                                         </a>
                                     </h3>
                                     <p class="mt-2 text-sm text-gray-500">
@@ -275,22 +235,7 @@ const props = defineProps({
                             <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                                 <div>
                                     <span class="inline-flex p-3 text-yellow-700 bg-yellow-50 rounded-lg ring-4 ring-white">
-                                        <!-- Heroicon name: outline/cash -->
-                                        <svg
-                                            class="w-6 h-6"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
-                                            />
-                                        </svg>
+                                        <CheckCircleIcon class="w-6 h-6" />
                                     </span>
                                 </div>
                                 <div class="mt-8">
@@ -304,7 +249,7 @@ const props = defineProps({
                                                 class="absolute inset-0"
                                                 aria-hidden="true"
                                             />
-                                            Payroll
+                                            Objectives
                                         </a>
                                     </h3>
                                     <p class="mt-2 text-sm text-gray-500">
@@ -486,7 +431,6 @@ const props = defineProps({
                         </div>
                     </section>
 
-                    <!-- Recent Hires -->
                     <section aria-labelledby="recent-hires-title">
                         <div class="overflow-hidden bg-white rounded-lg shadow">
                             <div class="p-6">
@@ -494,106 +438,32 @@ const props = defineProps({
                                     id="recent-hires-title"
                                     class="text-base font-medium text-gray-900"
                                 >
-                                    Recent Hires
+                                    Objectives
                                 </h2>
                                 <div class="flow-root mt-6">
+                                    <h3
+                                        v-if="objectives.length === 0"
+                                        class="text-sm font-medium text-gray-900"
+                                    >
+                                        No objectives
+                                    </h3>
                                     <ul
+                                        v-else
                                         role="list"
                                         class="-my-5 divide-y divide-gray-200"
                                     >
-                                        <li class="py-4">
+                                        <li
+                                            v-for="{id, title, description} in objectives"
+                                            :key="id"
+                                            class="py-4"
+                                        >
                                             <div class="flex items-center space-x-4">
-                                                <div class="shrink-0">
-                                                    <img
-                                                        class="w-8 h-8 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                        alt=""
-                                                    >
-                                                </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-sm font-medium text-gray-900 truncate">
-                                                        Leonard Krasner
+                                                        {{ title }}
                                                     </p>
                                                     <p class="text-sm text-gray-500 truncate">
-                                                        @leonardkrasner
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <a
-                                                        href="#"
-                                                        class="inline-flex items-center py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 bg-white hover:bg-gray-50 rounded-full border border-gray-300 shadow-sm"
-                                                    > View </a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="py-4">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="shrink-0">
-                                                    <img
-                                                        class="w-8 h-8 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                        alt=""
-                                                    >
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-gray-900 truncate">
-                                                        Floyd Miles
-                                                    </p>
-                                                    <p class="text-sm text-gray-500 truncate">
-                                                        @floydmiles
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <a
-                                                        href="#"
-                                                        class="inline-flex items-center py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 bg-white hover:bg-gray-50 rounded-full border border-gray-300 shadow-sm"
-                                                    > View </a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="py-4">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="shrink-0">
-                                                    <img
-                                                        class="w-8 h-8 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                        alt=""
-                                                    >
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-gray-900 truncate">
-                                                        Emily Selman
-                                                    </p>
-                                                    <p class="text-sm text-gray-500 truncate">
-                                                        @emilyselman
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <a
-                                                        href="#"
-                                                        class="inline-flex items-center py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 bg-white hover:bg-gray-50 rounded-full border border-gray-300 shadow-sm"
-                                                    > View </a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="py-4">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="shrink-0">
-                                                    <img
-                                                        class="w-8 h-8 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                        alt=""
-                                                    >
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-                                                    <p class="text-sm font-medium text-gray-900 truncate">
-                                                        Kristin Watson
-                                                    </p>
-                                                    <p class="text-sm text-gray-500 truncate">
-                                                        @kristinwatson
+                                                        {{ description }}
                                                     </p>
                                                 </div>
                                                 <div>

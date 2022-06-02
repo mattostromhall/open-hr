@@ -43,4 +43,13 @@ class PersonDashboardViewModel extends ViewModel
             ->get()
             ->map(fn ($notification) => $notification->body);
     }
+
+    public function objectives()
+    {
+        return person()
+            ->objectives()
+            ->select('id', 'title', 'description')
+            ->active()
+            ->get();
+    }
 }

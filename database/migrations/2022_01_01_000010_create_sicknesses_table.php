@@ -17,8 +17,8 @@ return new class () extends Migration {
             $table->foreignId('person_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->dateTime('start_at');
-            $table->dateTime('finish_at')->nullable();
+            $table->date('start_at');
+            $table->date('finish_at')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });
