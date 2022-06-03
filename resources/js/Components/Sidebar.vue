@@ -99,8 +99,8 @@ const initials: ComputedRef<string> = computed(() => {
                         </div>
                         <nav class="px-2 mt-5 space-y-1">
                             <!-- Current: "bg-indigo-800 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-                            <a
-                                href="#"
+                            <Link
+                                href="/dashboard"
                                 class="group flex items-center p-2 text-base font-medium text-white bg-indigo-800 rounded-md"
                             >
                                 <HomeIcon
@@ -108,7 +108,7 @@ const initials: ComputedRef<string> = computed(() => {
                                     aria-hidden="true"
                                 />
                                 Dashboard
-                            </a>
+                            </Link>
 
                             <a
                                 href="#"
@@ -204,8 +204,8 @@ const initials: ComputedRef<string> = computed(() => {
                 </div>
                 <nav class="flex-1 px-2 mt-5 space-y-1">
                     <!-- Current: "bg-indigo-800 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-                    <a
-                        href="#"
+                    <Link
+                        href="/dashboard"
                         class="group flex items-center p-2 text-sm font-medium text-white bg-indigo-800 rounded-md"
                     >
                         <HomeIcon
@@ -213,7 +213,7 @@ const initials: ComputedRef<string> = computed(() => {
                             aria-hidden="true"
                         />
                         Dashboard
-                    </a>
+                    </Link>
 
                     <a
                         href="#"

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Setup\Controllers\SetupController;
-use App\Http\Setup\Controllers\StoreHRController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
 use Illuminate\Foundation\Application;
@@ -43,6 +43,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('dashboard');
     Route::get('/setup', [SetupController::class, 'index'])
         ->name('setup.index');
+
+    Route::get('/people/{person}/profile', PersonProfileController::class)
+        ->name('person.profile');
 });
 
 require __DIR__. '/auth.php';

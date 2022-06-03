@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
     modelValue: {
         type: Boolean,
         default: false
@@ -19,7 +19,7 @@ defineEmits(['update:modelValue'])
         }"
         role="switch"
         :aria-checked="modelValue.toString()"
-        @click="$emit('update:modelValue', !props.modelValue)"
+        @click="$emit('update:modelValue', !modelValue)"
     >
         <span class="sr-only">Use setting</span>
         <span

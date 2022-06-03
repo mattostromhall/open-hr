@@ -110,7 +110,7 @@ function processFile(event: Event): void {
     <div class="group flex flex-col justify-center items-center mt-1 w-full cursor-pointer">
         <div
             class="flex relative flex-col w-full h-32 hover:bg-indigo-100 rounded-lg border-2 border-gray-300 hover:border-indigo-600 border-dotted transition ease-in-out"
-            :class="{'border-red-500': props.error}"
+            :class="{'border-red-500': error}"
         >
             <span class="flex flex-col justify-center items-center p-4 cursor-pointer">
                 <svg
@@ -133,18 +133,18 @@ function processFile(event: Event): void {
                 </span>
             </span>
             <input
-                :id="props.inputId"
-                :name="props.inputName"
+                :id="inputId"
+                :name="inputName"
                 type="file"
                 class="absolute w-full h-full opacity-0 cursor-pointer"
                 @input="processFile"
             >
         </div>
         <p
-            v-if="state.message || props.error"
+            v-if="state.message || error"
             class="mt-1 w-full text-sm text-red-500"
         >
-            {{ state.message || props.error }}
+            {{ state.message || error }}
         </p>
     </div>
 </template>

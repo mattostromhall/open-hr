@@ -8,7 +8,7 @@ class PersonDashboardViewModel extends ViewModel
 {
     public function person()
     {
-        return person()->only('full_name', 'initials', 'position');
+        return person()->only('id', 'full_name', 'initials', 'position');
     }
 
     public function holidayRemaining(): int|float

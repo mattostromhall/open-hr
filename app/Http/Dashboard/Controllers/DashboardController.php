@@ -11,6 +11,6 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Dashboard', new PersonDashboardViewModel());
+        return Inertia::render('Dashboard/Index', new PersonDashboardViewModel());
     }
 }

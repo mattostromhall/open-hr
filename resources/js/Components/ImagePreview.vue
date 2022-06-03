@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
     image: {
         type: String,
         default: ''
@@ -13,16 +13,16 @@ const props = defineProps({
 
 <template>
     <div
-        v-if="props.image"
+        v-if="image"
         class="flex justify-between items-center p-2 pr-4 bg-indigo-50 rounded-md"
     >
         <img
-            :src="props.image"
+            :src="image"
             alt="image preview"
             class="w-auto h-10 rounded"
         >
         <p class="text-xs">
-            {{ props.name }}
+            {{ name }}
         </p>
     </div>
 </template>

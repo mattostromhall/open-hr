@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
     stages: number[],
     current: number
 }>()
@@ -15,15 +15,15 @@ const props = defineProps<{
             class="flex items-center space-x-5"
         >
             <li
-                v-for="stage in props.stages"
+                v-for="stage in stages"
                 :key="stage"
             >
                 <span
-                    :class="{'relative flex items-center justify-center': stage === props.current}"
+                    :class="{'relative flex items-center justify-center': stage === current}"
                     aria-current="step"
                 >
                     <span
-                        v-if="stage === props.current"
+                        v-if="stage === current"
                         class="flex absolute p-px w-5 h-5"
                         aria-hidden="true"
                     >
@@ -31,9 +31,9 @@ const props = defineProps<{
                     </span>
                     <span
                         :class="{
-                            'bg-indigo-600': stage <= props.current,
-                            'hover:bg-indigo-900': stage > props.current,
-                            'bg-gray-200 hover:bg-gray-400': stage > props.current,
+                            'bg-indigo-600': stage <= current,
+                            'hover:bg-indigo-900': stage > current,
+                            'bg-gray-200 hover:bg-gray-400': stage > current,
                         }"
                         class="block relative w-2.5 h-2.5 rounded-full"
                         aria-hidden="true"

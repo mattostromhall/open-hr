@@ -112,18 +112,18 @@ function handleInput(dateString: string): void {
 <template>
     <div>
         <input
-            :id="props.inputId"
+            :id="inputId"
             ref="input"
-            :name="props.inputName"
+            :name="inputName"
             type="text"
             class="block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm date-input"
-            :class="{'border-red-500': props.error}"
+            :class="{'border-red-500': error}"
         >
         <p
-            v-if="props.error"
+            v-if="error"
             class="mt-1 text-sm text-red-500"
         >
-            {{ props.error }}
+            {{ error }}
         </p>
     </div>
 </template>

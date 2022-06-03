@@ -60,11 +60,11 @@ function handleInput(e: Event): void {
 <template>
     <div>
         <select
-            :id="props.inputId"
-            :name="props.inputName"
-            :autocomplete="props.inputName"
+            :id="inputId"
+            :name="inputName"
+            :autocomplete="inputName"
             class="block py-2 px-3 mt-1 w-full bg-white rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
-            :class="{'border-red-500': props.error}"
+            :class="{'border-red-500': error}"
             @change="handleInput"
         >
             <option
@@ -84,10 +84,10 @@ function handleInput(e: Event): void {
             </option>
         </select>
         <p
-            v-if="props.error"
+            v-if="error"
             class="mt-1 text-sm text-red-500"
         >
-            {{ props.error }}
+            {{ error }}
         </p>
     </div>
 </template>

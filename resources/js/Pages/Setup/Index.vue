@@ -69,7 +69,7 @@ export default {
             />
             <CreatePerson
                 v-if="setupStages.current === 2"
-                :user="props.user"
+                :user="user"
             />
             <ProgressStages
                 :stages="setupStages.stages"
