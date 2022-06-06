@@ -1,3 +1,5 @@
+import type {PageProps} from '@inertiajs/inertia'
+
 export type Currency = 'GBP' | 'USD' | 'EUR'
 
 export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
@@ -16,6 +18,11 @@ export interface FileType {
 export interface ComplexSelectOption {
     value: string|number,
     display: string|number
+}
+
+export interface User {
+    id: number,
+    email: string
 }
 
 export interface Person {
@@ -39,6 +46,17 @@ export interface Person {
     initials?: string,
     pronouns?: string,
     finished_on?: string
+}
+
+export interface FlashMessage {
+    success?: string,
+    error?: string
+}
+
+export interface OpenHRPageProps extends PageProps {
+    flash: FlashMessage,
+    person?: Partial<Person>,
+    user?: User
 }
 
 export function isPerson(person: unknown, property: string): person is Partial<Person> {

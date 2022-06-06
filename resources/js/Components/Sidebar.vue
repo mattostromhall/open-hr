@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
 import {CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XIcon} from '@heroicons/vue/outline'
-import {Link, usePage} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
-import {isPerson} from '../types'
+import type {Person} from '../types'
+import usePerson from '../Hooks/usePerson'
 
 const props = defineProps({
     show: {
@@ -15,20 +16,14 @@ const props = defineProps({
 
 defineEmits(['hide'])
 
-const name: ComputedRef<string> = computed(() => {
-    const person: unknown = usePage().props.value.person
+const person: ComputedRef<Partial<Person>|undefined> = usePerson()
 
-    return isPerson(person, 'full_name') && person.full_name
-        ? person.full_name
-        : ''
+const name: ComputedRef<string> = computed(() => {
+    return person.value?.full_name ?? ''
 })
 
 const initials: ComputedRef<string> = computed(() => {
-    const person: unknown = usePage().props.value.person
-
-    return isPerson(person, 'initials') && person.initials
-        ? person.initials
-        : ''
+    return person.value?.initials ?? ''
 })
 </script>
 

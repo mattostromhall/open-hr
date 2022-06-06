@@ -3,6 +3,7 @@ import {ref} from 'vue'
 import type {Ref} from 'vue'
 import Sidebar from '@/Components/Sidebar.vue'
 import ShowSidebarButton from '@/Components/ShowSidebarButton.vue'
+import FlashMessages from '../Components/FlashMessages.vue'
 
 const showSidebar: Ref<boolean> = ref(false)
 
@@ -17,6 +18,7 @@ function hide(): void {
 
 <template>
     <section class="min-h-screen">
+        <FlashMessages />
         <div>
             <Sidebar
                 :show="showSidebar"
