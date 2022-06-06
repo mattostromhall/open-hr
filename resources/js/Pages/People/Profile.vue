@@ -49,14 +49,14 @@ const passwordForm: InertiaForm<UpdatePasswordForm> = useForm({
 })
 
 const updateEmail = () => {
-    emailForm.post('/register', {
-        onFinish: () => emailForm.reset('email'),
+    emailForm.patch('/profile/update-email', {
+        onFinish: () => emailForm.reset('email')
     })
 }
 
 const updatePassword = () => {
-    passwordForm.post('/register', {
-        onFinish: () => passwordForm.reset('password', 'password_confirmation'),
+    passwordForm.patch('/profile/update-password', {
+        onFinish: () => passwordForm.reset('password', 'password_confirmation')
     })
 }
 </script>
