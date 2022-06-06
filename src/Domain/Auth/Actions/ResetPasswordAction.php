@@ -2,16 +2,26 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\DataTransferObjects\ResetPasswordData;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
-use Domain\Auth\DataTransferObjects\UserData;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class ResetPasswordAction
 {
-    public function execute(UserData $data)
+    public function execute(ResetPasswordData $data): mixed
     {
-        return config('user')::create([
-            'email' => $data->email,
-            'password' => Hash::make($data->password)
-        ]);
+        return Password::reset(
+            [$data->email, $data->password, $data->password_confirmation, $data->token],
+            function ($user) use ($data) {
+                $user->forceFill([
+                    'password' => Hash::make($data->password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                event(new PasswordReset($user));
+            }
+        );
     }
 }

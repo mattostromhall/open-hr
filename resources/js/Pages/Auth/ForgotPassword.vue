@@ -69,7 +69,10 @@ export default {
                     </div>
                 </div>
                 <div class="mt-4">
-                    <IndigoButton :disabled="form.processing">
+                    <IndigoButton
+                        :disabled="form.processing"
+                        class="w-full"
+                    >
                         Email Password Reset Link
                     </IndigoButton>
                 </div>

@@ -82,15 +82,17 @@ export default {
                     </div>
                 </div>
                 <div class="mt-4">
-                    <IndigoButton :disabled="form.processing">
-                        Register
-                    </IndigoButton>
-                    <Link
-                        href="/login"
-                        class="block mt-3 text-sm text-gray-600 hover:text-gray-900 underline"
+                    <IndigoButton
+                        :disabled="form.processing"
+                        class="w-full"
                     >
-                        Already registered?
-                    </Link>
+                        <Link
+                            href="/login"
+                            class="block mt-3 text-sm text-gray-600 hover:text-gray-900 underline"
+                        >
+                            Already registered?
+                        </Link>
+                    </indigobutton>
                 </div>
             </form>
         </div>

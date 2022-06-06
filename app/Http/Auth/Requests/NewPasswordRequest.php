@@ -15,4 +15,14 @@ class NewPasswordRequest extends FormRequest
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
+
+    public function data(): array
+    {
+        return [
+            'email' => $this->email,
+            'password' => $this->password,
+            'password_confirmation' => $this->password_confirmation,
+            'token' => $this->token
+        ];
+    }
 }

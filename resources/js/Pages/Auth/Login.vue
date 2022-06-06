@@ -95,7 +95,10 @@ export default {
                 </div>
 
                 <div class="mt-4">
-                    <IndigoButton :disabled="form.processing">
+                    <IndigoButton
+                        :disabled="form.processing"
+                        class="w-full"
+                    >
                         Log in
                     </IndigoButton>
                     <Link

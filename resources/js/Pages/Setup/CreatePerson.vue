@@ -293,7 +293,10 @@ function skipStage(): void {
             </div>
         </div>
         <div>
-            <IndigoButton :disabled="form.processing">
+            <IndigoButton
+                :disabled="form.processing"
+                class="w-full"
+            >
                 Complete
             </IndigoButton>
         </div>
