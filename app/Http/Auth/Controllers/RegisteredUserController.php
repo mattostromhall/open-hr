@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Http\Auth\Requests\RegisterUserRequest;
+use App\Http\Auth\Requests\StoreUserRequest;
 use App\Http\Support\Controllers\Controller;
 
 class RegisteredUserController extends Controller
@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
-    public function store(RegisterUserRequest $request, CreateUserAction $createUser): RedirectResponse
+    public function store(StoreUserRequest $request, CreateUserAction $createUser): RedirectResponse
     {
         $user = $createUser->execute(
             UserData::from($request->validated())

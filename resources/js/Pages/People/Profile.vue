@@ -35,6 +35,7 @@ interface UpdateEmailForm {
 }
 
 interface UpdatePasswordForm {
+    current_password: string,
     password: string,
     password_confirmation: string
 }
@@ -44,19 +45,18 @@ const emailForm: InertiaForm<UpdateEmailForm> = useForm({
 })
 
 const passwordForm: InertiaForm<UpdatePasswordForm> = useForm({
+    current_password: '',
     password: '',
     password_confirmation: ''
 })
 
 const updateEmail = () => {
-    emailForm.patch('/profile/update-email', {
-        onFinish: () => emailForm.reset('email')
-    })
+    emailForm.patch('/profile/update-email')
 }
 
 const updatePassword = () => {
     passwordForm.patch('/profile/update-password', {
-        onFinish: () => passwordForm.reset('password', 'password_confirmation')
+        onFinish: () => passwordForm.reset('current_password', 'password', 'password_confirmation')
     })
 }
 </script>
@@ -447,7 +447,19 @@ const updatePassword = () => {
                             </p>
                         </div>
                         <div class="mt-4">
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Current password</FormLabel>
+                            <div class="mt-1">
+                                <PasswordInput
+                                    v-model="passwordForm.current_password"
+                                    :error="passwordForm.errors.current_password"
+                                    input-id="current_password"
+                                    input-name="current_password"
+                                    @reset="passwordForm.clearErrors('current_password')"
+                                />
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <FormLabel>New password</FormLabel>
                             <div class="mt-1">
                                 <PasswordInput
                                     v-model="passwordForm.password"
@@ -459,7 +471,7 @@ const updatePassword = () => {
                             </div>
                         </div>
                         <div class="mt-4">
-                            <FormLabel>Confirm password</FormLabel>
+                            <FormLabel>Confirm new password</FormLabel>
                             <div class="mt-1">
                                 <PasswordInput
                                     v-model="passwordForm.password_confirmation"

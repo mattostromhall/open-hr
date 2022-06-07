@@ -3,15 +3,15 @@
 namespace App\Http\Auth\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class RegisterUserRequest extends FormRequest
+class UpdateEmailRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::defaults()]
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)]
         ];
     }
 }

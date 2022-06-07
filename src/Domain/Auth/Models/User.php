@@ -3,10 +3,12 @@
 namespace Domain\Auth\Models;
 
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticatable
@@ -35,5 +37,12 @@ class User extends Authenticatable
     public function person(): HasOne
     {
         return $this->hasOne(Person::class);
+    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => Hash::make($value)
+        );
     }
 }
