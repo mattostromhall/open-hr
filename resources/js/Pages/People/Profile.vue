@@ -56,7 +56,7 @@ const updateEmail = () => {
 
 const updatePassword = () => {
     passwordForm.patch('/profile/update-password', {
-        onFinish: () => passwordForm.reset('current_password', 'password', 'password_confirmation')
+        onSuccess: () => passwordForm.reset('current_password', 'password', 'password_confirmation')
     })
 }
 </script>
