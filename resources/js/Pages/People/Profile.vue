@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {KeyIcon, UserCircleIcon} from '@heroicons/vue/outline'
+import {KeyIcon, MailIcon, UserCircleIcon} from '@heroicons/vue/outline'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -17,6 +17,10 @@ const props = defineProps({
     person: {
         type: Object,
         required: true
+    },
+    addresses: {
+        type: Array,
+        default: () => []
     }
 })
 
@@ -83,7 +87,24 @@ const updatePassword = () => {
                     />
                     <span class="truncate">Personal Information</span>
                 </button>
-
+                <button
+                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    :class="{
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('contact'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('contact')
+                    }"
+                    aria-current="page"
+                    @click="setActive('contact')"
+                >
+                    <MailIcon
+                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        :class="{
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('contact'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('contact')
+                        }"
+                    />
+                    <span class="truncate">Contact Details</span>
+                </button>
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
                     :class="{

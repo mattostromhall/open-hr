@@ -8,11 +8,16 @@ class PersonProfileViewModel extends ViewModel
 {
     public function email()
     {
-        return auth()->user()?->email;
+        return auth()->user()->email;
     }
 
     public function person()
     {
         return person()->only('full_name', 'initials', 'position');
+    }
+
+    public function addresses()
+    {
+        return person()->addresses;
     }
 }

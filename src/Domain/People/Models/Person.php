@@ -49,6 +49,11 @@ class Person extends Model
         return new PersonCollection($models);
     }
 
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
     public function oneToOnes(): HasMany
     {
         return $this->hasMany(OneToOne::class);
