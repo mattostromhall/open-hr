@@ -59,6 +59,14 @@ export interface OpenHRPageProps extends PageProps {
     user?: User
 }
 
+export function isUser(user: unknown): user is User {
+    if (typeof user !== 'object' || ! user) {
+        return false
+    }
+
+    return Object.hasOwn(user, 'id') && Object.hasOwn(user, 'email')
+}
+
 export function isPerson(person: unknown, property: string): person is Partial<Person> {
     if (typeof person !== 'object' || ! person) {
         return false

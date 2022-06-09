@@ -13,7 +13,18 @@ class PersonProfileViewModel extends ViewModel
 
     public function person()
     {
-        return person()->only('full_name', 'initials', 'position');
+        return person()->only(
+            'id',
+            'full_name',
+            'title',
+            'first_name',
+            'last_name',
+            'initials',
+            'pronouns',
+            'dob',
+            'contact_number',
+            'contact_email'
+        );
     }
 
     public function addresses()

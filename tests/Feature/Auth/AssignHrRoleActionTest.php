@@ -3,7 +3,7 @@
 use Domain\Auth\Actions\AssignHrRoleAction;
 use Domain\Auth\Models\User;
 
-test('users can authenticate using the login screen', function () {
+it('assigns the hr role to a user', function () {
     $user = User::factory()->create();
     $action = app(AssignHrRoleAction::class);
 

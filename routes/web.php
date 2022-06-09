@@ -46,9 +46,11 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/setup', [SetupController::class, 'index'])
         ->name('setup.index');
 
-    Route::get('/people/{person}/profile', PersonProfileController::class)
+    Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
 
+    Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
+        ->name('profile.update-personal');
     Route::patch('/profile/update-email', UpdateEmailController::class)
         ->name('profile.update-email');
     Route::patch('/profile/update-password', UpdatePasswordController::class)
