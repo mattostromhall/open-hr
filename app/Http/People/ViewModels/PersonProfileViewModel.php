@@ -27,8 +27,8 @@ class PersonProfileViewModel extends ViewModel
         );
     }
 
-    public function addresses()
+    public function address()
     {
-        return person()->addresses;
+        return person()->address;
     }
 }
