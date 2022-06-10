@@ -2,15 +2,9 @@
 
 namespace App\Http\People\Requests;
 
-use Domain\Auth\Models\User;
-use Domain\Organisation\Models\Department;
-use Domain\People\Enums\RemunerationInterval;
-use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
-use Support\Enums\Currency;
 
 class UpdatePersonProfileRequest extends FormRequest
 {

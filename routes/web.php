@@ -3,6 +3,7 @@
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
@@ -48,13 +49,18 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
-
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
         ->name('profile.update-personal');
+
     Route::patch('/profile/update-email', UpdateEmailController::class)
         ->name('profile.update-email');
     Route::patch('/profile/update-password', UpdatePasswordController::class)
         ->name('profile.update-password');
+
+    Route::post('/people/{person}/address', [AddressController::class, 'store'])
+        ->name('address.store');
+    Route::put('/address/{address}', [AddressController::class, 'update'])
+        ->name('address.update');
 });
 
 require __DIR__. '/auth.php';

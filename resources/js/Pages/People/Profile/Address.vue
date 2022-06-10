@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import EmailInput from '@/Components/Controls/EmailInput.vue'
+import {PlusIcon} from '@heroicons/vue/solid'
+import {MailIcon} from '@heroicons/vue/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
-import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
-import DateInput from '@/Components/Controls/DateInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import CountryInput from '@/Components/Controls/CountryInput.vue'
+import {ref} from 'vue'
+import type {Ref} from 'vue'
 
 const props = defineProps({
     person: {
@@ -17,42 +19,73 @@ const props = defineProps({
     address: {
         type: Object,
         default: () => {
-            return {}
+            return {
+                address_line: '',
+                country: '',
+                town_city: '',
+                region: '',
+                postal_code: ''
+            }
         }
     }
 })
 
-interface PersonalInformationData {
-    first_name: string,
-    last_name: string,
-    dob: string,
-    contact_number: string,
-    contact_email: string,
-    title?: string,
-    initials?: string,
-    pronouns?: string
+interface AddressData {
+    id?: number
+    address_line: string,
+    country: string,
+    town_city: string,
+    region: string,
+    postal_code: string
 }
 
-const form: InertiaForm<PersonalInformationData> = useForm({
-    first_name: props.person.first_name,
-    last_name: props.person.last_name,
-    dob: props.person.dob,
-    contact_number: props.person.contact_number,
-    contact_email: props.person.contact_email,
-    title: props.person.title,
-    initials: props.person.initials,
-    pronouns: props.person.pronouns
+const showForm: Ref<boolean> = ref(!!props.address?.id)
+
+const form: InertiaForm<AddressData> = useForm({
+    id: props.address?.id,
+    address_line: props.address?.address_line ?? '',
+    country: props.address?.country ?? '',
+    town_city: props.address?.town_city ?? '',
+    region: props.address?.region ?? '',
+    postal_code: props.address?.postal_code ?? ''
 })
 
+function show(): void {
+    showForm.value = true
+}
+
 function submit(): void {
-    form.patch(`/people/${props.person.id}/profile`)
+    props.address?.id
+        ? form.put(`/address/${props.address.id}`)
+        : form.post(`/people/${props.person.id}/address`)
 }
 </script>
 
 <template>
     <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
-        <form @submit.prevent="submit">
-            <div class="shadow sm:overflow-hidden sm:rounded-md">
+        <div class="shadow sm:overflow-hidden sm:rounded-md">
+            <div
+                v-if="! showForm"
+                class="py-6 px-4 text-center bg-white sm:p-6"
+            >
+                <MailIcon class="mx-auto w-12 h-12 text-gray-400" />
+                <h3 class="mt-2 text-sm font-medium text-gray-900">
+                    No address
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Add an address to your profile
+                </p>
+                <div class="flex justify-center mt-6">
+                    <IndigoButton @click="show">
+                        <PlusIcon class="mr-2 -ml-1 w-5 h-5" />
+                        Add Address
+                    </IndigoButton>
+                </div>
+            </div>
+            <form
+                v-if="showForm"
+                @submit.prevent="submit"
+            >
                 <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -64,101 +97,57 @@ function submit(): void {
                     </div>
 
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>First name <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <TextInput
-                                    v-model="form.first_name"
-                                    :error="form.errors.first_name"
-                                    input-id="first_name"
-                                    input-name="first_name"
-                                    @reset="form.clearErrors('first_name')"
-                                />
-                            </div>
+                        <div class="col-span-6 sm:col-span-5">
+                            <FormLabel>Address <RequiredIcon /></FormLabel>
+                            <TextInput
+                                v-model="form.address_line"
+                                :error="form.errors.address_line"
+                                input-id="address_line"
+                                input-name="address_line"
+                                @reset="form.clearErrors('address_line')"
+                            />
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Last name <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <TextInput
-                                    v-model="form.last_name"
-                                    :error="form.errors.last_name"
-                                    input-id="last_name"
-                                    input-name="last_name"
-                                    @reset="form.clearErrors('last_name')"
-                                />
-                            </div>
+                            <FormLabel>Country <RequiredIcon /></FormLabel>
+                            <CountryInput
+                                v-model="form.country"
+                                :error="form.errors.country"
+                                input-id="country"
+                                input-name="country"
+                                @reset="form.clearErrors('country')"
+                            />
                         </div>
+                    </div>
+                    <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                            <FormLabel>Title</FormLabel>
-                            <div class="mt-1">
-                                <TextInput
-                                    v-model="form.title"
-                                    :error="form.errors.title"
-                                    input-id="title"
-                                    input-name="title"
-                                    @reset="form.clearErrors('title')"
-                                />
-                            </div>
+                            <FormLabel>Town/City <RequiredIcon /></FormLabel>
+                            <TextInput
+                                v-model="form.town_city"
+                                :error="form.errors.town_city"
+                                input-id="town_city"
+                                input-name="town_city"
+                                @reset="form.clearErrors('town_city')"
+                            />
                         </div>
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <FormLabel>Initials</FormLabel>
-                            <div class="mt-1">
-                                <TextInput
-                                    v-model="form.initials"
-                                    :error="form.errors.initials"
-                                    input-id="initials"
-                                    input-name="initials"
-                                    @reset="form.clearErrors('initials')"
-                                />
-                            </div>
+                            <FormLabel>Region <RequiredIcon /></FormLabel>
+                            <TextInput
+                                v-model="form.region"
+                                :error="form.errors.region"
+                                input-id="region"
+                                input-name="region"
+                                @reset="form.clearErrors('region')"
+                            />
                         </div>
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <FormLabel>Pronouns</FormLabel>
-                            <div class="mt-1">
-                                <TextInput
-                                    v-model="form.pronouns"
-                                    :error="form.errors.pronouns"
-                                    input-id="pronouns"
-                                    input-name="pronouns"
-                                    @reset="form.clearErrors('pronouns')"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Date of birth <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <DateInput
-                                    v-model="form.dob"
-                                    :error="form.errors.dob"
-                                    input-id="dob"
-                                    input-name="dob"
-                                    @reset="form.clearErrors('dob')"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Contact number <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <PhoneInput
-                                    v-model="form.contact_number"
-                                    :error="form.errors.contact_number"
-                                    input-id="contact_number"
-                                    input-name="contact_number"
-                                    @reset="form.clearErrors('contact_number')"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Contact email <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <EmailInput
-                                    v-model="form.contact_email"
-                                    :error="form.errors.contact_email"
-                                    input-id="contact_email"
-                                    input-name="contact_email"
-                                    @reset="form.clearErrors('contact_email')"
-                                />
-                            </div>
+                            <FormLabel>Postal code <RequiredIcon /></FormLabel>
+                            <TextInput
+                                v-model="form.postal_code"
+                                :error="form.errors.postal_code"
+                                input-id="postal_code"
+                                input-name="postal_code"
+                                @reset="form.clearErrors('postal_code')"
+                            />
                         </div>
                     </div>
                 </div>
@@ -169,7 +158,7 @@ function submit(): void {
                         Save
                     </IndigoButton>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </template>
