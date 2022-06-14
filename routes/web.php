@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
@@ -59,8 +60,11 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/people/{person}/address', [AddressController::class, 'store'])
         ->name('address.store');
-    Route::put('/address/{address}', [AddressController::class, 'update'])
+    Route::put('/addresses/{address}', [AddressController::class, 'update'])
         ->name('address.update');
+
+    Route::get('holidays/create', [HolidayController::class, 'create'])
+        ->name('holiday.create');
 });
 
 require __DIR__. '/auth.php';

@@ -56,7 +56,7 @@ function show(): void {
 
 function submit(): void {
     props.address?.id
-        ? form.put(`/address/${props.address.id}`)
+        ? form.put(`/addresses/${props.address.id}`)
         : form.post(`/people/${props.person.id}/address`)
 }
 </script>

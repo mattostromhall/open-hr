@@ -20,9 +20,15 @@ export interface ComplexSelectOption {
     display: string|number
 }
 
-export interface User {
+export interface UserPageProp {
     id: number,
     email: string
+}
+
+export interface PersonPageProp {
+    id: number,
+    full_name: string,
+    initials: string
 }
 
 export interface Person {
@@ -56,15 +62,25 @@ export interface FlashMessage {
 export interface OpenHRPageProps extends PageProps {
     flash: FlashMessage,
     person?: Partial<Person>,
-    user?: User
+    user?: UserPageProp
 }
 
-export function isUser(user: unknown): user is User {
+export function isUserPageProp(user: unknown): user is UserPageProp {
     if (typeof user !== 'object' || ! user) {
         return false
     }
 
     return Object.hasOwn(user, 'id') && Object.hasOwn(user, 'email')
+}
+
+export function isPersonPageProp(person: unknown): person is PersonPageProp {
+    if (typeof person !== 'object' || ! person) {
+        return false
+    }
+
+    return Object.hasOwn(person, 'id')
+        && Object.hasOwn(person, 'full_name')
+        && Object.hasOwn(person, 'initials')
 }
 
 export function isPerson(person: unknown, property: string): person is Partial<Person> {
