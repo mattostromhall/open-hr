@@ -22,7 +22,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/holidays/create"
+                            href="/holidays"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->

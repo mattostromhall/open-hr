@@ -7,7 +7,7 @@ import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
 import Address from './Address.vue'
 
-const props = defineProps({
+defineProps({
     email: {
         type: String,
         default: ''

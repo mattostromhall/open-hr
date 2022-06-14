@@ -63,8 +63,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::put('/addresses/{address}', [AddressController::class, 'update'])
         ->name('address.update');
 
-    Route::get('holidays/create', [HolidayController::class, 'create'])
-        ->name('holiday.create');
+    Route::get('holidays', [HolidayController::class, 'index'])
+        ->name('holiday.index');
 });
 
 require __DIR__. '/auth.php';

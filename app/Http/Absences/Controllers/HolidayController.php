@@ -2,6 +2,7 @@
 
 namespace App\Http\Absences\Controllers;
 
+use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\People\Requests\AddressRequest;
 use App\Http\Support\Controllers\Controller;
 use Domain\People\Actions\CreateAddressAction;
@@ -14,9 +15,9 @@ use Inertia\Response;
 
 class HolidayController extends Controller
 {
-    public function create(): Response
+    public function index(): Response
     {
-        return Inertia::render('Absences/Holiday/Create');
+        return Inertia::render('Absences/Holiday/Index', new HolidayViewModel());
     }
 //    public function store(AddressRequest $request, CreateAddressAction $createAddress): RedirectResponse
 //    {
