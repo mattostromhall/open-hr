@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
 
-const props = defineProps({
+defineProps({
     person: {
         type: Object,
         required: true

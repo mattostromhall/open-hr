@@ -10,22 +10,37 @@ class HolidayViewModel extends ViewModel
     {
         return person()
             ->holidays()
+            ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->whereApproved()
-            ->get();
+            ->get()
+            ->map(function ($holiday) {
+                return [
+                    'duration' => $holiday->duration->inDays(),
+                    ...$holiday->toArray()
+                ];
+            });
     }
 
     public function pending()
     {
         return person()
             ->holidays()
+            ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->wherePending()
-            ->get();
+            ->get()
+            ->map(function ($holiday) {
+                return [
+                    'duration' => $holiday->duration->inDays(),
+                    ...$holiday->toArray()
+                ];
+            });
     }
 
     public function rejected()
     {
         return person()
             ->holidays()
+            ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->whereRejected()
             ->get();
     }

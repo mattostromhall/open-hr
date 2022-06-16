@@ -36,6 +36,7 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "@vueuse/core": "^8.6.0",
         "flatpickr": "^4.6.13"
     }
 }

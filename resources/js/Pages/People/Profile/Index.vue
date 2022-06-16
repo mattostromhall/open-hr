@@ -6,6 +6,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
 import Address from './Address.vue'
+import PageHeading from '@/Components/PageHeading.vue'
 
 defineProps({
     email: {
@@ -38,6 +39,7 @@ function isActive(tab: string): boolean {
 <template>
     <Head title="Profile" />
 
+    <PageHeading>Profile</PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">

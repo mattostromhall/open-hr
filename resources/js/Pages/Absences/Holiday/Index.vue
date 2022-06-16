@@ -4,6 +4,8 @@ import type {Ref} from 'vue'
 import {CheckCircleIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import RequestHoliday from './RequestHoliday.vue'
+import PageHeading from '@/Components/PageHeading.vue'
+import Approved from './Approved.vue'
 
 defineProps({
     approved: {
@@ -34,6 +36,7 @@ function isActive(tab: string): boolean {
 <template>
     <Head title="Profile" />
 
+    <PageHeading>Holidays</PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">
@@ -71,7 +74,7 @@ function isActive(tab: string): boolean {
                             'text-indigo-500 group-hover:text-indigo-500': isActive('approved')
                         }"
                     />
-                    <span class="truncate">Approved Requests</span>
+                    <span class="truncate">Approved</span>
                 </button>
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
@@ -88,7 +91,7 @@ function isActive(tab: string): boolean {
                             'text-indigo-500 group-hover:text-indigo-500': isActive('pending')
                         }"
                     />
-                    <span class="truncate">Pending Requests</span>
+                    <span class="truncate">Pending</span>
                 </button>
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
@@ -105,12 +108,14 @@ function isActive(tab: string): boolean {
                             'text-indigo-500 group-hover:text-indigo-500': isActive('rejected')
                         }"
                     />
-                    <span class="truncate">Rejected Requests</span>
+                    <span class="truncate">Rejected</span>
                 </button>
             </nav>
         </aside>
-        <RequestHoliday
-            v-if="isActive('request')"
+        <RequestHoliday v-if="isActive('request')" />
+        <Approved
+            v-if="isActive('approved')"
+            :approved="approved"
         />
     </div>
 </template>

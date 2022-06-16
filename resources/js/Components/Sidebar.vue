@@ -4,7 +4,6 @@ import {CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, 
 import {Link} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
-import type {Person} from '../types'
 import usePerson from '../Hooks/usePerson'
 
 const props = defineProps({
@@ -16,7 +15,7 @@ const props = defineProps({
 
 defineEmits(['hide'])
 
-const person: ComputedRef<Partial<Person>|undefined> = usePerson()
+const person = usePerson()
 
 const name: ComputedRef<string> = computed(() => {
     return person.value?.full_name ?? ''
@@ -175,8 +174,11 @@ const initials: ComputedRef<string> = computed(() => {
                                     >
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-base font-medium text-white">Tom Cook</p>
-                                    <p class="text-sm font-medium text-indigo-200 group-hover:text-white">View profile</p>
+                                    <p class="text-base font-medium text-white">{{ name }}</p>
+                                    <Link
+                                        :href="'/people/' + person.id + '/profile'"
+                                        class="block text-sm font-medium text-indigo-200 group-hover:text-white"
+                                    >View profile</Link>
                                 </div>
                             </div>
                         </a>
@@ -267,10 +269,7 @@ const initials: ComputedRef<string> = computed(() => {
                 </nav>
             </div>
             <div class="flex shrink-0 p-4 border-t border-indigo-800">
-                <a
-                    href="#"
-                    class="group block shrink-0 w-full"
-                >
+                <div class="group block shrink-0 w-full">
                     <div class="flex items-center">
                         <div>
                             <div class="flex justify-center items-center w-10 h-10 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full border border-white">
@@ -298,8 +297,15 @@ const initials: ComputedRef<string> = computed(() => {
                             </div>
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm font-medium text-white">{{ name }}</p>
-                            <p class="text-xs font-medium text-indigo-200 group-hover:text-white">View profile</p>
+                            <p class="text-sm font-medium text-white">
+                                {{ name }}
+                            </p>
+                            <Link
+                                :href="'/people/' + person.id + '/profile'"
+                                class="block text-xs font-medium text-indigo-200 group-hover:text-white"
+                            >
+                                View profile
+                            </Link>
                             <Link
                                 href="/logout"
                                 method="post"
@@ -310,7 +316,7 @@ const initials: ComputedRef<string> = computed(() => {
                             </Link>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
