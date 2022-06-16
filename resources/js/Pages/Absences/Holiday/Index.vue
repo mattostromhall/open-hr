@@ -6,6 +6,8 @@ import {Head} from '@inertiajs/inertia-vue3'
 import RequestHoliday from './RequestHoliday.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import Approved from './Approved.vue'
+import Pending from './Pending.vue'
+import Rejected from './Rejected.vue'
 
 defineProps({
     approved: {
@@ -116,6 +118,14 @@ function isActive(tab: string): boolean {
         <Approved
             v-if="isActive('approved')"
             :approved="approved"
+        />
+        <Pending
+            v-if="isActive('pending')"
+            :pending="pending"
+        />
+        <Rejected
+            v-if="isActive('rejected')"
+            :rejected="rejected"
         />
     </div>
 </template>

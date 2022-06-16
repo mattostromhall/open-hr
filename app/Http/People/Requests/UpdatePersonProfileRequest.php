@@ -36,7 +36,7 @@ class UpdatePersonProfileRequest extends FormRequest
                 'contact_email'
             ]),
             [
-                'dob' => Carbon::parse($this->validated('dob')),
+                'dob' => Carbon::parse($this->dob),
             ]
         );
     }

@@ -65,6 +65,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('holidays', [HolidayController::class, 'index'])
         ->name('holiday.index');
+    Route::post('holidays', [HolidayController::class, 'store'])
+        ->name('holiday.store');
 });
 
 require __DIR__. '/auth.php';

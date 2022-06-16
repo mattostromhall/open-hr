@@ -4,7 +4,7 @@ import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 
 defineProps({
-    approved: {
+    rejected: {
         type: Array,
         default: () => []
     }
@@ -25,7 +25,7 @@ function formatDate(date: string): string {
                 class="divide-y divide-gray-200"
             >
                 <li
-                    v-for="(holiday, index) in approved"
+                    v-for="(holiday, index) in rejected"
                     :key="index"
                 >
                     <Link
@@ -64,8 +64,8 @@ function formatDate(date: string): string {
                                     </p>
                                 </div>
                                 <div class="shrink-0 mt-4 sm:mt-0 sm:ml-5">
-                                    <p class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                        Approved
+                                    <p class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                                        Rejected
                                     </p>
                                 </div>
                             </div>

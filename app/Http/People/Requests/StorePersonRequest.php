@@ -61,14 +61,14 @@ class StorePersonRequest extends FormRequest
                 'finished_on'
             ]),
             [
-                'user' => User::find($this->validated('user_id')),
-                'manager' => Person::find($this->validated('manager_id')),
-                'department' => Department::find($this->validated('department_id')),
-                'dob' => Carbon::parse($this->validated('dob')),
-                'remuneration_interval' => RemunerationInterval::from($this->validated('remuneration_interval')),
-                'remuneration_currency' => Currency::from($this->validated('remuneration_currency')),
-                'started_on' => Carbon::parse($this->validated('started_on')),
-                'finished_on' => $this->validated('finished_on') ? Carbon::parse($this->validated('finished_on')) : null
+                'user' => User::find($this->user_id),
+                'manager' => Person::find($this->manager_id),
+                'department' => Department::find($this->department_id),
+                'dob' => Carbon::parse($this->dob),
+                'remuneration_interval' => RemunerationInterval::from($this->remuneration_interval),
+                'remuneration_currency' => Currency::from($this->remuneration_currency),
+                'started_on' => Carbon::parse($this->started_on),
+                'finished_on' => $this->finished_on ? Carbon::parse($this->finished_on) : null
             ]
         );
     }

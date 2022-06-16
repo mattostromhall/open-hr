@@ -9,10 +9,13 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
 
-type HalfDay = 'am' | 'pm'
+type HalfDay = 'am'|'pm'
+
+type HolidayStatus = 1|2|3
 
 interface HolidayRequestData {
     person_id: number,
+    status: HolidayStatus,
     start_at: string,
     finish_at: string,
     half_day?: HalfDay,
@@ -28,6 +31,7 @@ const halfDayOptions = [
 
 const form: InertiaForm<HolidayRequestData> = useForm({
     person_id: person.value.id,
+    status: 1,
     start_at: '',
     finish_at: '',
     half_day: undefined,
