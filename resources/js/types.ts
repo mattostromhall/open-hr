@@ -31,6 +31,12 @@ export interface PersonPageProp {
     initials: string
 }
 
+export interface Notification {
+    body: string,
+    link?: string,
+    read: boolean
+}
+
 export interface Person {
     user_id: number,
     first_name: string,
@@ -62,7 +68,8 @@ export interface FlashMessage {
 export interface OpenHRPageProps extends PageProps {
     flash: FlashMessage,
     person?: Partial<Person>,
-    user?: UserPageProp
+    user?: UserPageProp,
+    notifications?: Notification[]
 }
 
 export function isUserPageProp(user: unknown): user is UserPageProp {
@@ -81,6 +88,23 @@ export function isPersonPageProp(person: unknown): person is PersonPageProp {
     return Object.hasOwn(person, 'id')
         && Object.hasOwn(person, 'full_name')
         && Object.hasOwn(person, 'initials')
+}
+
+export function isNotification(notification: unknown): notification is Notification {
+    if (typeof notification !== 'object' || ! notification) {
+        return false
+    }
+
+    return Object.hasOwn(notification, 'body')
+        && Object.hasOwn(notification, 'read')
+}
+
+export function isNotificationsPageProp(notifications: unknown): notifications is Notification[] {
+    if (! Array.isArray(notifications) || ! notifications) {
+        return false
+    }
+
+    return isNotification(notifications[0]) || notifications.length === 0
 }
 
 export function isPerson(person: unknown, property: string): person is Partial<Person> {

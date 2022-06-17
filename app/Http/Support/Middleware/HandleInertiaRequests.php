@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('flash.error')
             ],
             'user' => $request->user()?->only('id', 'email'),
-            'person' => person()?->only('id', 'full_name', 'initials')
+            'person' => person()?->only('id', 'full_name', 'initials'),
+            'notifications' => person()?->notifications
         ]);
     }
 }

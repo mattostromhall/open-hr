@@ -12,6 +12,7 @@ class HolidayViewModel extends ViewModel
             ->holidays()
             ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->whereApproved()
+            ->orderBy('start_at')
             ->get()
             ->map(function ($holiday) {
                 return [
@@ -27,6 +28,7 @@ class HolidayViewModel extends ViewModel
             ->holidays()
             ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->wherePending()
+            ->orderBy('start_at')
             ->get()
             ->map(function ($holiday) {
                 return [
@@ -42,6 +44,7 @@ class HolidayViewModel extends ViewModel
             ->holidays()
             ->select('start_at', 'finish_at', 'half_day', 'notes')
             ->whereRejected()
+            ->orderBy('start_at')
             ->get();
     }
 }

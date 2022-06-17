@@ -114,7 +114,10 @@ function isActive(tab: string): boolean {
                 </button>
             </nav>
         </aside>
-        <RequestHoliday v-if="isActive('request')" />
+        <RequestHoliday
+            v-if="isActive('request')"
+            @set-active="setActive"
+        />
         <Approved
             v-if="isActive('approved')"
             :approved="approved"

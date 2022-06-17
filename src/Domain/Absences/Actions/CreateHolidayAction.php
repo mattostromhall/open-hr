@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\People\Actions;
+namespace Domain\Absences\Actions;
 
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;

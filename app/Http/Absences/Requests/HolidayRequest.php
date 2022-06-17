@@ -17,8 +17,19 @@ class HolidayRequest extends FormRequest
         return [
             'person_id' => ['required', 'integer'],
             'status' => ['required', new Enum(HolidayStatus::class)],
-            'start_at' => ['required', 'date'],
-            'finish_at' => ['required', 'date'],
+            'start_at' => ['required', 'date', 'after_or_equal:today'],
+            'finish_at' => ['required', 'date', function ($attribute, $value, $fail) {
+                $startAt = Carbon::parse($this->start_at);
+                $finishAt = Carbon::parse($this->finish_at);
+
+                if ($this->half_day) {
+                    return;
+                }
+
+                if ($finishAt->lessThanOrEqualTo($startAt)) {
+                    $fail('Finish at date must be after Start at date.');
+                }
+            }],
             'half_day' => ['string', new Enum(HalfDay::class)],
             'notes' => ['string']
         ];

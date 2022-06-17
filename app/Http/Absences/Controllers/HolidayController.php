@@ -6,9 +6,10 @@ use App\Http\Absences\Requests\HolidayRequest;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\People\Requests\AddressRequest;
 use App\Http\Support\Controllers\Controller;
+use Domain\Absences\Actions\RequestHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\People\Actions\CreateAddressAction;
-use Domain\People\Actions\CreateHolidayAction;
+use Domain\Absences\Actions\CreateHolidayAction;
 use Domain\People\Actions\UpdateAddressAction;
 use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Address;
@@ -23,9 +24,9 @@ class HolidayController extends Controller
         return Inertia::render('Absences/Holiday/Index', new HolidayViewModel());
     }
 
-    public function store(HolidayRequest $request, CreateHolidayAction $createHoliday): RedirectResponse
+    public function store(HolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
     {
-        $createHoliday->execute(
+        $requestHoliday->execute(
             HolidayData::from($request->validatedData())
         );
 

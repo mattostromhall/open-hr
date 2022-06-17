@@ -97,7 +97,12 @@ class Person extends Model
 
     public function manager(): BelongsTo
     {
-        return $this->belongsTo(Manager::class);
+        return $this->belongsTo(self::class);
+    }
+
+    public function directReports(): HasMany
+    {
+        return $this->hasMany(self::class, 'manager_id');
     }
 
     public function notifications(): MorphMany

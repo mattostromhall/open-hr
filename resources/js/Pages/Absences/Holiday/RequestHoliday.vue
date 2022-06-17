@@ -22,6 +22,8 @@ interface HolidayRequestData {
     notes?: string
 }
 
+const emit = defineEmits(['setActive'])
+
 const person = usePerson()
 
 const halfDayOptions = [
@@ -43,7 +45,12 @@ function submit(): void {
         form.finish_at = form.start_at
     }
 
-    form.post('/holidays')
+    form.post('/holidays', {
+        onSuccess: () => {
+            emit('setActive', 'pending')
+            form.reset()
+        }
+    })
 }
 </script>
 
@@ -74,7 +81,10 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-4">
+                        <div
+                            v-if="! form.half_day"
+                            class="col-span-6 sm:col-span-4"
+                        >
                             <FormLabel>Finish at <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <DateInput
@@ -95,6 +105,7 @@ function submit(): void {
                                     :options="halfDayOptions"
                                     input-id="half_day"
                                     input-name="half_day"
+                                    placeholder-value="Select an option for Half day..."
                                     @reset="form.clearErrors('half_day')"
                                 />
                             </div>

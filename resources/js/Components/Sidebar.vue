@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
-import {CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XIcon} from '@heroicons/vue/outline'
+import {BellIcon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XIcon} from '@heroicons/vue/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 import usePerson from '../Hooks/usePerson'
+import useNotifications from '../Hooks/useNotifications'
 
 const props = defineProps({
     show: {
@@ -24,6 +25,9 @@ const name: ComputedRef<string> = computed(() => {
 const initials: ComputedRef<string> = computed(() => {
     return person.value?.initials ?? ''
 })
+
+const notifications = useNotifications()
+const notificationCount = notifications.value.length
 </script>
 
 <template>
@@ -158,6 +162,19 @@ const initials: ComputedRef<string> = computed(() => {
                                 />
                                 Reports
                             </a>
+                            <div>
+                                <div class="my-6 border-t border-indigo-800" />
+                            </div>
+                            <Link
+                                href="people/notifications"
+                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                            >
+                                <BellIcon
+                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    aria-hidden="true"
+                                />
+                                Notifications
+                            </Link>
                         </nav>
                     </div>
                     <div class="flex shrink-0 p-4 border-t border-indigo-800">
@@ -266,6 +283,19 @@ const initials: ComputedRef<string> = computed(() => {
                         />
                         Reports
                     </a>
+                    <div>
+                        <div class="my-6 border-t border-indigo-800" />
+                    </div>
+                    <Link
+                        href="people/notifications"
+                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                    >
+                        <BellIcon
+                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            aria-hidden="true"
+                        />
+                        Notifications
+                    </Link>
                 </nav>
             </div>
             <div class="flex shrink-0 p-4 border-t border-indigo-800">
