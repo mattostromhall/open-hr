@@ -14,7 +14,7 @@ const props = defineProps({
     }
 })
 
-defineEmits(['hide'])
+defineEmits(['hide', 'showNotifications'])
 
 const person = usePerson()
 
@@ -26,8 +26,9 @@ const initials: ComputedRef<string> = computed(() => {
     return person.value?.initials ?? ''
 })
 
-const notifications = useNotifications()
-const notificationCount = notifications.value.length
+const notificationCount = useNotifications().value
+    .filter(notification => ! notification.read)
+    .length
 </script>
 
 <template>
@@ -77,7 +78,7 @@ const notificationCount = notifications.value.length
                             <button
                                 type="button"
                                 class="flex justify-center items-center ml-1 w-10 h-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                                @click="$emit('hide', false)"
+                                @click="$emit('hide')"
                             >
                                 <span class="sr-only">Close sidebar</span>
                                 <XIcon
@@ -165,16 +166,20 @@ const notificationCount = notifications.value.length
                             <div>
                                 <div class="my-6 border-t border-indigo-800" />
                             </div>
-                            <Link
-                                href="people/notifications"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                            <button
+                                class="group flex relative items-center p-2 w-full text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                                @click="$emit('showNotifications')"
                             >
+                                <span
+                                    v-show="notificationCount"
+                                    class="flex absolute -top-1 left-6 justify-center items-center w-4 h-4 text-xs bg-red-500 rounded-full"
+                                >{{ notificationCount }}</span>
                                 <BellIcon
                                     class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Notifications
-                            </Link>
+                            </button>
                         </nav>
                     </div>
                     <div class="flex shrink-0 p-4 border-t border-indigo-800">
@@ -286,16 +291,20 @@ const notificationCount = notifications.value.length
                     <div>
                         <div class="my-6 border-t border-indigo-800" />
                     </div>
-                    <Link
-                        href="people/notifications"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                    <button
+                        class="group flex relative items-center p-2 w-full text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                        @click="$emit('showNotifications')"
                     >
+                        <span
+                            v-show="notificationCount"
+                            class="flex absolute -top-1 left-6 justify-center items-center w-4 h-4 text-xs bg-red-500 rounded-full"
+                        >{{ notificationCount }}</span>
                         <BellIcon
                             class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
                             aria-hidden="true"
                         />
                         Notifications
-                    </Link>
+                    </button>
                 </nav>
             </div>
             <div class="flex shrink-0 p-4 border-t border-indigo-800">

@@ -24,9 +24,11 @@ defineProps({
     }
 })
 
-const activeTab: Ref<string> = ref('request')
+type ActiveTab = 'request'|'approved'|'pending'|'rejected'
 
-function setActive(tab: string): void {
+const activeTab: Ref<ActiveTab> = ref('request')
+
+function setActive(tab: ActiveTab): void {
     activeTab.value = tab
 }
 

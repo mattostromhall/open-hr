@@ -12,6 +12,10 @@ class Notification extends Model
     use HasFactory;
     use Unguarded;
 
+    protected $casts = [
+        'read' => 'boolean'
+    ];
+
     public function notifiable(): MorphTo
     {
         return $this->morphTo();
