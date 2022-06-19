@@ -12,7 +12,7 @@ class RequestHolidayReviewAction
         $manager = $data->person->manager;
 
         $manager->notifications()->create([
-            'body' => "Holiday requested by {$data->person->fullName}, click below to review.",
+            'body' => "Holiday requested by {$data->person->fullName}, click here to review.",
             'link' => route('holiday.review', [
                 'holiday' => $holiday
             ])

@@ -5,6 +5,7 @@ use App\Http\Absences\Controllers\ReviewHolidayController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Setup\Controllers\SetupController;
@@ -49,15 +50,18 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/setup', [SetupController::class, 'index'])
         ->name('setup.index');
 
+    Route::post('/notifications/{notification}/read', ReadNotificationController::class)
+        ->name('notifications.read');
+
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
-        ->name('profile.update-personal');
+        ->name('profile.update.personal');
 
     Route::patch('/profile/update-email', UpdateEmailController::class)
-        ->name('profile.update-email');
+        ->name('profile.update.email');
     Route::patch('/profile/update-password', UpdatePasswordController::class)
-        ->name('profile.update-password');
+        ->name('profile.update.password');
 
     Route::post('/people/{person}/address', [AddressController::class, 'store'])
         ->name('address.store');

@@ -26,9 +26,9 @@ const initials: ComputedRef<string> = computed(() => {
     return person.value?.initials ?? ''
 })
 
-const notificationCount = useNotifications().value
+const notificationCount: ComputedRef<number> = computed(() => useNotifications().value
     .filter(notification => ! notification.read)
-    .length
+    .length)
 </script>
 
 <template>

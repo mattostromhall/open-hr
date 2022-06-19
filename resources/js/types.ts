@@ -32,6 +32,7 @@ export interface PersonPageProp {
 }
 
 export interface Notification {
+    id: number,
     body: string,
     link?: string,
     read: boolean
@@ -95,7 +96,8 @@ export function isNotification(notification: unknown): notification is Notificat
         return false
     }
 
-    return Object.hasOwn(notification, 'body')
+    return Object.hasOwn(notification, 'id')
+        && Object.hasOwn(notification, 'body')
         && Object.hasOwn(notification, 'read')
 }
 
