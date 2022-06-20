@@ -4,6 +4,8 @@ export type Currency = 'GBP' | 'USD' | 'EUR'
 
 export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
 
+export type HolidayStatus = 1|2|3
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,
@@ -33,6 +35,7 @@ export interface PersonPageProp {
 
 export interface Notification {
     id: number,
+    title?: string,
     body: string,
     link?: string,
     read: boolean

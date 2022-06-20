@@ -8,10 +8,9 @@ import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
+import type {HolidayStatus} from '../../../types'
 
 type HalfDay = 'am'|'pm'
-
-type HolidayStatus = 1|2|3
 
 interface HolidayRequestData {
     person_id: number,

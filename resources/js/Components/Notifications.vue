@@ -6,20 +6,13 @@ import {XIcon} from '@heroicons/vue/outline'
 import useNotifications from '../Hooks/useNotifications'
 import type {Notification} from '../types'
 import NotificationList from '@/Components/NotificationList.vue'
-
-defineProps({
-    show: {
-        type: Boolean,
-        default: false
-    }
-})
-
-const emit = defineEmits(['hide'])
+import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
 
 type ActiveTab = 'unread'|'read'
 
 const activeTab: Ref<ActiveTab> = ref('unread')
 
+const slideOver = useNotificationsSlideOver()
 const notifications = useNotifications()
 const unreadNotifications: ComputedRef<Notification[]> = computed(() => notifications.value.filter(notification => ! notification.read))
 const readNotifications: ComputedRef<Notification[]> = computed(() => notifications.value.filter(notification => notification.read))
@@ -36,7 +29,7 @@ function isActive(tab: string): boolean {
 <template>
     <TransitionRoot
         as="template"
-        :show="show"
+        :show="slideOver.show.value"
     >
         <div
             class="relative z-10"
@@ -44,11 +37,6 @@ function isActive(tab: string): boolean {
             role="dialog"
             aria-modal="true"
         >
-            <div
-                v-show="show"
-                class="fixed inset-0 bg-indigo-800/50"
-            />
-
             <div class="overflow-hidden fixed inset-0">
                 <div class="overflow-hidden absolute inset-0">
                     <div class="flex fixed inset-y-0 right-0 pl-10 max-w-full pointer-events-none sm:pl-16">
@@ -79,7 +67,7 @@ function isActive(tab: string): boolean {
                                                     <span class="sr-only">Close panel</span>
                                                     <XIcon
                                                         class="w-6 h-6"
-                                                        @click="emit('hide')"
+                                                        @click="slideOver.hideSlideOver"
                                                     />
                                                 </button>
                                             </div>

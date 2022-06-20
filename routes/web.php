@@ -72,6 +72,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.index');
     Route::post('holidays', [HolidayController::class, 'store'])
         ->name('holiday.store');
+    Route::patch('holidays/{holiday}', [HolidayController::class, 'update'])
+        ->name('holiday.update');
     Route::get('holidays/{holiday}/review', ReviewHolidayController::class)
         ->name('holiday.review');
 });

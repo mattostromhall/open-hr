@@ -6,17 +6,12 @@ import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 import usePerson from '../Hooks/usePerson'
 import useNotifications from '../Hooks/useNotifications'
-
-const props = defineProps({
-    show: {
-        type: Boolean,
-        default: false
-    }
-})
-
-defineEmits(['hide', 'showNotifications'])
+import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
+import useSidebar from '../Composables/useSidebar'
 
 const person = usePerson()
+const sidebar = useSidebar()
+const {showSlideOver} = useNotificationsSlideOver()
 
 const name: ComputedRef<string> = computed(() => {
     return person.value?.full_name ?? ''
@@ -34,7 +29,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 <template>
     <TransitionRoot
         as="template"
-        :show="props.show"
+        :show="sidebar.show.value"
     >
         <div
             class="flex fixed inset-0 z-40 md:hidden"
@@ -78,7 +73,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             <button
                                 type="button"
                                 class="flex justify-center items-center ml-1 w-10 h-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                                @click="$emit('hide')"
+                                @click="sidebar.hideSidebar"
                             >
                                 <span class="sr-only">Close sidebar</span>
                                 <XIcon
@@ -168,7 +163,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </div>
                             <button
                                 class="group flex relative items-center p-2 w-full text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
-                                @click="$emit('showNotifications')"
+                                @click="showSlideOver"
                             >
                                 <span
                                     v-show="notificationCount"
@@ -293,7 +288,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </div>
                     <button
                         class="group flex relative items-center p-2 w-full text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
-                        @click="$emit('showNotifications')"
+                        @click="showSlideOver"
                     >
                         <span
                             v-show="notificationCount"

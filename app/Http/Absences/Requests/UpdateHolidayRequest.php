@@ -9,16 +9,14 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
 
-class HolidayRequest extends FormRequest
+class UpdateHolidayRequest extends FormRequest
 {
     public function rules(): array
     {
-        // better validation required, ensuring date not in past, finish at not same as or before start at unless half day
         return [
-            'person_id' => ['required', 'integer'],
-            'status' => ['required', new Enum(HolidayStatus::class)],
-            'start_at' => ['required', 'date', 'after_or_equal:today'],
-            'finish_at' => ['required', 'date', function ($attribute, $value, $fail) {
+            'status' => [new Enum(HolidayStatus::class)],
+            'start_at' => ['required_with:finish_at', 'date', 'after_or_equal:today'],
+            'finish_at' => ['required_with:start_at', 'date', function ($attribute, $value, $fail) {
                 $startAt = Carbon::parse($this->start_at);
                 $finishAt = Carbon::parse($this->finish_at);
 
@@ -37,13 +35,12 @@ class HolidayRequest extends FormRequest
 
     public function validatedData(): array
     {
-        return [
-            'person' => Person::find($this->person_id),
-            'status' => HolidayStatus::from($this->status),
-            'start_at' => Carbon::parse($this->start_at),
-            'finish_at' => Carbon::parse($this->finish_at),
+        return array_filter([
+            'status' => $this->status ? HolidayStatus::from($this->status) : null,
+            'start_at' => $this->start_at ? Carbon::parse($this->start_at) : null,
+            'finish_at' => $this->finish_at ? Carbon::parse($this->finish_at) : null,
             'half_day' => $this->half_day ? HalfDay::from($this->half_day) : null,
             'notes' => $this->validated('notes')
-        ];
+        ]);
     }
 }
