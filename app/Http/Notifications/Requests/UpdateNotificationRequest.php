@@ -16,5 +16,13 @@ class UpdateNotificationRequest extends FormRequest
         ];
     }
 
-
+    public function validatedData(): array
+    {
+        return array_filter([
+            'title' => $this->validated('title'),
+            'body' => $this->validated('body'),
+            'link' => $this->validated('link'),
+            'read' => $this->validated('read'),
+        ]);
+    }
 }

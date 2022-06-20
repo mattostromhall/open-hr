@@ -14,9 +14,9 @@ class ReadNotificationController extends Controller
     public function __invoke(
         UpdateNotificationRequest $request,
         Notification $notification,
-        UpdateNotificationAction $readNotification
+        UpdateNotificationAction $updateNotification
     ): RedirectResponse {
-        $readNotification->execute(
+        $updateNotification->execute(
             $notification,
             new NotificationData(
                 body: $notification->body,
