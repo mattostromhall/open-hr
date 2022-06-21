@@ -11,7 +11,7 @@ import useSidebar from '../Composables/useSidebar'
 
 const person = usePerson()
 const sidebar = useSidebar()
-const {showSlideOver} = useNotificationsSlideOver()
+const {showNotifications} = useNotificationsSlideOver()
 
 const name: ComputedRef<string> = computed(() => {
     return person.value?.full_name ?? ''
@@ -163,7 +163,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </div>
                             <button
                                 class="group flex relative items-center p-2 w-full text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
-                                @click="showSlideOver"
+                                @click="showNotifications"
                             >
                                 <span
                                     v-show="notificationCount"
@@ -288,7 +288,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </div>
                     <button
                         class="group flex relative items-center p-2 w-full text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
-                        @click="showSlideOver"
+                        @click="showNotifications"
                     >
                         <span
                             v-show="notificationCount"

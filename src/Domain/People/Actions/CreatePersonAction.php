@@ -30,7 +30,8 @@ class CreatePersonAction
             'contact_number' => $data->contact_number,
             'contact_email' => $data->contact_email,
             'started_on' => $data->started_on,
-            'finished_on' => $data->finished_on
+            'finished_on' => $data->finished_on,
+            'hex_code' => '#' . str_pad(dechex(rand(0x000000, 0xFFFFFF)), 6, 0, STR_PAD_LEFT)
         ]);
     }
 }

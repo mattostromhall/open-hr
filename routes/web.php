@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
 use App\Http\Auth\Controllers\UpdateEmailController;
@@ -76,6 +77,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.update');
     Route::get('holidays/{holiday}/review', ReviewHolidayController::class)
         ->name('holiday.review');
+    Route::get('holidays/calendar', HolidayCalendarController::class)
+        ->name('holiday.calendar');
 });
 
 require __DIR__. '/auth.php';

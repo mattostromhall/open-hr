@@ -5,13 +5,13 @@ const show: Ref<boolean> = ref(false)
 
 export default () => {
 
-    function showSlideOver() {
+    function showNotifications() {
         show.value = true
     }
 
-    function hideSlideOver() {
+    function hideNotifications() {
         show.value = false
     }
 
-    return {show, showSlideOver, hideSlideOver}
+    return {show, showNotifications, hideNotifications}
 }

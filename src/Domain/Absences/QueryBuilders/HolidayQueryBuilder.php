@@ -13,14 +13,29 @@ class HolidayQueryBuilder extends Builder
         return $this->where('status', HolidayStatus::PENDING);
     }
 
+    public function whereNotPending(): self
+    {
+        return $this->whereNot('status', HolidayStatus::PENDING);
+    }
+
     public function whereApproved(): self
     {
         return $this->where('status', HolidayStatus::APPROVED);
     }
 
+    public function whereNotApproved(): self
+    {
+        return $this->whereNot('status', HolidayStatus::APPROVED);
+    }
+
     public function whereRejected(): self
     {
         return $this->where('status', HolidayStatus::REJECTED);
+    }
+
+    public function whereNotRejected(): self
+    {
+        return $this->whereNot('status', HolidayStatus::REJECTED);
     }
 
     public function forCurrentYear(): self

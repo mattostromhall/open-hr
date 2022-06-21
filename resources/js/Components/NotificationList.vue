@@ -10,7 +10,7 @@ defineProps({
     }
 })
 
-const {hideSlideOver} = useNotificationsSlideOver()
+const {hideNotifications} = useNotificationsSlideOver()
 </script>
 
 <template>
@@ -29,7 +29,7 @@ const {hideSlideOver} = useNotificationsSlideOver()
                 <Link
                     :href="notification.link"
                     class="block group-hover:bg-gray-50"
-                    @click="hideSlideOver"
+                    @click="hideNotifications"
                 >
                     <div class="flex items-center px-4 pt-4 space-x-2 sm:px-6">
                         <div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {useForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import type {HolidayStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -56,6 +56,8 @@ function reject(): void {
 </script>
 
 <template>
+    <Head title="Review Holiday Request" />
+
     <section class="p-8">
         <div class="bg-white shadow sm:rounded-lg">
             <div class="py-5 px-4 sm:p-6">

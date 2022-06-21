@@ -67,7 +67,7 @@ function isActive(tab: string): boolean {
                                                     <span class="sr-only">Close panel</span>
                                                     <XIcon
                                                         class="w-6 h-6"
-                                                        @click="slideOver.hideSlideOver"
+                                                        @click="slideOver.hideNotifications"
                                                     />
                                                 </button>
                                             </div>
