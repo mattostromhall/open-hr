@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {Head} from '@inertiajs/inertia-vue3'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -28,6 +29,8 @@ const calendarOptions = {
 </script>
 
 <template>
+    <Head title="Holiday Calendar" />
+
     <section class="p-8">
         <FullCalendar :options="calendarOptions" />
     </section>
