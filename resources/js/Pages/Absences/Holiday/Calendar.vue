@@ -19,7 +19,10 @@ const {showCalendarEvent} = useCalendarSlideOver()
 const calendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    headerToolbar: { center: 'dayGridMonth,dayGridWeek' },
+    headerToolbar: {
+        center: 'dayGridMonth,dayGridWeek',
+        end: 'today prev,next prevYear,nextYear'
+    },
     events: props.holidayEvents,
     displayEventTime: false,
     nextDayThreshold: '12:00:00',
