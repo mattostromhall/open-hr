@@ -33,6 +33,7 @@ function handleInput(e: Event): void {
     <div>
         <select
             :id="inputId"
+            :value="modelValue"
             :name="inputName"
             :autocomplete="inputName"
             class="block py-2 px-3 mt-1 w-full bg-white rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm sm:text-sm"
