@@ -5,7 +5,7 @@ import 'flatpickr/dist/flatpickr.css'
 import 'flatpickr/dist/plugins/confirmDate/confirmDate.css'
 import type {Instance} from 'flatpickr/dist/types/instance'
 import type {Hook, Plugin} from 'flatpickr/dist/types/options'
-import {onBeforeUnmount, onMounted, ref} from 'vue'
+import {onBeforeUnmount, onMounted, ref, toRef, watch} from 'vue'
 import type {Ref} from 'vue'
 
 const props = defineProps({
@@ -34,6 +34,10 @@ const props = defineProps({
     timeEnabled: {
         type: Boolean,
         default: false
+    },
+    baseStartOn: {
+        type: String,
+        default: ''
     }
 })
 
@@ -71,6 +75,8 @@ const input: Ref<Node|null> = ref(null)
 
 const datePickerOpen: Ref<boolean> = ref(false)
 
+const baseStartOn: Ref<string> = toRef(props, 'baseStartOn')
+
 
 onMounted(() => {
     if (fp || !input.value) {
@@ -89,6 +95,15 @@ onBeforeUnmount(() => {
     }
 
     fp.destroy()
+})
+
+watch(baseStartOn, () => {
+    if (! fp || ! props.baseStartOn) return
+
+    let base: Date = new Date(baseStartOn.value)
+    base.setDate(base.getDate() + 1)
+
+    fp.setDate(base)
 })
 
 function openPicker() {

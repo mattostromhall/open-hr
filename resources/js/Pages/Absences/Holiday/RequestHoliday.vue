@@ -91,6 +91,7 @@ function submit(): void {
                                     :error="form.errors.finish_at"
                                     input-id="finish_at"
                                     input-name="finish_at"
+                                    :base-start-on="form.start_at"
                                     @reset="form.clearErrors('finish_at')"
                                 />
                             </div>
