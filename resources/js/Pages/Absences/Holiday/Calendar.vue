@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction'
 import type {EventClickArg} from '@fullcalendar/common'
 import CalendarEvent from '@/Components/CalendarEvent.vue'
 import useCalendarSlideOver from '../../../Composables/useCalendarSlideOver'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
 const props = defineProps({
     holidayEvents: {
@@ -20,7 +22,8 @@ const calendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     headerToolbar: {
-        center: 'dayGridMonth,dayGridWeek',
+        start: 'dayGridMonth,dayGridWeek',
+        center: 'title',
         end: 'today prev,next prevYear,nextYear'
     },
     events: props.holidayEvents,
@@ -33,6 +36,15 @@ const calendarOptions = {
 
 <template>
     <Head title="Holiday Calendar" />
+
+    <PageHeading>
+        Holiday Calendar
+        <template #link>
+            <LightIndigoLink href="/holidays">
+                Manage holiday
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
 
     <section class="p-8">
         <FullCalendar :options="calendarOptions" />

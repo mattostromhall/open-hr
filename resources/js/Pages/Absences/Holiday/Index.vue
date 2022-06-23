@@ -8,6 +8,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import Approved from './Approved.vue'
 import Pending from './Pending.vue'
 import Rejected from './Rejected.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
 defineProps({
     approved: {
@@ -38,9 +39,16 @@ function isActive(tab: string): boolean {
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Manage Holiday" />
 
-    <PageHeading>Holidays</PageHeading>
+    <PageHeading>
+        Holidays
+        <template #link>
+            <LightIndigoLink href="/holidays/calendar">
+                View calendar
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">
