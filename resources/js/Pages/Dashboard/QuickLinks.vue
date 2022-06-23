@@ -13,7 +13,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 Quick links
             </h2>
 
-            <div class="group relative p-6 bg-white rounded-t-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-none">
+            <div class="group relative p-6 bg-white rounded-t-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-none">
                 <div>
                     <span class="inline-flex p-3 text-teal-700 bg-teal-50 rounded-lg ring-4 ring-white">
                         <ClockIcon class="w-6 h-6" />
@@ -52,7 +52,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </span>
             </div>
 
-            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-tr-lg">
+            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-lg">
                 <div>
                     <span class="inline-flex p-3 text-purple-700 bg-purple-50 rounded-lg ring-4 ring-white">
                         <DocumentTextIcon class="w-6 h-6" />
@@ -91,7 +91,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </span>
             </div>
 
-            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div>
                     <span class="inline-flex p-3 text-sky-700 bg-sky-50 rounded-lg ring-4 ring-white">
                         <UsersIcon class="w-6 h-6" />
@@ -130,7 +130,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </span>
             </div>
 
-            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div>
                     <span class="inline-flex p-3 text-yellow-700 bg-yellow-50 rounded-lg ring-4 ring-white">
                         <CheckCircleIcon class="w-6 h-6" />
@@ -169,7 +169,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </span>
             </div>
 
-            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-lg">
+            <div class="group relative p-6 bg-white focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-bl-lg">
                 <div>
                     <span class="inline-flex p-3 text-rose-700 bg-rose-50 rounded-lg ring-4 ring-white">
                         <!-- Heroicon name: outline/receipt-refund -->
@@ -223,7 +223,7 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </span>
             </div>
 
-            <div class="group relative p-6 bg-white rounded-b-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 sm:rounded-bl-none">
+            <div class="group relative p-6 bg-white rounded-b-lg focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-bl-none">
                 <div>
                     <span class="inline-flex p-3 text-indigo-700 bg-indigo-50 rounded-lg ring-4 ring-white">
                         <!-- Heroicon name: outline/academic-cap -->

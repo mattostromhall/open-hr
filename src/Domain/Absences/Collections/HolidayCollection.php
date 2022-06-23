@@ -13,7 +13,7 @@ class HolidayCollection extends Collection
                 return 0.5;
             }
 
-            return $holiday->duration->inDays();
+            return $holiday->duration->inWeekDays();
         })->sum();
     }
 }

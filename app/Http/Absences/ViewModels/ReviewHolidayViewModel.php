@@ -31,6 +31,6 @@ class ReviewHolidayViewModel extends ViewModel
 
     public function duration(): int
     {
-        return $this->holiday->duration->inDays();
+        return $this->holiday->duration->inWeekDays();
     }
 }

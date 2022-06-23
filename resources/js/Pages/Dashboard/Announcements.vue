@@ -34,7 +34,7 @@ defineProps({
                             :key="announcement"
                             class="py-5"
                         >
-                            <div class="relative focus-within:ring-2 focus-within:ring-cyan-500">
+                            <div class="relative focus-within:ring-2 focus-within:ring-indigo-500">
                                 <p class="mt-1 text-sm text-gray-600 line-clamp-2">
                                     {{ announcement }}
                                 </p>

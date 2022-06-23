@@ -16,7 +16,7 @@ class HolidayViewModel extends ViewModel
             ->get()
             ->map(function ($holiday) {
                 return [
-                    'duration' => $holiday->duration->inDays(),
+                    'duration' => $holiday->duration->inWeekDays(),
                     ...$holiday->toArray()
                 ];
             });
@@ -32,7 +32,7 @@ class HolidayViewModel extends ViewModel
             ->get()
             ->map(function ($holiday) {
                 return [
-                    'duration' => $holiday->duration->inDays(),
+                    'duration' => $holiday->duration->inWeekDays(),
                     ...$holiday->toArray()
                 ];
             });

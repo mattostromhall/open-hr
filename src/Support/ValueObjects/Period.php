@@ -50,6 +50,13 @@ class Period
         return $this->start->diffInDays($this->finish);
     }
 
+    public function inWeekDays(): int
+    {
+        return $this->start->diffInDaysFiltered(function (Carbon $date) {
+            return ! $date->isWeekend();
+        }, $this->finish);
+    }
+
     public function inWeeks(): int
     {
         return $this->start->diffInWeeks($this->finish);
