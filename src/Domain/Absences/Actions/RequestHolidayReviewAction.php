@@ -3,7 +3,9 @@
 namespace Domain\Absences\Actions;
 
 use Domain\Absences\DataTransferObjects\HolidayData;
+use Domain\Absences\Mail\ReviewHolidayRequest;
 use Domain\Absences\Models\Holiday;
+use Illuminate\Support\Facades\Mail;
 
 class RequestHolidayReviewAction
 {
@@ -18,5 +20,8 @@ class RequestHolidayReviewAction
                 'holiday' => $holiday
             ])
         ]);
+
+        Mail::to($manager->user->email)
+            ->send(new ReviewHolidayRequest($holiday, $data));
     }
 }
