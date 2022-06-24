@@ -1,26 +1,51 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
+import {ref} from 'vue'
+import type {Ref} from 'vue'
+import {hasOwnProperty} from '../../types'
+import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
+import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
+
+const props = defineProps({
+    people: {
+        type: Array,
+        default: () => []
+    }
+})
+
+let selected: Ref<number[]> = ref([])
+
+function updateSelected(isSelected: boolean, id: number) {
+    if (isSelected) {
+        return selected.value.push(id)
+    }
+
+    return selected.value = selected.value.filter(item => item !== id)
+}
+
+function toggleSelected(select: boolean) {
+    if (select) {
+        return selected.value = props.people.map(person => {
+            if (typeof person === 'object'
+                && person
+                && hasOwnProperty(person, 'id')
+            ) {
+                return person.id
+            }
+        }) as number[]
+    }
+
+    return selected.value = []
+}
+
+function isSelected(id: number) {
+    return selected.value.includes(id)
+}
 </script>
 
 <template>
-    <!--
-  This example requires Tailwind CSS v3.0+
-
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
     <Head title="People" />
 
     <PageHeading>
@@ -36,8 +61,10 @@ import PageHeading from '@/Components/PageHeading.vue'
             <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                 <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden relative ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
-                        <!-- Selected row actions, only show when rows are selected. -->
-                        <div class="flex absolute top-0 left-12 items-center space-x-3 h-12 bg-gray-50 sm:left-16">
+                        <div
+                            v-show="selected.length"
+                            class="flex absolute top-0 left-12 items-center space-x-3 h-12 bg-gray-50 sm:left-16"
+                        >
                             <button
                                 type="button"
                                 class="inline-flex items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
@@ -59,10 +86,10 @@ import PageHeading from '@/Components/PageHeading.vue'
                                         scope="col"
                                         class="relative px-6 w-12 sm:px-8 sm:w-16"
                                     >
-                                        <input
-                                            type="checkbox"
-                                            class="absolute top-1/2 left-4 -mt-2 w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 sm:left-6"
-                                        >
+                                        <CheckboxInput
+                                            class="absolute top-1/2 left-4 -mt-2"
+                                            @checked="toggleSelected"
+                                        />
                                     </th>
                                     <th
                                         scope="col"
@@ -74,7 +101,7 @@ import PageHeading from '@/Components/PageHeading.vue'
                                         scope="col"
                                         class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
                                     >
-                                        Title
+                                        Pronouns
                                     </th>
                                     <th
                                         scope="col"
@@ -86,7 +113,13 @@ import PageHeading from '@/Components/PageHeading.vue'
                                         scope="col"
                                         class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
                                     >
-                                        Role
+                                        Position
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
+                                    >
+                                        Department
                                     </th>
                                     <th
                                         scope="col"
@@ -97,39 +130,50 @@ import PageHeading from '@/Components/PageHeading.vue'
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Selected: "bg-gray-50" -->
-                                <tr>
+                                <tr
+                                    v-for="{id, email, person} in people"
+                                    :key="person.id"
+                                    :class="{'bg-gray-50': isSelected(id)}"
+                                >
                                     <td class="relative px-6 w-12 sm:px-8 sm:w-16">
-                                        <!-- Selected row marker, only show when row is selected. -->
-                                        <div class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600" />
+                                        <div
+                                            v-show="isSelected(id)"
+                                            class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600"
+                                        />
 
-                                        <input
-                                            type="checkbox"
-                                            class="absolute top-1/2 left-4 -mt-2 w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 sm:left-6"
-                                        >
+                                        <CheckboxInput
+                                            class="absolute top-1/2 left-4 -mt-2"
+                                            :model-value="isSelected(id)"
+                                            @checked="updateSelected($event, id)"
+                                        />
                                     </td>
-                                    <!-- Selected: "text-indigo-600", Not Selected: "text-gray-900" -->
-                                    <td class="py-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                        Lindsay Walton
-                                    </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
-                                        Front-end Developer
-                                    </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
-                                        lindsay.walton@example.com
+                                    <td
+                                        class="py-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                        :class="{'text-indigo-600': isSelected(id)}"
+                                    >
+                                        {{ person.full_name }}
                                     </td>
                                     <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
-                                        Member
+                                        {{ person.pronouns }}
+                                    </td>
+                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                        {{ email }}
+                                    </td>
+                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                        {{ person.position }}
+                                    </td>
+                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                        {{ person.department?.name ?? '-' }}
                                     </td>
                                     <td class="py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            :href="`/people/${person.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900"
-                                        >Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                        >
+                                            Edit<span class="sr-only">, {{ person.full_name }}</span>
+                                        </Link>
                                     </td>
                                 </tr>
-
-                            <!-- More people... -->
                             </tbody>
                         </table>
                     </div>

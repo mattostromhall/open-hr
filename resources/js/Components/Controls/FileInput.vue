@@ -70,8 +70,8 @@ function resetInput() {
     state.message = ''
 }
 
-function getFile({target}: Event): File | undefined {
-    const files: FileList | null = (target as HTMLInputElement).files
+function getFile({target}: Event): File|undefined {
+    const files: FileList|null = (target as HTMLInputElement).files
 
     if (! files?.length) {
         return

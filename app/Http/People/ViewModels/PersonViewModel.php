@@ -6,7 +6,7 @@ use App\Http\Support\ViewModels\ViewModel;
 use Domain\Auth\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class PeopleViewModel extends ViewModel
+class PersonViewModel extends ViewModel
 {
     public function people(): Collection
     {
