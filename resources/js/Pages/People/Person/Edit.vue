@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {IdentificationIcon, UserIcon, UserGroupIcon} from '@heroicons/vue/outline'
+import {IdentificationIcon, UserGroupIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {Person} from '../../../types'
+import type {Department, Person} from '../../../types'
 import Information from './Information.vue'
 
 const props = defineProps<{
-    person: Person
+    person: Person,
+    people: (Pick<Person, 'id'|'full_name'>)[],
+    departments: Department[]
 }>()
 
-type ActiveTab = 'information'|'reporting'|'reports'
+type ActiveTab = 'information'|'reports'
 
 const activeTab: Ref<ActiveTab> = ref('information')
 
@@ -60,24 +62,6 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('reporting'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('reporting')
-                    }"
-                    aria-current="page"
-                    @click="setActive('reporting')"
-                >
-                    <UserIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('reporting'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('reporting')
-                        }"
-                    />
-                    <span class="truncate">Reporting To</span>
-                </button>
-                <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
-                    :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('reports'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('reports')
                     }"
@@ -97,6 +81,8 @@ function isActive(tab: string): boolean {
         <Information
             v-if="isActive('information')"
             :person="person"
+            :people="people"
+            :departments="departments"
         />
     </div>
 </template>

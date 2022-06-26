@@ -66,7 +66,6 @@ function submit(): void {
                             Submit a holiday request to your manager.
                         </p>
                     </div>
-
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
                             <FormLabel>Start at <RequiredIcon /></FormLabel>

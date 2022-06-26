@@ -3,7 +3,7 @@
 namespace App\Http\People\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
-use Domain\Auth\Models\User;
+use Domain\Organisation\Models\Department;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -17,5 +17,18 @@ class PersonViewModel extends ViewModel
     public function person(): Person
     {
         return $this->person;
+    }
+
+    public function people(): Collection
+    {
+        return Person::query()
+            ->select('id', 'first_name', 'last_name')
+            ->whereNot('id', $this->person->id)
+            ->get();
+    }
+
+    public function departments(): Collection
+    {
+        return Department::all();
     }
 }

@@ -4,20 +4,35 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {ComplexSelectOption, Currency} from '../../../types'
+import type {ComplexSelectOption, Currency, Department, Person} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Person} from '../../../types'
 
 const props = defineProps<{
-    person: Person
+    person: Person,
+    people: (Pick<Person, 'id'|'full_name'>)[],
+    departments: Department[]
 }>()
 
 type InformationData = Omit<Person, 'id'|'user_id'|'full_name'>
+
+const departmentOptions = props.departments.map(department => {
+    return {
+        value: department.id,
+        display: department.name
+    }
+})
+
+const managerOptions = props.people.map(person => {
+    return {
+        value: person.id,
+        display: person.full_name
+    }
+})
 
 const remunerationIntervalOptions: ComplexSelectOption[] = [
     {value: 'hourly', display: 'Hourly'},
@@ -62,6 +77,14 @@ function submit(): void {
         <form @submit.prevent="submit">
             <div class="shadow sm:overflow-hidden sm:rounded-md">
                 <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
+                    <div>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">
+                            Person Information
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Review {{ person.full_name }}'s details below.
+                        </p>
+                    </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <FormLabel>First name <RequiredIcon /></FormLabel>
@@ -123,7 +146,7 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-3">
+                        <div class="col-span-6 sm:col-span-4">
                             <FormLabel>Date of birth <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <DateInput
@@ -135,7 +158,37 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-5">
+                    </div>
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Department</FormLabel>
+                            <div class="mt-1">
+                                <SelectInput
+                                    v-model="form.department_id"
+                                    :error="form.errors.department_id"
+                                    input-id="department_id"
+                                    input-name="department_id"
+                                    :options="departmentOptions"
+                                    placeholder-value="Choose a department"
+                                    @reset="form.clearErrors('department_id')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Manager</FormLabel>
+                            <div class="mt-1">
+                                <SelectInput
+                                    v-model="form.manager_id"
+                                    :error="form.errors.manager_id"
+                                    input-id="manager_id"
+                                    input-name="manager_id"
+                                    :options="managerOptions"
+                                    placeholder-value="Choose a manager"
+                                    @reset="form.clearErrors('manager_id')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-4">
                             <FormLabel>Position <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <TextInput
@@ -147,6 +200,8 @@ function submit(): void {
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <FormLabel>Remuneration <RequiredIcon /></FormLabel>
                             <div class="mt-1">
@@ -185,8 +240,8 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Base Holiday allocation <RequiredIcon /></FormLabel>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Base holiday allocation <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <NumberInput
                                     v-model.number="form.base_holiday_allocation"
@@ -194,6 +249,30 @@ function submit(): void {
                                     input-id="base_holiday_allocation"
                                     input-name="base_holiday_allocation"
                                     @reset="form.clearErrors('base_holiday_allocation')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Holiday carry allocation <RequiredIcon /></FormLabel>
+                            <div class="mt-1">
+                                <NumberInput
+                                    v-model.number="form.holiday_carry_allocation"
+                                    :error="form.errors.holiday_carry_allocation"
+                                    input-id="holiday_carry_allocation"
+                                    input-name="holiday_carry_allocation"
+                                    @reset="form.clearErrors('holiday_carry_allocation')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Holiday carried</FormLabel>
+                            <div class="mt-1">
+                                <NumberInput
+                                    v-model.number="form.holiday_carried"
+                                    :error="form.errors.holiday_carried"
+                                    input-id="holiday_carried"
+                                    input-name="holiday_carried"
+                                    @reset="form.clearErrors('holiday_carried')"
                                 />
                             </div>
                         </div>
@@ -242,6 +321,19 @@ function submit(): void {
                                     input-id="contact_email"
                                     input-name="contact_email"
                                     @reset="form.clearErrors('contact_email')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-4">
+                            <FormLabel>Finish date</FormLabel>
+                            <div class="mt-1">
+                                <DateInput
+                                    v-model="form.finished_on"
+                                    :error="form.errors.finished_on"
+                                    input-id="finished_on"
+                                    input-name="finished_on"
+                                    :base-start-on="form.started_on"
+                                    @reset="form.clearErrors('finished_on')"
                                 />
                             </div>
                         </div>

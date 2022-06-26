@@ -67,6 +67,12 @@ export interface Person {
     finished_on?: string
 }
 
+export interface Department {
+    id: number,
+    name: string,
+    head_of_department_id: number
+}
+
 export interface FlashMessage {
     success?: string,
     error?: string
