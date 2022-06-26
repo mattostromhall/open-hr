@@ -2,7 +2,7 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {hasOwnProperty} from '../../types'
+import {hasOwnProperty} from '../../../types'
 import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'

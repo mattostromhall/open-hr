@@ -42,6 +42,7 @@ export interface Notification {
 }
 
 export interface Person {
+    id: number,
     user_id: number,
     first_name: string,
     last_name: string,
@@ -51,7 +52,9 @@ export interface Person {
     remuneration: number,
     remuneration_interval: RecurrenceInterval,
     remuneration_currency: Currency,
-    holiday_allocation: number,
+    base_holiday_allocation: number,
+    holiday_carry_allocation: number,
+    holiday_carried: number,
     sickness_allocation: number,
     contact_number: string,
     contact_email: string,

@@ -23,6 +23,7 @@ const props = defineProps({
     }
 })
 
+// convert to type from Person interface and omit unneeded data
 interface PersonData {
     user_id: number,
     first_name: string,

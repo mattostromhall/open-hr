@@ -92,10 +92,13 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             >
                         </div>
                         <nav class="px-2 mt-5 space-y-1">
-                            <!-- Current: "bg-indigo-800 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
                             <Link
                                 href="/dashboard"
-                                class="group flex items-center p-2 text-base font-medium text-white bg-indigo-800 rounded-md"
+                                class="group flex items-center p-2 text-base font-medium text-white rounded-md"
+                                :class="{
+                                    'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
+                                    'bg-indigo-800': $page.url === '/dashboard'
+                                }"
                             >
                                 <HomeIcon
                                     class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
@@ -104,16 +107,20 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 Dashboard
                             </Link>
 
-                            <a
-                                href="#"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                            <Link
+                                href="/people"
+                                class="group flex items-center p-2 text-base font-medium text-white rounded-md"
+                                :class="{
+                                    'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/people',
+                                    'bg-indigo-800': $page.url === '/people'
+                                }"
                             >
                                 <UsersIcon
                                     class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
                                     aria-hidden="true"
                                 />
-                                Team
-                            </a>
+                                People
+                            </Link>
 
                             <a
                                 href="#"
@@ -217,10 +224,13 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </h2>
                 </div>
                 <nav class="flex-1 px-2 mt-5 space-y-1">
-                    <!-- Current: "bg-indigo-800 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
                     <Link
                         href="/dashboard"
-                        class="group flex items-center p-2 text-sm font-medium text-white bg-indigo-800 rounded-md"
+                        class="group flex items-center p-2 text-sm font-medium text-white rounded-md"
+                        :class="{
+                            'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
+                            'bg-indigo-800': $page.url === '/dashboard'
+                        }"
                     >
                         <HomeIcon
                             class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
@@ -229,16 +239,20 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         Dashboard
                     </Link>
 
-                    <a
-                        href="#"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                    <Link
+                        href="/people"
+                        class="group flex items-center p-2 text-sm font-medium text-white rounded-md"
+                        :class="{
+                            'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/people',
+                            'bg-indigo-800': $page.url === '/people'
+                        }"
                     >
                         <UsersIcon
                             class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
                             aria-hidden="true"
                         />
-                        Team
-                    </a>
+                        People
+                    </Link>
 
                     <a
                         href="#"

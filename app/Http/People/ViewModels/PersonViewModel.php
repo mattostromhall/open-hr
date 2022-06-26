@@ -4,19 +4,18 @@ namespace App\Http\People\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Auth\Models\User;
+use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Collection;
 
 class PersonViewModel extends ViewModel
 {
-    public function people(): Collection
+    public function __construct(protected Person $person)
     {
-        return User::query()
-            ->select('id', 'email')
-            ->with([
-                'person:id,user_id,department_id,first_name,last_name,pronouns,position' => [
-                    'department:id,name'
-                ],
-            ])
-            ->get();
+        //
+    }
+
+    public function person(): Person
+    {
+        return $this->person;
     }
 }
