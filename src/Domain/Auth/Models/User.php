@@ -10,18 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Support\Concerns\Unguarded;
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use Unguarded;
     use HasRolesAndAbilities;
-
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
     protected $hidden = [
         'password',
@@ -29,6 +25,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
+        'active' => 'boolean',
         'email_verified_at' => 'datetime',
     ];
 

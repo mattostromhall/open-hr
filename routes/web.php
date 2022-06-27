@@ -59,6 +59,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('person.index');
     Route::get('/people/{person}/edit', [PersonController::class, 'edit'])
         ->name('person.edit');
+    Route::put('/people/{person}', [PersonController::class, 'update'])
+        ->name('person.update');
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])

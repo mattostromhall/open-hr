@@ -41,6 +41,7 @@
         "@fullcalendar/interaction": "^5.11.0",
         "@fullcalendar/vue3": "^5.11.1",
         "@vueuse/core": "^8.6.0",
-        "flatpickr": "^4.6.13"
+        "flatpickr": "^4.6.13",
+        "@popperjs/core": "^2.11.5"
     }
 }

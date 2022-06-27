@@ -64,7 +64,8 @@ export interface Person {
     title?: string,
     initials?: string,
     pronouns?: string,
-    finished_on?: string
+    finished_on?: string,
+    hex_code?: string
 }
 
 export interface Department {

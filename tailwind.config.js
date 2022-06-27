@@ -17,6 +17,7 @@ module.exports = {
                 teal: colors.teal,
                 cyan: colors.cyan,
                 rose: colors.rose,
+                'select-grey': '#6F6D73'
             },
         },
     },

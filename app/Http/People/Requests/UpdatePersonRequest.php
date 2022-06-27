@@ -8,15 +8,15 @@ use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Support\Enums\Currency;
 
-class StorePersonRequest extends FormRequest
+class UpdatePersonRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'numeric', 'unique:people'],
             'manager_id' => ['numeric', 'nullable'],
             'department_id' => ['numeric', 'nullable'],
             'title' => ['string', 'min:2', 'max:20', 'nullable'],
@@ -33,10 +33,11 @@ class StorePersonRequest extends FormRequest
             'holiday_carry_allocation' => ['numeric', 'max:365'],
             'holiday_carried' => ['numeric', 'max:365'],
             'sickness_allocation' => ['required', 'numeric', 'max:365'],
-            'contact_number' => ['required', 'string', 'min:2', 'max:20', 'unique:people'],
-            'contact_email' => ['required', 'email', 'max:255', 'unique:people'],
+            'contact_number' => ['required', 'string', 'min:2', 'max:20', Rule::unique('people')->ignore($this->person->id)],
+            'contact_email' => ['required', 'email', 'max:255', Rule::unique('people')->ignore($this->person->id)],
             'started_on' => ['required', 'date'],
-            'finished_on' => ['date', 'nullable', 'after:started_on']
+            'finished_on' => ['date', 'nullable', 'after:started_on'],
+            'hex_code' => ['required', 'string', 'min:7', 'max:7', Rule::unique('people')->ignore($this->person->id)]
         ];
     }
 

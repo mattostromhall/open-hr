@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {ref} from 'vue'
+import type {Ref} from 'vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
@@ -11,6 +13,8 @@ import SelectInput from '@/Components/Controls/SelectInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import ColourInput from '@/Components/Controls/ColourInput.vue'
+import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 
 const props = defineProps<{
     person: Person,
@@ -18,7 +22,7 @@ const props = defineProps<{
     departments: Department[]
 }>()
 
-type InformationData = Omit<Person, 'id'|'user_id'|'full_name'>
+type InformationData = Omit<Person, 'id'|'full_name'>
 
 const departmentOptions = props.departments.map(department => {
     return {
@@ -45,6 +49,7 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
 const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
 const form: InertiaForm<InformationData> = useForm({
+    user_id: props.person.user_id,
     first_name: props.person.first_name,
     last_name: props.person.last_name,
     dob: props.person.dob,
@@ -64,11 +69,18 @@ const form: InertiaForm<InformationData> = useForm({
     pronouns: props.person.pronouns,
     manager_id: props.person.manager_id,
     department_id: props.person.department_id,
-    finished_on: props.person.finished_on
+    finished_on: props.person.finished_on,
+    hex_code: props.person.hex_code
 })
 
+const hasFinished: Ref<boolean> = ref(!! props.person.finished_on)
+
 function submit(): void {
-    form.put(`/person/${props.person.id}`)
+    if (! hasFinished.value) {
+        form.finished_on = undefined
+    }
+
+    form.put(`/people/${props.person.id}`)
 }
 </script>
 
@@ -253,7 +265,7 @@ function submit(): void {
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-2">
-                            <FormLabel>Holiday carry allocation <RequiredIcon /></FormLabel>
+                            <FormLabel>Holiday carry allocation</FormLabel>
                             <div class="mt-1">
                                 <NumberInput
                                     v-model.number="form.holiday_carry_allocation"
@@ -324,7 +336,16 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-4">
+                        <div class="col-span-6">
+                            <FormLabel>Add finish date?</FormLabel>
+                            <div class="mt-1">
+                                <ToggleInput v-model="hasFinished" />
+                            </div>
+                        </div>
+                        <div
+                            v-if="hasFinished"
+                            class="col-span-6 sm:col-span-4"
+                        >
                             <FormLabel>Finish date</FormLabel>
                             <div class="mt-1">
                                 <DateInput
@@ -332,8 +353,19 @@ function submit(): void {
                                     :error="form.errors.finished_on"
                                     input-id="finished_on"
                                     input-name="finished_on"
-                                    :base-start-on="form.started_on"
                                     @reset="form.clearErrors('finished_on')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Colour identifier</FormLabel>
+                            <div class="mt-1">
+                                <ColourInput
+                                    v-model="form.hex_code"
+                                    :error="form.errors.hex_code"
+                                    input-id="hex_code"
+                                    input-name="hex_code"
+                                    @reset="form.clearErrors('hex_code')"
                                 />
                             </div>
                         </div>
