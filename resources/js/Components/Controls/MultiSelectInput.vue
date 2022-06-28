@@ -295,7 +295,7 @@ onBeforeUnmount(() => {
             <input
                 ref="search"
                 v-model="data.search"
-                class="py-1 px-2 mb-2 w-full text-xs font-semibold bg-gray-500 rounded border-2 border-gray-400 focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
+                class="py-1 px-2 mb-2 w-full text-xs font-semibold bg-gray-500 rounded border-gray-400 focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="text"
                 @keydown.esc="close"
                 @keydown.up="highlightPrev"
