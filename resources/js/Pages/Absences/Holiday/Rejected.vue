@@ -19,7 +19,7 @@ function formatDate(date: string): string {
 
 <template>
     <div class="sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
-        <div class="overflow-hidden bg-white shadow sm:rounded-md">
+        <div class="bg-white shadow sm:rounded-md">
             <ul
                 role="list"
                 class="divide-y divide-gray-200"

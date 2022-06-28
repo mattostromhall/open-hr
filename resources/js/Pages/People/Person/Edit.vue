@@ -12,7 +12,8 @@ import DirectReports from './DirectReports.vue'
 const props = defineProps<{
     person: Person,
     people: (Pick<Person, 'id'|'full_name'>)[],
-    departments: Department[]
+    departments: Department[],
+    directReports: number[]
 }>()
 
 type ActiveTab = 'information'|'reports'
@@ -89,6 +90,7 @@ function isActive(tab: string): boolean {
             v-if="isActive('reports')"
             :person="person"
             :people="people"
+            :direct-reports="directReports"
         />
     </div>
 </template>

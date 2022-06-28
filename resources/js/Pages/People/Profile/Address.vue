@@ -63,10 +63,10 @@ function submit(): void {
 
 <template>
     <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
-        <div class="shadow sm:overflow-hidden sm:rounded-md">
+        <div class="shadow sm:rounded-md">
             <div
                 v-if="! showForm"
-                class="py-6 px-4 text-center bg-white sm:p-6"
+                class="py-6 px-4 text-center bg-white sm:p-6 sm:rounded-t-md"
             >
                 <MailIcon class="mx-auto w-12 h-12 text-gray-400" />
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
@@ -151,7 +151,7 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6">
+                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
                     <IndigoButton
                         :disabled="form.processing"
                     >

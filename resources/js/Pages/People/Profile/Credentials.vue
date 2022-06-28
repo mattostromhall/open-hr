@@ -47,8 +47,8 @@ const updatePassword = () => {
 <template>
     <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
         <form @submit.prevent="updateEmail">
-            <div class="shadow sm:overflow-hidden sm:rounded-md">
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
+            <div class="shadow sm:rounded-md">
+                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Email
@@ -70,7 +70,7 @@ const updatePassword = () => {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6">
+                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
                     <IndigoButton
                         :disabled="emailForm.processing"
                     >
@@ -80,8 +80,8 @@ const updatePassword = () => {
             </div>
         </form>
         <form @submit.prevent="updatePassword">
-            <div class="shadow sm:overflow-hidden sm:rounded-md">
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
+            <div class="shadow sm:rounded-md">
+                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Password
@@ -127,7 +127,7 @@ const updatePassword = () => {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6">
+                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
                     <IndigoButton
                         :disabled="passwordForm.processing"
                     >

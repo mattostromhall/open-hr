@@ -9,7 +9,8 @@ import MultiSelectInput from '@/Components/Controls/MultiSelectInput.vue'
 
 const props = defineProps<{
     person: Person,
-    people: (Pick<Person, 'id'|'full_name'>)[]
+    people: (Pick<Person, 'id'|'full_name'>)[],
+    directReports: number[]
 }>()
 
 const directReportOptions = props.people.map(person => {
@@ -20,7 +21,7 @@ const directReportOptions = props.people.map(person => {
 })
 
 const form: InertiaForm<{direct_reports: number[]}> = useForm({
-    direct_reports: []
+    direct_reports: props.directReports
 })
 
 function submit(): void {
@@ -31,8 +32,8 @@ function submit(): void {
 <template>
     <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
         <form @submit.prevent="submit">
-            <div class="shadow sm:overflow-hidden sm:rounded-md">
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
+            <div class="shadow sm:rounded-md">
+                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Direct reports
@@ -57,7 +58,7 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6">
+                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
                     <IndigoButton
                         :disabled="form.processing"
                     >
