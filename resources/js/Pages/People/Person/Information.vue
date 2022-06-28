@@ -176,12 +176,12 @@ function submit(): void {
                             <FormLabel>Department</FormLabel>
                             <div class="mt-1">
                                 <SelectInput
-                                    v-model="form.department_id"
+                                    v-model.number="form.department_id"
                                     :error="form.errors.department_id"
                                     input-id="department_id"
                                     input-name="department_id"
                                     :options="departmentOptions"
-                                    placeholder-value="Choose a department"
+                                    placeholder="Choose a department"
                                     @reset="form.clearErrors('department_id')"
                                 />
                             </div>
@@ -190,12 +190,12 @@ function submit(): void {
                             <FormLabel>Manager</FormLabel>
                             <div class="mt-1">
                                 <SelectInput
-                                    v-model="form.manager_id"
+                                    v-model.number="form.manager_id"
                                     :error="form.errors.manager_id"
                                     input-id="manager_id"
                                     input-name="manager_id"
                                     :options="managerOptions"
-                                    placeholder-value="Choose a manager"
+                                    placeholder="Choose a manager"
                                     @reset="form.clearErrors('manager_id')"
                                 />
                             </div>

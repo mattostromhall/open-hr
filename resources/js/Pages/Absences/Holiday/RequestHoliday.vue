@@ -104,7 +104,7 @@ function submit(): void {
                                     :options="halfDayOptions"
                                     input-id="half_day"
                                     input-name="half_day"
-                                    placeholder-value="Select an option for Half day..."
+                                    placeholder="Select an option for Half day..."
                                     @reset="form.clearErrors('half_day')"
                                 />
                             </div>

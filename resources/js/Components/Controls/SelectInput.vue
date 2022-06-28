@@ -1,40 +1,20 @@
 <script setup lang="ts">
-import type {ComplexSelectOption} from '../../types'
+import type {SelectOption} from '../../types'
+import {computed, defineProps} from 'vue'
+import type {ComputedRef} from 'vue'
 
-const props = defineProps({
-    modelValue: {
-        type: String,
-        default: ''
-    },
-    error: {
-        type: String,
-        default: ''
-    },
-    inputId: {
-        type: String,
-        default: ''
-    },
-    inputName: {
-        type: String,
-        default: ''
-    },
-    options: {
-        type: Array,
-        default: () => []
-    },
-    placeholder: {
-        type: Boolean,
-        default: true
-    },
-    placeholderValue: {
-        type: String,
-        default: 'Please select'
-    }
-})
+const props = defineProps<{
+    modelValue: string|number,
+    inputId: string,
+    inputName: string,
+    options: SelectOption[],
+    error?: string,
+    placeholder?: string
+}>()
 
 const emit = defineEmits(['update:modelValue', 'reset'])
 
-type SelectOption = string|number|ComplexSelectOption
+const placeholder: ComputedRef<string> = computed(() => props.placeholder ?? 'Please select...')
 
 function value(option: SelectOption): string|number {
     return typeof option === 'string' || typeof option === 'number'
@@ -68,11 +48,10 @@ function handleInput(e: Event): void {
             @change="handleInput"
         >
             <option
-                v-if="placeholder"
                 value=""
                 selected
             >
-                {{ placeholderValue }}
+                {{ placeholder }}
             </option>
             <option
                 v-for="option in options"

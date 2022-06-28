@@ -6,6 +6,8 @@ export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'ye
 
 export type HolidayStatus = 1|2|3
 
+export type SelectOption = string|number|ComplexSelectOption
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,
