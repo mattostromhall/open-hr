@@ -20,13 +20,13 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
-let popper: Instance|undefined = undefined
-
 const data: Data = reactive({
     isOpen: false,
     search: '',
     highlightedIndex: 0
 })
+
+let popper: Instance|undefined = undefined
 
 const input: Ref<HTMLInputElement|null> = ref(null)
 const selections: Ref<HTMLInputElement|null> = ref(null)
@@ -35,8 +35,19 @@ const dropdown: Ref<HTMLInputElement|null> = ref(null)
 const search: Ref<HTMLInputElement|null> = ref(null)
 const options: Ref<HTMLInputElement|null> = ref(null)
 
-const filteredOptions: ComputedRef<SelectOption[]> = computed(() => filterOptions())
 const placeholder: ComputedRef<string> = computed(() => props.placeholder ?? 'Please select...')
+const filteredOptions: ComputedRef<SelectOption[]> = computed(() => filterOptions())
+const selectionData: ComputedRef<({
+    optionValue:string|number, optionDisplay: string|number
+})[]> = computed(() => props.modelValue.flatMap(selection => {
+    return props.options.filter(option => value(option) === selection)
+        .map(option => {
+            return {
+                optionValue: value(option),
+                optionDisplay: display(option)
+            }
+        })
+}))
 
 onClickOutside(input, () => close())
 
@@ -64,7 +75,7 @@ function setupPopper() {
                 {
                     name: 'offset',
                     options: {
-                        offset: [10, 5],
+                        offset: [5, 5],
                     },
                 },
             ],
@@ -167,15 +178,27 @@ function matchOption(option: string|number) {
 }
 
 function value(option: SelectOption) {
-    return typeof option === 'object' && Object.hasOwn(option, 'value')
-        ? option.value
-        : option
+    if (typeof option === 'object' && Object.hasOwn(option, 'value')) {
+        return option.value
+    }
+
+    if (typeof option === 'string' || typeof option === 'number') {
+        return option
+    }
+
+    return ''
 }
 
 function display(option: SelectOption) {
-    return typeof option === 'object' && Object.hasOwn(option, 'display')
-        ? option.display
-        : option
+    if (typeof option === 'object' && Object.hasOwn(option, 'display')) {
+        return option.display
+    }
+
+    if (typeof option === 'string' || typeof option === 'number') {
+        return option
+    }
+
+    return ''
 }
 
 function removeSelection(event: Event, selection: string|number) {
@@ -201,10 +224,10 @@ onBeforeUnmount(() => {
         <div class="flex relative items-center">
             <button
                 ref="selections"
-                class="flex flex-wrap items-center space-x-1 w-full text-xs font-semibold text-left rounded border-2 focus:border-transparent focus:outline-none focus:ring focus:ring-blue-400"
+                class="flex flex-wrap items-center space-x-1 w-full text-xs font-semibold text-left placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm"
                 :class="{
-                    'py-1 px-2': modelValue.length === 0,
-                    'px-1': modelValue.length > 0
+                    'py-1.5 px-2': modelValue.length > 0,
+                    'py-2 px-3': modelValue.length === 0,
                 }"
                 type="button"
                 @click="open"
@@ -212,26 +235,23 @@ onBeforeUnmount(() => {
             >
                 <template v-if="modelValue.length > 0">
                     <span
-                        v-for="selection in modelValue"
-                        :key="selection"
-                        class="flex items-center py-0.5 px-1 my-0.5 bg-blue-200 rounded select-none"
+                        v-for="{optionValue, optionDisplay} in selectionData"
+                        :key="optionValue"
+                        class="flex items-center py-0.5 px-1 my-0.5 bg-indigo-200 rounded select-none"
                     >
-                        <span>{{ selection }}</span>
+                        <span>{{ optionDisplay }}</span>
                         <button
                             type="button"
                             class="mb-0.5 ml-1 text-base leading-none"
-                            @click="removeSelection($event, selection)"
+                            @click="removeSelection($event, optionValue)"
                         >&times;</button>
                     </span>
                 </template>
-                <span
-                    v-else
-                    class="text-gray-400"
-                >{{ placeholder }}</span>
+                <span v-else>{{ placeholder }}</span>
             </button>
             <button
                 ref="toggleInput"
-                class="flex absolute right-0 justify-center items-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-blue-400"
+                class="flex absolute right-0 justify-center items-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="button"
                 @click="toggle"
             >
@@ -275,7 +295,7 @@ onBeforeUnmount(() => {
             <input
                 ref="search"
                 v-model="data.search"
-                class="py-1 px-2 mb-2 w-full text-xs font-semibold bg-gray-500 rounded border-2 border-gray-400 focus:border-transparent focus:outline-none focus:ring focus:ring-blue-400"
+                class="py-1 px-2 mb-2 w-full text-xs font-semibold bg-gray-500 rounded border-2 border-gray-400 focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="text"
                 @keydown.esc="close"
                 @keydown.up="highlightPrev"
@@ -291,8 +311,8 @@ onBeforeUnmount(() => {
                 <li
                     v-for="(option, index) in filteredOptions"
                     :key="index"
-                    class="py-2 px-3 mt-1 text-xs hover:bg-blue-500 rounded"
-                    :class="{ 'bg-blue-500': index === data.highlightedIndex }"
+                    class="py-2 px-3 mt-1 text-xs hover:bg-indigo-500 rounded"
+                    :class="{ 'bg-indigo-500': index === data.highlightedIndex }"
                     @click="select(option)"
                 >
                     {{ display(option) }}

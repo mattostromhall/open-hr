@@ -7,6 +7,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Department, Person} from '../../../types'
 import Information from './Information.vue'
+import DirectReports from './DirectReports.vue'
 
 const props = defineProps<{
     person: Person,
@@ -83,6 +84,11 @@ function isActive(tab: string): boolean {
             :person="person"
             :people="people"
             :departments="departments"
+        />
+        <DirectReports
+            v-if="isActive('reports')"
+            :person="person"
+            :people="people"
         />
     </div>
 </template>
