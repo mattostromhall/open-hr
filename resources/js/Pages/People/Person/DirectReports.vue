@@ -25,7 +25,7 @@ const form: InertiaForm<{direct_reports: number[]}> = useForm({
 })
 
 function submit(): void {
-    form.post(`/people/${props.person.id}/reports`)
+    form.post(`/people/${props.person.id}/direct-reports`)
 }
 </script>
 

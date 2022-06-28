@@ -8,6 +8,7 @@ use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
+use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Setup\Controllers\SetupController;
@@ -61,6 +62,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('person.edit');
     Route::put('/people/{person}', [PersonController::class, 'update'])
         ->name('person.update');
+    Route::post('/people/{person}/direct-reports', DirectReportController::class);
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
