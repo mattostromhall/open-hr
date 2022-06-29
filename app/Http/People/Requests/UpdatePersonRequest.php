@@ -17,6 +17,7 @@ class UpdatePersonRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => ['required', 'numeric'],
             'manager_id' => ['numeric', 'nullable'],
             'department_id' => ['numeric', 'nullable'],
             'title' => ['string', 'min:2', 'max:20', 'nullable'],

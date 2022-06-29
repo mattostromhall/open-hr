@@ -8,10 +8,7 @@ use Domain\Absences\Actions\CreateHolidayAction;
 use Domain\People\Models\Person;
 
 it('creates a holiday request for the dates provided', function () {
-    $user = User::factory()->create();
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+    $person = Person::factory()->create();
     $action = app(CreateHolidayAction::class);
     $holidayData = new HolidayData(
         person: $person,
@@ -33,10 +30,7 @@ it('creates a holiday request for the dates provided', function () {
 });
 
 it('creates a half day holiday request', function () {
-    $user = User::factory()->create();
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+    $person = Person::factory()->create();
     $action = app(CreateHolidayAction::class);
     $holidayData = new HolidayData(
         person: $person,

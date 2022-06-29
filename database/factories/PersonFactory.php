@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Domain\Auth\Models\User;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -14,6 +15,7 @@ class PersonFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'title' => $this->faker->title(),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),

@@ -8,10 +8,7 @@ use Domain\Auth\Models\User;
 use Domain\People\Models\Person;
 
 it('updates the holiday', function () {
-    $user = User::factory()->create();
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+    $person = Person::factory()->create();
     $holiday = Holiday::factory()
         ->for($person)
         ->create();

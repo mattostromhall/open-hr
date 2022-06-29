@@ -6,10 +6,7 @@ use Domain\People\DataTransferObjects\PersonProfileData;
 use Domain\People\Models\Person;
 
 it('updates a persons profile', function () {
-    $user = User::factory()->create();
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+    $person = Person::factory()->create();
     $action = app(UpdatePersonProfileAction::class);
     $profileData = new PersonProfileData(
         first_name: 'New',

@@ -5,12 +5,8 @@ use Domain\Absences\Models\Holiday;
 use Domain\Auth\Models\User;
 use Domain\People\Models\Person;
 
-test('it_calculates_the_number_of_days_taken_in_current_year', function () {
-    $user = User::factory()->create();
-
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+test('it calculates the number of days taken in current year', function () {
+    $person = Person::factory()->create();
 
     Holiday::factory()
         ->for($person)
@@ -27,5 +23,5 @@ test('it_calculates_the_number_of_days_taken_in_current_year', function () {
         $person->holidayThisYear()
             ->get()
             ->numberTaken()
-    )->toBe(7.5);
+    )->toBe(5.5);
 });

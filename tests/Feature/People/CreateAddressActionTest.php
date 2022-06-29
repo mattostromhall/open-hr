@@ -6,10 +6,7 @@ use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Person;
 
 it('creates an address', function () {
-    $user = User::factory()->create();
-    $person = Person::factory()
-        ->for($user)
-        ->create();
+    $person = Person::factory()->create();
     $action = app(CreateAddressAction::class);
     $addressData = new AddressData(
         person: $person,

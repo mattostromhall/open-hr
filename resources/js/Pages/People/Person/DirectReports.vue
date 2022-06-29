@@ -13,12 +13,14 @@ const props = defineProps<{
     directReports: number[]
 }>()
 
-const directReportOptions = props.people.map(person => {
-    return {
-        value: person.id,
-        display: person.full_name
-    }
-})
+const directReportOptions = props.people
+    .filter(person => person.id !== props.person.manager_id)
+    .map(person => {
+        return {
+            value: person.id,
+            display: person.full_name
+        }
+    })
 
 const form: InertiaForm<{direct_reports: number[]}> = useForm({
     direct_reports: props.directReports
