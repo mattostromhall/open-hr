@@ -1,19 +1,15 @@
-import Main from '@/Layouts/Main.vue'
-import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress'
+// import Main from '@/Layouts/Main.vue'
+import {createApp, h} from 'vue'
+import {createInertiaApp} from '@inertiajs/inertia-vue3'
+import {InertiaProgress} from '@inertiajs/progress'
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers'
+import '../css/app.css'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: name => {
-        const page = require(`./Pages/${name}`).default
-        if (page.layout === undefined) {
-            page.layout = Main
-        }
-        return page
-    },
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, app, props, plugin }) {
         createApp({ render: () => h(app, props) })
             .use(plugin)

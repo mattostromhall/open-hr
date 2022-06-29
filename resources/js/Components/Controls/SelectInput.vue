@@ -4,7 +4,7 @@ import {computed, defineProps} from 'vue'
 import type {ComputedRef} from 'vue'
 
 const props = defineProps<{
-    modelValue: string|number,
+    modelValue?: string|number,
     inputId: string,
     inputName: string,
     options: SelectOption[],

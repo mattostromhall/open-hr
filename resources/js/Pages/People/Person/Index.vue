@@ -45,6 +45,12 @@ function isSelected(id: number) {
 }
 </script>
 
+<script lang="ts">
+import Main from '@/Layouts/Main.vue'
+
+export default {layout: Main}
+</script>
+
 <template>
     <Head title="People" />
 

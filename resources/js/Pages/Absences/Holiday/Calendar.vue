@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
+import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -32,6 +33,12 @@ const calendarOptions = {
     weekends: false,
     eventClick: ({event}: EventClickArg) => showCalendarEvent(event._def.extendedProps)
 }
+</script>
+
+<script lang="ts">
+import Main from '@/Layouts/Main.vue'
+
+export default {layout: Main}
 </script>
 
 <template>
