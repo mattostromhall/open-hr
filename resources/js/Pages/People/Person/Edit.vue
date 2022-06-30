@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {IdentificationIcon, KeyIcon, UserGroupIcon} from '@heroicons/vue/outline'
+import {IdentificationIcon, KeyIcon, MailIcon, UserGroupIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Department, Person} from '../../../types'
 import Information from './Information.vue'
+import PersonAddress from '../Profile/Address.vue'
 import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
-import type {User} from '../../../types'
+import type {Address, User} from '../../../types'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
     person: Person,
     people: (Pick<Person, 'id'|'full_name'>)[],
     departments: Department[],
+    address: Address,
     directReports: number[]
 }>()
 
-type ActiveTab = 'information'|'access'|'reports'
+type ActiveTab = 'information'|'address'|'reports'|'access'
 
 const activeTab: Ref<ActiveTab> = ref('information')
 
@@ -67,19 +69,20 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('access'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('access')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('address'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('address')
                     }"
-                    @click="setActive('access')"
+                    aria-current="page"
+                    @click="setActive('address')"
                 >
-                    <KeyIcon
+                    <MailIcon
                         class="shrink-0 mr-3 -ml-1 w-6 h-6"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('credentials'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('credentials')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('address'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('address')
                         }"
                     />
-                    <span class="truncate">Manage Access</span>
+                    <span class="truncate">Address</span>
                 </button>
                 <button
                     class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
@@ -98,6 +101,23 @@ function isActive(tab: string): boolean {
                     />
                     <span class="truncate">Direct Reports</span>
                 </button>
+                <button
+                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    :class="{
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('access'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('access')
+                    }"
+                    @click="setActive('access')"
+                >
+                    <KeyIcon
+                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        :class="{
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('credentials'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('credentials')
+                        }"
+                    />
+                    <span class="truncate">Manage Access</span>
+                </button>
             </nav>
         </aside>
         <Information
@@ -105,6 +125,11 @@ function isActive(tab: string): boolean {
             :person="person"
             :people="people"
             :departments="departments"
+        />
+        <PersonAddress
+            v-if="isActive('address')"
+            :person="person"
+            :address="address"
         />
         <DirectReports
             v-if="isActive('reports')"

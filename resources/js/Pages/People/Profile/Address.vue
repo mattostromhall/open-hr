@@ -73,7 +73,7 @@ function submit(): void {
                     No address
                 </h3>
                 <p class="mt-1 text-sm text-gray-500">
-                    Add an address to your profile
+                    Add an address to this account
                 </p>
                 <div class="flex justify-center mt-6">
                     <IndigoButton @click="show">

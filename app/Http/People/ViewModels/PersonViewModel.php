@@ -37,6 +37,11 @@ class PersonViewModel extends ViewModel
         return Department::all();
     }
 
+    public function address()
+    {
+        return $this->person->address;
+    }
+
     public function directReports()
     {
         return $this->person->directReports->pluck('id');

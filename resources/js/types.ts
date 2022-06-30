@@ -88,6 +88,15 @@ export interface Department {
     head_of_department_id: number
 }
 
+export interface Address {
+    id: number
+    address_line: string,
+    country: string,
+    town_city: string,
+    region: string,
+    postal_code: string
+}
+
 export interface FlashMessage {
     success?: string,
     error?: string
