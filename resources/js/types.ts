@@ -43,6 +43,18 @@ export interface Notification {
     read: boolean
 }
 
+export interface ConfirmablePassword {
+    password: string,
+    password_confirmation: string
+}
+
+export interface User {
+    id: number,
+    email: string,
+    active: boolean,
+    reset_required: boolean
+}
+
 export interface Person {
     id: number,
     user_id: number,

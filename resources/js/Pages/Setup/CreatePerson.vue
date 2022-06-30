@@ -8,43 +8,19 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import type {ComplexSelectOption, Currency, RecurrenceInterval} from '../../types'
+import type {ComplexSelectOption, Currency} from '../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import useUser from '../../Hooks/useUser'
+import type {Person} from '../../types'
 
-const props = defineProps({
-    user: {
-        type: Object,
-        required: true
-    }
-})
+const user = useUser()
 
-// convert to type from Person interface and omit unneeded data
-interface PersonData {
-    user_id: number,
-    first_name: string,
-    last_name: string,
-    dob: string,
-    position: string,
-    remuneration: number,
-    remuneration_interval: RecurrenceInterval,
-    remuneration_currency: Currency,
-    base_holiday_allocation: number,
-    sickness_allocation: number,
-    contact_number: string,
-    contact_email: string,
-    started_on: string,
-    manager_id?: number,
-    department_id?: number,
-    title?: string,
-    initials?: string,
-    pronouns?: string,
-    finished_on?: string
-}
+type PersonData = Omit<Person, 'id'|'full_name'|'holiday_carry_allocation'|'holiday_carried'|'finished_on'|'hex_code'>
 
 const remunerationIntervalOptions: ComplexSelectOption[] = [
     {value: 'hourly', display: 'Hourly'},
@@ -57,7 +33,7 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
 const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
 const form: InertiaForm<PersonData> = useForm({
-    user_id: props.user.id,
+    user_id: user.value.id,
     first_name: '',
     last_name: '',
     dob: '',
@@ -74,15 +50,14 @@ const form: InertiaForm<PersonData> = useForm({
     initials: '',
     pronouns: '',
     manager_id: undefined,
-    department_id: undefined,
-    finished_on: undefined
+    department_id: undefined
 })
 
 const sameEmail: Ref<boolean> = ref(true)
 
 function submit(): void {
     if (sameEmail.value) {
-        form.contact_email = props.user.email
+        form.contact_email = user.value.email
     }
 
     form.post('/setup/person')
@@ -271,7 +246,7 @@ function skipStage(): void {
                     </div>
                 </div>
                 <div
-                    v-if="!sameEmail"
+                    v-if="! sameEmail"
                     class="col-span-6 sm:col-span-3"
                 >
                     <FormLabel>Contact email <RequiredIcon /></FormLabel>

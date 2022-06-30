@@ -2,12 +2,16 @@
 
 namespace App\Http\People\Controllers;
 
+use App\Http\People\Requests\StorePersonUserRequest;
 use App\Http\People\Requests\UpdatePersonRequest;
+use App\Http\People\ViewModels\CreatePersonViewModel;
 use App\Http\People\ViewModels\PeopleViewModel;
 use App\Http\People\ViewModels\PersonViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\People\Actions\CreatePersonUserAction;
 use Domain\People\Actions\UpdatePersonAction;
 use Domain\People\DataTransferObjects\PersonData;
+use Domain\People\DataTransferObjects\PersonUserData;
 use Domain\People\Models\Person;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -18,6 +22,21 @@ class PersonController extends Controller
     public function index(): Response
     {
         return Inertia::render('People/Person/Index', new PeopleViewModel());
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('People/Person/Create', new CreatePersonViewModel());
+    }
+
+    public function store(StorePersonUserRequest $request, CreatePersonUserAction $createPerson): RedirectResponse
+    {
+        $createPerson->execute(
+            PersonUserData::from($request->validatedData())
+        );
+
+        return redirect(route('person.index'))
+            ->with('flash.success', "Person successfully created!");
     }
 
     public function edit(Person $person): Response

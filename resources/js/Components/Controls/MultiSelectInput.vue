@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, defineProps, nextTick, onBeforeUnmount, reactive, ref} from 'vue'
+import {computed, nextTick, onBeforeUnmount, reactive, ref} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import {onClickOutside} from '@vueuse/core'
 import {createPopper} from '@popperjs/core'

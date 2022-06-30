@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {SelectOption} from '../../types'
-import {computed, defineProps} from 'vue'
+import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 
 const props = defineProps<{

@@ -58,6 +58,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('/people', [PersonController::class, 'index'])
         ->name('person.index');
+    Route::get('/people/create', [PersonController::class, 'create'])
+        ->name('person.create');
+    Route::post('/people', [PersonController::class, 'store'])
+        ->name('person.store');
     Route::get('/people/{person}/edit', [PersonController::class, 'edit'])
         ->name('person.edit');
     Route::put('/people/{person}', [PersonController::class, 'update'])

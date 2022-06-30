@@ -2,20 +2,18 @@
 
 namespace App\Http\Setup\Controllers;
 
+use App\Http\People\ViewModels\SetupViewModel;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use Domain\Organisation\Actions\CompleteSetupAction;
-use Domain\Organisation\Models\Organisation;
 use App\Http\Support\Controllers\Controller;
 
 class SetupController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Setup/Index', [
-            'stage' => $this->calculatedStage()
-        ]);
+        return Inertia::render('Setup/Index', new SetupViewModel());
     }
 
     public function store(CompleteSetupAction $completeSetup): RedirectResponse
@@ -23,12 +21,5 @@ class SetupController extends Controller
         $completeSetup->execute();
 
         return redirect()->route('dashboard');
-    }
-
-    protected function calculatedStage(): int
-    {
-        return Organisation::first()
-            ? 2
-            : 1;
     }
 }

@@ -5,12 +5,9 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import type {ConfirmablePassword, User} from '../../types'
 
-interface RegisterForm {
-    email: string,
-    password: string,
-    password_confirmation: string
-}
+type RegisterForm = Pick<User, 'email'> & ConfirmablePassword
 
 const form: InertiaForm<RegisterForm> = useForm({
     email: '',
