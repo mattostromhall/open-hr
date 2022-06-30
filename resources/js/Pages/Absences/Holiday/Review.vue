@@ -55,12 +55,6 @@ function reject(): void {
 }
 </script>
 
-<script lang="ts">
-import Main from '@/Layouts/Main.vue'
-
-export default {layout: Main}
-</script>
-
 <template>
     <Head title="Review Holiday Request" />
 

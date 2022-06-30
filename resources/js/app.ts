@@ -1,5 +1,6 @@
-// import Main from '@/Layouts/Main.vue'
+import Main from '@/Layouts/Main.vue'
 import {createApp, h} from 'vue'
+import type {DefineComponent} from 'vue'
 import {createInertiaApp} from '@inertiajs/inertia-vue3'
 import {InertiaProgress} from '@inertiajs/progress'
 import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers'
@@ -9,7 +10,13 @@ const appName = window.document.getElementsByTagName('title')[0]?.innerText || '
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    resolve: name => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'))
+        .then(page => {
+            if (page.default.layout === undefined) {
+                page.default.layout = Main
+            }
+            return page as Promise<DefineComponent>
+        }),
     setup({ el, app, props, plugin }) {
         createApp({ render: () => h(app, props) })
             .use(plugin)
