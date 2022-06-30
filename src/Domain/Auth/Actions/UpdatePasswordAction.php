@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdatePasswordAction
 {
-    public function execute(User|Authenticatable $user, string $password): bool
+    public function execute(User $user, string $password): bool
     {
         return $user->update([
             'password' => $password

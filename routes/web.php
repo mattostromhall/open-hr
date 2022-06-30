@@ -56,6 +56,11 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
         ->name('notifications.read');
 
+    Route::patch('/users/{user}/update-email', UpdateEmailController::class)
+        ->name('user.update.email');
+    Route::patch('/users/{user}/update-password', UpdatePasswordController::class)
+        ->name('user.update.password');
+
     Route::get('/people', [PersonController::class, 'index'])
         ->name('person.index');
     Route::get('/people/create', [PersonController::class, 'create'])
@@ -71,11 +76,6 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
         ->name('profile.update.personal');
-
-    Route::patch('/profile/update-email', UpdateEmailController::class)
-        ->name('profile.update.email');
-    Route::patch('/profile/update-password', UpdatePasswordController::class)
-        ->name('profile.update.password');
 
     Route::post('/people/{person}/address', [AddressController::class, 'store'])
         ->name('address.store');

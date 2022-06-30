@@ -14,6 +14,11 @@ class PersonViewModel extends ViewModel
         //
     }
 
+    public function user()
+    {
+        return $this->person->user;
+    }
+
     public function person(): Person
     {
         return $this->person;

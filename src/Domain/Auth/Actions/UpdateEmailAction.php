@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdateEmailAction
 {
-    public function execute(User|Authenticatable $user, string $email): bool
+    public function execute(User $user, string $email): bool
     {
         return $user->update([
             'email' => $email

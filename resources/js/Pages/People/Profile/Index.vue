@@ -9,9 +9,9 @@ import Address from './Address.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 
 defineProps({
-    email: {
-        type: String,
-        default: ''
+    user: {
+        type: Object,
+        required: true
     },
     person: {
         type: Object,
@@ -109,7 +109,7 @@ function isActive(tab: string): boolean {
         />
         <Credentials
             v-if="isActive('credentials')"
-            :email="email"
+            :user="user"
         />
     </div>
 </template>

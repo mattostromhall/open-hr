@@ -6,9 +6,10 @@ use App\Http\Support\ViewModels\ViewModel;
 
 class PersonProfileViewModel extends ViewModel
 {
-    public function email()
+    public function user()
     {
-        return auth()->user()->email;
+        return auth()->user()
+            ->only('id', 'email');
     }
 
     public function person()
