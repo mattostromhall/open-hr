@@ -14,8 +14,10 @@ class UserFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
+            'active' => true,
             'email_verified_at' => now(),
             'password' => 'password',
+            'reset_required' => false,
             'remember_token' => Str::random(10),
         ];
     }

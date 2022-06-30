@@ -3,6 +3,7 @@
 use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
+use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
@@ -60,6 +61,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('user.update.email');
     Route::patch('/users/{user}/update-password', UpdatePasswordController::class)
         ->name('user.update.password');
+    Route::patch('/users/{user}/update-active', UpdateActiveController::class)
+        ->name('user.update.active');
 
     Route::get('/people', [PersonController::class, 'index'])
         ->name('person.index');
