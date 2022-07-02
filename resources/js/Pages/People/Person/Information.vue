@@ -375,7 +375,7 @@ function submit(): void {
                     <IndigoButton
                         :disabled="form.processing"
                     >
-                        Submit
+                        Save
                     </IndigoButton>
                 </div>
             </div>

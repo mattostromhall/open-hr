@@ -7,6 +7,7 @@ import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
+import {EyeIcon, PencilIcon} from '@heroicons/vue/outline'
 
 const props = defineProps({
     people: {
@@ -125,7 +126,7 @@ function isSelected(id: number) {
                                         scope="col"
                                         class="relative py-3.5 pr-4 pl-3 sm:pr-6"
                                     >
-                                        <span class="sr-only">Edit</span>
+                                        <span class="sr-only">Manage</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -165,13 +166,21 @@ function isSelected(id: number) {
                                     <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
                                         {{ person.department?.name ?? '-' }}
                                     </td>
-                                    <td class="py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                        <Link
-                                            :href="`/people/${person.id}/edit`"
-                                            class="text-indigo-600 hover:text-indigo-900"
-                                        >
-                                            Edit<span class="sr-only">, {{ person.full_name }}</span>
-                                        </Link>
+                                    <td class="flex justify-end py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
+                                        <div class="flex items-center space-x-3">
+                                            <Link
+                                                :href="`/people/${person.id}`"
+                                                class="text-indigo-600 hover:text-indigo-900"
+                                            >
+                                                <EyeIcon class="w-4 h-4" /><span class="sr-only">, {{ person.full_name }}</span>
+                                            </Link>
+                                            <Link
+                                                :href="`/people/${person.id}/edit`"
+                                                class="text-indigo-600 hover:text-indigo-900"
+                                            >
+                                                <PencilIcon class="w-4 h-4" /><span class="sr-only">, {{ person.full_name }}</span>
+                                            </Link>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

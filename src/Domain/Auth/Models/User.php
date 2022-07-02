@@ -2,6 +2,8 @@
 
 namespace Domain\Auth\Models;
 
+use Domain\Auth\Collections\UserCollection;
+use Domain\Auth\QueryBuilders\UserQueryBuilder;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +32,16 @@ class User extends Authenticatable
     ];
 
     protected $with = ['person'];
+
+    public function newEloquentBuilder($query): UserQueryBuilder
+    {
+        return new UserQueryBuilder($query);
+    }
+
+    public function newCollection(array $models = []): UserCollection
+    {
+        return new UserCollection($models);
+    }
 
     public function person(): HasOne
     {

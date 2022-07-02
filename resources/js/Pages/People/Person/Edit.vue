@@ -10,7 +10,7 @@ import Information from './Information.vue'
 import PersonAddress from '../Profile/Address.vue'
 import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
-import type {Address, User} from '../../../types'
+import type {Ability, Address, Role, User} from '../../../types'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -18,7 +18,9 @@ const props = defineProps<{
     people: (Pick<Person, 'id'|'full_name'>)[],
     departments: Department[],
     address: Address,
-    directReports: number[]
+    directReports: number[],
+    roles: Role[],
+    abilities: Ability[]
 }>()
 
 type ActiveTab = 'information'|'address'|'reports'|'access'

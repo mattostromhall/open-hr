@@ -55,6 +55,16 @@ export interface User {
     reset_required: boolean
 }
 
+export interface Role {
+    name: string,
+    title: string
+}
+
+export interface Ability {
+    name: string,
+    title: string
+}
+
 export interface Person {
     id: number,
     user_id: number,

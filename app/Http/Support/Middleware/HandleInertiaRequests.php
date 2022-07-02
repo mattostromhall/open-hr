@@ -41,6 +41,10 @@ class HandleInertiaRequests extends Middleware
             ],
             'user' => $request->user()?->only('id', 'email'),
             'person' => person()?->only('id', 'full_name', 'initials'),
+            'permissions' => [
+                'roles' => $request->user()?->assignedRoles(),
+                'abilities' => $request->user()?->assignedAbilities()
+            ],
             'notifications' => person()?->notifications
         ]);
     }
