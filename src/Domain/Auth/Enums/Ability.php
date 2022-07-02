@@ -15,8 +15,8 @@ enum Ability: string
     public static function all(): Collection
     {
         return collect(self::cases())->map(fn ($case) => [
-            'name' => Str::of($case->value)->replace('-', ' ')->ucfirst(),
-            'title' => $case->value
+            'name' => $case->value,
+            'title' => Str::of($case->value)->replace('-', ' ')->ucfirst()
         ]);
     }
 }
