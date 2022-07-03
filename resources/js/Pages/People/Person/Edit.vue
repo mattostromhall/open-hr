@@ -20,7 +20,9 @@ const props = defineProps<{
     address: Address,
     directReports: number[],
     roles: Role[],
-    abilities: Ability[]
+    abilities: Ability[],
+    allRoles: Role[],
+    allAbilities: Ability[]
 }>()
 
 type ActiveTab = 'information'|'address'|'reports'|'access'
@@ -142,6 +144,10 @@ function isActive(tab: string): boolean {
         <Access
             v-if="isActive('access')"
             :user="user"
+            :roles="roles"
+            :abilities="abilities"
+            :all-roles="allRoles"
+            :all-abilities="allAbilities"
         />
     </div>
 </template>

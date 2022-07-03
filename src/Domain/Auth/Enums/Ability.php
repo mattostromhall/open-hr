@@ -2,6 +2,7 @@
 
 namespace Domain\Auth\Enums;
 
+use Domain\Auth\DataTransferObjects\AbilityData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -14,9 +15,11 @@ enum Ability: string
 
     public static function all(): Collection
     {
-        return collect(self::cases())->map(fn ($case) => [
-            'name' => $case->value,
-            'title' => Str::of($case->value)->replace('-', ' ')->ucfirst()
-        ]);
+        return collect(self::cases())->map(
+            fn ($case) => new AbilityData(
+                name: $case->value,
+                title: Str::of($case->value)->replace('-', ' ')->ucfirst()
+            )
+        );
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Http\People\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Auth\Enums\Ability;
+use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Department;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class PersonViewModel extends ViewModel
 {
@@ -52,11 +55,21 @@ class PersonViewModel extends ViewModel
 
     public function roles()
     {
-        $this->user->assignedRoles();
+        return $this->user->assignedRoles();
     }
 
     public function abilities()
     {
-        $this->user->assignedAbilities();
+        return $this->user->assignedAbilities();
+    }
+
+    public function allRoles(): SupportCollection
+    {
+        return Role::all();
+    }
+
+    public function allAbilities(): SupportCollection
+    {
+        return Ability::all();
     }
 }

@@ -2,8 +2,10 @@
 
 namespace Domain\Auth\QueryBuilders;
 
+use Domain\Auth\DataTransferObjects\AbilityData;
+use Domain\Auth\DataTransferObjects\RoleData;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class UserQueryBuilder extends Builder
 {
@@ -11,13 +13,21 @@ class UserQueryBuilder extends Builder
     {
         return $this->model
             ->getRoles()
-            ->map(fn ($role) => $role->only('name', 'title'));
+            ->map(
+                fn ($role) => new RoleData(
+                    name: $role,
+                    title: Str::of($role)->replace('-', ' ')->ucfirst()
+                )
+            );
+
     }
 
     public function assignedAbilities()
     {
         return $this->model
             ->getAbilities()
-            ->map(fn ($role) => $role->only('name', 'title'));
+            ->map(
+                fn ($role) => AbilityData::from($role->only('name', 'title'))
+            );
     }
 }
