@@ -4,7 +4,7 @@ namespace Domain\Auth\Enums;
 
 use Domain\Auth\DataTransferObjects\AbilityData;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 enum Ability: string
 {
@@ -13,13 +13,21 @@ enum Ability: string
     case ASSIGN_ROLES = 'assign-roles';
     case ASSIGN_ABILITIES = 'assign-abilities';
 
+    public static function values(): Collection
+    {
+        return collect(self::cases())->map(fn ($role) => $role->value);
+    }
+
     public static function all(): Collection
     {
-        return collect(self::cases())->map(
-            fn ($case) => new AbilityData(
-                name: $case->value,
-                title: Str::of($case->value)->replace('-', ' ')->ucfirst()
-            )
-        );
+        return Bouncer::ability()
+            ->whereIn('name', self::values())
+            ->get()
+            ->map(
+                fn ($ability) => new AbilityData(
+                    name: $ability->name,
+                    title: $ability->title
+                )
+            );
     }
 }

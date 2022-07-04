@@ -3,6 +3,7 @@
 use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
+use App\Http\Auth\Controllers\RoleController;
 use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/dashboard', DashboardController::class)
         ->name('dashboard');
+    Route::redirect('/', 'dashboard');
+
     Route::get('/setup', [SetupController::class, 'index'])
         ->name('setup.index');
 
@@ -64,6 +67,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::patch('/users/{user}/update-active', UpdateActiveController::class)
         ->name('user.update.active');
 
+    Route::post('/users/{user}/permissions', RoleController::class);
+
     Route::get('/people', [PersonController::class, 'index'])
         ->name('person.index');
     Route::get('/people/create', [PersonController::class, 'create'])
@@ -74,7 +79,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('person.edit');
     Route::put('/people/{person}', [PersonController::class, 'update'])
         ->name('person.update');
+
     Route::post('/people/{person}/direct-reports', DirectReportController::class);
+
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])

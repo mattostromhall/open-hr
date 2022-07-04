@@ -57,7 +57,8 @@ export interface User {
 
 export interface Role {
     name: string,
-    title: string
+    title: string,
+    abilities: Ability[]
 }
 
 export interface Ability {

@@ -16,10 +16,10 @@ class UserQueryBuilder extends Builder
             ->map(
                 fn ($role) => new RoleData(
                     name: $role,
-                    title: Str::of($role)->replace('-', ' ')->ucfirst()
+                    title: Str::of($role)->replace('-', ' ')->ucfirst(),
+                    abilities: $this->assignedAbilities()
                 )
             );
-
     }
 
     public function assignedAbilities()

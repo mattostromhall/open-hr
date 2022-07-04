@@ -237,7 +237,7 @@ onBeforeUnmount(() => {
                     <span
                         v-for="{optionValue, optionDisplay} in selectionData"
                         :key="optionValue"
-                        class="flex items-center py-0.5 px-1 my-0.5 bg-indigo-200 rounded select-none"
+                        class="flex items-center py-0.5 px-1 my-0.5 text-indigo-800 bg-indigo-100 rounded select-none"
                     >
                         <span>{{ optionDisplay }}</span>
                         <button

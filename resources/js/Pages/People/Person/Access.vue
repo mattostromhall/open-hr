@@ -12,9 +12,7 @@ import type {Ability, Role, User} from '../../../types'
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
     roles: Role[],
-    abilities: Ability[],
-    allRoles: Role[],
-    allAbilities: Ability[]
+    allRoles: Role[]
 }>()
 
 interface UpdateEmailForm {
@@ -34,8 +32,7 @@ const activeForm: InertiaForm<UpdateActiveForm> = useForm({
 })
 
 const permissionsForm = useForm({
-    roles: props.roles.map(role => role.name),
-    abilities: props.abilities.map(ability => ability.name)
+    roles: props.roles.map(role => role.name)
 })
 
 const updateEmail = () => {
@@ -56,21 +53,10 @@ const roleOptions = computed(() =>
         })
 )
 
-const abilityOptions = computed(() => {
-    if (props.abilities.find(ability => ability.name === '*')) {
-        return [{
-            value: '*',
-            display: 'All abilities'
-        }]
-    }
-
-    return props.allAbilities
-        .map(ability => {
-            return {
-                value: ability.name,
-                display: ability.title
-            }
-        })
+const abilities = computed(() => {
+    return props.allRoles.filter(role => permissionsForm.roles.includes(role.name))
+        .flatMap(role => role.abilities)
+        .map(ability => ability.title)
 })
 </script>
 
@@ -159,19 +145,16 @@ const abilityOptions = computed(() => {
                                 @reset="permissionsForm.clearErrors('roles')"
                             />
                         </div>
-                    </div>
-                    <div class="mt-1">
-                        <FormLabel>Abilities</FormLabel>
-                        <div class="mt-1">
-                            <MultiSelectInput
-                                v-model="permissionsForm.abilities"
-                                :error="permissionsForm.errors.abilities"
-                                :options="abilityOptions"
-                                input-id="abilities"
-                                input-name="abilities"
-                                @reset="permissionsForm.clearErrors('abilities')"
-                            />
-                        </div>
+                        <p class="mt-3 space-x-1 text-sm text-gray-500">
+                            Grants the following abilities:
+                            <span
+                                v-for="ability in abilities"
+                                :key="ability"
+                                class="inline-flex px-2 text-xs font-semibold leading-5 text-indigo-800 bg-indigo-100 rounded-full"
+                            >
+                                {{ ability }}
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">

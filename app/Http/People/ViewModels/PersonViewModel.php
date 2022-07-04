@@ -58,18 +58,8 @@ class PersonViewModel extends ViewModel
         return $this->user->assignedRoles();
     }
 
-    public function abilities()
-    {
-        return $this->user->assignedAbilities();
-    }
-
     public function allRoles(): SupportCollection
     {
         return Role::all();
-    }
-
-    public function allAbilities(): SupportCollection
-    {
-        return Ability::all();
     }
 }

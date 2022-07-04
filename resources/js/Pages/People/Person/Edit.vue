@@ -10,7 +10,7 @@ import Information from './Information.vue'
 import PersonAddress from '../Profile/Address.vue'
 import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
-import type {Ability, Address, Role, User} from '../../../types'
+import type {Address, Role, User} from '../../../types'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -20,9 +20,7 @@ const props = defineProps<{
     address: Address,
     directReports: number[],
     roles: Role[],
-    abilities: Ability[],
-    allRoles: Role[],
-    allAbilities: Ability[]
+    allRoles: Role[]
 }>()
 
 type ActiveTab = 'information'|'address'|'reports'|'access'
@@ -145,9 +143,7 @@ function isActive(tab: string): boolean {
             v-if="isActive('access')"
             :user="user"
             :roles="roles"
-            :abilities="abilities"
             :all-roles="allRoles"
-            :all-abilities="allAbilities"
         />
     </div>
 </template>
