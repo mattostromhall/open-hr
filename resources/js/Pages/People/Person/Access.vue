@@ -62,9 +62,11 @@ const roleOptions = computed(() =>
 )
 
 const abilities = computed(() => {
-    return props.allRoles.filter(role => rolesForm.roles.includes(role.name))
-        .flatMap(role => role.abilities)
-        .map(ability => ability.title)
+    return new Set(
+        props.allRoles.filter(role => rolesForm.roles.includes(role.name))
+            .flatMap(role => role.abilities)
+            .map(ability => ability.title)
+    )
 })
 </script>
 
