@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function __invoke(RoleRequest $request, User $user, SyncRolesAction $syncRoles): RedirectResponse
     {
-        $syncRoles->execute($user, $request->validated('direct_reports'));
+        $syncRoles->execute($user, $request->validated('roles'));
 
         return back()->with('flash.success', 'Roles updated!');
     }

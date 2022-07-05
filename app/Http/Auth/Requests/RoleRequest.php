@@ -12,6 +12,4 @@ class RoleRequest extends FormRequest
             'roles' => ['required', 'array']
         ];
     }
-
-
 }

@@ -7,7 +7,7 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Ability, Role, User} from '../../../types'
+import type {Role, User} from '../../../types'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -23,6 +23,10 @@ interface UpdateActiveForm {
     active: boolean
 }
 
+interface UpdateRolesForm {
+    roles: string[]
+}
+
 const emailForm: InertiaForm<UpdateEmailForm> = useForm({
     email: props.user.email
 })
@@ -31,7 +35,7 @@ const activeForm: InertiaForm<UpdateActiveForm> = useForm({
     active: props.user.active
 })
 
-const permissionsForm = useForm({
+const rolesForm: InertiaForm<UpdateRolesForm> = useForm({
     roles: props.roles.map(role => role.name)
 })
 
@@ -41,6 +45,10 @@ const updateEmail = () => {
 
 const updateActive = () => {
     activeForm.patch(`/users/${props.user.id}/update-active`)
+}
+
+const updateRoles = () => {
+    rolesForm.post(`/users/${props.user.id}/roles`)
 }
 
 const roleOptions = computed(() =>
@@ -54,7 +62,7 @@ const roleOptions = computed(() =>
 )
 
 const abilities = computed(() => {
-    return props.allRoles.filter(role => permissionsForm.roles.includes(role.name))
+    return props.allRoles.filter(role => rolesForm.roles.includes(role.name))
         .flatMap(role => role.abilities)
         .map(ability => ability.title)
 })
@@ -122,7 +130,7 @@ const abilities = computed(() => {
                 </div>
             </div>
         </form>
-        <form @submit.prevent="updateActive">
+        <form @submit.prevent="updateRoles">
             <div class="shadow sm:rounded-md">
                 <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
                     <div>
@@ -137,12 +145,12 @@ const abilities = computed(() => {
                         <FormLabel>Roles</FormLabel>
                         <div class="mt-1">
                             <MultiSelectInput
-                                v-model="permissionsForm.roles"
-                                :error="permissionsForm.errors.roles"
+                                v-model="rolesForm.roles"
+                                :error="rolesForm.errors.roles"
                                 :options="roleOptions"
                                 input-id="roles"
                                 input-name="roles"
-                                @reset="permissionsForm.clearErrors('roles')"
+                                @reset="rolesForm.clearErrors('roles')"
                             />
                         </div>
                         <p class="mt-3 space-x-1 text-sm text-gray-500">

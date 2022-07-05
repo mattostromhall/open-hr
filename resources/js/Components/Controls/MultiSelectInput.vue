@@ -6,19 +6,20 @@ import {createPopper} from '@popperjs/core'
 import type {Instance} from '@popperjs/core'
 import type {ComplexSelectOption, SelectOption} from '../../types'
 
+const props = defineProps<{
+    modelValue: (string|number)[],
+    options: SelectOption[],
+    error?: string,
+    placeholder?: string
+}>()
+
+const emit = defineEmits(['update:modelValue', 'reset'])
+
 interface Data {
     isOpen: boolean,
     search: string,
     highlightedIndex: number
 }
-
-const props = defineProps<{
-        modelValue: (string|number)[],
-        options: SelectOption[],
-        placeholder?: string
-}>()
-
-const emit = defineEmits(['update:modelValue'])
 
 const data: Data = reactive({
     isOpen: false,
@@ -104,6 +105,10 @@ function toggle() {
 }
 
 function select(option: SelectOption) {
+    if (props.error) {
+        emit('reset')
+    }
+
     emit('update:modelValue', [...props.modelValue, value(option)])
 
     data.search = ''
@@ -228,6 +233,7 @@ onBeforeUnmount(() => {
                 :class="{
                     'py-1.5 px-2': modelValue.length > 0,
                     'py-2 px-3': modelValue.length === 0,
+                    'border-red-500': error
                 }"
                 type="button"
                 @click="open"
@@ -287,6 +293,12 @@ onBeforeUnmount(() => {
                 </svg>
             </button>
         </div>
+        <p
+            v-if="error"
+            class="mt-1 text-sm text-red-500"
+        >
+            {{ error }}
+        </p>
         <div
             v-show="data.isOpen"
             ref="dropdown"

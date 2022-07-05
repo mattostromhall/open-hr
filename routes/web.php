@@ -67,7 +67,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::patch('/users/{user}/update-active', UpdateActiveController::class)
         ->name('user.update.active');
 
-    Route::post('/users/{user}/permissions', RoleController::class);
+    Route::post('/users/{user}/roles', RoleController::class);
 
     Route::get('/people', [PersonController::class, 'index'])
         ->name('person.index');
