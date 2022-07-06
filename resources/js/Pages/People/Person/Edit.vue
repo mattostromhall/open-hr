@@ -40,9 +40,9 @@ function isActive(tab: string): boolean {
     <Head :title="`Edit Person - ${person.full_name}`" />
 
     <PageHeading>
-        {{ person.full_name }}
+        <span class="font-normal">Editing - </span>{{ person.full_name }}
         <template #link>
-            <LightIndigoLink href="/holidays/calendar">
+            <LightIndigoLink :href="`/people/${person.id}`">
                 View
             </LightIndigoLink>
         </template>

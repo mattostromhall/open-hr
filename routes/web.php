@@ -75,6 +75,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('person.create');
     Route::post('/people', [PersonController::class, 'store'])
         ->name('person.store');
+    Route::get('/people/{person}', [PersonController::class, 'show'])
+        ->name('person.show');
     Route::get('/people/{person}/edit', [PersonController::class, 'edit'])
         ->name('person.edit');
     Route::put('/people/{person}', [PersonController::class, 'update'])

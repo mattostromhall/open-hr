@@ -39,6 +39,11 @@ class PersonController extends Controller
             ->with('flash.success', "Person successfully created!");
     }
 
+    public function show(Person $person): Response
+    {
+        return Inertia::render('People/Person/Show', new PersonViewModel($person));
+    }
+
     public function edit(Person $person): Response
     {
         return Inertia::render('People/Person/Edit', new PersonViewModel($person));
