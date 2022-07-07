@@ -98,12 +98,14 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.index');
     Route::post('holidays', [HolidayController::class, 'store'])
         ->name('holiday.store');
+    Route::get('holidays/calendar', HolidayCalendarController::class)
+        ->name('holiday.calendar');
+    Route::get('holidays/{holiday}', [HolidayController::class, 'show'])
+        ->name('holiday.show');
     Route::patch('holidays/{holiday}', [HolidayController::class, 'update'])
         ->name('holiday.update');
     Route::get('holidays/{holiday}/review', ReviewHolidayController::class)
         ->name('holiday.review');
-    Route::get('holidays/calendar', HolidayCalendarController::class)
-        ->name('holiday.calendar');
 });
 
 require __DIR__. '/auth.php';

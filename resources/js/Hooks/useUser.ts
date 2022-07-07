@@ -6,7 +6,7 @@ import {Inertia} from '@inertiajs/inertia'
 
 export default () => {
     return computed(() => {
-        const user = usePage<OpenHRPageProps>().props.value.user
+        const user = usePage<OpenHRPageProps>().props.value.auth.user
 
         if (! isUserPageProp(user)) {
             Inertia.visit('/login')

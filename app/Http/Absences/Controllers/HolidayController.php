@@ -4,6 +4,7 @@ namespace App\Http\Absences\Controllers;
 
 use App\Http\Absences\Requests\StoreHolidayRequest;
 use App\Http\Absences\Requests\UpdateHolidayRequest;
+use App\Http\Absences\ViewModels\HolidaysViewModel;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\RequestHolidayAction;
@@ -18,7 +19,7 @@ class HolidayController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Absences/Holiday/Index', new HolidayViewModel());
+        return Inertia::render('Absences/Holiday/Index', new HolidaysViewModel());
     }
 
     public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
@@ -28,6 +29,11 @@ class HolidayController extends Controller
         );
 
         return back()->with('flash.success', 'Holiday request submitted!');
+    }
+
+    public function show(Holiday $holiday): Response
+    {
+        return Inertia::render('Absences/Holiday/Show', new HolidayViewModel($holiday));
     }
 
     public function update(UpdateHolidayRequest $request, Holiday $holiday, UpdateHolidayAction $updateHoliday): RedirectResponse

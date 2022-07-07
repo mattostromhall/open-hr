@@ -4,9 +4,11 @@ export type Currency = 'GBP' | 'USD' | 'EUR'
 
 export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
 
-export type HolidayStatus = 1|2|3
+export type HolidayStatus = 1 | 2 | 3
 
-export type SelectOption = string|number|ComplexSelectOption
+export type HalfDay = 'am' | 'pm'
+
+export type SelectOption = string | number | ComplexSelectOption
 
 export interface FileInput {
     validExtension: boolean,
@@ -108,6 +110,16 @@ export interface Address {
     postal_code: string
 }
 
+export interface Holiday {
+    id: number,
+    person_id: number,
+    status: HolidayStatus,
+    start_at: string,
+    finish_at: string,
+    half_day?: HalfDay,
+    notes?: string
+}
+
 export interface FlashMessage {
     success?: string,
     error?: string
@@ -115,8 +127,14 @@ export interface FlashMessage {
 
 export interface OpenHRPageProps extends PageProps {
     flash: FlashMessage,
-    person?: Partial<Person>,
-    user?: UserPageProp,
+    auth: {
+        person?: Partial<Person>,
+        user?: UserPageProp
+    },
+    permissions: {
+        roles?: Role[],
+        abilities?: Ability[]
+    },
     notifications?: Notification[]
 }
 

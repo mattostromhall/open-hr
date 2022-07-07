@@ -8,18 +8,9 @@ import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
-import type {HolidayStatus} from '../../../types'
+import type {Holiday} from '../../../types'
 
-type HalfDay = 'am'|'pm'
-
-interface HolidayRequestData {
-    person_id: number,
-    status: HolidayStatus,
-    start_at: string,
-    finish_at: string,
-    half_day?: HalfDay,
-    notes?: string
-}
+type HolidayRequestData = Omit<Holiday, 'id'>
 
 const emit = defineEmits(['setActive'])
 

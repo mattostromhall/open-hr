@@ -25,7 +25,7 @@ defineProps({
     }
 })
 
-type ActiveTab = 'request'|'approved'|'pending'|'rejected'
+type ActiveTab = 'request' | 'approved' | 'pending' | 'rejected'
 
 const activeTab: Ref<ActiveTab> = ref('request')
 

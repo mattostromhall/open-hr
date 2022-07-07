@@ -3,48 +3,22 @@
 namespace App\Http\Absences\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Absences\Models\Holiday;
 
 class HolidayViewModel extends ViewModel
 {
-    public function approved()
+    public function __construct(protected Holiday $holiday)
     {
-        return person()
-            ->holidays()
-            ->select('start_at', 'finish_at', 'half_day', 'notes')
-            ->whereApproved()
-            ->orderBy('start_at')
-            ->get()
-            ->map(function ($holiday) {
-                return [
-                    'duration' => $holiday->duration->inWeekDays(),
-                    ...$holiday->toArray()
-                ];
-            });
+        //
     }
 
-    public function pending()
+    public function holiday(): Holiday
     {
-        return person()
-            ->holidays()
-            ->select('start_at', 'finish_at', 'half_day', 'notes')
-            ->wherePending()
-            ->orderBy('start_at')
-            ->get()
-            ->map(function ($holiday) {
-                return [
-                    'duration' => $holiday->duration->inWeekDays(),
-                    ...$holiday->toArray()
-                ];
-            });
+        return $this->holiday;
     }
 
-    public function rejected()
+    public function requester()
     {
-        return person()
-            ->holidays()
-            ->select('start_at', 'finish_at', 'half_day', 'notes')
-            ->whereRejected()
-            ->orderBy('start_at')
-            ->get();
+        return $this->holiday->person->full_name;
     }
 }

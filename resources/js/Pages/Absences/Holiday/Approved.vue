@@ -29,7 +29,7 @@ function formatDate(date: string): string {
                     :key="index"
                 >
                     <Link
-                        href="#"
+                        :href="`/holidays/${holiday.id}`"
                         class="block hover:bg-gray-50"
                     >
                         <div class="flex items-center p-4 sm:px-6">
