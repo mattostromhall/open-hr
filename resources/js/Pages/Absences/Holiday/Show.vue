@@ -26,8 +26,8 @@ const status = computed(() => statusMap[props.holiday.status])
     <PageHeading>
         <span class="font-medium">Viewing</span> - Holiday request
         <template #link>
-            <LightIndigoLink href="/holidays">
-                View all
+            <LightIndigoLink :href="`/holidays/${holiday.id}/edit`">
+                Edit
             </LightIndigoLink>
         </template>
     </PageHeading>

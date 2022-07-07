@@ -13,6 +13,10 @@ class RequestHolidayReviewAction
     {
         $manager = $data->person->manager;
 
+        if (! $manager) {
+            return;
+        }
+
         $manager->notifications()->create([
             'title' => 'New holiday request',
             'body' => "Holiday requested by {$data->person->fullName}, click here to review.",

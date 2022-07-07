@@ -7,6 +7,7 @@ use App\Http\Absences\Requests\UpdateHolidayRequest;
 use App\Http\Absences\ViewModels\HolidaysViewModel;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Absences\Actions\AmendHolidayAction;
 use Domain\Absences\Actions\RequestHolidayAction;
 use Domain\Absences\Actions\UpdateHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
@@ -36,20 +37,21 @@ class HolidayController extends Controller
         return Inertia::render('Absences/Holiday/Show', new HolidayViewModel($holiday));
     }
 
-    public function update(UpdateHolidayRequest $request, Holiday $holiday, UpdateHolidayAction $updateHoliday): RedirectResponse
+    public function edit(Holiday $holiday): Response
     {
-        $holidayData = HolidayData::from([
-            $holiday->person,
-            ...$holiday->only('status', 'start_at', 'finish_at', 'half_day', 'notes'),
-            ...$request->validatedData()
-        ]);
+        return Inertia::render('Absences/Holiday/Edit', new HolidayViewModel($holiday));
+    }
 
-        $updated = $updateHoliday->execute($holiday, $holidayData);
+    public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse
+    {
+        $holidayData = HolidayData::from($request->validatedData());
+
+        $updated = $amendHoliday->execute($holiday, $holidayData);
 
         if (! $updated) {
-            return back()->with('flash.error', 'There was a problem when reviewing the Holiday request, please try again.');
+            return back()->with('flash.error', 'There was a problem with updating the Holiday request, please try again.');
         }
 
-        return redirect()->to(route('dashboard'))->with('flash.success', "Holiday {$holidayData->status->status()}.");
+        return redirect()->to(route('holiday.index'))->with('flash.success', "Holiday updated!");
     }
 }

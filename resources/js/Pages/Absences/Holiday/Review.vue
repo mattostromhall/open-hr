@@ -39,7 +39,7 @@ const form: InertiaForm<ReviewHolidayData> = useForm({
 })
 
 function submit(): void {
-    form.patch(`/holidays/${props.holiday.id}`)
+    form.patch(`/holidays/${props.holiday.id}/review`)
 }
 
 function approve(): void {

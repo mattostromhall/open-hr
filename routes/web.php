@@ -102,10 +102,14 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.calendar');
     Route::get('holidays/{holiday}', [HolidayController::class, 'show'])
         ->name('holiday.show');
-    Route::patch('holidays/{holiday}', [HolidayController::class, 'update'])
+    Route::get('holidays/{holiday}/edit', [HolidayController::class, 'edit'])
+        ->name('holiday.edit');
+    Route::put('holidays/{holiday}', [HolidayController::class, 'update'])
         ->name('holiday.update');
-    Route::get('holidays/{holiday}/review', ReviewHolidayController::class)
-        ->name('holiday.review');
+    Route::get('holidays/{holiday}/review', [ReviewHolidayController::class, 'show'])
+        ->name('holiday.review.show');
+    Route::patch('holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])
+        ->name('holiday.review.update');
 });
 
 require __DIR__. '/auth.php';
