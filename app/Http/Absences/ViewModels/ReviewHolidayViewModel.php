@@ -26,7 +26,7 @@ class ReviewHolidayViewModel extends ViewModel
 
     public function status(): string
     {
-        return $this->holiday->status->status();
+        return $this->holiday->status->statusDisplay();
     }
 
     public function duration(): int

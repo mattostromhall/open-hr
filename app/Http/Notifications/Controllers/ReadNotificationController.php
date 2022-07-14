@@ -20,9 +20,11 @@ class ReadNotificationController extends Controller
             $notification,
             new NotificationData(
                 body: $notification->body,
-                read: $request->validated('read'),
+                notifiable_id: $notification->notifiable_id,
+                notifiable_type: $notification->notifiable_type,
                 title: $notification->title,
-                link: $notification->link
+                link: $notification->link,
+                read: $request->validated('read')
             )
         );
 

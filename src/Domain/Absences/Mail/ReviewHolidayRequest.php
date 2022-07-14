@@ -25,7 +25,7 @@ class ReviewHolidayRequest extends Mailable implements ShouldQueue
             ->subject("Holiday requested by {$this->data->person->fullName}")
             ->with([
                 'body' => "Holiday requested by {$this->data->person->fullName}, click below to review.",
-                'link' => route('holiday.review', [
+                'link' => route('holiday.review.show', [
                     'holiday' => $this->holiday
                 ])
             ]);

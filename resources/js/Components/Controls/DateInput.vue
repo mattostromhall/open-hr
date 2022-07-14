@@ -104,6 +104,7 @@ watch(baseStartOn, () => {
     base.setDate(base.getDate() + 1)
 
     fp.setDate(base)
+    emit('update:modelValue', base)
 })
 
 function openPicker() {

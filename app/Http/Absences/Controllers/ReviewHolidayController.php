@@ -39,6 +39,6 @@ class ReviewHolidayController extends Controller
             return back()->with('flash.error', 'There was a problem when reviewing the Holiday request, please try again.');
         }
 
-        return redirect()->to(route('dashboard'))->with('flash.success', "Holiday {$holidayData->status->status()}.");
+        return redirect()->to(route('dashboard'))->with('flash.success', "Holiday {$holidayData->status->statusDisplay()}.");
     }
 }

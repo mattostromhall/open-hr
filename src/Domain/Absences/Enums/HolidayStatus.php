@@ -8,7 +8,7 @@ enum HolidayStatus: int
     case APPROVED = 2;
     case REJECTED = 3;
 
-    public function status(): string
+    public function statusDisplay(): string
     {
         return match ($this) {
             self::PENDING => 'pending',

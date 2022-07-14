@@ -17,7 +17,8 @@ it('updates a notification', function () {
     $action = app(UpdateNotificationAction::class);
     $notificationData = new NotificationData(
         body: 'New body',
-        read: false,
+        notifiable_id: $notification->notifiable_id,
+        notifiable_type: $notification->notifiable_type,
         title: 'New title',
         link: null
     );
