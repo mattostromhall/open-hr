@@ -21,7 +21,7 @@ class ReviewHolidayController extends Controller
      */
     public function show(Holiday $holiday): Response
     {
-        $this->authorize(Ability::REVIEW_HOLIDAY->value);
+        $this->authorize('show', $holiday);
 
         return Inertia::render('Absences/Holiday/Review', new ReviewHolidayViewModel($holiday));
     }
