@@ -25,7 +25,7 @@ class Organisation extends Model
         return $this->morphMany(Document::class, 'documentable');
     }
 
-    public function notifications(): MorphMany
+    public function announcements(): MorphMany
     {
         return $this->morphMany(Notification::class, 'notifiable');
     }

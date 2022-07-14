@@ -38,7 +38,7 @@ class PersonDashboardViewModel extends ViewModel
     public function announcements()
     {
         return organisation()
-            ->notifications()
+            ->announcements()
             ->limit(3)
             ->get()
             ->map(fn ($notification) => $notification->body);

@@ -31,7 +31,7 @@ const {hideNotifications} = useNotificationsSlideOver()
                     class="block group-hover:bg-gray-50"
                     @click="hideNotifications"
                 >
-                    <div class="flex items-center px-4 pt-4 space-x-2 sm:px-6">
+                    <div class="flex justify-between items-center px-4 pt-4 space-x-2 sm:px-6">
                         <div>
                             <h3
                                 v-show="notification.title"

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-defineProps({
-    announcements: {
-        type: Array,
-        default: () => []
-    }
-})
+import {Link} from '@inertiajs/inertia-vue3'
+import type {Notification} from '../../types'
+
+const props = defineProps<{
+    announcements: Notification[]
+}>()
 </script>
 
 <template>
@@ -43,10 +43,12 @@ defineProps({
                     </ul>
                 </div>
                 <div class="mt-6">
-                    <a
-                        href="#"
+                    <Link
+                        href="/organisation/announcements"
                         class="flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 shadow-sm"
-                    > View all </a>
+                    >
+                        View all
+                    </Link>
                 </div>
             </div>
         </div>
