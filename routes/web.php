@@ -9,7 +9,7 @@ use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
-use App\Http\Organisation\Controllers\OrganisationAnnouncementsController;
+use App\Http\Organisation\Controllers\AnnouncementController;
 use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
@@ -47,7 +47,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/setup', [SetupController::class, 'index'])
         ->name('setup.index');
 
-    Route::get('/organisation/announcements', OrganisationAnnouncementsController::class)
+    Route::get('/organisation/announcements', [AnnouncementController::class, 'index'])
+        ->name('organisation.announcements');
+    Route::get('/organisation/announcements/create', [AnnouncementController::class, 'create'])
         ->name('organisation.announcements');
 
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
