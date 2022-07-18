@@ -29,7 +29,7 @@ const calendarOptions = {
     },
     events: props.holidayEvents,
     displayEventTime: false,
-    nextDayThreshold: '12:00:00',
+    // nextDayThreshold: '12:00:00',
     weekends: false,
     eventClick: ({event}: EventClickArg) => showCalendarEvent(event._def.extendedProps)
 }

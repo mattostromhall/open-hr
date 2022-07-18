@@ -101,7 +101,6 @@ watch(baseStartOn, () => {
     if (! fp || ! props.baseStartOn) return
 
     let base: Date = new Date(baseStartOn.value)
-    base.setDate(base.getDate() + 1)
 
     fp.setDate(base)
     emit('update:modelValue', base)

@@ -30,6 +30,13 @@ class Period
         return new self(Carbon::parse($start), Carbon::parse($finish));
     }
 
+    protected function calculatedFinish(): Carbon
+    {
+        return $this->start->isStartOfDay() && $this->finish->isStartOfDay()
+            ? $this->finish->copy()->addDay()
+            : $this->finish;
+    }
+
     public function start(): Carbon
     {
         return $this->start;
@@ -42,33 +49,33 @@ class Period
 
     public function inHours(): int
     {
-        return $this->start->diffInHours($this->finish);
+        return $this->start->diffInHours($this->calculatedFinish());
     }
 
     public function inDays(): int
     {
-        return $this->start->diffInDays($this->finish);
+        return $this->start->diffInDays($this->calculatedFinish());
     }
 
     public function inWeekDays(): int
     {
         return $this->start->diffInDaysFiltered(function (Carbon $date) {
             return ! $date->isWeekend();
-        }, $this->finish);
+        }, $this->calculatedFinish());
     }
 
     public function inWeeks(): int
     {
-        return $this->start->diffInWeeks($this->finish);
+        return $this->start->diffInWeeks($this->calculatedFinish());
     }
 
     public function inMonths(): int
     {
-        return $this->start->diffInMonths($this->finish);
+        return $this->start->diffInMonths($this->calculatedFinish());
     }
 
     public function inYears(): int
     {
-        return $this->start->diffInYears($this->finish);
+        return $this->start->diffInYears($this->calculatedFinish());
     }
 }

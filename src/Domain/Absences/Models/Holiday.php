@@ -7,6 +7,7 @@ use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
 use Domain\Absences\QueryBuilders\HolidayQueryBuilder;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +26,11 @@ class Holiday extends Model
         'half_day' => HalfDay::class,
         'duration' => PeriodCast::class
     ];
+
+    public static function query(): Builder|HolidayQueryBuilder
+    {
+        return parent::query();
+    }
 
     public function newEloquentBuilder($query): HolidayQueryBuilder
     {

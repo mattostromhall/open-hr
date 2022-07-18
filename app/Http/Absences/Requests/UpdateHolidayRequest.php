@@ -24,8 +24,8 @@ class UpdateHolidayRequest extends FormRequest
                     return;
                 }
 
-                if ($finishAt->lessThanOrEqualTo($startAt)) {
-                    $fail('Finish at date must be after Start at date.');
+                if ($finishAt->lessThan($startAt)) {
+                    $fail('Finish at date must be equal to or after Start at date.');
                 }
             }],
             'half_day' => ['string', new Enum(HalfDay::class)],

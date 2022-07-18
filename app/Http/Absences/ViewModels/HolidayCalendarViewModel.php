@@ -24,7 +24,7 @@ class HolidayCalendarViewModel extends ViewModel
         return $this->holidaysWithPerson()
             ->map(function ($holiday) {
                 return [
-                    'title' => $holiday->person->fullName . ' ' . ($holiday->half_day ? $holiday->half_day->value : $holiday->duration->inWeekDays() . ' ' . Str::plural('day', $holiday->duration->inDays())),
+                    'title' => $holiday->person->fullName . ' ' . ($holiday->half_day ? $holiday->half_day->value : $holiday->duration->inWeekDays() . ' ' . Str::plural('day', $holiday->duration->inWeekDays())),
                     'start' => $holiday->start_at,
                     'end' => $holiday->finish_at,
                     'color' => $holiday->person->hex_code,
