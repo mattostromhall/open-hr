@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
-import Announcements from './Announcements.vue'
+import OrganisationNotifications from './OrganisationNotifications.vue'
 import Objectives from './Objectives.vue'
 import QuickLinks from './QuickLinks.vue'
 import ProfileOverview from './ProfileOverview.vue'
@@ -18,7 +18,7 @@ defineProps({
         type: Number,
         default: 0
     },
-    announcements: {
+    organisationNotifications: {
         type: Array,
         default: () => []
     },
@@ -47,7 +47,7 @@ defineProps({
                     <QuickLinks />
                 </div>
                 <div class="grid grid-cols-1 gap-4">
-                    <Announcements :announcements="announcements" />
+                    <OrganisationNotifications :notifications="organisationNotifications" />
                     <Objectives :objectives="objectives" />
                 </div>
             </div>

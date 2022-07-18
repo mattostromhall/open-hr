@@ -9,7 +9,7 @@ use Silber\Bouncer\BouncerFacade as Bouncer;
 enum Ability: string
 {
     case REVIEW_HOLIDAY = 'review-holiday';
-    case CREATE_ANNOUNCEMENTS = 'create-announcements';
+    case CREATE_NOTIFICATIONS = 'create-notifications';
     case ASSIGN_ROLES = 'assign-roles';
     case ASSIGN_ABILITIES = 'assign-abilities';
 
