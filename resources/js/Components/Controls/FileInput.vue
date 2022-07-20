@@ -29,6 +29,10 @@ const props = defineProps({
     maxSize: {
         type: Number,
         default: 20971520
+    },
+    multiple: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -37,6 +41,7 @@ const emit = defineEmits(['update:modelValue', 'reset'])
 const state: FileInput = reactive({
     validExtension: true,
     validSize: true,
+    dragActive: false,
     message: ''
 })
 
@@ -68,6 +73,18 @@ function resetInput() {
     state.validExtension = true
     state.validSize = true
     state.message = ''
+}
+
+function setDragActive() {
+    state.dragActive = true
+}
+function setDragInactive() {
+    state.dragActive = false
+}
+
+function onDrop(event: DragEvent) {
+    setDragInactive()
+    console.log(event.dataTransfer?.files)
 }
 
 function getFile({target}: Event): File|undefined {
@@ -110,11 +127,15 @@ function processFile(event: Event): void {
     <div class="group flex flex-col justify-center items-center mt-1 w-full cursor-pointer">
         <div
             class="flex relative flex-col w-full h-32 hover:bg-indigo-100 rounded-lg border-2 border-gray-300 hover:border-indigo-600 border-dotted transition ease-in-out"
-            :class="{'border-red-500': error}"
+            :class="{
+                'border-red-500': error,
+                'bg-indigo-100 border-indigo-600': state.dragActive
+            }"
         >
             <span class="flex flex-col justify-center items-center p-4 cursor-pointer">
                 <svg
                     class="w-12 h-12 text-gray-400 group-hover:text-indigo-600 transition ease-in-out"
+                    :class="{'text-indigo-600': state.dragActive}"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -127,8 +148,16 @@ function processFile(event: Event): void {
                         stroke-linejoin="round"
                     />
                 </svg>
-                <span class="pt-1 text-sm text-indigo-500 group-hover:text-indigo-600 transition ease-in-out">Upload a file</span>
-                <span class="text-xs text-gray-500 group-hover:text-indigo-600 transition ease-in-out">
+                <span
+                    class="pt-1 text-sm text-indigo-500 group-hover:text-indigo-600 transition ease-in-out"
+                    :class="{'text-indigo-600': state.dragActive}"
+                >
+                    Upload a file
+                </span>
+                <span
+                    class="text-xs text-gray-500 group-hover:text-indigo-600 transition ease-in-out"
+                    :class="{'text-indigo-600': state.dragActive}"
+                >
                     {{ allowedTypesDisplay }} up to {{ maxSizeInMB }}MB
                 </span>
             </span>
@@ -137,6 +166,11 @@ function processFile(event: Event): void {
                 :name="inputName"
                 type="file"
                 class="absolute w-full h-full opacity-0 cursor-pointer"
+                :multiple="multiple"
+                @dragenter.prevent="setDragActive"
+                @dragover.prevent="setDragActive"
+                @dragleave.prevent="setDragInactive"
+                @drop.prevent="onDrop"
                 @input="processFile"
             >
         </div>

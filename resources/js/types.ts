@@ -13,6 +13,7 @@ export type SelectOption = string | number | ComplexSelectOption
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,
+    dragActive: boolean,
     message?: string
 }
 

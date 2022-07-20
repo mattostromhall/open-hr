@@ -60,8 +60,8 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
-                        <a
-                            href="#"
+                        <Link
+                            href="/documents"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -70,10 +70,10 @@ import {CheckCircleIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicon
                                 aria-hidden="true"
                             />
                             Documents
-                        </a>
+                        </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.
+                        View your organisation, department and personal documents.
                     </p>
                 </div>
                 <span

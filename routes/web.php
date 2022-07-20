@@ -8,6 +8,7 @@ use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\Files\Controllers\DocumentController;
 use App\Http\Notifications\Controllers\OrganisationNotificationController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
@@ -107,6 +108,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.review.show');
     Route::patch('holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])
         ->name('holiday.review.update');
+
+    Route::get('documents', [DocumentController::class, 'index'])
+        ->name('documents.index');
 });
 
 require __DIR__. '/auth.php';
