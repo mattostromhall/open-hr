@@ -84,11 +84,14 @@ function setDragInactive() {
 
 function onDrop(event: DragEvent) {
     setDragInactive()
-    console.log(event.dataTransfer?.files)
+
+    processFile(event)
 }
 
-function getFile({target}: Event): File|undefined {
-    const files: FileList|null = (target as HTMLInputElement).files
+function getFile(event: Event | DragEvent): File | undefined {
+    const files: FileList | undefined | null = event instanceof DragEvent
+        ? event.dataTransfer?.files
+        : (event.target as HTMLInputElement).files
 
     if (! files?.length) {
         return
@@ -97,7 +100,7 @@ function getFile({target}: Event): File|undefined {
     return files[0]
 }
 
-function processFile(event: Event): void {
+function processFile(event: Event | DragEvent): void {
     resetInput()
 
     const file = getFile(event)
@@ -124,17 +127,17 @@ function processFile(event: Event): void {
 </script>
 
 <template>
-    <div class="group flex flex-col justify-center items-center mt-1 w-full cursor-pointer">
+    <div class="group mt-1 flex w-full cursor-pointer flex-col items-center justify-center">
         <div
-            class="flex relative flex-col w-full h-32 hover:bg-indigo-100 rounded-lg border-2 border-gray-300 hover:border-indigo-600 border-dotted transition ease-in-out"
+            class="relative flex h-32 w-full flex-col rounded-lg border-2 border-dotted border-gray-300 transition ease-in-out hover:border-indigo-600 hover:bg-indigo-100"
             :class="{
                 'border-red-500': error,
                 'bg-indigo-100 border-indigo-600': state.dragActive
             }"
         >
-            <span class="flex flex-col justify-center items-center p-4 cursor-pointer">
+            <span class="flex cursor-pointer flex-col items-center justify-center p-4">
                 <svg
-                    class="w-12 h-12 text-gray-400 group-hover:text-indigo-600 transition ease-in-out"
+                    class="h-12 w-12 text-gray-400 transition ease-in-out group-hover:text-indigo-600"
                     :class="{'text-indigo-600': state.dragActive}"
                     stroke="currentColor"
                     fill="none"
@@ -149,13 +152,13 @@ function processFile(event: Event): void {
                     />
                 </svg>
                 <span
-                    class="pt-1 text-sm text-indigo-500 group-hover:text-indigo-600 transition ease-in-out"
+                    class="pt-1 text-sm text-indigo-500 transition ease-in-out group-hover:text-indigo-600"
                     :class="{'text-indigo-600': state.dragActive}"
                 >
                     Upload a file
                 </span>
                 <span
-                    class="text-xs text-gray-500 group-hover:text-indigo-600 transition ease-in-out"
+                    class="text-xs text-gray-500 transition ease-in-out group-hover:text-indigo-600"
                     :class="{'text-indigo-600': state.dragActive}"
                 >
                     {{ allowedTypesDisplay }} up to {{ maxSizeInMB }}MB
@@ -165,7 +168,7 @@ function processFile(event: Event): void {
                 :id="inputId"
                 :name="inputName"
                 type="file"
-                class="absolute w-full h-full opacity-0 cursor-pointer"
+                class="absolute h-full w-full cursor-pointer opacity-0"
                 :multiple="multiple"
                 @dragenter.prevent="setDragActive"
                 @dragover.prevent="setDragActive"
