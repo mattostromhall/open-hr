@@ -9,7 +9,8 @@ class DirectReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'direct_reports' => ['required', 'array']
+            'direct_reports' => ['required', 'array'],
+            'direct_reports.*' => ['numeric']
         ];
     }
 }

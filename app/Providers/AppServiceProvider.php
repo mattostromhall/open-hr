@@ -26,9 +26,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::enforceMorphMap([
+            'application' => 'Domain\Recruitment\Models\Application',
+            'expense' => 'Domain\Expenses\Models\Expense',
             'organisation' => 'Domain\Organisation\Models\Organisation',
             'person' => 'Domain\People\Models\Person',
             'user' => 'Domain\Auth\Models\User',
+            'vacancy' => 'Domain\Recruitment\Models\Vacancy'
         ]);
 
         Factory::guessFactoryNamesUsing(

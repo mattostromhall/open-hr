@@ -110,7 +110,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.review.update');
 
     Route::get('documents', [DocumentController::class, 'index'])
-        ->name('documents.index');
+        ->name('document.index');
+    Route::post('documents', [DocumentController::class, 'store'])
+        ->name('document.store');
 });
 
 require __DIR__. '/auth.php';
