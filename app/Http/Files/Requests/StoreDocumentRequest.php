@@ -5,8 +5,8 @@ namespace App\Http\Files\Requests;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
-use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
@@ -30,10 +30,20 @@ class StoreDocumentRequest extends FormRequest
     public function validatedData(): Collection
     {
         return collect($this->validated('documents'))
-            ->map(function () {
+            ->map(function (UploadedFile $document) {
                 return UploadedDocumentData::from([
-                    new UploadedFileData(),
-                    new DocumentData()
+                    new UploadedFileData(
+                        file: $document,
+                        path: $this->validated('path'),
+                        name: $document->getFilename()
+                    ),
+                    new DocumentData(
+                        name: $document->getFilename(),
+                        path: $this->validated('path'),
+                        disk: config('filesystems.default'),
+                        documentable_id: $this->validated('documentable_id'),
+                        documentable_type: $this->validated('documentable_type')
+                    )
                 ]);
             });
     }

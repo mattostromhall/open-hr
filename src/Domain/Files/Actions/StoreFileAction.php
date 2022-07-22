@@ -7,15 +7,15 @@ use Domain\Files\DataTransferObjects\UploadedFileData;
 
 class StoreFileAction
 {
-    public function execute(UploadedFileData $fileData): bool|string
+    public function execute(UploadedFileData $data): bool|string
     {
-        return $fileData->file->storeAs($fileData->path, $this->fileName($fileData), $fileData->disk);
+        return $data->file->storeAs($data->path, $this->fileName($data), $data->disk);
     }
 
-    protected function fileName($fileData): string
+    protected function fileName($data): string
     {
-        $name = $fileData->name ?? Str::random(40);
+        $name = $data->name ?? Str::random(40);
 
-        return $name . '.' . $fileData->file->extension();
+        return $name . '.' . $data->file->extension();
     }
 }
