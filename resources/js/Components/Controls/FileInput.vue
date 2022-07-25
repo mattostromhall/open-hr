@@ -85,10 +85,10 @@ function setDragInactive() {
 function onDrop(event: DragEvent) {
     setDragInactive()
 
-    processFile(event)
+    processUpload(event)
 }
 
-function getFile(event: Event | DragEvent): File | undefined {
+function getFiles(event: Event | DragEvent): File | File[] | undefined {
     const files: FileList | undefined | null = event instanceof DragEvent
         ? event.dataTransfer?.files
         : (event.target as HTMLInputElement).files
@@ -97,22 +97,34 @@ function getFile(event: Event | DragEvent): File | undefined {
         return
     }
 
-    return files[0]
+    return props.multiple
+        ? [...files]
+        : files[0]
 }
 
-function processFile(event: Event | DragEvent): void {
+function processUpload(event: Event | DragEvent): void {
     resetInput()
 
-    const file = getFile(event)
+    const files = getFiles(event)
 
-    if (! file) {
-        state.message = 'No file found'
+    if (! files) {
+        state.message = 'No files found'
         return
     }
 
+    if (Array.isArray(files)) {
+        processFiles(files)
+    }
+
+    if (files instanceof File) {
+        processFile(files)
+    }
+}
+
+function processFile(file: File) {
     if (! allowedTypes.value.includes(file.type)) {
         state.validExtension = false
-        state.message = 'Invalid file type'
+        state.message = `Invalid file type, allowed types: ${allowedTypesDisplay.value}`
         return
     }
 
@@ -123,6 +135,30 @@ function processFile(event: Event | DragEvent): void {
     }
 
     emit('update:modelValue', file)
+}
+
+function processFiles(files: File[]) {
+    const validExtensions = files.every(file => allowedTypes.value.includes(file.type))
+
+    if (! validExtensions) {
+        state.validExtension = false
+        state.message = `Invalid file type, allowed types: ${allowedTypesDisplay.value}`
+
+        return
+    }
+
+    const size: number = files
+        .map(file => file.size)
+        .reduce((prev, current) => prev + current, 0)
+
+    if (size > props.maxSize) {
+        state.validSize = false
+        state.message = 'Files exceed maximum file size'
+
+        return
+    }
+
+    emit('update:modelValue', files)
 }
 </script>
 
@@ -174,7 +210,7 @@ function processFile(event: Event | DragEvent): void {
                 @dragover.prevent="setDragActive"
                 @dragleave.prevent="setDragInactive"
                 @drop.prevent="onDrop"
-                @input="processFile"
+                @input="processUpload"
             >
         </div>
         <p

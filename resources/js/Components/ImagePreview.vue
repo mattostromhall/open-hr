@@ -1,14 +1,16 @@
 <script setup lang="ts">
-defineProps({
-    image: {
-        type: String,
-        default: ''
-    },
-    name: {
-        type: String,
-        default: ''
-    }
-})
+import type {ComputedRef} from 'vue'
+import {computed} from 'vue'
+
+const props = defineProps<{
+    image: File | string
+    name: string
+}>()
+
+const image: ComputedRef<string> =  computed(() => props.image instanceof File
+    ? URL.createObjectURL(props.image)
+    : props.image
+)
 </script>
 
 <template>
