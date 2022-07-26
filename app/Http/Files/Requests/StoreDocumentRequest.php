@@ -8,6 +8,7 @@ use Domain\Files\DataTransferObjects\UploadedFileData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class StoreDocumentRequest extends FormRequest
@@ -35,10 +36,10 @@ class StoreDocumentRequest extends FormRequest
                     new UploadedFileData(
                         file: $document,
                         path: $this->validated('path'),
-                        name: $document->getClientOriginalName()
+                        name: Str::beforeLast($document->getClientOriginalName(), '.')
                     ),
                     new DocumentData(
-                        name: $document->getClientOriginalName(),
+                        name: Str::beforeLast($document->getClientOriginalName(), '.'),
                         path: $this->validated('path'),
                         disk: config('filesystems.default'),
                         documentable_id: $this->validated('documentable_id'),

@@ -2,8 +2,8 @@
 
 namespace Domain\Files\Actions;
 
-use Illuminate\Support\Str;
 use Domain\Files\DataTransferObjects\UploadedFileData;
+use Illuminate\Support\Str;
 
 class StoreFileAction
 {

@@ -6,5 +6,5 @@ use App\Http\Support\ViewModels\ViewModel;
 
 class DocumentsViewModel extends ViewModel
 {
-    //
+
 }
