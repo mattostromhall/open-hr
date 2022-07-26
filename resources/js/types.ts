@@ -24,6 +24,11 @@ export interface FileType {
     display: string
 }
 
+export interface DocumentListItem {
+    path: string,
+    name: string
+}
+
 export interface ComplexSelectOption {
     value: string|number,
     display: string|number

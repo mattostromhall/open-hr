@@ -14,9 +14,9 @@ use Inertia\Response;
 
 class DocumentController extends Controller
 {
-    public function index(): Response
+    public function index(string $path = null): Response
     {
-        return Inertia::render('Files/Documents/Index', new DocumentsViewModel());
+        return Inertia::render('Files/Documents/Index', new DocumentsViewModel($path));
     }
 
     public function create(): Response

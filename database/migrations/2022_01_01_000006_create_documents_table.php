@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('path');
+            $table->string('path')->index();
             $table->string('disk');
             $table->unsignedBigInteger('documentable_id');
             $table->string('documentable_type');

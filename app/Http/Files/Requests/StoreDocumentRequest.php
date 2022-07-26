@@ -5,11 +5,13 @@ namespace App\Http\Files\Requests;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
+use Domain\Files\Enums\DocumentableType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreDocumentRequest extends FormRequest
 {
@@ -20,11 +22,7 @@ class StoreDocumentRequest extends FormRequest
             'documents' => ['required', 'array', 'min:1', 'max:10'],
             'documents.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,docx', 'max:20000'],
             'documentable_id' => ['required', 'numeric'],
-            'documentable_type' => [
-                'required',
-                'string',
-                Rule::in(['application', 'expense', 'organisation', 'person', 'vacancy']),
-            ]
+            'documentable_type' => ['required', new Enum(DocumentableType::class)]
         ];
     }
 
@@ -39,11 +37,11 @@ class StoreDocumentRequest extends FormRequest
                         name: Str::beforeLast($document->getClientOriginalName(), '.')
                     ),
                     new DocumentData(
-                        name: Str::beforeLast($document->getClientOriginalName(), '.'),
+                        name: Str::beforeLast($document->getClientOriginalName(), '.') . '.' . $document->extension(),
                         path: $this->validated('path'),
                         disk: config('filesystems.default'),
                         documentable_id: $this->validated('documentable_id'),
-                        documentable_type: $this->validated('documentable_type')
+                        documentable_type: DocumentableType::from($this->validated('documentable_type'))
                     )
                 ]);
             });

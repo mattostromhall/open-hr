@@ -2,6 +2,8 @@
 
 namespace Domain\Files\DataTransferObjects;
 
+use Domain\Files\Enums\DocumentableType;
+
 class DocumentData
 {
     public function __construct(
@@ -9,7 +11,7 @@ class DocumentData
         public readonly string $path,
         public readonly string $disk,
         public readonly int $documentable_id,
-        public readonly string $documentable_type
+        public readonly DocumentableType $documentable_type
     ) {
         //
     }
