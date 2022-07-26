@@ -93,17 +93,17 @@ function reject(): void {
                         />
                     </div>
                 </div>
-                <div class="flex mt-5 space-x-5">
+                <div class="mt-5 flex space-x-5">
                     <button
                         type="button"
-                        class="inline-flex justify-center items-center py-2 px-4 font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:text-sm"
+                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-green-100 py-2 px-4 font-medium text-green-700 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:text-sm"
                         @click="approve"
                     >
                         Approve
                     </button>
                     <button
                         type="button"
-                        class="inline-flex justify-center items-center py-2 px-4 font-medium text-red-700 bg-red-100 hover:bg-red-200 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
+                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-red-100 py-2 px-4 font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
                         @click="reject"
                     >
                         Reject

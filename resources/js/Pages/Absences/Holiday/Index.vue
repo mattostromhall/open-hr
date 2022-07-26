@@ -53,7 +53,7 @@ function isActive(tab: string): boolean {
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request')
@@ -62,7 +62,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('request')"
                 >
                     <ClockIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('request'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('request')
@@ -71,7 +71,7 @@ function isActive(tab: string): boolean {
                     <span class="truncate">Request Holiday</span>
                 </button>
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('approved'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('approved')
@@ -80,7 +80,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('approved')"
                 >
                     <CheckCircleIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('approved'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('approved')
@@ -89,7 +89,7 @@ function isActive(tab: string): boolean {
                     <span class="truncate">Approved</span>
                 </button>
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('pending'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('pending')
@@ -97,7 +97,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('pending')"
                 >
                     <QuestionMarkCircleIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('pending'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('pending')
@@ -106,7 +106,7 @@ function isActive(tab: string): boolean {
                     <span class="truncate">Pending</span>
                 </button>
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('rejected'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('rejected')
@@ -114,7 +114,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('rejected')"
                 >
                     <XCircleIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('rejected'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('rejected')
