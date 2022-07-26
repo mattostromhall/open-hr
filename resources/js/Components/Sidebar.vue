@@ -32,7 +32,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
         :show="sidebar.show.value"
     >
         <div
-            class="flex fixed inset-0 z-40 md:hidden"
+            class="fixed inset-0 z-40 flex md:hidden"
             role="dialog"
             aria-modal="true"
         >
@@ -59,7 +59,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                 leave-from="translate-x-0"
                 leave-to="-translate-x-full"
             >
-                <div class="flex relative flex-col flex-1 w-full max-w-xs bg-gradient-to-r from-indigo-700 to-indigo-600">
+                <div class="relative flex w-full max-w-xs flex-1 flex-col bg-gradient-to-r from-indigo-700 to-indigo-600">
                     <TransitionChild
                         as="template"
                         enter="ease-in-out duration-300"
@@ -69,39 +69,39 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         leave-from="opacity-100"
                         leave-to="opacity-0"
                     >
-                        <div class="absolute top-0 right-0 pt-2 -mr-12">
+                        <div class="absolute top-0 right-0 -mr-12 pt-2">
                             <button
                                 type="button"
-                                class="flex justify-center items-center ml-1 w-10 h-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                                class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                                 @click="sidebar.hideSidebar"
                             >
                                 <span class="sr-only">Close sidebar</span>
                                 <XIcon
-                                    class="w-6 h-6 text-white"
+                                    class="h-6 w-6 text-white"
                                     aria-hidden="true"
                                 />
                             </button>
                         </div>
                     </TransitionChild>
-                    <div class="overflow-y-auto flex-1 pt-5 pb-4 h-0">
+                    <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                         <div class="flex shrink-0 items-center px-4">
                             <img
-                                class="w-auto h-8"
+                                class="h-8 w-auto"
                                 src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
                                 alt="Workflow"
                             >
                         </div>
-                        <nav class="px-2 mt-5 space-y-1">
+                        <nav class="mt-5 space-y-1 px-2">
                             <Link
                                 href="/dashboard"
-                                class="group flex items-center p-2 text-base font-medium text-white rounded-md"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white"
                                 :class="{
                                     'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
                                     'bg-indigo-800': $page.url === '/dashboard'
                                 }"
                             >
                                 <HomeIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Dashboard
@@ -109,14 +109,14 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                             <Link
                                 href="/people"
-                                class="group flex items-center p-2 text-base font-medium text-white rounded-md"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white"
                                 :class="{
                                     'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/people',
                                     'bg-indigo-800': $page.url === '/people'
                                 }"
                             >
                                 <UsersIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 People
@@ -124,10 +124,10 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                             <a
                                 href="#"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <FolderIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Projects
@@ -135,32 +135,32 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                             <a
                                 href="#"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <CalendarIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Calendar
                             </a>
 
-                            <a
-                                href="#"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                            <Link
+                                href="/documents"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <InboxIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Documents
-                            </a>
+                            </Link>
 
                             <a
                                 href="#"
-                                class="group flex items-center p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <ChartBarIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Reports
@@ -169,22 +169,22 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 <div class="my-6 border-t border-indigo-800" />
                             </div>
                             <button
-                                class="group flex relative items-center p-2 w-full text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                                class="group relative flex w-full items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                                 @click="showNotifications"
                             >
                                 <span
                                     v-show="notificationCount"
-                                    class="flex absolute -top-1 left-6 justify-center items-center w-4 h-4 text-xs bg-red-500 rounded-full"
+                                    class="absolute -top-1 left-6 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs"
                                 >{{ notificationCount }}</span>
                                 <BellIcon
-                                    class="shrink-0 mr-4 w-6 h-6 text-indigo-300"
+                                    class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
                                 Notifications
                             </button>
                         </nav>
                     </div>
-                    <div class="flex shrink-0 p-4 border-t border-indigo-800">
+                    <div class="flex shrink-0 border-t border-indigo-800 p-4">
                         <a
                             href="#"
                             class="group block shrink-0"
@@ -192,7 +192,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             <div class="flex items-center">
                                 <div>
                                     <img
-                                        class="inline-block w-10 h-10 rounded-full"
+                                        class="inline-block h-10 w-10 rounded-full"
                                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                                         alt=""
                                     >
@@ -210,30 +210,30 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                 </div>
             </TransitionChild>
             <div
-                class="shrink-0 w-14"
+                class="w-14 shrink-0"
                 aria-hidden="true"
             />
         </div>
     </TransitionRoot>
-    <div class="hidden md:flex md:fixed md:inset-y-0 md:flex-col md:w-64">
-        <div class="flex flex-col flex-1 min-h-0 bg-gradient-to-r from-indigo-700 to-indigo-600">
-            <div class="flex overflow-y-auto flex-col flex-1 pt-5 pb-4">
+    <div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+        <div class="flex min-h-0 flex-1 flex-col bg-gradient-to-r from-indigo-700 to-indigo-600">
+            <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                 <div class="flex shrink-0 items-center px-4">
                     <h2 class="text-2xl font-bold text-white">
                         Open HR
                     </h2>
                 </div>
-                <nav class="flex-1 px-2 mt-5 space-y-1">
+                <nav class="mt-5 flex-1 space-y-1 px-2">
                     <Link
                         href="/dashboard"
-                        class="group flex items-center p-2 text-sm font-medium text-white rounded-md"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white"
                         :class="{
                             'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
                             'bg-indigo-800': $page.url === '/dashboard'
                         }"
                     >
                         <HomeIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Dashboard
@@ -241,14 +241,14 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                     <Link
                         href="/people"
-                        class="group flex items-center p-2 text-sm font-medium text-white rounded-md"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white"
                         :class="{
                             'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/people',
                             'bg-indigo-800': $page.url === '/people'
                         }"
                     >
                         <UsersIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         People
@@ -256,10 +256,10 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                     <a
                         href="#"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <FolderIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Projects
@@ -267,32 +267,32 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
 
                     <a
                         href="#"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <CalendarIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Calendar
                     </a>
 
-                    <a
-                        href="#"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                    <Link
+                        href="/documents"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <InboxIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Documents
-                    </a>
+                    </Link>
 
                     <a
                         href="#"
-                        class="group flex items-center p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <ChartBarIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Reports
@@ -301,26 +301,26 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         <div class="my-6 border-t border-indigo-800" />
                     </div>
                     <button
-                        class="group flex relative items-center p-2 w-full text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75 rounded-md"
+                        class="group relative flex w-full items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                         @click="showNotifications"
                     >
                         <span
                             v-show="notificationCount"
-                            class="flex absolute -top-1 left-6 justify-center items-center w-4 h-4 text-xs bg-red-500 rounded-full"
+                            class="absolute -top-1 left-6 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs"
                         >{{ notificationCount }}</span>
                         <BellIcon
-                            class="shrink-0 mr-3 w-6 h-6 text-indigo-300"
+                            class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
                         Notifications
                     </button>
                 </nav>
             </div>
-            <div class="flex shrink-0 p-4 border-t border-indigo-800">
-                <div class="group block shrink-0 w-full">
+            <div class="flex shrink-0 border-t border-indigo-800 p-4">
+                <div class="group block w-full shrink-0">
                     <div class="flex items-center">
                         <div>
-                            <div class="flex justify-center items-center w-10 h-10 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full border border-white">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full border border-white bg-gradient-to-r from-indigo-700 to-indigo-500 font-bold text-indigo-50">
                                 <span
                                     v-if="initials"
                                     class="text-xs"
@@ -330,7 +330,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 <svg
                                     v-else
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-6 h-6"
+                                    class="h-6 w-6"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"

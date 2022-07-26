@@ -35,10 +35,10 @@ class StoreDocumentRequest extends FormRequest
                     new UploadedFileData(
                         file: $document,
                         path: $this->validated('path'),
-                        name: $document->getFilename()
+                        name: $document->getClientOriginalName()
                     ),
                     new DocumentData(
-                        name: $document->getFilename(),
+                        name: $document->getClientOriginalName(),
                         path: $this->validated('path'),
                         disk: config('filesystems.default'),
                         documentable_id: $this->validated('documentable_id'),

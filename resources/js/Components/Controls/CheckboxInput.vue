@@ -29,7 +29,7 @@ function emitEvents({target}: Event) {
         :id="inputId"
         :name="inputName"
         type="checkbox"
-        class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 sm:left-6"
+        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 sm:left-6"
         :value="modelValue"
         :checked="modelValue"
         @input="emitEvents"

@@ -10,6 +10,8 @@ export type HalfDay = 'am' | 'pm'
 
 export type SelectOption = string | number | ComplexSelectOption
 
+export type Documentable = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,

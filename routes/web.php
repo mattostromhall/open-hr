@@ -111,8 +111,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('documents', [DocumentController::class, 'index'])
         ->name('document.index');
+    Route::get('documents/create', [DocumentController::class, 'create'])
+        ->name('document.create');
     Route::post('documents', [DocumentController::class, 'store'])
         ->name('document.store');
 });
 
-require __DIR__. '/auth.php';
+require __DIR__ . '/auth.php';

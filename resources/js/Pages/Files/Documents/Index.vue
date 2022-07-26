@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import FileInput from '@/Components/Controls/FileInput.vue'
-import {ref} from 'vue'
-import type {Ref} from 'vue'
-import FilePreview from '../../../Components/FilePreview.vue'
-
-const files: Ref<File | File[] | undefined> = ref()
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 </script>
 
 <template>
-    <div>
-        <FileInput
-            input-id="upload"
-            input-name="upload"
-            :multiple="true"
-            @update:model-value="files = $event"
-        />
-        <FilePreview
-            v-for="(file, index) in files"
-            :key="index"
-            class="mt-5"
-            :file="file"
-            :name="file?.name"
-        />
-    </div>
+    <Head title="Documents" />
+
+    <PageHeading>
+        Documents
+        <template #link>
+            <IndigoLink href="/documents/create">
+                Add Documents
+            </IndigoLink>
+        </template>
+    </PageHeading>
 </template>
