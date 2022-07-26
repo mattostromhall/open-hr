@@ -5,6 +5,7 @@ namespace Domain\Auth\Models;
 use Domain\Auth\Collections\UserCollection;
 use Domain\Auth\QueryBuilders\UserQueryBuilder;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -32,6 +33,11 @@ class User extends Authenticatable
     ];
 
     protected $with = ['person'];
+
+    public static function query(): Builder|UserQueryBuilder
+    {
+        return parent::query();
+    }
 
     public function newEloquentBuilder($query): UserQueryBuilder
     {
