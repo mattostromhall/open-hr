@@ -38,7 +38,7 @@ class StoreDocumentRequest extends FormRequest
                     ),
                     new DocumentData(
                         name: Str::beforeLast($document->getClientOriginalName(), '.') . '.' . $document->extension(),
-                        path: $this->validated('path'),
+                        directory: $this->validated('path'),
                         disk: config('filesystems.default'),
                         documentable_id: $this->validated('documentable_id'),
                         documentable_type: DocumentableType::from($this->validated('documentable_type'))

@@ -23,6 +23,8 @@ const props = defineProps<{
             </IndigoLink>
         </template>
     </PageHeading>
-    <DirectoryList :directories="directories" />
-    <FileList :files="files" />
+    <section class="p-8">
+        <DirectoryList :directories="directories" />
+        <FileList :files="files" />
+    </section>
 </template>
