@@ -32,10 +32,10 @@ function submit(): void {
 </script>
 
 <template>
-    <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
+    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
+                <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Direct reports
@@ -60,7 +60,7 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
+                <div class="flex justify-end bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
                     <IndigoButton
                         :disabled="form.processing"
                     >

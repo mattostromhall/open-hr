@@ -172,13 +172,13 @@ function sanitisedValue(value: string|number) {
 }
 
 function matchObjectOption(option: ComplexSelectOption) {
-    return (sanitisedValue(option.value).startsWith(data.search.toLowerCase())
-            || sanitisedValue(option.display).startsWith(data.search.toLowerCase()))
+    return (sanitisedValue(option.value).includes(data.search.toLowerCase())
+            || sanitisedValue(option.display).includes(data.search.toLowerCase()))
         && ! props.modelValue.includes(option.value)
 }
 
 function matchOption(option: string|number) {
-    return sanitisedValue(option).startsWith(data.search.toLowerCase())
+    return sanitisedValue(option).includes(data.search.toLowerCase())
         && ! props.modelValue.includes(option)
 }
 
@@ -226,10 +226,10 @@ onBeforeUnmount(() => {
         ref="input"
         class="relative"
     >
-        <div class="flex relative items-center">
+        <div class="relative flex items-center">
             <button
                 ref="selections"
-                class="flex flex-wrap items-center space-x-1 w-full text-xs font-semibold text-left placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm"
+                class="flex w-full appearance-none flex-wrap items-center space-x-1 rounded-md border border-gray-300 text-left text-xs font-semibold shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 :class="{
                     'py-1.5 px-2': modelValue.length > 0,
                     'py-2 px-3': modelValue.length === 0,
@@ -243,7 +243,7 @@ onBeforeUnmount(() => {
                     <span
                         v-for="{optionValue, optionDisplay} in selectionData"
                         :key="optionValue"
-                        class="flex items-center py-0.5 px-1 my-0.5 text-indigo-800 bg-indigo-100 rounded select-none"
+                        class="my-0.5 flex select-none items-center rounded bg-indigo-100 py-0.5 px-1 text-indigo-800"
                     >
                         <span>{{ optionDisplay }}</span>
                         <button
@@ -257,14 +257,14 @@ onBeforeUnmount(() => {
             </button>
             <button
                 ref="toggleInput"
-                class="flex absolute right-0 justify-center items-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
+                class="absolute right-0 flex items-center justify-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="button"
                 @click="toggle"
             >
                 <svg
                     v-show="! data.isOpen"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-3.5 h-3.5"
+                    class="h-3.5 w-3.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -279,7 +279,7 @@ onBeforeUnmount(() => {
                 <svg
                     v-show="data.isOpen"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-3.5 h-3.5"
+                    class="h-3.5 w-3.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -302,12 +302,12 @@ onBeforeUnmount(() => {
         <div
             v-show="data.isOpen"
             ref="dropdown"
-            class="absolute z-10 p-2 w-full text-white bg-select-grey rounded shadow"
+            class="absolute z-10 w-full rounded bg-select-grey p-2 text-white shadow"
         >
             <input
                 ref="search"
                 v-model="data.search"
-                class="py-1 px-2 mb-2 w-full text-xs font-semibold bg-gray-500 rounded border-gray-400 focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
+                class="mb-2 w-full rounded border-gray-400 bg-gray-500 py-1 px-2 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="text"
                 @keydown.esc="close"
                 @keydown.up="highlightPrev"
@@ -318,12 +318,12 @@ onBeforeUnmount(() => {
             <ul
                 v-show="filteredOptions.length > 0"
                 ref="options"
-                class="overflow-y-auto relative max-h-48 cursor-pointer"
+                class="relative max-h-48 cursor-pointer overflow-y-auto"
             >
                 <li
                     v-for="(option, index) in filteredOptions"
                     :key="index"
-                    class="py-2 px-3 mt-1 text-xs hover:bg-indigo-500 rounded"
+                    class="mt-1 rounded py-2 px-3 text-xs hover:bg-indigo-500"
                     :class="{ 'bg-indigo-500': index === data.highlightedIndex }"
                     @click="select(option)"
                 >
