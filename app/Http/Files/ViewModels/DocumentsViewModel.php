@@ -14,7 +14,12 @@ class DocumentsViewModel extends ViewModel
         //
     }
 
-    protected function topLevelDirectories(): array
+    public function path(): string
+    {
+        return '/documents/' . $this->path;
+    }
+
+    public function topLevelDirectories(): array
     {
         return collect(DocumentableType::cases())
             ->map(fn (DocumentableType $type) => [

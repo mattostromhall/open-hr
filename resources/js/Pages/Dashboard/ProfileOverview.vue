@@ -19,25 +19,25 @@ defineProps({
 
 <template>
     <section aria-labelledby="profile-overview-title">
-        <div class="overflow-hidden bg-white rounded-lg shadow">
+        <div class="overflow-hidden rounded-lg bg-white shadow">
             <h2
                 id="profile-overview-title"
                 class="sr-only"
             >
                 Profile Overview
             </h2>
-            <div class="p-6 bg-white">
-                <div class="sm:flex sm:justify-between sm:items-center">
+            <div class="bg-white p-6">
+                <div class="sm:flex sm:items-center sm:justify-between">
                     <div class="sm:flex sm:space-x-5">
                         <div class="shrink-0">
-                            <div class="flex justify-center items-center w-20 h-20 font-bold text-indigo-50 bg-gradient-to-r from-indigo-700 to-indigo-500 rounded-full">
+                            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-indigo-700 to-indigo-500 font-bold text-indigo-50">
                                 <span v-if="person.initials">
                                     {{ person.initials }}
                                 </span>
                                 <svg
                                     v-else
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="w-8 h-8"
+                                    class="h-8 w-8"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -51,7 +51,7 @@ defineProps({
                                 </svg>
                             </div>
                         </div>
-                        <div class="mt-4 text-center sm:pt-1 sm:mt-0 sm:text-left">
+                        <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                             <p class="text-sm font-medium text-gray-600">
                                 Welcome back,
                             </p>
@@ -63,22 +63,22 @@ defineProps({
                             </p>
                         </div>
                     </div>
-                    <div class="flex justify-center mt-5 sm:mt-0">
+                    <div class="mt-5 flex justify-center sm:mt-0">
                         <Link
                             :href="'/people/' + person.id + '/profile'"
-                            class="flex justify-center items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 shadow-sm"
+                            class="flex items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                         >
                             View profile
                         </Link>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 bg-gray-50 border-t border-gray-200 divide-y divide-gray-200 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
-                <div class="py-5 px-6 text-sm font-medium text-center">
+            <div class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
+                <div class="py-5 px-6 text-center text-sm font-medium">
                     <span class="font-semibold text-gray-900">{{ holidayRemaining }}</span>
                     <span class="text-gray-600"> Holiday days remaining</span>
                 </div>
-                <div class="py-5 px-6 text-sm font-medium text-center">
+                <div class="py-5 px-6 text-center text-sm font-medium">
                     <span class="font-semibold text-gray-900">{{ sickDaysRemaining }}</span>
                     <span class="text-gray-600"> Sick days remaining</span>
                 </div>
