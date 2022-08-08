@@ -16,7 +16,7 @@ class DocumentController extends Controller
 {
     public function index(string $path = null): Response
     {
-        return Inertia::render('Files/Documents/Index', new DocumentsViewModel($path));
+        return Inertia::render('Files/Documents/Index', new DocumentsViewModel('/' . $path));
     }
 
     public function create(): Response

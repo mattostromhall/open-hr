@@ -47,4 +47,11 @@ class Document extends Model
             get: fn ($value, $attributes) => $attributes['directory'] . '/' . $attributes['name']
         );
     }
+
+    protected function downloadFrom(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => '/documents/download' . $attributes['directory'] . '/' . $attributes['name']
+        );
+    }
 }

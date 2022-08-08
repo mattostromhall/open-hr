@@ -5,7 +5,7 @@ import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import DirectoryList from './DirectoryList.vue'
 import FileList from './FileList.vue'
 import type {DocumentListItem} from '../../../types'
-import {FolderIcon} from '@heroicons/vue/outline'
+import {ArrowCircleLeftIcon, FolderIcon} from '@heroicons/vue/outline'
 import usePerson from '../../../Hooks/usePerson'
 
 const props = defineProps<{
@@ -81,8 +81,50 @@ function isActive(path: string): boolean {
             </nav>
         </aside>
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-            <DirectoryList :directories="directories" />
-            <FileList :files="files" />
+            <div
+                v-if="directories.length === 0 && files.length === 0"
+                class="text-center"
+            >
+                <svg
+                    class="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        vector-effect="non-scaling-stroke"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                    />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">
+                    No Documents
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Select a different directory to browse or add Documents to this directory.
+                </p>
+                <div class="mx-auto mt-6 max-w-xs">
+                    <IndigoLink href="/documents/create">
+                        Add Documents
+                    </IndigoLink>
+                </div>
+            </div>
+            <div>
+                <button>
+                    <ArrowCircleLeftIcon class="h-6 w-6" />
+                </button>
+            </div>
+            <DirectoryList
+                v-if="directories"
+                :directories="directories"
+            />
+            <FileList
+                v-if="files"
+                :files="files"
+            />
         </div>
     </div>
 </template>

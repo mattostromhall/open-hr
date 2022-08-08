@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {Head, InertiaForm, useForm} from '@inertiajs/inertia-vue3'
+import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
