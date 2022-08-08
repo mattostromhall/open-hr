@@ -112,19 +112,106 @@ function isActive(path: string): boolean {
                     </IndigoLink>
                 </div>
             </div>
-            <div>
-                <button>
-                    <ArrowCircleLeftIcon class="h-6 w-6" />
-                </button>
+            <!--            <div>-->
+            <!--                <button>-->
+            <!--                    <ArrowCircleLeftIcon class="h-6 w-6" />-->
+            <!--                </button>-->
+            <!--            </div>-->
+            <!--            <DirectoryList-->
+            <!--                v-if="directories"-->
+            <!--                :directories="directories"-->
+            <!--            />-->
+            <!--            <FileList-->
+            <!--                v-if="files"-->
+            <!--                :files="files"-->
+            <!--            />-->
+            <div class="flex flex-col">
+                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th
+                                            scope="col"
+                                            class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                        >
+                                            Name
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        >
+                                            Last Modified
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        >
+                                            Size
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        >
+                                            Kind
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            class="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-6"
+                                        >
+                                            <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr
+                                        v-for="directory in directories"
+                                        :key="directory.name"
+                                    >
+                                        <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            {{ directory.name }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ directory.modified }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ directory.size }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ directory.kind }}
+                                        </td>
+                                        <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6" />
+                                    </tr>
+                                    <tr
+                                        v-for="file in files"
+                                        :key="file.name"
+                                    >
+                                        <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            {{ `${file.name}.${file.kind}` }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ file.modified }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ file.size }}
+                                        </td>
+                                        <td class="whitespace-nowrap p-2 text-sm text-gray-500">
+                                            {{ file.kind }}
+                                        </td>
+                                        <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                            <a
+                                                :href="file.path"
+                                                class="text-indigo-600 hover:text-indigo-900"
+                                            >Download</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <DirectoryList
-                v-if="directories"
-                :directories="directories"
-            />
-            <FileList
-                v-if="files"
-                :files="files"
-            />
         </div>
     </div>
 </template>

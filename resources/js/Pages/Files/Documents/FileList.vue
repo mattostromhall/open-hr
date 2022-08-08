@@ -18,7 +18,7 @@ const props = defineProps<{
                 class="flex items-center space-x-2"
             >
                 <DocumentIcon class="h-6 w-6 text-indigo-500" />
-                <span class="text-sm font-semibold">{{ file.name }}</span>
+                <span class="text-sm font-semibold">{{ `${file.name}.${file.kind}` }}</span>
             </a>
         </li>
     </ul>

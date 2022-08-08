@@ -3,6 +3,7 @@
 namespace App\Http\Files\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Files\DataTransferObjects\DocumentListItemData;
 use Domain\Files\Enums\DocumentableType;
 use Domain\Files\Models\Document;
 use Illuminate\Support\Facades\Storage;
@@ -37,10 +38,11 @@ class DocumentsViewModel extends ViewModel
         }
 
         return collect(Storage::directories($this->path))
-            ->map(fn (string $directory) => [
-                'path' => '/documents/' . $directory,
-                'name' => Str::after('/' . $directory, $this->path . '/')
-            ])
+            ->map(fn (string $directory) => new DocumentListItemData(
+                path: '/documents/' . $directory,
+                name: Str::after('/' . $directory, $this->path . '/'),
+                kind: 'folder'
+            ))
             ->toArray();
     }
 
@@ -49,7 +51,7 @@ class DocumentsViewModel extends ViewModel
         return Document::query()
             ->inDirectory($this->path)
             ->get()
-            ->toFileList()
+            ->toList()
             ->toArray();
     }
 }

@@ -10,7 +10,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
 class StoreDocumentRequest extends FormRequest
@@ -37,8 +36,10 @@ class StoreDocumentRequest extends FormRequest
                         name: Str::beforeLast($document->getClientOriginalName(), '.')
                     ),
                     new DocumentData(
-                        name: Str::beforeLast($document->getClientOriginalName(), '.') . '.' . $document->extension(),
+                        name: Str::beforeLast($document->getClientOriginalName(), '.'),
                         directory: $this->validated('path'),
+                        size: $document->getSize(),
+                        extension: $document->extension(),
                         disk: config('filesystems.default'),
                         documentable_id: $this->validated('documentable_id'),
                         documentable_type: DocumentableType::from($this->validated('documentable_type'))

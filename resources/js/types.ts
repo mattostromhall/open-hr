@@ -25,8 +25,11 @@ export interface FileType {
 }
 
 export interface DocumentListItem {
+    name: string,
     path: string,
-    name: string
+    kind: string,
+    size?: number,
+    modified?: string
 }
 
 export interface ComplexSelectOption {

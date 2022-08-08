@@ -10,7 +10,10 @@ class DocumentQueryBuilder extends Builder
 {
     public function locatedAt(string $path): self
     {
-        $name = Str::afterLast($path, '/');
+        $identifier = Str::afterLast($path, '/');
+        $name = Str::beforeLast($identifier, '.');
+        $extension = Str::afterLast($identifier, '.');
+
         $directory = Str::of($path)
             ->beforeLast('/')
             ->when(! Str::startsWith($path, '/'), function (Stringable $string) {
@@ -18,6 +21,7 @@ class DocumentQueryBuilder extends Builder
             });
 
         return $this->where('name', $name)
+            ->where('extension', $extension)
             ->where('directory', $directory);
     }
 

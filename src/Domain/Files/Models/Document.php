@@ -44,14 +44,14 @@ class Document extends Model
     protected function location(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => $attributes['directory'] . '/' . $attributes['name']
+            get: fn ($value, $attributes) => $attributes['directory'] . '/' . $attributes['name'] . '.' . $attributes['extension']
         );
     }
 
-    protected function downloadFrom(): Attribute
+    protected function path(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => '/documents/download' . $attributes['directory'] . '/' . $attributes['name']
+            get: fn ($value, $attributes) => '/documents/download' . $attributes['directory'] . '/' . $attributes['name'] . '.' . $attributes['extension']
         );
     }
 }

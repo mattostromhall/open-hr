@@ -16,11 +16,13 @@ return new class () extends Migration {
             $table->id();
             $table->string('name')->index();
             $table->string('directory')->index();
+            $table->unsignedBigInteger('size');
+            $table->string('extension');
             $table->string('disk');
             $table->unsignedBigInteger('documentable_id');
             $table->string('documentable_type');
 
-            $table->unique(['name', 'directory']);
+            $table->unique(['name', 'directory', 'extension']);
 
             $table->timestamps();
         });
