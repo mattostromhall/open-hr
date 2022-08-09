@@ -13,7 +13,7 @@ class SicknessFactory extends Factory
     {
         return [
             'start_at' => now(),
-            'finish_at' => now()->addDays(2)
+            'finish_at' => now()->addDay()
         ];
     }
 }

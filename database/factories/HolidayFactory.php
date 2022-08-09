@@ -15,7 +15,7 @@ class HolidayFactory extends Factory
         return [
             'status' => HolidayStatus::APPROVED,
             'start_at' => now(),
-            'finish_at' => now()->addDays(7)
+            'finish_at' => now()->addDays(6)
         ];
     }
 }
