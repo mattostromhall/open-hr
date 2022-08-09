@@ -6,6 +6,7 @@ use App\Http\Support\ViewModels\ViewModel;
 use Domain\Files\DataTransferObjects\DocumentListItemData;
 use Domain\Files\Enums\DocumentableType;
 use Domain\Files\Models\Document;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -31,10 +32,10 @@ class DocumentsViewModel extends ViewModel
             ->toArray();
     }
 
-    public function directories(): array
+    public function directories(): Collection
     {
         if ($this->path === '/') {
-            return [];
+            return collect([]);
         }
 
         return collect(Storage::directories($this->path))
@@ -42,16 +43,19 @@ class DocumentsViewModel extends ViewModel
                 path: '/documents/' . $directory,
                 name: Str::after('/' . $directory, $this->path . '/'),
                 kind: 'folder'
-            ))
-            ->toArray();
+            ));
     }
 
-    public function files(): array
+    public function files(): Collection
     {
         return Document::query()
             ->inDirectory($this->path)
             ->get()
-            ->toList()
-            ->toArray();
+            ->toList();
+    }
+
+    public function documentList(): Collection
+    {
+        return $this->directories()->concat($this->files());
     }
 }
