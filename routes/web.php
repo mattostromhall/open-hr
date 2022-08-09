@@ -112,8 +112,6 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('documents', [DocumentController::class, 'index'])
         ->name('document.index');
-    Route::get('documents/create', [DocumentController::class, 'create'])
-        ->name('document.create');
     Route::post('documents', [DocumentController::class, 'store'])
         ->name('document.store');
     Route::get('documents/download/{path}', DownloadDocumentController::class)

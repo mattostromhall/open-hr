@@ -3,6 +3,7 @@ import type {DocumentListItem} from '../../../types'
 import {DocumentIcon} from '@heroicons/vue/outline'
 import {FolderIcon} from '@heroicons/vue/solid'
 import {computed, ref} from 'vue'
+import type {Ref} from 'vue'
 import {Inertia} from '@inertiajs/inertia'
 import {useDateFormat} from '@vueuse/core'
 
@@ -10,7 +11,7 @@ const props = defineProps<{
     item: DocumentListItem
 }>()
 
-const download = ref<HTMLInputElement | null>(null)
+const download: Ref<HTMLAnchorElement | null> = ref(null)
 
 const name = computed(() => {
     return props.item.kind !== 'folder'

@@ -18,7 +18,7 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
             role="dialog"
             aria-modal="true"
         >
-            <div class="flex fixed inset-y-0 right-0 pl-10 max-w-full pointer-events-none sm:pl-16">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
                 <TransitionChild
                     as="template"
                     enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -28,24 +28,24 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                     leave-from="translate-x-0"
                     leave-to="translate-x-full"
                 >
-                    <div class="w-screen max-w-md pointer-events-auto">
-                        <div class="flex overflow-y-scroll flex-col h-full bg-white shadow-xl">
+                    <div class="pointer-events-auto w-screen max-w-md">
+                        <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                             <div class="p-6">
-                                <div class="flex justify-between items-start">
+                                <div class="flex items-start justify-between">
                                     <h2
                                         id="slide-over-title"
                                         class="text-lg font-medium text-gray-900"
                                     >
                                         Calendar Event
                                     </h2>
-                                    <div class="flex items-center ml-3 h-7">
+                                    <div class="ml-3 flex h-7 items-center">
                                         <button
                                             type="button"
-                                            class="text-gray-400 hover:text-gray-500 bg-white rounded-md focus:ring-2 focus:ring-indigo-500"
+                                            class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500"
                                         >
                                             <span class="sr-only">Close panel</span>
                                             <XIcon
-                                                class="w-6 h-6"
+                                                class="h-6 w-6"
                                                 @click="hideCalendarEvent"
                                             />
                                         </button>
@@ -53,12 +53,12 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                                 </div>
                             </div>
                             <div class="border-b border-gray-200" />
-                            <div class="p-6 pb-16 space-y-6">
+                            <div class="space-y-6 p-6 pb-16">
                                 <div>
                                     <h3 class="font-medium text-gray-900">
                                         Information
                                     </h3>
-                                    <dl class="mt-2 border-y border-gray-200 divide-y divide-gray-200">
+                                    <dl class="mt-2 divide-y divide-gray-200 border-y border-gray-200">
                                         <div class="flex justify-between py-3 text-sm font-medium">
                                             <dt class="text-gray-500">
                                                 Name
@@ -93,7 +93,7 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                                             <dt class="text-gray-500">
                                                 Half day
                                             </dt>
-                                            <dd class="text-gray-900 uppercase">
+                                            <dd class="uppercase text-gray-900">
                                                 {{ calendarEvent.half_day }}
                                             </dd>
                                         </div>
@@ -105,13 +105,13 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                                     </h3>
                                     <p
                                         v-if="calendarEvent.status === 1"
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full"
+                                        class="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-blue-800"
                                     >
                                         Pending
                                     </p>
                                     <p
                                         v-else
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                                        class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800"
                                     >
                                         Approved
                                     </p>

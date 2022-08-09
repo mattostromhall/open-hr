@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import {computed} from 'vue'
-import type {ComputedRef} from 'vue'
+import {computed, ref} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import type {DocumentListItem} from '../../../types'
 import {ArrowCircleLeftIcon, FolderIcon} from '@heroicons/vue/outline'
 import usePerson from '../../../Hooks/usePerson'
 import DocumentList from './DocumentList.vue'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import SimpleModal from '@/Components/SimpleModal.vue'
+import UploadDocuments from './UploadDocuments.vue'
 
 const props = defineProps<{
     path: string,
@@ -19,12 +21,24 @@ const props = defineProps<{
 
 const person = usePerson()
 
+const uploadPath: ComputedRef<string> = computed(() => props.path.substring(10))
+
+const showAddDocuments: Ref<boolean> = ref(false)
+
 function isActive(path: string): boolean {
     if (props.path === '/documents/people' && path === '/documents/people') {
         return true
     }
 
     return props.path.startsWith(path) && path !== '/documents/people'
+}
+
+function showDocumentsModal() {
+    showAddDocuments.value = true
+}
+
+function hideDocumentsModal() {
+    showAddDocuments.value = false
 }
 </script>
 
@@ -34,9 +48,17 @@ function isActive(path: string): boolean {
     <PageHeading>
         Documents
         <template #link>
-            <IndigoLink href="/documents/create">
+            <IndigoButton @click="showDocumentsModal">
                 Add Documents
-            </IndigoLink>
+                <SimpleModal
+                    v-model="showAddDocuments"
+                >
+                    <UploadDocuments
+                        :path="uploadPath"
+                        @uploaded="hideDocumentsModal"
+                    />
+                </SimpleModal>
+            </IndigoButton>
         </template>
     </PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
@@ -102,19 +124,15 @@ function isActive(path: string): boolean {
                         d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
                     />
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900">
+                <h3 class="mt-2 mb-6 text-sm font-medium text-gray-900">
                     No Documents
                 </h3>
-                <p class="mt-1 text-sm text-gray-500">
-                    Select a different directory to browse or add Documents to this directory.
-                </p>
-                <div class="mx-auto mt-6 max-w-xs">
-                    <IndigoLink href="/documents/create">
-                        Add Documents
-                    </IndigoLink>
-                </div>
+                <UploadDocuments :path="uploadPath" />
             </div>
-            <DocumentList :items="documentList" />
+            <DocumentList
+                v-if="documentList.length"
+                :items="documentList"
+            />
         </div>
     </div>
 </template>

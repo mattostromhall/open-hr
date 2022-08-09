@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import {Head, useForm} from '@inertiajs/inertia-vue3'
-import PageHeading from '@/Components/PageHeading.vue'
+import {useForm} from '@inertiajs/inertia-vue3'
 import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
-import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Documentable} from '../../../types'
+
+const props = defineProps<{
+    path: string
+}>()
+
+const emit = defineEmits(['uploaded'])
 
 interface DocumentsData {
     path: string,
@@ -16,29 +20,21 @@ interface DocumentsData {
 }
 
 const form: InertiaForm<DocumentsData> = useForm({
-    path: '/',
+    path: props.path,
     documents: undefined,
     documentable_id: 1,
     documentable_type: 'organisation'
 })
 
 function submit() {
-    form.post('/documents')
+    form.post('/documents', {
+        onSuccess: () => emit('uploaded')
+    })
 }
 </script>
 
 <template>
-    <Head title="Add Documents" />
-
-    <PageHeading>
-        Add Documents
-        <template #link>
-            <LightIndigoLink href="/documents">
-                View Documents
-            </LightIndigoLink>
-        </template>
-    </PageHeading>
-    <section class="p-8">
+    <section>
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
             <form @submit.prevent="submit">
                 <div class="shadow sm:rounded-md">
