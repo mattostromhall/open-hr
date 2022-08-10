@@ -6,6 +6,7 @@ import {computed, ref} from 'vue'
 import type {Ref} from 'vue'
 import {Inertia} from '@inertiajs/inertia'
 import {useDateFormat} from '@vueuse/core'
+import useFileSizeFormatter from '../../../Composables/useFileSizeFormatter'
 
 const props = defineProps<{
     item: DocumentListItem
@@ -23,6 +24,10 @@ const modified = computed(() => {
     return props.item.modified && useDateFormat(props.item.modified, 'DD/MM/YYYY HH:ss').value
 })
 
+const size = computed(() => {
+    return props.item.size && useFileSizeFormatter(props.item.size)
+})
+
 function navigate() {
     props.item.kind === 'folder'
         ? Inertia.visit(props.item.path)
@@ -35,14 +40,14 @@ function navigate() {
         class="cursor-pointer hover:bg-gray-50"
         @click="navigate"
     >
-        <td class="w-5 whitespace-nowrap py-2 pl-3 pr-1 text-sm font-medium text-gray-900">
+        <td class="w-5 whitespace-nowrap py-2 pl-3 pr-1 text-sm font-medium text-indigo-500">
             <DocumentIcon
                 v-if="item.kind !== 'folder'"
-                class="h-5 w-5 text-indigo-500"
+                class="h-5 w-5"
             />
             <FolderIcon
                 v-else
-                class="h-5 w-5 text-indigo-500"
+                class="h-5 w-5"
             />
         </td>
         <td class="whitespace-nowrap p-2 text-sm font-semibold text-gray-900">
@@ -52,7 +57,7 @@ function navigate() {
             {{ modified }}
         </td>
         <td class="whitespace-nowrap p-2 text-sm text-gray-500">
-            {{ item.size }}
+            {{ size }}
         </td>
         <td class="whitespace-nowrap p-2 text-sm text-gray-500">
             {{ item.kind }}

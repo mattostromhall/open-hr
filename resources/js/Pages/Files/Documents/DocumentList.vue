@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {DocumentListItem} from '../../../types'
 import ListItem from './DocumentListItem.vue'
+import AddDirectory from './AddDirectory.vue'
 
 const props = defineProps<{
     items: DocumentListItem[]
@@ -59,6 +60,7 @@ const props = defineProps<{
                                 :key="item.name"
                                 :item="item"
                             />
+                            <AddDirectory />
                         </tbody>
                     </table>
                 </div>
