@@ -21,8 +21,6 @@ const props = defineProps<{
 
 const person = usePerson()
 
-const uploadPath: ComputedRef<string> = computed(() => props.path.substring(10))
-
 const showAddDocuments: Ref<boolean> = ref(false)
 
 function isActive(path: string): boolean {
@@ -54,7 +52,7 @@ function hideDocumentsModal() {
                     v-model="showAddDocuments"
                 >
                     <UploadDocuments
-                        :path="uploadPath"
+                        :path="props.path"
                         @uploaded="hideDocumentsModal"
                     />
                 </SimpleModal>
@@ -105,8 +103,11 @@ function hideDocumentsModal() {
             </nav>
         </aside>
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-            <DocumentList :items="documentList" />
-            <UploadDocuments :path="uploadPath" />
+            <DocumentList
+                :path="props.path"
+                :items="documentList"
+            />
+            <UploadDocuments :path="props.path" />
         </div>
     </div>
 </template>

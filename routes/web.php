@@ -8,6 +8,7 @@ use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
 use App\Http\Notifications\Controllers\OrganisationNotificationController;
@@ -120,6 +121,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('documents/{path}', [DocumentController::class, 'index'])
         ->where('path', '.*')
         ->name('document.index.path');
+
+    Route::post('/directories', [DirectoryController::class, 'store'])
+        ->name('directory.store');
 });
 
 require __DIR__ . '/auth.php';

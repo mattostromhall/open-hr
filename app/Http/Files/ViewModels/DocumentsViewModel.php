@@ -19,7 +19,7 @@ class DocumentsViewModel extends ViewModel
 
     public function path(): string
     {
-        return '/documents' . $this->path;
+        return $this->path;
     }
 
     public function topLevelDirectories(): array
@@ -34,13 +34,13 @@ class DocumentsViewModel extends ViewModel
 
     public function directories(): Collection
     {
-        if ($this->path === '/') {
+        if ($this->path === '/documents/') {
             return collect([]);
         }
 
         return collect(Storage::directories($this->path))
             ->map(fn (string $directory) => new DocumentListItemData(
-                path: '/documents/' . $directory,
+                path: '/' . $directory,
                 name: Str::after('/' . $directory, $this->path . '/'),
                 kind: 'folder'
             ));

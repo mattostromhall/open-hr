@@ -17,9 +17,9 @@ class DocumentController extends Controller
 {
     public function index(string $path = null): Response
     {
-        $prefixedPath = '/' . $path;
+        $prefixedPath = '/documents/' . $path;
 
-        abort_if(! Storage::exists($prefixedPath), 404);
+        abort_unless(Storage::exists($prefixedPath), 404);
 
         return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath));
     }

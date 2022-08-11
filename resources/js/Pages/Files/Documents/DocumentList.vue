@@ -4,6 +4,7 @@ import ListItem from './DocumentListItem.vue'
 import AddDirectory from './AddDirectory.vue'
 
 const props = defineProps<{
+    path: string,
     items: DocumentListItem[]
 }>()
 </script>
@@ -60,7 +61,7 @@ const props = defineProps<{
                                 :key="item.name"
                                 :item="item"
                             />
-                            <AddDirectory />
+                            <AddDirectory :path="props.path" />
                         </tbody>
                     </table>
                 </div>
