@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue'
-import type {ComputedRef, Ref} from 'vue'
+import {ref} from 'vue'
+import type {Ref} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import type {DocumentListItem} from '../../../types'
-import {ArrowCircleLeftIcon, FolderIcon} from '@heroicons/vue/outline'
+import {FolderIcon} from '@heroicons/vue/outline'
 import usePerson from '../../../Hooks/usePerson'
 import DocumentList from './DocumentList.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -16,7 +16,8 @@ const props = defineProps<{
     topLevelDirectories: DocumentListItem[],
     directories: DocumentListItem[],
     files: DocumentListItem[],
-    documentList: DocumentListItem[]
+    documentList: DocumentListItem[],
+    backPath?: string
 }>()
 
 const person = usePerson()
@@ -65,17 +66,17 @@ function hideDocumentsModal() {
                 <Link
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive(`/documents/people/${person.id}`),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive(`/documents/people/${person.id}`)
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive(`/documents/people/${person.full_name}`),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive(`/documents/people/${person.full_name}`)
                     }"
                     aria-current="page"
-                    :href="`/documents/people/${person.id}`"
+                    :href="`/documents/people/${person.full_name}`"
                 >
                     <FolderIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive(`people/${person.id}`),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive(`people/${person.id}`)
+                            'text-gray-400 group-hover:text-gray-500': ! isActive(`people/${person.full_name}`),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive(`people/${person.full_name}`)
                         }"
                     />
                     <span class="truncate">My Documents</span>
@@ -105,6 +106,7 @@ function hideDocumentsModal() {
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
             <DocumentList
                 :path="props.path"
+                :back-path="props.backPath"
                 :items="documentList"
             />
             <UploadDocuments :path="props.path" />

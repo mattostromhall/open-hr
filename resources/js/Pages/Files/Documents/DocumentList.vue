@@ -2,10 +2,13 @@
 import type {DocumentListItem} from '../../../types'
 import ListItem from './DocumentListItem.vue'
 import AddDirectory from './AddDirectory.vue'
+import {ArrowCircleLeftIcon} from '@heroicons/vue/outline'
+import {Link} from '@inertiajs/inertia-vue3'
 
 const props = defineProps<{
     path: string,
-    items: DocumentListItem[]
+    items: DocumentListItem[],
+    backPath?: string
 }>()
 </script>
 
@@ -19,9 +22,15 @@ const props = defineProps<{
                             <tr>
                                 <th
                                     scope="col"
-                                    class="w-5 whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900"
+                                    class="w-5 whitespace-nowrap py-2 pl-3 pr-1 text-sm font-semibold text-gray-900"
                                 >
-                                    <span class="sr-only">Icon</span>
+                                    <Link
+                                        v-if="props.backPath"
+                                        :href="props.backPath"
+                                    >
+                                        <ArrowCircleLeftIcon class="h-5 w-5" />
+                                    </Link>
+                                    <span class="sr-only">Back</span>
                                 </th>
                                 <th
                                     scope="col"

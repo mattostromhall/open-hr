@@ -22,6 +22,17 @@ class DocumentsViewModel extends ViewModel
         return $this->path;
     }
 
+    public function backPath(): ?string
+    {
+        $back = Str::beforeLast($this->path, '/');
+
+        if ($back === '/documents') {
+            return null;
+        }
+
+        return $back;
+    }
+
     public function topLevelDirectories(): array
     {
         return collect(DocumentableType::cases())
