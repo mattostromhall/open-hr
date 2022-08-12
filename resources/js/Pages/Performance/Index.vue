@@ -4,7 +4,7 @@ import type {Ref} from 'vue'
 import {CheckCircleIcon, InboxIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
+import RequestOneToOne from './RequestOneToOne.vue'
 import type {Objective, Person} from '../../types'
 
 const props = defineProps<{
@@ -51,7 +51,7 @@ function isActive(tab: string): boolean {
                             'text-indigo-500 group-hover:text-indigo-500': isActive('request')
                         }"
                     />
-                    <span class="truncate">Request One-to-one</span>
+                    <span class="truncate">Request a One-to-one</span>
                 </button>
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"

@@ -3,15 +3,20 @@
 namespace Domain\Performance\DataTransferObjects;
 
 use Domain\People\Models\Person;
+use Domain\Performance\Enums\OneToOneStatus;
+use Domain\Performance\Enums\RecurrenceInterval;
 
 class OneToOneData
 {
     public function __construct(
         public readonly Person $person,
         public readonly Person $manager,
+        public readonly OneToOneStatus $status,
         public readonly string $scheduled_at,
-        public readonly string $completed_at,
-        public readonly bool $recurring
+        public readonly bool $recurring,
+        public readonly ?RecurrenceInterval $recurrence_interval = null,
+        public readonly ?string $completed_at = null,
+        public readonly ?string $notes = null
     ) {
         //
     }

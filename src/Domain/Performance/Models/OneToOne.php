@@ -2,6 +2,8 @@
 
 namespace Domain\Performance\Models;
 
+use Domain\Performance\Enums\OneToOneStatus;
+use Domain\Performance\Enums\RecurrenceInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,9 +16,11 @@ class OneToOne extends Model
     use Unguarded;
 
     protected $casts = [
+        'status' => OneToOneStatus::class,
         'scheduled_at' => 'datetime',
         'completed_at' => 'datetime',
         'recurring' => 'boolean',
+        'recurrence_interval' => RecurrenceInterval::class
     ];
 
     public function person(): BelongsTo

@@ -2,11 +2,15 @@ import type {PageProps} from '@inertiajs/inertia'
 
 export type Currency = 'GBP' | 'USD' | 'EUR'
 
-export type RecurrenceInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
+export type RemunerationInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
+
+export type RecurrenceInterval = 'weekly' | 'fortnightly' | 'monthly' | 'quarterly' | 'biannually'
 
 export type HolidayStatus = 1 | 2 | 3
 
 export type HalfDay = 'am' | 'pm'
+
+export type OneToOneStatus = 1 | 2 | 3
 
 export type SelectOption = string | number | ComplexSelectOption
 
@@ -88,7 +92,7 @@ export interface Person {
     dob: string,
     position: string,
     remuneration: number,
-    remuneration_interval: RecurrenceInterval,
+    remuneration_interval: RemunerationInterval,
     remuneration_currency: Currency,
     base_holiday_allocation: number,
     holiday_carry_allocation: number,
@@ -128,6 +132,18 @@ export interface Holiday {
     start_at: string,
     finish_at: string,
     half_day?: HalfDay,
+    notes?: string
+}
+
+export interface OneToOne {
+    id: number,
+    person_id: number,
+    manager_id: number,
+    status: OneToOneStatus,
+    scheduled_at: string,
+    completed_at?: string,
+    recurring: boolean,
+    recurrence_interval?: RecurrenceInterval,
     notes?: string
 }
 
