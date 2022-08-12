@@ -131,6 +131,15 @@ export interface Holiday {
     notes?: string
 }
 
+export interface Objective {
+    id: number,
+    person_id: number,
+    title: string,
+    description: string,
+    due_at: string,
+    completed_at?: string
+}
+
 export interface FlashMessage {
     success?: string,
     error?: string

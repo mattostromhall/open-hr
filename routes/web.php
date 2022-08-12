@@ -17,6 +17,8 @@ use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
+use App\Http\Performance\Controllers\OneToOneController;
+use App\Http\Performance\Controllers\PerformanceController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
@@ -124,6 +126,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/directories', [DirectoryController::class, 'store'])
         ->name('directory.store');
+
+    Route::get('/performance', PerformanceController::class)
+        ->name('performance.index');
 });
 
 require __DIR__ . '/auth.php';
