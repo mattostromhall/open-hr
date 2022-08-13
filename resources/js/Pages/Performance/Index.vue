@@ -93,6 +93,7 @@ function isActive(tab: string): boolean {
         </aside>
         <RequestOneToOne
             v-if="isActive('request')"
+            :manager="manager"
             @set-active="setActive"
         />
     </div>

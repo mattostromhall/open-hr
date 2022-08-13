@@ -19,7 +19,7 @@ class ReviewHolidayRequest extends Mailable implements ShouldQueue
         //
     }
 
-    public function build(): static
+    public function build(): self
     {
         return $this->view('emails.review-holiday-request')
             ->subject("Holiday requested by {$this->data->person->fullName}")

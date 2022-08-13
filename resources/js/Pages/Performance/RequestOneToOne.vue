@@ -23,6 +23,7 @@ const person = usePerson()
 const form: InertiaForm<OneToOneRequestData> = useForm({
     person_id: person.value.id,
     manager_id: props.manager.id,
+    requester_id: person.value.id,
     status: 1,
     scheduled_at: '',
     recurring: false,
@@ -55,11 +56,12 @@ function submit(): void {
                     </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Request for <RequiredIcon /></FormLabel>
+                            <FormLabel>Suggest a time and date <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <DateInput
                                     v-model="form.scheduled_at"
                                     :error="form.errors.scheduled_at"
+                                    :time-enabled="true"
                                     input-id="scheduled_at"
                                     input-name="scheduled_at"
                                     @reset="form.clearErrors('scheduled_at')"

@@ -12,6 +12,7 @@ class OneToOneData
     public function __construct(
         public readonly Person $person,
         public readonly Person $manager,
+        public readonly int $requester_id,
         public readonly OneToOneStatus $status,
         public readonly Carbon $scheduled_at,
         public readonly bool $recurring = false,

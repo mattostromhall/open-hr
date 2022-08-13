@@ -16,6 +16,7 @@ class OneToOneRequest extends FormRequest
         return [
             'person_id' => ['required', 'numeric'],
             'manager_id' => ['required', 'numeric'],
+            'requester_id' => ['required', 'numeric'],
             'status' => ['required', new Enum(OneToOneStatus::class)],
             'scheduled_at' => ['required', 'date'],
             'recurring' => ['boolean'],
@@ -29,6 +30,7 @@ class OneToOneRequest extends FormRequest
     {
         return array_merge(
             $this->safe([
+                'requester_id',
                 'recurring',
                 'notes'
             ]),

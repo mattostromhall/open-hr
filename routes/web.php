@@ -18,6 +18,7 @@ use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Performance\Controllers\OneToOneController;
+use App\Http\Performance\Controllers\OneToOneInviteController;
 use App\Http\Performance\Controllers\PerformanceController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
@@ -131,7 +132,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('performance.index');
 
     Route::post('/one-to-ones', [OneToOneController::class, 'store'])
-        ->name('one-to-ones.store');
+        ->name('one-to-one.store');
+    Route::get('/one-to-ones/{one-to-one}/invite', [OneToOneInviteController::class, 'show'])
+        ->name('one-to-one.invite.show');
 });
 
 require __DIR__ . '/auth.php';

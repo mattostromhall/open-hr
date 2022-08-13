@@ -12,6 +12,7 @@ class CreateOneToOneAction
         return OneToOne::create([
             'person_id' => $data->person->id,
             'manager_id' => $data->manager->id,
+            'requester_id' => $data->requester_id,
             'status' => $data->status,
             'scheduled_at' => $data->scheduled_at,
             'completed_at' => $data->completed_at,

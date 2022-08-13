@@ -18,6 +18,7 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignId('manager_id')->constrained('people');
+            $table->foreignId('requester_id')->constrained('people');
             $table->unsignedTinyInteger('status')->index();
             $table->dateTime('scheduled_at');
             $table->dateTime('completed_at')->nullable();

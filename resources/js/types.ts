@@ -139,6 +139,7 @@ export interface OneToOne {
     id: number,
     person_id: number,
     manager_id: number,
+    requester_id: number,
     status: OneToOneStatus,
     scheduled_at: string,
     completed_at?: string,

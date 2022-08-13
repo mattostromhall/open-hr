@@ -30,6 +30,11 @@ class OneToOne extends Model
 
     public function manager(): BelongsTo
     {
-        return $this->belongsTo(Manager::class);
+        return $this->belongsTo(Person::class, 'manager_id');
+    }
+
+    public function requester(): BelongsTo
+    {
+        return $this->belongsTo(Person::class, 'requester_id');
     }
 }
