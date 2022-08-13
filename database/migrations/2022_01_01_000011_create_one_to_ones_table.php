@@ -17,14 +17,12 @@ return new class () extends Migration {
             $table->foreignId('person_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->foreignId('manager_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignId('manager_id')->constrained('people');
             $table->unsignedTinyInteger('status')->index();
             $table->dateTime('scheduled_at');
-            $table->dateTime('completed_at');
-            $table->boolean('recurring');
-            $table->enum('remuneration_interval', ['weekly', 'fortnightly', 'monthly', 'quarterly', 'biannually'])->nullable();
+            $table->dateTime('completed_at')->nullable();
+            $table->boolean('recurring')->default(false);
+            $table->enum('recurrence_interval', ['never', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'biannually'])->default('never');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

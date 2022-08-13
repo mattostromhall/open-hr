@@ -129,6 +129,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('/performance', PerformanceController::class)
         ->name('performance.index');
+
+    Route::post('/one-to-ones', [OneToOneController::class, 'store'])
+        ->name('one-to-ones.store');
 });
 
 require __DIR__ . '/auth.php';

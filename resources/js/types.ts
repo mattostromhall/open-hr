@@ -4,7 +4,7 @@ export type Currency = 'GBP' | 'USD' | 'EUR'
 
 export type RemunerationInterval = 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
 
-export type RecurrenceInterval = 'weekly' | 'fortnightly' | 'monthly' | 'quarterly' | 'biannually'
+export type RecurrenceInterval = 'never' | 'weekly' | 'fortnightly' | 'monthly' | 'quarterly' | 'biannually'
 
 export type HolidayStatus = 1 | 2 | 3
 
@@ -143,7 +143,7 @@ export interface OneToOne {
     scheduled_at: string,
     completed_at?: string,
     recurring: boolean,
-    recurrence_interval?: RecurrenceInterval,
+    recurrence_interval: RecurrenceInterval,
     notes?: string
 }
 

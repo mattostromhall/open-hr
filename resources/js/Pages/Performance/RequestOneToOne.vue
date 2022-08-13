@@ -8,6 +8,11 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../Hooks/usePerson'
 import type {OneToOne} from '../../types'
+import type {Person} from '../../types'
+
+const props = defineProps<{
+    manager: Pick<Person, 'id'|'full_name'>,
+}>()
 
 type OneToOneRequestData = Omit<OneToOne, 'id' | 'completed_at'>
 
@@ -17,11 +22,11 @@ const person = usePerson()
 
 const form: InertiaForm<OneToOneRequestData> = useForm({
     person_id: person.value.id,
-    manager_id: 1,
+    manager_id: props.manager.id,
     status: 1,
     scheduled_at: '',
     recurring: false,
-    recurrence_interval: undefined,
+    recurrence_interval: 'never',
     notes: ''
 })
 

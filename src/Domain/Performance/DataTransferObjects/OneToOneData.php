@@ -5,6 +5,7 @@ namespace Domain\Performance\DataTransferObjects;
 use Domain\People\Models\Person;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
+use Illuminate\Support\Carbon;
 
 class OneToOneData
 {
@@ -12,10 +13,10 @@ class OneToOneData
         public readonly Person $person,
         public readonly Person $manager,
         public readonly OneToOneStatus $status,
-        public readonly string $scheduled_at,
-        public readonly bool $recurring,
+        public readonly Carbon $scheduled_at,
+        public readonly bool $recurring = false,
         public readonly ?RecurrenceInterval $recurrence_interval = null,
-        public readonly ?string $completed_at = null,
+        public readonly ?Carbon $completed_at = null,
         public readonly ?string $notes = null
     ) {
         //
