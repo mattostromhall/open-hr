@@ -6,9 +6,9 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import usePerson from '../../Hooks/usePerson'
-import type {OneToOne} from '../../types'
-import type {Person} from '../../types'
+import usePerson from '../../../Hooks/usePerson'
+import type {OneToOne} from '../../../types'
+import type {Person} from '../../../types'
 
 const props = defineProps<{
     manager: Pick<Person, 'id'|'full_name'>,

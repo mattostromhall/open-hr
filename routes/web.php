@@ -133,8 +133,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/one-to-ones', [OneToOneController::class, 'store'])
         ->name('one-to-one.store');
-    Route::get('/one-to-ones/{one-to-one}/invite', [OneToOneInviteController::class, 'show'])
+    Route::get('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'show'])
         ->name('one-to-one.invite.show');
+    Route::patch('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'update'])
+        ->name('one-to-one.invite.update');
 });
 
 require __DIR__ . '/auth.php';

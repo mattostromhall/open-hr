@@ -17,7 +17,6 @@ class OneToOneInvitation extends Mailable implements ShouldQueue
 
     public function __construct(
         protected OneToOne $oneToOne,
-        protected Person $requester,
         protected OneToOneData $data
     ) {
         //
@@ -26,11 +25,11 @@ class OneToOneInvitation extends Mailable implements ShouldQueue
     public function build(): self
     {
         return $this->view('emails.one-to-one-invite')
-            ->subject("Holiday requested by {$this->data->person->fullName}")
+            ->subject("One-to-one requested")
             ->with([
-                'body' => "A One-to-one has been requested by {$this->requester->full_name} at {$this->data->scheduled_at->toDateTimeString()}",
+                'body' => "A One-to-one has been requested by {$this->oneToOne->requester->full_name} at {$this->data->scheduled_at->toDateTimeString()}",
                 'link' => route('one-to-one.invite.show', [
-                    'one-to-one' => $this->oneToOne
+                    'one_to_one' => $this->oneToOne
                 ])
             ]);
     }

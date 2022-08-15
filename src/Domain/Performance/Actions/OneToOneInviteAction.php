@@ -4,7 +4,6 @@ namespace Domain\Performance\Actions;
 
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\DataTransferObjects\NotificationData;
-use Domain\People\Models\Person;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Mail\OneToOneInvitation;
 use Domain\Performance\Models\OneToOne;
@@ -19,9 +18,9 @@ class OneToOneInviteAction
 
     public function execute(OneToOne $oneToOne, OneToOneData $data): void
     {
-        $requester = Person::find($data->requester_id);
+        $requester = $oneToOne->requester;
 
-        $requested = $data->person->id !== $data->requester_id
+        $requested = $data->person->id === $data->requester_id
             ? $data->manager
             : $data->person;
 
@@ -32,12 +31,12 @@ class OneToOneInviteAction
                 notifiable_type: 'person',
                 title: 'A One-to-one has been requested',
                 link: route('one-to-one.invite.show', [
-                    'one-to-one' => $oneToOne
+                    'one_to_one' => $oneToOne
                 ])
             )
         );
 
         Mail::to($requested->user->email)
-            ->send(new OneToOneInvitation($oneToOne, $requester, $data));
+            ->send(new OneToOneInvitation($oneToOne, $data));
     }
 }

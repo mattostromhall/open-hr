@@ -4,7 +4,7 @@ import type {Ref} from 'vue'
 import {CheckCircleIcon, InboxIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import RequestOneToOne from './RequestOneToOne.vue'
+import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
 import type {Objective, Person} from '../../types'
 
 const props = defineProps<{

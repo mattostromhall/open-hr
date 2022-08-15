@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
 
-class OneToOneRequest extends FormRequest
+class StoreOneToOneRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -18,11 +18,11 @@ class OneToOneRequest extends FormRequest
             'manager_id' => ['required', 'numeric'],
             'requester_id' => ['required', 'numeric'],
             'status' => ['required', new Enum(OneToOneStatus::class)],
-            'scheduled_at' => ['required', 'date'],
+            'scheduled_at' => ['required', 'date', 'after_or_equal:today'],
             'recurring' => ['boolean'],
             'recurrence_interval' => [new Enum(RecurrenceInterval::class)],
-            'completed_at' => ['date'],
-            'notes' => ['string']
+            'completed_at' => ['date', 'after_or_equal:scheduled_at'],
+            'notes' => ['string', 'nullable']
         ];
     }
 
@@ -40,9 +40,7 @@ class OneToOneRequest extends FormRequest
                 'status' => OneToOneStatus::from($this->validated('status')),
                 'scheduled_at' => Carbon::parse($this->validated('scheduled_at')),
                 'recurrence_interval' => RecurrenceInterval::from($this->validated('recurrence_interval')),
-                'completed_at' => $this->validated('completed_at')
-                    ? Carbon::parse($this->validated('completed_at'))
-                    : null
+                'completed_at' => $this->validated('completed_at') ? Carbon::parse($this->validated('completed_at')) : null
             ]
         );
     }
