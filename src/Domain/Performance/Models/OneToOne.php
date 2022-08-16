@@ -37,4 +37,11 @@ class OneToOne extends Model
     {
         return $this->belongsTo(Person::class, 'requester_id');
     }
+
+    public function requested(): Person
+    {
+        return $this->person_id === $this->requester_id
+            ? $this->manager
+            : $this->person;
+    }
 }

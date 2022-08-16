@@ -5,7 +5,7 @@ namespace Domain\Performance\Actions;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Performance\DataTransferObjects\OneToOneData;
-use Domain\Performance\Mail\OneToOneInvitation;
+use Domain\Performance\Mail\OneToOneInvite;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,10 +19,7 @@ class OneToOneInviteAction
     public function execute(OneToOne $oneToOne, OneToOneData $data): void
     {
         $requester = $oneToOne->requester;
-
-        $requested = $data->person->id === $data->requester_id
-            ? $data->manager
-            : $data->person;
+        $requested = $oneToOne->requested();
 
         $this->createNotification->execute(
             new NotificationData(
@@ -37,6 +34,6 @@ class OneToOneInviteAction
         );
 
         Mail::to($requested->user->email)
-            ->send(new OneToOneInvitation($oneToOne, $data));
+            ->send(new OneToOneInvite($oneToOne, $data));
     }
 }

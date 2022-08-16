@@ -5,6 +5,7 @@ namespace App\Http\Performance\Controllers;
 use App\Http\Performance\Requests\UpdateOneToOneRequest;
 use App\Http\Performance\ViewModels\OneToOneInviteViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,6 +19,9 @@ class OneToOneInviteController extends Controller
 
     public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne)
     {
-        //
+        $oneToOneData = OneToOneData::from([
+            ...$oneToOne->only('status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
+            ...$request->filteredValidatedData()
+        ]);
     }
 }

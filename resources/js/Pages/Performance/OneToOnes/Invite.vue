@@ -68,6 +68,12 @@ function amend(): void {
                         Status: {{ status }}
                     </p>
                     <p
+                        v-if="oneToOne.recurring"
+                        class="mt-1"
+                    >
+                        Recurring: {{ oneToOne.recurrence_interval }}
+                    </p>
+                    <p
                         v-if="oneToOne.notes"
                         class="mt-1"
                     >

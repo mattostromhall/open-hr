@@ -16,7 +16,7 @@ class OneToOneData
         public readonly OneToOneStatus $status,
         public readonly Carbon $scheduled_at,
         public readonly bool $recurring = false,
-        public readonly ?RecurrenceInterval $recurrence_interval = null,
+        public readonly RecurrenceInterval $recurrence_interval = RecurrenceInterval::NEVER,
         public readonly ?Carbon $completed_at = null,
         public readonly ?string $notes = null
     ) {

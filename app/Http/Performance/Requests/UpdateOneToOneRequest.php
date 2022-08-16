@@ -41,4 +41,9 @@ class UpdateOneToOneRequest extends FormRequest
             ]
         );
     }
+
+    public function filteredValidatedData(): array
+    {
+        return array_filter($this->validatedData());
+    }
 }
