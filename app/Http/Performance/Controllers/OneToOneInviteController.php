@@ -8,6 +8,7 @@ use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\OneToOneInviteResponseAction;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,7 +19,7 @@ class OneToOneInviteController extends Controller
         return Inertia::render('Performance/OneToOnes/Invite', new OneToOneInviteViewModel($oneToOne));
     }
 
-    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse)
+    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse): RedirectResponse
     {
         $oneToOneData = OneToOneData::from([
             ...$oneToOne->only('person_status', 'manager_status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
@@ -26,5 +27,7 @@ class OneToOneInviteController extends Controller
         ]);
 
         $inviteResponse->execute($oneToOne, $oneToOneData);
+
+        return redirect(route('performance.index'))->with('flash.success', 'One-to-one updated!');
     }
 }
