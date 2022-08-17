@@ -5,6 +5,7 @@ namespace App\Http\Performance\Controllers;
 use App\Http\Performance\Requests\UpdateOneToOneRequest;
 use App\Http\Performance\ViewModels\OneToOneInviteViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Performance\Actions\OneToOneInviteResponseAction;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Inertia\Inertia;
@@ -17,11 +18,13 @@ class OneToOneInviteController extends Controller
         return Inertia::render('Performance/OneToOnes/Invite', new OneToOneInviteViewModel($oneToOne));
     }
 
-    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne)
+    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse)
     {
         $oneToOneData = OneToOneData::from([
-            ...$oneToOne->only('status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
+            ...$oneToOne->only('person_status', 'manager_status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
             ...$request->filteredValidatedData()
         ]);
+
+        $inviteResponse->execute($oneToOne, $oneToOneData);
     }
 }

@@ -4,7 +4,6 @@ use Domain\Absences\Actions\UpdateHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Enums\HolidayStatus;
 use Domain\Absences\Models\Holiday;
-use Domain\Auth\Models\User;
 use Domain\People\Models\Person;
 
 it('updates the holiday', function () {
@@ -12,6 +11,7 @@ it('updates the holiday', function () {
     $holiday = Holiday::factory()
         ->for($person)
         ->create();
+
     $action = app(UpdateHolidayAction::class);
     $holidayData = new HolidayData(
         person: $person,

@@ -10,7 +10,8 @@ class UpdateOneToOneAction
     public function execute(OneToOne $oneToOne, OneToOneData $data): bool
     {
         return $oneToOne->update([
-            'status' => $data->status,
+            'person_status' => $data->person_status,
+            'manager_status' => $data->manager_status,
             'scheduled_at' => $data->scheduled_at,
             'recurring' => $data->recurring,
             'recurrence_interval' => $data->recurrence_interval,

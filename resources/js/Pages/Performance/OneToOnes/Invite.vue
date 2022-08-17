@@ -8,22 +8,30 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
+import usePerson from '../../../Hooks/usePerson'
 
 const props = defineProps<{
     oneToOne: OneToOne,
     requester: string,
-    status: string
+    personName: string,
+    managerName: string,
+    personStatus: string,
+    managerStatus: string
 }>()
+
+const person = usePerson()
 
 interface InviteData {
     scheduled_at: string,
-    status: OneToOneStatus,
+    person_status: OneToOneStatus,
+    manager_status: OneToOneStatus,
     notes?: string
 }
 
 const form: InertiaForm<InviteData> = useForm({
     scheduled_at: props.oneToOne.scheduled_at,
-    status: props.oneToOne.status,
+    person_status: props.oneToOne.person_status,
+    manager_status: props.oneToOne.manager_status,
     notes: props.oneToOne.notes ?? undefined
 })
 
@@ -36,19 +44,39 @@ function submit(): void {
 }
 
 function accept(): void {
-    form.status = 2
+    if (person.value.id === props.oneToOne.person_id) {
+        form.person_status = 2
+    }
+
+    if (person.value.id === props.oneToOne.manager_id) {
+        form.manager_status = 2
+    }
 
     submit()
 }
 
 function decline(): void {
-    form.status = 3
+    if (person.value.id === props.oneToOne.person_id) {
+        form.person_status = 3
+    }
+
+    if (person.value.id === props.oneToOne.manager_id) {
+        form.manager_status = 3
+    }
 
     submit()
 }
 
 function amend(): void {
-    form.status = 1
+    if (person.value.id === props.oneToOne.person_id) {
+        form.person_status = 2
+        form.manager_status = 1
+    }
+
+    if (person.value.id === props.oneToOne.manager_id) {
+        form.manager_status = 2
+        form.person_status = 1
+    }
 
     submit()
 }
@@ -65,7 +93,10 @@ function amend(): void {
                 </h3>
                 <div class="mt-2 max-w-xl text-sm text-gray-500">
                     <p class="mt-1">
-                        Status: {{ status }}
+                        {{ personName }}: {{ personStatus }}
+                    </p>
+                    <p class="mt-1">
+                        {{ managerName }}: {{ managerStatus }}
                     </p>
                     <p
                         v-if="oneToOne.recurring"

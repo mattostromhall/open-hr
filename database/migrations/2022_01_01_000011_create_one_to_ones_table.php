@@ -19,7 +19,8 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
             $table->foreignId('manager_id')->constrained('people');
             $table->foreignId('requester_id')->constrained('people');
-            $table->unsignedTinyInteger('status')->index();
+            $table->unsignedTinyInteger('person_status')->index();
+            $table->unsignedTinyInteger('manager_status')->index();
             $table->dateTime('scheduled_at');
             $table->dateTime('completed_at')->nullable();
             $table->boolean('recurring')->default(false);

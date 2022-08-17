@@ -12,7 +12,9 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: name => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'))
         .then(page => {
+            // @ts-ignore
             if (page.default.layout === undefined) {
+                // @ts-ignore
                 page.default.layout = Main
             }
             return page as Promise<DefineComponent>

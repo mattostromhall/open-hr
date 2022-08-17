@@ -32,11 +32,11 @@ class OneToOneInviteResponseAction
 
         $this->createNotification->execute(
             new NotificationData(
-                body: "Your One-to-one with {$requester->full_name} has been {$this->status($oneToOne->status)}",
+                body: "A One-to-one between {$requester->full_name} and {$requested->full_name}, scheduled at {$data->scheduled_at->toDateTimeString()}, has been {$this->status($oneToOne->status)}",
                 notifiable_id: $requester->id,
                 notifiable_type: 'person',
-                title: "Your One-to-one has been {$this->status($oneToOne->status)}",
-                link: route('one-to-one.show', [
+                title: "A One-to-one has been {$this->status($oneToOne->status)}",
+                link: route('one-to-one.invite.show', [
                     'one_to_one' => $oneToOne
                 ])
             )
@@ -44,15 +44,18 @@ class OneToOneInviteResponseAction
 
         $this->createNotification->execute(
             new NotificationData(
-                body: "You have {$this->status($oneToOne->status)} a One-to-one, requested by {$requester->full_name} at {$data->scheduled_at->toDateTimeString()}",
+                body: "A One-to-one between {$requester->full_name} and {$requested->full_name}, scheduled at {$data->scheduled_at->toDateTimeString()}, has been {$this->status($oneToOne->status)}",
                 notifiable_id: $requested->id,
                 notifiable_type: 'person',
-                title: "You have {$this->status($oneToOne->status)} a One-to-one",
+                title: "A One-to-one has been {$this->status($oneToOne->status)}",
                 link: route('one-to-one.invite.show', [
                     'one_to_one' => $oneToOne
                 ])
             )
         );
+
+        Mail::to($requester->user->email)
+            ->send(new OneToOneInviteResponse($oneToOne, $data));
 
         Mail::to($requested->user->email)
             ->send(new OneToOneInviteResponse($oneToOne, $data));

@@ -4,6 +4,7 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,12 +17,15 @@ class OneToOne extends Model
     use Unguarded;
 
     protected $casts = [
-        'status' => OneToOneStatus::class,
+        'person_status' => OneToOneStatus::class,
+        'manager_status' => OneToOneStatus::class,
         'scheduled_at' => 'datetime',
         'completed_at' => 'datetime',
         'recurring' => 'boolean',
         'recurrence_interval' => RecurrenceInterval::class
     ];
+
+    protected $appends = ['status'];
 
     public function person(): BelongsTo
     {
@@ -43,5 +47,22 @@ class OneToOne extends Model
         return $this->person_id === $this->requester_id
             ? $this->manager
             : $this->person;
+    }
+
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if ($this->person_status === OneToOneStatus::DECLINED || $this->manager_status === OneToOneStatus::DECLINED) {
+                    return OneToOneStatus::DECLINED;
+                }
+
+                if ($this->person_status === OneToOneStatus::ACCEPTED && $this->manager_status === OneToOneStatus::ACCEPTED) {
+                    return OneToOneStatus::ACCEPTED;
+                }
+
+                return OneToOneStatus::INVITED;
+            },
+        );
     }
 }

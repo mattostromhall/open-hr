@@ -16,7 +16,8 @@ it('creates a one to one', function () {
         person: $person,
         manager: $manager,
         requester_id: $person->id,
-        status: OneToOneStatus::INVITED,
+        person_status: OneToOneStatus::INVITED,
+        manager_status: OneToOneStatus::INVITED,
         scheduled_at: now()->addMonth(),
         recurrence_interval: RecurrenceInterval::NEVER
     );
@@ -27,7 +28,8 @@ it('creates a one to one', function () {
         'person_id' => $oneToOneData->person->id,
         'manager_id' => $oneToOneData->manager->id,
         'requester_id' => $oneToOneData->requester_id,
-        'status' => $oneToOneData->status,
+        'person_status' => $oneToOneData->person_status,
+        'manager_status' => $oneToOneData->manager_status,
         'scheduled_at' => $oneToOneData->scheduled_at,
         'recurrence_interval' => RecurrenceInterval::NEVER
     ]);

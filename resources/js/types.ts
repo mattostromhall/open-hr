@@ -141,6 +141,8 @@ export interface OneToOne {
     manager_id: number,
     requester_id: number,
     status: OneToOneStatus,
+    person_status: OneToOneStatus,
+    manager_status: OneToOneStatus,
     scheduled_at: string,
     completed_at?: string,
     recurring: boolean,

@@ -17,7 +17,8 @@ class StoreOneToOneRequest extends FormRequest
             'person_id' => ['required', 'numeric'],
             'manager_id' => ['required', 'numeric'],
             'requester_id' => ['required', 'numeric'],
-            'status' => ['required', new Enum(OneToOneStatus::class)],
+            'person_status' => ['required', new Enum(OneToOneStatus::class)],
+            'manager_status' => ['required', new Enum(OneToOneStatus::class)],
             'scheduled_at' => ['required', 'date', 'after_or_equal:today'],
             'recurring' => ['boolean'],
             'recurrence_interval' => [new Enum(RecurrenceInterval::class)],
@@ -37,7 +38,8 @@ class StoreOneToOneRequest extends FormRequest
             [
                 'person' => Person::find($this->validated('person_id')),
                 'manager' => Person::find($this->validated('manager_id')),
-                'status' => OneToOneStatus::from($this->validated('status')),
+                'person_status' => OneToOneStatus::from($this->validated('person_status')),
+                'manager_status' => OneToOneStatus::from($this->validated('manager_status')),
                 'scheduled_at' => Carbon::parse($this->validated('scheduled_at')),
                 'recurrence_interval' => RecurrenceInterval::from($this->validated('recurrence_interval')),
                 'completed_at' => $this->validated('completed_at') ? Carbon::parse($this->validated('completed_at')) : null

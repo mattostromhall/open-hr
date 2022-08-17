@@ -13,7 +13,7 @@ enum OneToOneStatus: int
         return match ($this) {
             self::INVITED => 'invited',
             self::ACCEPTED => 'accepted',
-            self::DECLINED => 'rejected',
+            self::DECLINED => 'declined',
         };
     }
 }

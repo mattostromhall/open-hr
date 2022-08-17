@@ -14,7 +14,7 @@ const props = defineProps<{
     manager: Pick<Person, 'id'|'full_name'>,
 }>()
 
-type OneToOneRequestData = Omit<OneToOne, 'id' | 'completed_at'>
+type OneToOneRequestData = Omit<OneToOne, 'id' | 'status' | 'completed_at'>
 
 const emit = defineEmits(['setActive'])
 
@@ -24,7 +24,8 @@ const form: InertiaForm<OneToOneRequestData> = useForm({
     person_id: person.value.id,
     manager_id: props.manager.id,
     requester_id: person.value.id,
-    status: 1,
+    person_status: 2,
+    manager_status: 1,
     scheduled_at: '',
     recurring: false,
     recurrence_interval: 'never',
