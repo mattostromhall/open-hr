@@ -4,6 +4,8 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
+use Domain\Performance\QueryBuilders\OneToOneQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +28,16 @@ class OneToOne extends Model
     ];
 
     protected $appends = ['status'];
+
+    public static function query(): Builder|OneToOneQueryBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): OneToOneQueryBuilder
+    {
+        return new OneToOneQueryBuilder($query);
+    }
 
     public function person(): BelongsTo
     {

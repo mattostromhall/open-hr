@@ -25,7 +25,7 @@ function formatDate(date: string): string {
                 class="divide-y divide-gray-200"
             >
                 <li
-                    v-for="(holiday, index) in approved"
+                    v-for="(oneToOne, index) in approved"
                     :key="index"
                 >
                     <Link

@@ -3,6 +3,7 @@
 namespace Domain\Performance\Models;
 
 use Domain\Performance\QueryBuilders\ObjectiveQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,11 @@ class Objective extends Model
         'due_at' => 'date',
         'completed_at' => 'date',
     ];
+
+    public static function query(): Builder|ObjectiveQueryBuilder
+    {
+        return parent::query();
+    }
 
     public function newEloquentBuilder($query): ObjectiveQueryBuilder
     {

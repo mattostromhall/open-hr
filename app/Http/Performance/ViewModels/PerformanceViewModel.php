@@ -4,6 +4,7 @@ namespace App\Http\Performance\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Performance\Enums\RecurrenceInterval;
+use Domain\Performance\Models\OneToOne;
 use Illuminate\Support\Collection;
 
 class PerformanceViewModel extends ViewModel
@@ -23,6 +24,11 @@ class PerformanceViewModel extends ViewModel
     public function manager()
     {
         return person()->manager->only('id', 'full_name');
+    }
+
+    public function oneToOnes()
+    {
+
     }
 
     public function objectives()

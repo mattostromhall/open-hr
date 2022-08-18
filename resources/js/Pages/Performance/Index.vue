@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {CheckCircleIcon, InboxIcon, UsersIcon} from '@heroicons/vue/outline'
+import {CheckCircleIcon, InboxIcon, SpeakerphoneIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import Request from './OneToOnes/Request.vue'
@@ -15,7 +15,7 @@ const props = defineProps<{
     objectives: Objective[]
 }>()
 
-type ActiveTab = 'request' | 'schedule' | 'objectives'
+type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'objectives'
 
 const activeTab: Ref<ActiveTab> = ref('request')
 
@@ -72,6 +72,24 @@ function isActive(tab: string): boolean {
                         }"
                     />
                     <span class="truncate">Schedule One-to-ones</span>
+                </button>
+                <button
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
+                    :class="{
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('upcoming'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('upcoming')
+                    }"
+                    aria-current="page"
+                    @click="setActive('upcoming')"
+                >
+                    <SpeakerphoneIcon
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
+                        :class="{
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('upcoming'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('upcoming')
+                        }"
+                    />
+                    <span class="truncate">Upcoming One-to-ones</span>
                 </button>
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
