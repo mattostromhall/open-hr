@@ -4,7 +4,8 @@ import type {Ref} from 'vue'
 import {CheckCircleIcon, InboxIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
+import Request from './OneToOnes/Request.vue'
+import Schedule from './OneToOnes/Schedule.vue'
 import type {Objective, Person} from '../../types'
 
 const props = defineProps<{
@@ -91,9 +92,14 @@ function isActive(tab: string): boolean {
                 </button>
             </nav>
         </aside>
-        <RequestOneToOne
+        <Request
             v-if="isActive('request')"
             :manager="manager"
+            @set-active="setActive"
+        />
+        <Schedule
+            v-if="isActive('schedule')"
+            :direct-reports="directReports"
             @set-active="setActive"
         />
     </div>
