@@ -10,12 +10,15 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
 import type {OneToOne} from '../../../types'
 import type {Person} from '../../../types'
+import SelectInput from '@/Components/Controls/SelectInput.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
+import type {SelectOption} from '../../../types'
 
 const props = defineProps<{
-    directReports: (Pick<Person, 'id'|'full_name'>)[]
+    directReports: (Pick<Person, 'id'|'full_name'>)[],
+    recurrenceIntervals: SelectOption[],
 }>()
 
 type OneToOneScheduleData = Omit<OneToOne, 'id' | 'person_id' | 'status' | 'completed_at'> & {person_id?: number}
@@ -35,8 +38,8 @@ const form: InertiaForm<OneToOneScheduleData> = useForm({
     person_id: undefined,
     manager_id: person.value.id,
     requester_id: person.value.id,
-    person_status: 2,
-    manager_status: 1,
+    person_status: 1,
+    manager_status: 2,
     scheduled_at: '',
     recurring: false,
     recurrence_interval: 'never',
@@ -94,6 +97,20 @@ function submit(): void {
                             <FormLabel>Recurring?</FormLabel>
                             <div class="mt-1">
                                 <ToggleInput v-model="form.recurring" />
+                            </div>
+                        </div>
+                        <div
+                            v-if="form.recurring"
+                            class="col-span-6 sm:col-span-4"
+                        >
+                            <FormLabel>Recurring</FormLabel>
+                            <div class="mt-1">
+                                <SelectInput
+                                    v-model="form.recurrence_interval"
+                                    :options="recurrenceIntervals"
+                                    :error="form.errors.recurrence_interval"
+                                    @reset="form.clearErrors('recurrence_interval')"
+                                />
                             </div>
                         </div>
                         <div class="col-span-6">

@@ -6,10 +6,11 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import Request from './OneToOnes/Request.vue'
 import Schedule from './OneToOnes/Schedule.vue'
-import type {Objective, Person} from '../../types'
+import type {Objective, Person, SelectOption} from '../../types'
 
 const props = defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],
+    recurrenceIntervals: SelectOption[],
     manager: Pick<Person, 'id'|'full_name'>,
     objectives: Objective[]
 }>()
@@ -100,6 +101,7 @@ function isActive(tab: string): boolean {
         <Schedule
             v-if="isActive('schedule')"
             :direct-reports="directReports"
+            :recurrence-intervals="recurrenceIntervals"
             @set-active="setActive"
         />
     </div>

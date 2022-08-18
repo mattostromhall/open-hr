@@ -3,8 +3,8 @@
 namespace App\Http\Performance\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
-use Domain\Auth\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Domain\Performance\Enums\RecurrenceInterval;
+use Illuminate\Support\Collection;
 
 class PerformanceViewModel extends ViewModel
 {
@@ -13,6 +13,11 @@ class PerformanceViewModel extends ViewModel
         return person()->directReports->map(
             fn ($directReport) => $directReport->only('id', 'full_name')
         );
+    }
+
+    public function recurrenceIntervals(): Collection
+    {
+        return RecurrenceInterval::all();
     }
 
     public function manager()
