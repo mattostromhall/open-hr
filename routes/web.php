@@ -135,6 +135,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('one-to-one.store');
     Route::get('/one-to-ones/{one_to_one}', [OneToOneController::class, 'show'])
         ->name('one-to-one.show');
+    Route::put('/one-to-ones/{one_to_one}', [OneToOneController::class, 'update'])
+        ->name('one-to-one.show');
     Route::get('/one-to-ones/{one_to_one}/edit', [OneToOneController::class, 'edit'])
         ->name('one-to-one.edit');
     Route::get('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'show'])

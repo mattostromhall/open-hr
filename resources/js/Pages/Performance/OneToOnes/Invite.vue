@@ -85,33 +85,56 @@ function amend(): void {
 <template>
     <Head title="One-to-one Invite" />
 
-    <section class="p-8">
+    <section class="p-8 sm:w-full sm:max-w-5xl">
         <div class="bg-white shadow sm:rounded-lg">
             <div class="py-5 px-4 sm:p-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
                     One-to-one requested by {{ requester }}
                 </h3>
                 <div class="mt-2 max-w-xl text-sm text-gray-500">
-                    <p class="mt-1">
-                        {{ personName }}: {{ personStatus }}
-                    </p>
-                    <p class="mt-1">
-                        {{ managerName }}: {{ managerStatus }}
-                    </p>
+                    <div class="mt-3">
+                        {{ personName }} -
+                        <p
+                            class="inline-flex rounded-full px-2 text-xs font-semibold capitalize leading-5"
+                            :class="{
+                                'bg-blue-100 text-blue-800': personStatus === 'invited',
+                                'bg-green-100 text-green-800': personStatus === 'accepted',
+                                'bg-red-100 text-red-800': personStatus === 'declined'
+                            }"
+                        >
+                            {{ personStatus }}
+                        </p>
+                        <div class="mt-3">
+                            {{ managerName }} -
+                            <p
+                                class="inline-flex rounded-full px-2 text-xs font-semibold capitalize leading-5"
+                                :class="{
+                                    'bg-blue-100 text-blue-800': managerStatus === 'invited',
+                                    'bg-green-100 text-green-800': managerStatus === 'accepted',
+                                    'bg-red-100 text-red-800': managerStatus === 'declined'
+                                }"
+                            >
+                                {{ managerStatus }}
+                            </p>
+                        </div>
+                    </div>
                     <p
                         v-if="oneToOne.recurring"
-                        class="mt-1"
+                        class="mt-3"
                     >
-                        Recurring: {{ oneToOne.recurrence_interval }}
+                        Recurring - {{ oneToOne.recurrence_interval }}
                     </p>
                     <p
                         v-if="oneToOne.notes"
                         class="mt-1"
+                        :class="{
+                            'mt-3': ! oneToOne.recurring
+                        }"
                     >
-                        Request info: {{ oneToOne.notes }}
+                        Request info - {{ oneToOne.notes }}
                     </p>
                 </div>
-                <div class="mt-3">
+                <div class="mt-5">
                     <FormLabel>Scheduled at</FormLabel>
                     <div class="mt-1 max-w-xs">
                         <DateInput

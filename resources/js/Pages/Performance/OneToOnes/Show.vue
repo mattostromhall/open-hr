@@ -49,7 +49,7 @@ const props = defineProps<{
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <p
-                                class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
+                                class="inline-flex rounded-full px-2 text-xs font-semibold capitalize leading-5"
                                 :class="{
                                     'text-blue-800 bg-blue-100': personStatus === 'invited',
                                     'text-green-800 bg-green-100': personStatus === 'accepted',
@@ -66,7 +66,7 @@ const props = defineProps<{
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <p
-                                class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
+                                class="inline-flex rounded-full px-2 text-xs font-semibold capitalize leading-5"
                                 :class="{
                                     'text-blue-800 bg-blue-100': managerStatus === 'invited',
                                     'text-green-800 bg-green-100': managerStatus === 'accepted',
@@ -83,6 +83,14 @@ const props = defineProps<{
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             {{ useDateFormat(oneToOne.scheduled_at, 'DD/MM/YYYY HH:mm').value }}
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Completed at
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            {{ oneToOne.completed_at ? useDateFormat(oneToOne.completed_at, 'DD/MM/YYYY HH:mm').value : '-' }}
                         </dd>
                     </div>
                     <div

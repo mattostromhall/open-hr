@@ -3,9 +3,9 @@
 namespace App\Http\Performance\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
-use Domain\Auth\Models\User;
+use Domain\Performance\Enums\RecurrenceInterval;
 use Domain\Performance\Models\OneToOne;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class OneToOneViewModel extends ViewModel
 {
@@ -42,5 +42,10 @@ class OneToOneViewModel extends ViewModel
     public function managerStatus(): string
     {
         return $this->oneToOne->manager_status->statusDisplay();
+    }
+
+    public function recurrenceIntervals(): Collection
+    {
+        return RecurrenceInterval::all();
     }
 }

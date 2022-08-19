@@ -118,7 +118,7 @@ class Person extends Model
 
     public function notifications(): MorphMany
     {
-        return $this->morphMany(Notification::class, 'notifiable');
+        return $this->morphMany(Notification::class, 'notifiable')->orderByDesc('created_at');
     }
 
     public function user(): BelongsTo
