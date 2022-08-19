@@ -17,14 +17,14 @@ const props = defineProps<{
     requester: string
 }>()
 
-type HolidayRequestData = Omit<Holiday, 'id'>
+type UpdateHolidayData = Omit<Holiday, 'id'>
 
 const halfDayOptions = [
     {value: 'am', display: 'AM'},
     {value: 'pm', display: 'PM'}
 ]
 
-const form: InertiaForm<HolidayRequestData> = useForm({
+const form: InertiaForm<UpdateHolidayData> = useForm({
     person_id: props.holiday.person_id,
     status: props.holiday.status,
     start_at: props.holiday.start_at,
@@ -53,10 +53,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
-    <div class="p-8 space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9">
+    <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
+                <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Update holiday request
@@ -122,7 +122,7 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
+                <div class="flex justify-end bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
                     <IndigoButton
                         :disabled="form.processing"
                     >

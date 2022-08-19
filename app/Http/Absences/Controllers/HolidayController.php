@@ -52,6 +52,6 @@ class HolidayController extends Controller
             return back()->with('flash.error', 'There was a problem with updating the Holiday request, please try again.');
         }
 
-        return redirect()->to(route('holiday.index'))->with('flash.success', "Holiday updated!");
+        return redirect()->to(route('holiday.index'))->with('flash.success', 'Holiday updated!');
     }
 }
