@@ -21,6 +21,11 @@ class OneToOneQueryBuilder extends Builder
 
     public function upcoming(): self
     {
-        return $this->where('scheduled_at', '>', now());
+        return $this->where('scheduled_at', '>', now())
+            ->where(function (self $query) {
+                $query->where(fn (self $query) => $query->whereStatusInvited());
+                $query->orWhere(fn (self $query) => $query->whereStatusAccepted());
+            })
+            ->orderBy('scheduled_at');
     }
 }

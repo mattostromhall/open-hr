@@ -7,7 +7,7 @@ use Domain\Auth\Models\User;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Database\Eloquent\Collection;
 
-class OneToOneInviteViewModel extends ViewModel
+class OneToOneViewModel extends ViewModel
 {
     public function __construct(protected OneToOne $oneToOne)
     {

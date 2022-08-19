@@ -36,7 +36,7 @@ const form: InertiaForm<InviteData> = useForm({
 })
 
 const scheduledAtChanged: ComputedRef<boolean> = computed(() => {
-    return useDateFormat(props.oneToOne.scheduled_at, 'DD/MM/YYYY HH:ss').value !== useDateFormat(form.scheduled_at, 'DD/MM/YYYY HH:ss').value
+    return useDateFormat(props.oneToOne.scheduled_at, 'DD/MM/YYYY HH:mm').value !== useDateFormat(form.scheduled_at, 'DD/MM/YYYY HH:mm').value
 })
 
 function submit(): void {

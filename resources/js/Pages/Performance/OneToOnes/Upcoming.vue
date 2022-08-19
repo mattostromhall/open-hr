@@ -2,18 +2,26 @@
 import {useDateFormat} from '@vueuse/core'
 import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/outline'
 import {Link} from '@inertiajs/inertia-vue3'
+import type {OneToOne, OneToOneStatus} from '../../../types'
 
-defineProps({
-    approved: {
-        type: Array,
-        default: () => []
-    }
-})
+defineProps<{
+    oneToOnes: OneToOne[]
+}>()
+
+const statusMap = {
+    1: 'invited',
+    2: 'accepted',
+    3: 'declined'
+}
 
 function formatDate(date: string): string {
-    const formatted = useDateFormat(date, 'DD/MM/YYYY')
+    const formatted = useDateFormat(date, 'DD/MM/YYYY HH:mm')
 
     return formatted.value
+}
+
+function status(status: OneToOneStatus): string {
+    return statusMap[status]
 }
 </script>
 
@@ -25,47 +33,39 @@ function formatDate(date: string): string {
                 class="divide-y divide-gray-200"
             >
                 <li
-                    v-for="(oneToOne, index) in approved"
+                    v-for="(oneToOne, index) in oneToOnes"
                     :key="index"
                 >
                     <Link
-                        :href="`/holidays/${holiday.id}`"
+                        :href="`/one-to-ones/${oneToOne.id}`"
                         class="block hover:bg-gray-50"
                     >
                         <div class="flex items-center p-4 sm:px-6">
                             <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div class="w-44 truncate">
+                                <div class="w-60 truncate">
                                     <div class="flex text-sm text-indigo-500">
                                         <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0" />
                                         <p>
-                                            Starts
-                                            {{ formatDate(holiday.start_at) }}
+                                            Scheduled at
+                                            {{ formatDate(oneToOne.scheduled_at) }}
                                         </p>
-                                    </div>
-                                    <div class="mt-2 flex">
-                                        <div class="flex items-center text-sm text-gray-500">
-                                            <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0 text-gray-400" />
-                                            <p v-if="! holiday.half_day">
-                                                Finishes
-                                                {{ formatDate(holiday.finish_at) }}
-                                            </p>
-                                            <p
-                                                v-else
-                                                class="inline-flex rounded-full bg-indigo-100 px-2 text-xs font-semibold leading-5 text-indigo-800"
-                                            >
-                                                Half day {{ holiday.half_day }}
-                                            </p>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                     <p class="truncate px-3 text-sm text-gray-400">
-                                        {{ holiday.notes }}
+                                        {{ oneToOne.notes }}
                                     </p>
                                 </div>
                                 <div class="mt-4 shrink-0 sm:mt-0 sm:ml-5">
-                                    <p class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                                        Approved
+                                    <p
+                                        class="inline-flex rounded-full px-2 text-xs font-semibold capitalize leading-5"
+                                        :class="{
+                                            'bg-blue-100 text-blue-800': status(oneToOne.status) === 'invited',
+                                            'bg-green-100 text-green-800': status(oneToOne.status) === 'accepted',
+                                            'bg-red-100 text-red-800': status(oneToOne.status) === 'declined'
+                                        }"
+                                    >
+                                        {{ status(oneToOne.status) }}
                                     </p>
                                 </div>
                             </div>

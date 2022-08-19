@@ -57,7 +57,7 @@ function submit(): void {
                     </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Suggest a time and date <RequiredIcon /></FormLabel>
+                            <FormLabel>Suggest a date and time <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <DateInput
                                     v-model="form.scheduled_at"

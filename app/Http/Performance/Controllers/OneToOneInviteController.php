@@ -3,7 +3,7 @@
 namespace App\Http\Performance\Controllers;
 
 use App\Http\Performance\Requests\UpdateOneToOneRequest;
-use App\Http\Performance\ViewModels\OneToOneInviteViewModel;
+use App\Http\Performance\ViewModels\OneToOneViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\OneToOneInviteResponseAction;
 use Domain\Performance\DataTransferObjects\OneToOneData;
@@ -16,7 +16,7 @@ class OneToOneInviteController extends Controller
 {
     public function show(OneToOne $oneToOne): Response
     {
-        return Inertia::render('Performance/OneToOnes/Invite', new OneToOneInviteViewModel($oneToOne));
+        return Inertia::render('Performance/OneToOnes/Invite', new OneToOneViewModel($oneToOne));
     }
 
     public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse): RedirectResponse

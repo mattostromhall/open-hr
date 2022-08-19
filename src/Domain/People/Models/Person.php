@@ -66,6 +66,11 @@ class Person extends Model
         return $this->hasMany(OneToOne::class);
     }
 
+    public function managerOneToOnes(): HasMany
+    {
+        return $this->hasMany(OneToOne::class, 'manager_id');
+    }
+
     public function documents(): MorphMany
     {
         return $this->morphMany(Document::class, 'documentable');
