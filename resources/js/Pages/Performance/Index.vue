@@ -7,6 +7,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import Request from './OneToOnes/Request.vue'
 import Schedule from './OneToOnes/Schedule.vue'
 import Upcoming from './OneToOnes/Upcoming.vue'
+import Current from './Objectives/Current.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
 
 const props = defineProps<{
@@ -17,7 +18,7 @@ const props = defineProps<{
     objectives: Objective[]
 }>()
 
-type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'objectives'
+type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'current'
 
 const activeTab: Ref<ActiveTab> = ref('request')
 
@@ -96,17 +97,17 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('objectives'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('objectives')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('current'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('current')
                     }"
                     aria-current="page"
-                    @click="setActive('objectives')"
+                    @click="setActive('current')"
                 >
                     <CheckCircleIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('objectives'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('objectives')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('current'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('current')
                         }"
                     />
                     <span class="truncate">Current Objectives</span>
@@ -127,6 +128,10 @@ function isActive(tab: string): boolean {
         <Upcoming
             v-if="isActive('upcoming')"
             :one-to-ones="oneToOnes"
+            @set-active="setActive"
+        />
+        <Current
+            v-if="isActive('current')"
             @set-active="setActive"
         />
     </div>

@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import {Underline} from '@tiptap/extension-underline'
 
 const editor = useEditor({
     extensions: [
         StarterKit,
+        Underline
     ],
     editorProps: {
         attributes: {
-            class: 'w-full prose prose-sm sm:prose lg:prose-lg xl:prose-2xl m-5 focus:outline-none bg-white rounded-md shadow-md p-4',
+            class: 'w-full min-h-48 prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none bg-white block pt-6 pb-16 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
         },
     },
     content: `
@@ -45,5 +47,132 @@ const editor = useEditor({
 </script>
 
 <template>
-    <EditorContent :editor="editor" />
+    <div class="relative">
+        <EditorContent :editor="editor" />
+        <div class="absolute bottom-0 left-0 flex flex-wrap items-center justify-center space-x-2 rounded-sm py-2 px-6">
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+                :class="{'bg-indigo-700': editor?.isActive('bold')}"
+                @click="editor.chain().focus().toggleBold().run()"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    :class="{'text-indigo-100': editor?.isActive('bold')}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0h24v24H0z"
+                        />
+                        <path d="M8 11h4.5a2.5 2.5 0 1 0 0-5H8v5zm10 4.5a4.5 4.5 0 0 1-4.5 4.5H6V4h6.5a4.5 4.5 0 0 1 3.256 7.606A4.498 4.498 0 0 1 18 15.5zM8 13v5h5.5a2.5 2.5 0 1 0 0-5H8z" />
+                    </g>
+                </svg>
+            </button>
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+                :class="{'bg-indigo-700': editor?.isActive('underline')}"
+                @click="editor.chain().focus().toggleUnderline().run()"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    :class="{'text-indigo-100': editor?.isActive('underline')}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0h24v24H0z"
+                        />
+                        <path d="M8 3v9a4 4 0 1 0 8 0V3h2v9a6 6 0 1 1-12 0V3h2zM4 20h16v2H4v-2z" />
+                    </g>
+                </svg>
+            </button>
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+                :class="{'bg-indigo-700': editor?.isActive('italic')}"
+                @click="editor.chain().focus().toggleItalic().run()"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    :class="{'text-indigo-100': editor?.isActive('italic')}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0h24v24H0z"
+                        />
+                        <path d="M15 20H7v-2h2.927l2.116-12H9V4h8v2h-2.927l-2.116 12H15z" />
+                    </g>
+                </svg>
+            </button>
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0H24V24H0z"
+                        />
+                        <path d="M13 20h-2v-7H4v7H2V4h2v7h7V4h2v16zm8-12v12h-2v-9.796l-2 .536V8.67L19.5 8H21z" />
+                    </g>
+                </svg>
+            </button>
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+                :class="{'bg-indigo-700': editor?.isActive('bulletList')}"
+                @click="editor.chain().focus().toggleBulletList().run()"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    :class="{'text-indigo-100': editor?.isActive('bulletList')}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0h24v24H0z"
+                        />
+                        <path d="M8 4h13v2H8V4zM4.5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 6.9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM8 11h13v2H8v-2zm0 7h13v2H8v-2z" />
+                    </g>
+                </svg>
+            </button>
+            <button
+                class="rounded-sm bg-indigo-50 p-2"
+                :class="{'bg-indigo-700': editor?.isActive('orderedList')}"
+                @click="editor.chain().focus().toggleOrderedList().run()"
+            >
+                <svg
+                    class="h-4 w-4 text-indigo-500"
+                    :class="{'text-indigo-100': editor?.isActive('orderedList')}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <g>
+                        <path
+                            fill="none"
+                            d="M0 0h24v24H0z"
+                        />
+                        <path d="M8 4h13v2H8V4zM5 3v3h1v1H3V6h1V4H3V3h2zM3 14v-2.5h2V11H3v-1h3v2.5H4v.5h2v1H3zm2 5.5H3v-1h2V18H3v-1h3v4H3v-1h2v-.5zM8 11h13v2H8v-2zm0 7h13v2H8v-2z" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+    </div>
 </template>

@@ -19,6 +19,9 @@ module.exports = {
                 rose: colors.rose,
                 'select-grey': '#6F6D73'
             },
+            minHeight: {
+                '48': '12rem'
+            }
         },
     },
 
