@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { useEditor, EditorContent } from '@tiptap/vue-3'
+import {ref} from 'vue'
+import type {Ref} from 'vue'
+import {useEditor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import {Underline} from '@tiptap/extension-underline'
+import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 
 const editor = useEditor({
     extensions: [
@@ -10,7 +13,7 @@ const editor = useEditor({
     ],
     editorProps: {
         attributes: {
-            class: 'w-full min-h-48 prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none bg-white block pt-6 pb-16 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+            class: 'w-full min-h-48 prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none bg-white block pt-20 pb-6 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
         },
     },
     content: `
@@ -44,12 +47,14 @@ const editor = useEditor({
     </blockquote>
   `,
 })
+
+const showHeadingOptions: Ref<boolean> = ref(false)
 </script>
 
 <template>
     <div class="relative">
         <EditorContent :editor="editor" />
-        <div class="absolute bottom-0 left-0 flex flex-wrap items-center justify-center space-x-2 rounded-sm py-2 px-6">
+        <div class="absolute top-0 left-0 flex flex-wrap items-center justify-center space-x-2 rounded-sm px-6 pt-6">
             <button
                 class="rounded-sm bg-indigo-50 p-2"
                 :class="{'bg-indigo-700': editor?.isActive('bold')}"
@@ -113,24 +118,85 @@ const editor = useEditor({
                     </g>
                 </svg>
             </button>
-            <button
-                class="rounded-sm bg-indigo-50 p-2"
+            <SimpleDropdown
+                v-model="showHeadingOptions"
+                position="right"
             >
-                <svg
-                    class="h-4 w-4 text-indigo-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <g>
-                        <path
-                            fill="none"
-                            d="M0 0H24V24H0z"
-                        />
-                        <path d="M13 20h-2v-7H4v7H2V4h2v7h7V4h2v16zm8-12v12h-2v-9.796l-2 .536V8.67L19.5 8H21z" />
-                    </g>
-                </svg>
-            </button>
+                <template #button="{toggleDropdown}">
+                    <button
+                        class="rounded-sm bg-indigo-50 p-2"
+                        :class="{'bg-indigo-700': editor?.isActive('heading')}"
+                        aria-expanded="true"
+                        aria-haspopup="true"
+                        @click="toggleDropdown"
+                    >
+                        <svg
+                            class="h-4 w-4 text-indigo-500"
+                            :class="{'text-indigo-100': editor?.isActive('heading')}"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <g>
+                                <path
+                                    fill="none"
+                                    d="M0 0H24V24H0z"
+                                />
+                                <path d="M13 20h-2v-7H4v7H2V4h2v7h7V4h2v16zm8-12v12h-2v-9.796l-2 .536V8.67L19.5 8H21z" />
+                            </g>
+                        </svg>
+                    </button>
+                </template>
+                <template #default="{hideDropdown}">
+                    <ul
+                        class="py-2"
+                        @click="hideDropdown"
+                    >
+                        <li
+                            class="cursor-pointer px-6 py-1 text-2xl hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 1})}"
+                            @click="editor.chain().focus().toggleHeading({level: 1}).run()"
+                        >
+                            Heading 1
+                        </li>
+                        <li
+                            class="cursor-pointer px-6 py-1.5 text-xl hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 2})}"
+                            @click="editor.chain().focus().toggleHeading({level: 2}).run()"
+                        >
+                            Heading 2
+                        </li>
+                        <li
+                            class="cursor-pointer px-6 py-1.5 text-lg hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 3})}"
+                            @click="editor.chain().focus().toggleHeading({level: 3}).run()"
+                        >
+                            Heading 3
+                        </li>
+                        <li
+                            class="cursor-pointer px-6 py-2 hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 4})}"
+                            @click="editor.chain().focus().toggleHeading({level: 4}).run()"
+                        >
+                            Heading 4
+                        </li>
+                        <li
+                            class="cursor-pointer px-6 py-2.5 text-sm hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 5})}"
+                            @click="editor.chain().focus().toggleHeading({level: 5}).run()"
+                        >
+                            Heading 5
+                        </li>
+                        <li
+                            class="cursor-pointer px-6 py-3 text-xs hover:bg-gray-50"
+                            :class="{'bg-gray-100': editor?.isActive('heading', {level: 6})}"
+                            @click="editor.chain().focus().toggleHeading({level: 6}).run()"
+                        >
+                            Heading 6
+                        </li>
+                    </ul>
+                </template>
+            </SimpleDropdown>
             <button
                 class="rounded-sm bg-indigo-50 p-2"
                 :class="{'bg-indigo-700': editor?.isActive('bulletList')}"
