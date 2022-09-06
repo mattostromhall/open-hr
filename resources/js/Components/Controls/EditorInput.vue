@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useEditor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import {Placeholder} from '@tiptap/extension-placeholder'
 import {Underline} from '@tiptap/extension-underline'
 import EditorMenu from './EditorMenu.vue'
 import {watch} from 'vue'
@@ -14,11 +15,15 @@ const emit = defineEmits(['update:modelValue'])
 const editor = useEditor({
     extensions: [
         StarterKit,
-        Underline
+        Underline,
+        Placeholder.configure({
+            placeholder: 'Write something…',
+            emptyEditorClass: 'first:before:text-gray-400 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none first:before:h-0'
+        })
     ],
     editorProps: {
         attributes: {
-            class: 'w-full min-h-48 prose prose-sm sm:prose lg:prose-lg focus:outline-none bg-white block pt-20 pb-6 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+            class: 'w-full min-h-48 prose prose-sm sm:prose focus:outline-none bg-white block pt-20 pb-6 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
         },
     },
     content: props.modelValue,
@@ -38,10 +43,10 @@ watch(() => props.modelValue, (value) => {
 
 <template>
     <div class="relative">
-        <EditorContent :editor="editor" />
         <EditorMenu
-            class="absolute top-0 left-0"
+            class="absolute top-0 left-0 z-10"
             :editor="editor"
         />
+        <EditorContent :editor="editor" />
     </div>
 </template>
