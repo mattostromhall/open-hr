@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {CheckCircleIcon, InboxIcon, SpeakerphoneIcon, UsersIcon} from '@heroicons/vue/outline'
+import {CheckCircleIcon, InboxIcon, SparklesIcon, SpeakerphoneIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import Request from './OneToOnes/Request.vue'
 import Schedule from './OneToOnes/Schedule.vue'
 import Upcoming from './OneToOnes/Upcoming.vue'
 import Current from './Objectives/Current.vue'
+import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
 
 const props = defineProps<{
@@ -18,7 +19,7 @@ const props = defineProps<{
     objectives: Objective[]
 }>()
 
-type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'current'
+type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'current' | 'create'
 
 const activeTab: Ref<ActiveTab> = ref('request')
 
@@ -112,6 +113,24 @@ function isActive(tab: string): boolean {
                     />
                     <span class="truncate">Current Objectives</span>
                 </button>
+                <button
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
+                    :class="{
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('create'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('create')
+                    }"
+                    aria-create="page"
+                    @click="setActive('create')"
+                >
+                    <SparklesIcon
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
+                        :class="{
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('create'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('create')
+                        }"
+                    />
+                    <span class="truncate">Create Objective</span>
+                </button>
             </nav>
         </aside>
         <Request
@@ -132,6 +151,10 @@ function isActive(tab: string): boolean {
         />
         <Current
             v-if="isActive('current')"
+            @set-active="setActive"
+        />
+        <Create
+            v-if="isActive('create')"
             @set-active="setActive"
         />
     </div>

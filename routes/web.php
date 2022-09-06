@@ -17,6 +17,7 @@ use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
+use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\OneToOneController;
 use App\Http\Performance\Controllers\OneToOneInviteController;
 use App\Http\Performance\Controllers\PerformanceController;
@@ -136,13 +137,16 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/one-to-ones/{one_to_one}', [OneToOneController::class, 'show'])
         ->name('one-to-one.show');
     Route::put('/one-to-ones/{one_to_one}', [OneToOneController::class, 'update'])
-        ->name('one-to-one.show');
+        ->name('one-to-one.update');
     Route::get('/one-to-ones/{one_to_one}/edit', [OneToOneController::class, 'edit'])
         ->name('one-to-one.edit');
     Route::get('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'show'])
         ->name('one-to-one.invite.show');
     Route::patch('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'update'])
         ->name('one-to-one.invite.update');
+
+    Route::post('/objectives', [ObjectiveController::class, 'store'])
+        ->name('objective.store');
 });
 
 require __DIR__ . '/auth.php';

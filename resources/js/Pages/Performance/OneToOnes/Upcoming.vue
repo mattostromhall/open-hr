@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/outline'
+import {CalendarIcon, ChevronRightIcon, PlusIcon, UsersIcon} from '@heroicons/vue/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import type {OneToOne, OneToOneStatus} from '../../../types'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
 defineProps<{
     oneToOnes: OneToOne[]
 }>()
+
+const emit = defineEmits(['setActive'])
 
 const statusMap = {
     1: 'invited',
@@ -23,11 +26,33 @@ function formatDate(date: string): string {
 function status(status: OneToOneStatus): string {
     return statusMap[status]
 }
+
+function requestOneToOne() {
+    emit('setActive', 'request')
+}
 </script>
 
 <template>
     <div class="sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-        <div class="bg-white shadow sm:rounded-md">
+        <div
+            v-if="oneToOnes.length === 0"
+            class="bg-white py-6 px-4 text-center sm:rounded-md sm:p-6"
+        >
+            <UsersIcon class="mx-auto h-12 w-12 text-gray-400" />
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+                No Upcoming One-to-ones
+            </h3>
+            <div class="mt-6 flex justify-center">
+                <IndigoButton @click="requestOneToOne">
+                    <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
+                    Request
+                </IndigoButton>
+            </div>
+        </div>
+        <div
+            v-else
+            class="bg-white shadow sm:rounded-md"
+        >
             <ul
                 role="list"
                 class="divide-y divide-gray-200"

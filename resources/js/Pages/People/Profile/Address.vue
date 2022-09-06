@@ -62,22 +62,22 @@ function submit(): void {
 </script>
 
 <template>
-    <div class="space-y-6 sm:px-6 sm:w-full sm:max-w-3xl lg:col-span-9 lg:px-0">
+    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
         <div class="shadow sm:rounded-md">
             <div
                 v-if="! showForm"
-                class="py-6 px-4 text-center bg-white sm:p-6 sm:rounded-t-md"
+                class="bg-white py-6 px-4 text-center sm:rounded-md sm:p-6"
             >
-                <MailIcon class="mx-auto w-12 h-12 text-gray-400" />
+                <MailIcon class="mx-auto h-12 w-12 text-gray-400" />
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
                     No address
                 </h3>
                 <p class="mt-1 text-sm text-gray-500">
                     Add an address to this account
                 </p>
-                <div class="flex justify-center mt-6">
+                <div class="mt-6 flex justify-center">
                     <IndigoButton @click="show">
-                        <PlusIcon class="mr-2 -ml-1 w-5 h-5" />
+                        <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Add Address
                     </IndigoButton>
                 </div>
@@ -86,7 +86,7 @@ function submit(): void {
                 v-if="showForm"
                 @submit.prevent="submit"
             >
-                <div class="py-6 px-4 space-y-6 bg-white sm:p-6">
+                <div class="space-y-6 bg-white py-6 px-4 sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Address
@@ -151,7 +151,7 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
+                <div class="flex justify-end bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
                     <IndigoButton
                         :disabled="form.processing"
                     >
