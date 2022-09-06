@@ -155,6 +155,7 @@ function isActive(tab: string): boolean {
         />
         <Create
             v-if="isActive('create')"
+            :direct-reports="directReports"
             @set-active="setActive"
         />
     </div>

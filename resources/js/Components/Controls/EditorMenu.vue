@@ -12,8 +12,9 @@ const showHeadingOptions: Ref<boolean> = ref(false)
 </script>
 
 <template>
-    <div class="flex flex-wrap items-center justify-center space-x-2 rounded-sm px-6 pt-6">
+    <div class="flex flex-wrap items-center justify-center space-x-2 rounded-sm px-3 pt-3">
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('bold')}"
             @click="editor.chain().focus().toggleBold().run()"
@@ -35,6 +36,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('underline')}"
             @click="editor.chain().focus().toggleUnderline().run()"
@@ -56,6 +58,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('italic')}"
             @click="editor.chain().focus().toggleItalic().run()"
@@ -77,6 +80,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             @click="editor.chain().focus().setParagraph().run()"
         >
@@ -101,6 +105,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
         >
             <template #button="{toggleDropdown}">
                 <button
+                    type="button"
                     class="rounded-sm bg-indigo-50 p-2"
                     :class="{'bg-indigo-700': editor?.isActive('heading')}"
                     aria-expanded="true"
@@ -175,6 +180,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </template>
         </SimpleDropdown>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('bulletList')}"
             @click="editor.chain().focus().toggleBulletList().run()"
@@ -196,6 +202,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('orderedList')}"
             @click="editor.chain().focus().toggleOrderedList().run()"
@@ -217,6 +224,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('codeBlock')}"
             @click="editor.chain().focus().toggleCodeBlock().run()"
@@ -238,6 +246,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
             </svg>
         </button>
         <button
+            type="button"
             class="rounded-sm bg-indigo-50 p-2"
             :class="{'bg-indigo-700': editor?.isActive('blockquote')}"
             @click="editor.chain().focus().toggleBlockquote().run()"

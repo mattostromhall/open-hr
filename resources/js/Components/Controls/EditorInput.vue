@@ -23,7 +23,7 @@ const editor = useEditor({
     ],
     editorProps: {
         attributes: {
-            class: 'w-full min-h-48 prose prose-sm sm:prose focus:outline-none bg-white block pt-20 pb-6 px-6 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+            class: 'w-full min-h-48 prose max-w-none focus:outline-none bg-white block pt-16 pb-3 px-3 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
         },
     },
     content: props.modelValue,

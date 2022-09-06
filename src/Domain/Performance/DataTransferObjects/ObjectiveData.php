@@ -3,6 +3,7 @@
 namespace Domain\Performance\DataTransferObjects;
 
 use Domain\People\Models\Person;
+use Illuminate\Support\Carbon;
 
 class ObjectiveData
 {
@@ -10,8 +11,8 @@ class ObjectiveData
         public readonly Person $person,
         public readonly string $title,
         public readonly string $description,
-        public readonly string $due_at,
-        public readonly string $completed_at
+        public readonly Carbon $due_at,
+        public readonly ?Carbon $completed_at = null
     ) {
         //
     }
