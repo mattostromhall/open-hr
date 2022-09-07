@@ -40,6 +40,7 @@ class ObjectiveController extends Controller
     public function update(UpdateObjectiveRequest $request, Objective $objective, AmendObjectiveAction $amendObjective): RedirectResponse
     {
         $objectiveData = ObjectiveData::from([
+            ...$objective->only('title', 'description', 'due_at', 'completed_at'),
             ...$request->filteredValidatedData()
         ]);
 
