@@ -156,6 +156,7 @@ export interface Objective {
     title: string,
     description: string,
     due_at: string,
+    days_remaining: number,
     completed_at?: string
 }
 

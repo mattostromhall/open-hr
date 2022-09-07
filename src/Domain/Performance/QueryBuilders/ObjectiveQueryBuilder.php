@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ObjectiveQueryBuilder extends Builder
 {
-    public function active(): self
+    public function current(): self
     {
         return $this->whereNull('completed_at');
     }

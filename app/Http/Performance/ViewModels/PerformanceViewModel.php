@@ -27,13 +27,17 @@ class PerformanceViewModel extends ViewModel
 
     public function oneToOnes()
     {
-        return person()->oneToOnes()
+        return person()
+            ->oneToOnes()
             ->upcoming()
             ->get();
     }
 
     public function objectives()
     {
-        return person()->objectives;
+        return person()
+            ->objectives()
+            ->current()
+            ->get();
     }
 }

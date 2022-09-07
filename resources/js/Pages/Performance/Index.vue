@@ -151,6 +151,7 @@ function isActive(tab: string): boolean {
         />
         <Current
             v-if="isActive('current')"
+            :objectives="objectives"
             @set-active="setActive"
         />
         <Create

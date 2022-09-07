@@ -4,6 +4,7 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\QueryBuilders\ObjectiveQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,8 @@ class Objective extends Model
         'due_at' => 'date',
         'completed_at' => 'date',
     ];
+
+    protected $appends = ['days_remaining'];
 
     public static function query(): Builder|ObjectiveQueryBuilder
     {
@@ -39,5 +42,18 @@ class Objective extends Model
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    protected function daysRemaining(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $difference = now()->diffInDays($this->due_at);
+
+                return now()->isAfter($this->due_at)
+                    ? $difference * -1
+                    : $difference;
+            }
+        );
     }
 }
