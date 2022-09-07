@@ -27,7 +27,7 @@ class StoreObjectiveRequest extends FormRequest
             ]),
             [
                 'person' => Person::find($this->validated('person_id')),
-                'scheduled_at' => Carbon::parse($this->validated('scheduled_at'))
+                'due_at' => Carbon::parse($this->validated('due_at'))
             ]
         );
     }

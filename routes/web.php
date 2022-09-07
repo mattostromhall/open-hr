@@ -147,6 +147,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/objectives', [ObjectiveController::class, 'store'])
         ->name('objective.store');
+    Route::get('/objectives/{objective}', [ObjectiveController::class, 'show'])
+        ->name('objective.show');
+    Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
+        ->name('objective.edit');
 });
 
 require __DIR__ . '/auth.php';
