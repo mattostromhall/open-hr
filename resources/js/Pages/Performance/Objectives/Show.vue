@@ -2,12 +2,14 @@
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {useDateFormat} from '@vueuse/core'
-import type {Objective} from '../../../types'
+import type {Objective, Task} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
+import Index from '@/Pages/Performance/Tasks/Index.vue'
 
 const props = defineProps<{
-    objective: Objective
+    objective: Objective,
+    tasks: Task[]
 }>()
 
 function status(objective: Objective): string {
@@ -23,7 +25,7 @@ function status(objective: Objective): string {
 }
 
 function complete() {
-    Inertia.post(`/objectives/${props.objective.id}/complete`)
+    return Inertia.post(`/objectives/${props.objective.id}/complete`)
 }
 </script>
 
@@ -35,9 +37,14 @@ function complete() {
     <PageHeading>
         <span class="font-medium">Viewing</span> - {{ objective.title }}
         <template #link>
-            <LightIndigoLink href="/performance">
-                View all
-            </LightIndigoLink>
+            <div class="flex space-x-2">
+                <LightIndigoLink :href="`/objectives/${objective.id}/edit`">
+                    Edit
+                </LightIndigoLink>
+                <LightIndigoLink href="/performance">
+                    View all
+                </LightIndigoLink>
+            </div>
         </template>
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">
@@ -48,7 +55,7 @@ function complete() {
                 </h3>
                 <form
                     v-if="! objective.completed_at"
-                    @submit="complete"
+                    @submit.prevent="complete"
                 >
                     <IndigoButton>Mark as complete</IndigoButton>
                 </form>
@@ -111,5 +118,9 @@ function complete() {
                 </dl>
             </div>
         </div>
+        <Index
+            :objective="objective"
+            :tasks="tasks"
+        />
     </section>
 </template>

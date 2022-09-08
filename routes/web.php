@@ -19,6 +19,7 @@ use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Performance\Controllers\CompleteObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveController;
+use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
 use App\Http\Performance\Controllers\OneToOneInviteController;
 use App\Http\Performance\Controllers\PerformanceController;
@@ -156,6 +157,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
+    Route::get('/objectives/{objective}/tasks/create', [ObjectiveTaskController::class, 'create'])
+        ->name('task.create');
 });
 
 require __DIR__ . '/auth.php';

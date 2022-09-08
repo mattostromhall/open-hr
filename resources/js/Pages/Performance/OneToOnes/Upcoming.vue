@@ -36,7 +36,7 @@ function requestOneToOne() {
     <div class="sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
         <div
             v-if="oneToOnes.length === 0"
-            class="bg-white py-6 px-4 text-center sm:rounded-md sm:p-6"
+            class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"
         >
             <UsersIcon class="mx-auto h-12 w-12 text-gray-400" />
             <h3 class="mt-2 text-sm font-medium text-gray-900">

@@ -160,6 +160,15 @@ export interface Objective {
     completed_at?: string
 }
 
+export interface Task {
+    id: number,
+    objective_id: number,
+    description: string,
+    due_at: string,
+    days_remaining: number,
+    completed_at?: string
+}
+
 export interface FlashMessage {
     success?: string,
     error?: string
