@@ -21,7 +21,9 @@ const status = computed(() => statusMap[props.holiday.status])
 </script>
 
 <template>
-    <Head title="View Holiday" />
+    <Head>
+        <title>View Holiday</title>
+    </Head>
 
     <PageHeading>
         <span class="font-medium">Viewing</span> - Holiday request
@@ -31,14 +33,14 @@ const status = computed(() => statusMap[props.holiday.status])
             </LightIndigoLink>
         </template>
     </PageHeading>
-    <section class="p-8 w-full sm:max-w-6xl">
+    <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="py-5 px-4 sm:px-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
                     Holiday Information
                 </h3>
             </div>
-            <div class="py-5 px-4 border-t border-gray-200 sm:p-0">
+            <div class="border-t border-gray-200 py-5 px-4 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
@@ -54,7 +56,7 @@ const status = computed(() => statusMap[props.holiday.status])
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <p
-                                class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full"
+                                class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
                                 :class="{
                                     'text-blue-800 bg-blue-100': status === 'pending',
                                     'text-green-800 bg-green-100': status === 'approved',
@@ -91,7 +93,7 @@ const status = computed(() => statusMap[props.holiday.status])
                         <dt class="text-sm font-medium text-gray-500">
                             Half day
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900 uppercase sm:col-span-2 sm:mt-0">
+                        <dd class="mt-1 text-sm uppercase text-gray-900 sm:col-span-2 sm:mt-0">
                             {{ holiday.half_day }}
                         </dd>
                     </div>

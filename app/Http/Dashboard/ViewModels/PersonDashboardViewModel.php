@@ -49,7 +49,7 @@ class PersonDashboardViewModel extends ViewModel
         return person()
             ->objectives()
             ->select('id', 'title', 'description')
-            ->active()
+            ->current()
             ->get();
     }
 }

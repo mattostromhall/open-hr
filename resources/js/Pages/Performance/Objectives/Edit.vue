@@ -17,7 +17,7 @@ const props = defineProps<{
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
 
-type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'completed_at'>
+type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'days_remaining' | 'completed_at'>
 
 const form: InertiaForm<ObjectiveData> = useForm({
     title: props.objective.title,
@@ -26,11 +26,7 @@ const form: InertiaForm<ObjectiveData> = useForm({
 })
 
 function submit(): void {
-    form.put('/objectives', {
-        onSuccess: () => {
-            form.reset()
-        }
-    })
+    form.put(`/objectives/${props.objective.id}`)
 }
 </script>
 

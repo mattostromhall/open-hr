@@ -26,7 +26,7 @@ const directReportOptions: ComputedRef<({
     }
 }))
 
-type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'completed_at'> & {person_id?: number}
+type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'days_remaining' | 'completed_at'> & {person_id?: number}
 
 const form: InertiaForm<ObjectiveData> = useForm({
     person_id: undefined,
