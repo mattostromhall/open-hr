@@ -17,6 +17,7 @@ use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
+use App\Http\Performance\Controllers\CompleteObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\OneToOneController;
 use App\Http\Performance\Controllers\OneToOneInviteController;
@@ -148,7 +149,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/objectives', [ObjectiveController::class, 'store'])
         ->name('objective.store');
     Route::put('/objectives/{objective}', [ObjectiveController::class, 'update'])
-        ->name('objective.store');
+        ->name('objective.update');
+    Route::post('/objectives/{objective}/complete', CompleteObjectiveController::class)
+        ->name('objective.complete');
     Route::get('/objectives/{objective}', [ObjectiveController::class, 'show'])
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])

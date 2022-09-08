@@ -3,6 +3,8 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {useDateFormat} from '@vueuse/core'
 import type {Objective} from '../../../types'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import {Inertia} from '@inertiajs/inertia'
 
 const props = defineProps<{
     objective: Objective
@@ -18,6 +20,10 @@ function status(objective: Objective): string {
     }
 
     return 'current'
+}
+
+function complete() {
+    Inertia.post(`/objectives/${props.objective.id}/complete`)
 }
 </script>
 
@@ -36,10 +42,16 @@ function status(objective: Objective): string {
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div class="py-5 px-4 sm:px-6">
+            <div class="flex items-center justify-between py-5 px-4 sm:px-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
                     Objective Information
                 </h3>
+                <form
+                    v-if="! objective.completed_at"
+                    @submit="complete"
+                >
+                    <IndigoButton>Mark as complete</IndigoButton>
+                </form>
             </div>
             <div class="border-t border-gray-200 py-5 px-4 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
