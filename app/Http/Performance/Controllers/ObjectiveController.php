@@ -9,7 +9,6 @@ use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\AmendObjectiveAction;
 use Domain\Performance\Actions\SetObjectiveAction;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
-use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\Objective;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;

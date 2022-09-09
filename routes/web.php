@@ -157,8 +157,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
-    Route::get('/objectives/{objective}/tasks/create', [ObjectiveTaskController::class, 'create'])
-        ->name('task.create');
+    Route::get('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
+        ->name('task.store');
 });
 
 require __DIR__ . '/auth.php';

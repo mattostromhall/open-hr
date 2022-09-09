@@ -22,7 +22,7 @@ class ObjectiveViewModel extends ViewModel
 
     public function tasks()
     {
-        return [];
+        return $this->objective->tasks;
     }
 
     public function person()

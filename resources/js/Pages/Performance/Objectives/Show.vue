@@ -5,7 +5,7 @@ import {useDateFormat} from '@vueuse/core'
 import type {Objective, Task} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
-import Index from '@/Pages/Performance/Tasks/Index.vue'
+import Tasks from '@/Pages/Performance/Objectives/Tasks.vue'
 
 const props = defineProps<{
     objective: Objective,
@@ -118,7 +118,7 @@ function complete() {
                 </dl>
             </div>
         </div>
-        <Index
+        <Tasks
             :objective="objective"
             :tasks="tasks"
         />

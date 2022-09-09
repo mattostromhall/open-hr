@@ -23,18 +23,8 @@ class ObjectiveTaskController extends Controller
             ObjectiveData::from($request->validatedData())
         );
 
-        return redirect(route('objective.edit', ['objective' => $objective]))
-            ->with('flash.success', 'Objective successfully created!');
-    }
-
-    public function create(): Response
-    {
-        return Inertia::render('Performance/Tasks/Create');
-    }
-
-    public function show(Objective $objective): Response
-    {
-        return Inertia::render('Performance/Objectives/Show', new ObjectiveViewModel($objective));
+        return redirect(route('objective.show', ['objective' => $objective]))
+            ->with('flash.success', 'Task successfully created!');
     }
 
     public function edit(Objective $objective): Response
@@ -52,9 +42,10 @@ class ObjectiveTaskController extends Controller
         $updated = $amendObjective->execute($objective, $objectiveData);
 
         if (! $updated) {
-            return back()->with('flash.error', 'There was a problem with updating the Objective, please try again.');
+            return back()->with('flash.error', 'There was a problem with updating the Task, please try again.');
         }
 
-        return redirect()->to(route('performance.index'))->with('flash.success', 'Objective updated!');
+        return redirect(route('objective.show', ['objective' => $objective]))
+            ->with('flash.success', 'Task successfully updated!');
     }
 }
