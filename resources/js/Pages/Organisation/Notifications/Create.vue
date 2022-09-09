@@ -7,7 +7,7 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Notification} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
-import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
+import EditorInput from '@/Components/Controls/EditorInput.vue'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 
 type NotificationData = Pick<Notification, 'title'|'body'|'link'>
@@ -20,7 +20,9 @@ const form: InertiaForm<NotificationData> = useForm({
 </script>
 
 <template>
-    <Head title="Organisation Notifications" />
+    <Head>
+        <title>Organisation Notifications</title>
+    </Head>
 
     <PageHeading>
         Create Notification
@@ -56,13 +58,7 @@ const form: InertiaForm<NotificationData> = useForm({
                         <div class="mt-4">
                             <FormLabel>Body <RequiredIcon /></FormLabel>
                             <div class="mt-1">
-                                <TextAreaInput
-                                    v-model="form.body"
-                                    :error="form.errors.body"
-                                    input-id="body"
-                                    input-name="body"
-                                    @reset="form.clearErrors('body')"
-                                />
+                                <EditorInput v-model="form.body" />
                             </div>
                         </div>
                         <div class="mt-4">

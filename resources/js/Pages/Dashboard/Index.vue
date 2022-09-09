@@ -30,14 +30,16 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head>
+        <title>Dashboard</title>
+    </Head>
 
     <section class="p-8">
-        <div class="px-4 mx-auto max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <h1 class="sr-only">
                 Profile
             </h1>
-            <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+            <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
                 <div class="grid grid-cols-1 gap-4 lg:col-span-2">
                     <ProfileOverview
                         :person="person"

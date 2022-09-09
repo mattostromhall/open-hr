@@ -15,12 +15,12 @@ class OrganisationNotificationController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Organisation/Notification/Index', new OrganisationNotificationsViewModel());
+        return Inertia::render('Organisation/Notifications/Index', new OrganisationNotificationsViewModel());
     }
 
     public function create(): Response
     {
-        return Inertia::render('Organisation/Notification/Create');
+        return Inertia::render('Organisation/Notifications/Create');
     }
 
     public function store(StoreNotificationRequest $request, CreateNotificationAction $createNotification): RedirectResponse

@@ -11,7 +11,9 @@ const props = defineProps<{
 </script>
 
 <template>
-    <Head title="Organisation Notifications" />
+    <Head>
+        <title>Organisation Notifications</title>
+    </Head>
 
     <PageHeading>
         Organisation Notifications
@@ -30,7 +32,7 @@ const props = defineProps<{
             <li
                 v-for="notification in organisationNotifications"
                 :key="notification.id"
-                class="py-6 px-4 bg-white shadow sm:px-6 sm:rounded-lg"
+                class="bg-white py-6 px-4 shadow sm:rounded-lg sm:px-6"
             >
                 <div
                     class="sm:flex sm:items-baseline"
@@ -45,17 +47,20 @@ const props = defineProps<{
                     >
                         {{ notification.title }}
                     </h3>
-                    <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                    <p class="mt-1 whitespace-nowrap text-sm text-gray-600 sm:mt-0 sm:ml-3">
                         <time :datetime="notification.created_at">{{ useTimeAgo(notification.created_at).value }}</time>
                     </p>
                 </div>
                 <div class="mt-4 space-y-6 text-sm text-gray-800">
-                    <p>{{ notification.body }}</p>
+                    <div
+                        class="prose"
+                        v-html="notification.body"
+                    />
                     <a
                         v-if="notification.link"
                         :href="notification.link"
                         target="_blank"
-                        class="inline-flex items-center py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 bg-white hover:bg-gray-50 rounded-full border border-gray-300 shadow-sm"
+                        class="inline-flex items-center rounded-full border border-gray-300 bg-white py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
                     >Visit</a>
                 </div>
             </li>
