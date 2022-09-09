@@ -19,7 +19,7 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
             $table->text('description');
             $table->date('due_at');
-            $table->date('completed_at');
+            $table->date('completed_at')->nullable();
             $table->timestamps();
         });
     }

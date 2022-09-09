@@ -38,10 +38,10 @@ function submit(): void {
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Add a Task
+                            Set Task
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Add a Task to <span class="font-semibold">{{ objective.title }}</span>
+                            Set a Task on <span class="font-semibold">{{ objective.title }}</span>
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">

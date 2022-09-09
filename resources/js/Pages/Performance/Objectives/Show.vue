@@ -119,6 +119,7 @@ function complete() {
             </div>
         </div>
         <Tasks
+            class="mt-12"
             :objective="objective"
             :tasks="tasks"
         />

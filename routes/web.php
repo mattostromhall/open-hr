@@ -157,7 +157,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
-    Route::get('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
+    Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
 });
 
