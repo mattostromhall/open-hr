@@ -30,6 +30,6 @@ it('updates an objective', function () {
         'title' => $objectiveData->title,
         'description' => $objectiveData->description,
         'due_at' => $objectiveData->due_at->toDateString(),
-        'completed_at' => $objectiveData->completed_at->toDateString()
+        'completed_at' => $objectiveData->completed_at?->toDateString()
     ]);
 });

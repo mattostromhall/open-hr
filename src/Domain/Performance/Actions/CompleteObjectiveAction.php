@@ -2,7 +2,6 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
 class CompleteObjectiveAction

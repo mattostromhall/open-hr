@@ -18,6 +18,7 @@ use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Performance\Controllers\CompleteObjectiveController;
+use App\Http\Performance\Controllers\CompleteTaskController;
 use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
@@ -159,6 +160,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.edit');
     Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
+    Route::post('/tasks/{task}/complete', CompleteTaskController::class)
+        ->name('task.complete');
 });
 
 require __DIR__ . '/auth.php';

@@ -58,34 +58,34 @@ function isSelected(id: number) {
         </template>
     </PageHeading>
     <div class="p-8">
-        <div class="flex flex-col mt-8">
-            <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
-                <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
-                    <div class="overflow-hidden relative ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
+        <div class="mt-8 flex flex-col">
+            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="relative overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                         <div
                             v-show="selected.length"
-                            class="flex absolute top-0 left-12 items-center space-x-3 h-12 bg-gray-50 sm:left-16"
+                            class="absolute top-0 left-12 flex h-12 items-center space-x-3 bg-gray-50 sm:left-16"
                         >
                             <button
                                 type="button"
-                                class="inline-flex items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                                class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
                             >
                                 Bulk edit
                             </button>
                             <button
                                 type="button"
-                                class="inline-flex items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
+                                class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
                             >
                                 Delete all
                             </button>
                         </div>
 
-                        <table class="min-w-full divide-y divide-gray-300 table-fixed">
+                        <table class="min-w-full table-fixed divide-y divide-gray-300">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
                                         scope="col"
-                                        class="relative px-6 w-12 sm:px-8 sm:w-16"
+                                        class="relative w-12 px-6 sm:w-16 sm:px-8"
                                     >
                                         <CheckboxInput
                                             class="absolute top-1/2 left-4 -mt-2"
@@ -94,31 +94,31 @@ function isSelected(id: number) {
                                     </th>
                                     <th
                                         scope="col"
-                                        class="py-3.5 pr-3 min-w-[12rem] text-sm font-semibold text-left text-gray-900"
+                                        class="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
                                     >
                                         Name
                                     </th>
                                     <th
                                         scope="col"
-                                        class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
+                                        class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900"
                                     >
                                         Pronouns
                                     </th>
                                     <th
                                         scope="col"
-                                        class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
+                                        class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900"
                                     >
                                         Email
                                     </th>
                                     <th
                                         scope="col"
-                                        class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
+                                        class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900"
                                     >
                                         Position
                                     </th>
                                     <th
                                         scope="col"
-                                        class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"
+                                        class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900"
                                     >
                                         Department
                                     </th>
@@ -130,13 +130,13 @@ function isSelected(id: number) {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
                                     v-for="{id, email, person} in people"
                                     :key="person.id"
                                     :class="{'bg-gray-50': isSelected(id)}"
                                 >
-                                    <td class="relative px-6 w-12 sm:px-8 sm:w-16">
+                                    <td class="relative w-12 px-6 sm:w-16 sm:px-8">
                                         <div
                                             v-show="isSelected(id)"
                                             class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600"
@@ -149,36 +149,36 @@ function isSelected(id: number) {
                                         />
                                     </td>
                                     <td
-                                        class="py-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                        class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900"
                                         :class="{'text-indigo-600': isSelected(id)}"
                                     >
                                         {{ person.full_name }}
                                     </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                    <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ person.pronouns }}
                                     </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                    <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ email }}
                                     </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                    <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ person.position }}
                                     </td>
-                                    <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
+                                    <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ person.department?.name ?? '-' }}
                                     </td>
-                                    <td class="flex justify-end py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
+                                    <td class="flex justify-end whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6">
                                         <div class="flex items-center space-x-3">
                                             <Link
                                                 :href="`/people/${person.id}`"
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >
-                                                <EyeIcon class="w-4 h-4" /><span class="sr-only">, {{ person.full_name }}</span>
+                                                <EyeIcon class="h-4 w-4" /><span class="sr-only">, {{ person.full_name }}</span>
                                             </Link>
                                             <Link
                                                 :href="`/people/${person.id}/edit`"
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >
-                                                <PencilIcon class="w-4 h-4" /><span class="sr-only">, {{ person.full_name }}</span>
+                                                <PencilIcon class="h-4 w-4" /><span class="sr-only">, {{ person.full_name }}</span>
                                             </Link>
                                         </div>
                                     </td>
