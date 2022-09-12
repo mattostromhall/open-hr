@@ -2,6 +2,8 @@
 
 namespace Domain\Performance\Models;
 
+use Domain\Performance\Enums\TrainingProgress;
+use Domain\Performance\Enums\TrainingStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,13 +15,10 @@ class Training extends Model
     use HasFactory;
     use Unguarded;
 
-    public const REQUESTED = 1;
-    public const APPROVED = 2;
-    public const REJECTED = 3;
-
-    public const TODO = 1;
-    public const STARTED = 2;
-    public const COMPLETED = 3;
+    protected $casts = [
+        'status' => TrainingStatus::class,
+        'progress' => TrainingProgress::class
+    ];
 
     public function person(): BelongsTo
     {

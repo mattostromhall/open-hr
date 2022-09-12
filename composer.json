@@ -20,6 +20,7 @@
         "friendsofphp/php-cs-fixer": "^3.8.0",
         "laravel/breeze": "^1.9",
         "laravel/sail": "^1.0.1",
+        "mattostromhall/laravel-make-in": "^0.1.0",
         "mockery/mockery": "^1.5",
         "nunomaduro/collision": "^6.2",
         "pestphp/pest": "^1.21",

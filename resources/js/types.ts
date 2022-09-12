@@ -12,6 +12,10 @@ export type HalfDay = 'am' | 'pm'
 
 export type OneToOneStatus = 1 | 2 | 3
 
+export type TrainingStatus = 1 | 2 | 3
+
+export type TrainingProgress = 1 | 2 | 3
+
 export type SelectOption = string | number | ComplexSelectOption
 
 export type Documentable = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
@@ -167,6 +171,18 @@ export interface Task {
     due_at: string,
     days_remaining: number,
     completed_at?: string
+}
+
+export interface Training {
+    id: number,
+    person_id: number,
+    status: TrainingStatus,
+    progress: TrainingProgress,
+    provider: string,
+    location?: string,
+    cost?: number,
+    duration?: number,
+    notes?: string
 }
 
 export interface FlashMessage {

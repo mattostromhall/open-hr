@@ -40,4 +40,10 @@ class PerformanceViewModel extends ViewModel
             ->current()
             ->get();
     }
+
+    public function training()
+    {
+        return person()
+            ->training;
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "767e2ebca7db2bdf8c8225f552490c69",
+    "content-hash": "ba999ae371d0f14e09c2799d3950cb0c",
     "packages": [
         {
             "name": "brick/math",
@@ -6296,6 +6296,79 @@
             "time": "2022-08-08T20:02:04+00:00"
         },
         {
+            "name": "mattostromhall/laravel-make-in",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mattostromhall/laravel-make-in.git",
+                "reference": "9078721346b124309979eeb563cd148d55a164cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mattostromhall/laravel-make-in/zipball/9078721346b124309979eeb563cd148d55a164cf",
+                "reference": "9078721346b124309979eeb563cd148d55a164cf",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^v9.1",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.11"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^6.1",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.2",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MattOstromHall\\MakeIn\\MakeInServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MattOstromHall\\MakeIn\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Ostrom-Hall",
+                    "email": "matthew.ostrom.hall@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A wrapper around the artisan make command to move created classes to a specified path and update the namespace accordingly.",
+            "homepage": "https://github.com/mattostromhall/laravel-make-in",
+            "keywords": [
+                "laravel",
+                "laravel-make-in",
+                "mattostromhall"
+            ],
+            "support": {
+                "issues": "https://github.com/mattostromhall/laravel-make-in/issues",
+                "source": "https://github.com/mattostromhall/laravel-make-in/tree/v0.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mattostromhall",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-21T15:44:29+00:00"
+        },
+        {
             "name": "maximebf/debugbar",
             "version": "v1.18.0",
             "source": {
@@ -9008,6 +9081,65 @@
             "time": "2022-06-17T06:28:57+00:00"
         },
         {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "09f80fa240d44fafb1c70657c74ee44ffa929357"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/09f80fa240d44fafb1c70657c74ee44ffa929357",
+                "reference": "09f80fa240d44fafb1c70657c74ee44ffa929357",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^5.0|^6.23|^7.0",
+                "phpunit/phpunit": "^9.4",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.12.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-28T14:29:26+00:00"
+        },
+        {
             "name": "spatie/laravel-ray",
             "version": "1.30.0",
             "source": {
@@ -9752,5 +9884,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
