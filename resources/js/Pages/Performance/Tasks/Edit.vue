@@ -12,7 +12,7 @@ const props = defineProps<{
     task: Task
 }>()
 
-const emit = defineEmits(['created'])
+const emit = defineEmits(['updated'])
 
 type TaskData = Omit<Task, 'id' | 'days_remaining' | 'completed_at'>
 
@@ -23,10 +23,9 @@ const form: InertiaForm<TaskData> = useForm({
 })
 
 function submit(): void {
-    form.post(`/objectives/${props.objective.id}/tasks`, {
+    form.post(`/tasks/${props.task.id}`, {
         onSuccess: () => {
-            emit('created')
-            form.reset()
+            emit('updated')
         }
     })
 }

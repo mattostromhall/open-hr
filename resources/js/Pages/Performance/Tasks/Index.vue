@@ -11,14 +11,18 @@ defineProps<{
     tasks: Task[]
 }>()
 
-const editing: Ref<number[]> = ref([])
+const editing: Ref<Set<number>> = ref(new Set())
 
 function isEditing(task: Task): boolean {
-    return editing.value.includes(task.id)
+    return editing.value.has(task.id)
 }
 
 function edit(task: Task) {
-    editing.value.push(task.id)
+    editing.value.add(task.id)
+}
+
+function removeFromEditing(task: Task) {
+    editing.value.delete(task.id)
 }
 
 function overdue(task: Task): boolean {
@@ -85,6 +89,7 @@ function complete(task: Task) {
             <Edit
                 v-else
                 :task="task"
+                @updated="removeFromEditing(task)"
             />
         </li>
     </ul>

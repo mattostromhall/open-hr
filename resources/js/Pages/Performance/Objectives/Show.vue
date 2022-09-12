@@ -5,6 +5,7 @@ import {useDateFormat} from '@vueuse/core'
 import type {Objective, Task} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
+import {Head} from '@inertiajs/inertia-vue3'
 import Tasks from '@/Pages/Performance/Objectives/Tasks.vue'
 
 const props = defineProps<{

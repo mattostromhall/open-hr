@@ -160,6 +160,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.edit');
     Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
+    Route::post('/tasks/{task}', [ObjectiveTaskController::class, 'update'])
+        ->name('task.update');
     Route::post('/tasks/{task}/complete', CompleteTaskController::class)
         ->name('task.complete');
 });

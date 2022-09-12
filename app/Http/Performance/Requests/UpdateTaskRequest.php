@@ -24,7 +24,7 @@ class UpdateTaskRequest extends FormRequest
                 'description'
             ]),
             [
-                'person' => $this->task->objective,
+                'objective' => $this->task->objective,
                 'due_at' => $this->validated('due_at') ? Carbon::parse($this->validated('due_at')) : null,
                 'completed_at' => $this->validated('completed_at') ? Carbon::parse($this->validated('completed_at')) : null
             ]
