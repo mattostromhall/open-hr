@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
-import {XIcon} from '@heroicons/vue/outline'
+import {XMarkIcon} from '@heroicons/vue/24/outline'
 import useCalendarSlideOver from '../Composables/useCalendarSlideOver'
 
 const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
@@ -44,7 +44,7 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                                             class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500"
                                         >
                                             <span class="sr-only">Close panel</span>
-                                            <XIcon
+                                            <XMarkIcon
                                                 class="h-6 w-6"
                                                 @click="hideCalendarEvent"
                                             />

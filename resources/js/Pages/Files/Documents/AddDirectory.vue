@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {FolderAddIcon} from '@heroicons/vue/outline'
+import {FolderAddIcon} from '@heroicons/vue/24/outline'
 import TextInput from '../../../Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'

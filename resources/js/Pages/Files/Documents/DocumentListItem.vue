@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {DocumentListItem} from '../../../types'
-import {DocumentIcon} from '@heroicons/vue/outline'
-import {FolderIcon} from '@heroicons/vue/solid'
+import {DocumentIcon} from '@heroicons/vue/24/outline'
+import {FolderIcon} from '@heroicons/vue/24/solid'
 import {computed, ref} from 'vue'
 import type {Ref} from 'vue'
 import {Inertia} from '@inertiajs/inertia'

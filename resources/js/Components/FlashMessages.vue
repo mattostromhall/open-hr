@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ExclamationCircleIcon, InformationCircleIcon} from '@heroicons/vue/outline'
+import {ExclamationCircleIcon, InformationCircleIcon} from '@heroicons/vue/24/outline'
 import StickyBanner from '@/Components/StickyBanner.vue'
 import type {FlashMessage} from '../types'
 import useFlashMessage from '../Hooks/useFlashMessage'
@@ -23,7 +23,7 @@ function resetErrorData() {
         @closed="resetSuccessData"
     >
         <span class="inline-flex items-center font-semibold">
-            <InformationCircleIcon class="mr-2 w-5 h-5" />
+            <InformationCircleIcon class="mr-2 h-5 w-5" />
             {{ flash.success }}
         </span>
     </StickyBanner>
@@ -34,7 +34,7 @@ function resetErrorData() {
         @closed="resetErrorData"
     >
         <span class="inline-flex items-center font-semibold">
-            <ExclamationCircleIcon class="mr-2 w-5 h-5" />
+            <ExclamationCircleIcon class="mr-2 h-5 w-5" />
             {{ flash.error }}
         </span>
     </StickyBanner>

@@ -15,6 +15,8 @@ class Training extends Model
     use HasFactory;
     use Unguarded;
 
+    protected $table = 'training';
+
     protected $casts = [
         'status' => TrainingStatus::class,
         'progress' => TrainingProgress::class

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {KeyIcon, MailIcon, UserCircleIcon} from '@heroicons/vue/outline'
+import {KeyIcon, MailIcon, UserCircleIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
@@ -44,7 +44,7 @@ function isActive(tab: string): boolean {
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('personal'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('personal')
@@ -53,7 +53,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('personal')"
                 >
                     <UserCircleIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('personal'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('personal')
@@ -62,7 +62,7 @@ function isActive(tab: string): boolean {
                     <span class="truncate">Personal Information</span>
                 </button>
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('address'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('address')
@@ -71,7 +71,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('address')"
                 >
                     <MailIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('address'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('address')
@@ -80,7 +80,7 @@ function isActive(tab: string): boolean {
                     <span class="truncate">Address</span>
                 </button>
                 <button
-                    class="group flex items-center py-2 px-3 w-full text-sm font-medium rounded-md"
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('credentials'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('credentials')
@@ -88,7 +88,7 @@ function isActive(tab: string): boolean {
                     @click="setActive('credentials')"
                 >
                     <KeyIcon
-                        class="shrink-0 mr-3 -ml-1 w-6 h-6"
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('credentials'),
                             'text-indigo-500 group-hover:text-indigo-500': isActive('credentials')

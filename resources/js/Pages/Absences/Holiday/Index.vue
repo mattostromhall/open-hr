@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {CheckCircleIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon} from '@heroicons/vue/outline'
+import {CheckCircleIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import RequestHoliday from './RequestHoliday.vue'
 import PageHeading from '@/Components/PageHeading.vue'

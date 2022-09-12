@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {CheckCircleIcon, InboxIcon, SparklesIcon, SpeakerphoneIcon, UsersIcon} from '@heroicons/vue/outline'
+import {AcademicCapIcon, ChatBubbleOvalLeftIcon, CheckCircleIcon, InboxIcon, SparklesIcon, UsersIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import Request from './OneToOnes/Request.vue'
-import Schedule from './OneToOnes/Schedule.vue'
+import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
+import ScheduleOneToOne from './OneToOnes/ScheduleOneToOne.vue'
 import Upcoming from './OneToOnes/Upcoming.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
 
-const props = defineProps<{
+defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],
     recurrenceIntervals: SelectOption[],
     manager: Pick<Person, 'id'|'full_name'>,
@@ -19,9 +19,9 @@ const props = defineProps<{
     objectives: Objective[]
 }>()
 
-type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'current' | 'create'
+type ActiveTab = 'request-121' | 'schedule-121' | 'upcoming' | 'current' | 'create' | 'request-training'
 
-const activeTab: Ref<ActiveTab> = ref('request')
+const activeTab: Ref<ActiveTab> = ref('request-121')
 
 function setActive(tab: ActiveTab): void {
     activeTab.value = tab
@@ -33,7 +33,9 @@ function isActive(tab: string): boolean {
 </script>
 
 <template>
-    <Head title="Performance" />
+    <Head>
+        <title>Performance</title>
+    </Head>
 
     <PageHeading>
         Performance
@@ -44,17 +46,17 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request-121'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request-121')
                     }"
                     aria-current="page"
-                    @click="setActive('request')"
+                    @click="setActive('request-121')"
                 >
                     <UsersIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('request'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('request')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('request-121'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('request-121')
                         }"
                     />
                     <span class="truncate">Request a One-to-one</span>
@@ -62,17 +64,17 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('schedule'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('schedule')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('schedule-121'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('schedule-121')
                     }"
                     aria-current="page"
-                    @click="setActive('schedule')"
+                    @click="setActive('schedule-121')"
                 >
                     <InboxIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('schedule'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('schedule')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('schedule-121'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('schedule-121')
                         }"
                     />
                     <span class="truncate">Schedule One-to-ones</span>
@@ -86,7 +88,7 @@ function isActive(tab: string): boolean {
                     aria-current="page"
                     @click="setActive('upcoming')"
                 >
-                    <SpeakerphoneIcon
+                    <ChatBubbleOvalLeftIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('upcoming'),
@@ -119,7 +121,7 @@ function isActive(tab: string): boolean {
                         'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('create'),
                         'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('create')
                     }"
-                    aria-create="page"
+                    aria-current="page"
                     @click="setActive('create')"
                 >
                     <SparklesIcon
@@ -129,17 +131,35 @@ function isActive(tab: string): boolean {
                             'text-indigo-500 group-hover:text-indigo-500': isActive('create')
                         }"
                     />
-                    <span class="truncate">Create Objective</span>
+                    <span class="truncate">Create an Objective</span>
+                </button>
+                <button
+                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
+                    :class="{
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request-training'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request-training')
+                    }"
+                    aria-current="page"
+                    @click="setActive('request-training')"
+                >
+                    <AcademicCapIcon
+                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
+                        :class="{
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('request-training'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('request-training')
+                        }"
+                    />
+                    <span class="truncate">Request Training</span>
                 </button>
             </nav>
         </aside>
-        <Request
-            v-if="isActive('request')"
+        <RequestOneToOne
+            v-if="isActive('request-121')"
             :manager="manager"
             @set-active="setActive"
         />
-        <Schedule
-            v-if="isActive('schedule')"
+        <ScheduleOneToOne
+            v-if="isActive('schedule-121')"
             :direct-reports="directReports"
             :recurrence-intervals="recurrenceIntervals"
             @set-active="setActive"

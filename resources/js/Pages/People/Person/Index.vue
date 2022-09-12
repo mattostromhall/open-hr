@@ -7,7 +7,7 @@ import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
-import {EyeIcon, PencilIcon} from '@heroicons/vue/outline'
+import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     people: {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {ChevronRightIcon} from '@heroicons/vue/solid'
+import {ChevronRightIcon} from '@heroicons/vue/24/solid'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
 
 defineProps({
@@ -16,7 +16,7 @@ const {hideNotifications} = useNotificationsSlideOver()
 <template>
     <ul
         role="list"
-        class="overflow-y-auto flex-1 divide-y divide-gray-200"
+        class="flex-1 divide-y divide-gray-200 overflow-y-auto"
     >
         <li
             v-for="notification in notifications"
@@ -31,7 +31,7 @@ const {hideNotifications} = useNotificationsSlideOver()
                     class="block group-hover:bg-gray-50"
                     @click="hideNotifications"
                 >
-                    <div class="flex justify-between items-center px-4 pt-4 space-x-2 sm:px-6">
+                    <div class="flex items-center justify-between space-x-2 px-4 pt-4 sm:px-6">
                         <div>
                             <h3
                                 v-show="notification.title"
@@ -44,7 +44,7 @@ const {hideNotifications} = useNotificationsSlideOver()
                             </p>
                         </div>
                         <div>
-                            <ChevronRightIcon class="w-5 h-5 text-gray-400" />
+                            <ChevronRightIcon class="h-5 w-5 text-gray-400" />
                         </div>
                     </div>
                 </Link>
@@ -55,7 +55,7 @@ const {hideNotifications} = useNotificationsSlideOver()
                         method="post"
                         as="button"
                         type="button"
-                        class="block mt-1 text-sm text-indigo-500"
+                        class="mt-1 block text-sm text-indigo-500"
                         preserve-scroll
                         preserve-state
                     >
@@ -81,7 +81,7 @@ const {hideNotifications} = useNotificationsSlideOver()
                         method="post"
                         as="button"
                         type="button"
-                        class="block mt-1 text-sm text-indigo-500"
+                        class="mt-1 block text-sm text-indigo-500"
                         preserve-scroll
                         preserve-state
                     >

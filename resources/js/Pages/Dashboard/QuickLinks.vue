@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue/outline'
+import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>

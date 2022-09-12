@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {IdentificationIcon, KeyIcon, MailIcon, UserGroupIcon} from '@heroicons/vue/outline'
+import {IdentificationIcon, KeyIcon, MailIcon, UserGroupIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'

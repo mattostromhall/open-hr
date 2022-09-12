@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
-import {BellIcon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UserIcon, UsersIcon, XIcon} from '@heroicons/vue/outline'
+import {BellIcon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, UserIcon, UsersIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
@@ -76,7 +76,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 @click="sidebar.hideSidebar"
                             >
                                 <span class="sr-only">Close sidebar</span>
-                                <XIcon
+                                <XMarkIcon
                                     class="h-6 w-6 text-white"
                                     aria-hidden="true"
                                 />
@@ -152,7 +152,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 href="/documents"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
-                                <InboxIcon
+                                <FolderIcon
                                     class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
@@ -288,7 +288,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         href="/documents"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
-                        <InboxIcon
+                        <FolderIcon
                             class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />

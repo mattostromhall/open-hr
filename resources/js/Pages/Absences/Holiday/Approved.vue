@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/outline'
+import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 
 defineProps({

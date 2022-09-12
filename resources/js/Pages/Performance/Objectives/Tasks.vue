@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {StarIcon, PlusIcon} from '@heroicons/vue/outline'
+import {StarIcon, PlusIcon} from '@heroicons/vue/24/outline'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import Index from '../Tasks/Index.vue'
 import Create from '../Tasks/Create.vue'

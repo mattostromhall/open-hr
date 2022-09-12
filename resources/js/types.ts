@@ -178,6 +178,7 @@ export interface Training {
     person_id: number,
     status: TrainingStatus,
     progress: TrainingProgress,
+    description: string,
     provider: string,
     location?: string,
     cost?: number,

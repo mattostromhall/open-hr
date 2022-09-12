@@ -2,7 +2,7 @@
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Task} from '../../../types'
 import {Inertia} from '@inertiajs/inertia'
-import {PencilIcon} from '@heroicons/vue/outline'
+import {PencilIcon} from '@heroicons/vue/24/outline'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 import Edit from './Edit.vue'

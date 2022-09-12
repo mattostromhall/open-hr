@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('status')->index();
             $table->unsignedTinyInteger('progress')->index();
             $table->string('provider');
+            $table->string('description');
             $table->text('location')->nullable();
             $table->unsignedBigInteger('cost')->nullable();
             $table->unsignedSmallInteger('duration')->nullable();

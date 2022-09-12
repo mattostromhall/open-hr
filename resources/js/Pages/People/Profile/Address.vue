@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {PlusIcon} from '@heroicons/vue/solid'
-import {MailIcon} from '@heroicons/vue/outline'
+import {PlusIcon} from '@heroicons/vue/24/solid'
+import {MailIcon} from '@heroicons/vue/24/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
