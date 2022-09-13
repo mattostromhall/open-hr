@@ -18,9 +18,9 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->unsignedTinyInteger('status')->index();
-            $table->unsignedTinyInteger('progress')->index();
-            $table->string('provider');
+            $table->unsignedTinyInteger('state')->index();
             $table->string('description');
+            $table->string('provider');
             $table->text('location')->nullable();
             $table->unsignedBigInteger('cost')->nullable();
             $table->string('cost_currency')->nullable();

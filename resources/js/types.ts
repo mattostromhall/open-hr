@@ -14,7 +14,7 @@ export type OneToOneStatus = 1 | 2 | 3
 
 export type TrainingStatus = 1 | 2 | 3
 
-export type TrainingProgress = 1 | 2 | 3
+export type TrainingState = 1 | 2 | 3
 
 export type SelectOption = string | number | ComplexSelectOption
 
@@ -177,7 +177,7 @@ export interface Training {
     id: number,
     person_id: number,
     status: TrainingStatus,
-    progress: TrainingProgress,
+    state: TrainingState,
     description: string,
     provider: string,
     location?: string,

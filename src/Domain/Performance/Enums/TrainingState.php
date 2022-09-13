@@ -2,7 +2,7 @@
 
 namespace Domain\Performance\Enums;
 
-enum TrainingProgress: int
+enum TrainingState: int
 {
     case TODO = 1;
     case STARTED = 2;

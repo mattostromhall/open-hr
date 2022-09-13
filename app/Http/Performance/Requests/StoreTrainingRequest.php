@@ -5,7 +5,7 @@ namespace App\Http\Performance\Requests;
 use Domain\People\Models\Person;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
-use Domain\Performance\Enums\TrainingProgress;
+use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
@@ -19,12 +19,12 @@ class StoreTrainingRequest extends FormRequest
         return [
             'person_id' => ['required', 'numeric'],
             'status' => ['required', new Enum(TrainingStatus::class)],
-            'progress' => ['required', new Enum(TrainingProgress::class)],
+            'state' => ['required', new Enum(TrainingState::class)],
             'description' => ['required', 'string', 'min:2', 'max:255'],
             'provider' => ['required', 'string', 'min:2', 'max:255'],
             'location' => ['string', 'min:2', 'max:255', 'nullable'],
             'cost' => ['numeric', 'nullable'],
-            'cost_currency' => ['numeric', 'nullable', 'required_if:cost'],
+            'cost_currency' => [new Enum(Currency::class), 'nullable', 'required_with:cost'],
             'duration' => ['numeric', 'nullable'],
             'notes' => ['string', 'nullable']
         ];
@@ -44,8 +44,8 @@ class StoreTrainingRequest extends FormRequest
             [
                 'person' => Person::find($this->validated('person_id')),
                 'status' => TrainingStatus::from($this->validated('status')),
-                'progress' => TrainingProgress::from($this->validated('progress')),
-                'cost_currency' => Currency::from($this->validated('cost_currency'))
+                'state' => TrainingState::from($this->validated('state')),
+                'cost_currency' => $this->validated('cost_currency') ? Currency::from($this->validated('cost_currency')) : null
             ]
         );
     }

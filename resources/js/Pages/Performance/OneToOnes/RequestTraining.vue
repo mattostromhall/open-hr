@@ -12,7 +12,7 @@ import NumberInput from '@/Components/Controls/NumberInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import currencies from '../../../Shared/currencies'
 
-type TrainingRequestData = Omit<Training, 'id' | 'status' | 'progress'>
+type TrainingRequestData = Omit<Training, 'id'>
 
 const emit = defineEmits(['setActive'])
 
@@ -20,6 +20,8 @@ const person = usePerson()
 
 const form: InertiaForm<TrainingRequestData> = useForm({
     person_id: person.value.id,
+    status: 1,
+    state: 1,
     description: '',
     provider: '',
     location: undefined,

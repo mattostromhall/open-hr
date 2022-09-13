@@ -2,7 +2,7 @@
 
 namespace Domain\Performance\Models;
 
-use Domain\Performance\Enums\TrainingProgress;
+use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +20,7 @@ class Training extends Model
 
     protected $casts = [
         'status' => TrainingStatus::class,
-        'progress' => TrainingProgress::class,
+        'state' => TrainingState::class,
         'cost_currency' => Currency::class
     ];
 

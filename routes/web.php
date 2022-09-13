@@ -24,6 +24,8 @@ use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
 use App\Http\Performance\Controllers\OneToOneInviteController;
 use App\Http\Performance\Controllers\PerformanceController;
+use App\Http\Performance\Controllers\ReviewTrainingController;
+use App\Http\Performance\Controllers\TrainingController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
@@ -158,12 +160,19 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
+
     Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
     Route::post('/tasks/{task}', [ObjectiveTaskController::class, 'update'])
         ->name('task.update');
     Route::post('/tasks/{task}/complete', CompleteTaskController::class)
         ->name('task.complete');
+
+    Route::post('/training', [TrainingController::class, 'store'])
+        ->name('training.store');
+
+    Route::get('training/{training}/review', [ReviewTrainingController::class, 'show'])
+        ->name('training.review.show');
 });
 
 require __DIR__ . '/auth.php';
