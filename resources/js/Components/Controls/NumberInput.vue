@@ -15,6 +15,10 @@ const props = defineProps({
     inputName: {
         type: String,
         default: ''
+    },
+    step: {
+        type: Number,
+        default: 1
     }
 })
 
@@ -36,8 +40,9 @@ function handleInput(e: Event): void {
             :name="inputName"
             type="number"
             :autocomplete="inputName"
-            class="block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm"
+            class="block w-full appearance-none rounded-md border border-gray-300 py-2 px-3 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             :class="{'border-red-500': error}"
+            :step="step"
             :value="modelValue"
             @input="handleInput"
         >

@@ -8,6 +8,9 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
 import type {Training} from '../../../types'
+import NumberInput from '@/Components/Controls/NumberInput.vue'
+import SelectInput from '@/Components/Controls/SelectInput.vue'
+import currencies from '../../../Shared/currencies'
 
 type TrainingRequestData = Omit<Training, 'id' | 'status' | 'progress'>
 
@@ -21,6 +24,7 @@ const form: InertiaForm<TrainingRequestData> = useForm({
     provider: '',
     location: undefined,
     cost: undefined,
+    cost_currency: undefined,
     duration: undefined,
     notes: undefined
 })
@@ -49,16 +53,77 @@ function submit(): void {
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-4">
+                        <div class="col-span-6 sm:col-span-5">
                             <FormLabel>Description <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <TextInput
                                     v-model="form.description"
                                     :error="form.errors.description"
-                                    :time-enabled="true"
                                     input-id="description"
                                     input-name="description"
                                     @reset="form.clearErrors('description')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Provider <RequiredIcon /></FormLabel>
+                            <div class="mt-1">
+                                <TextInput
+                                    v-model="form.provider"
+                                    :error="form.errors.provider"
+                                    input-id="provider"
+                                    input-name="provider"
+                                    @reset="form.clearErrors('provider')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Location</FormLabel>
+                            <div class="mt-1">
+                                <TextInput
+                                    v-model="form.location"
+                                    :error="form.errors.location"
+                                    input-id="location"
+                                    input-name="location"
+                                    @reset="form.clearErrors('location')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Cost</FormLabel>
+                            <div class="mt-1">
+                                <NumberInput
+                                    v-model="form.cost"
+                                    :error="form.errors.cost"
+                                    input-id="cost"
+                                    input-name="cost"
+                                    :step="0.01"
+                                    @reset="form.clearErrors('cost')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Currency</FormLabel>
+                            <div class="mt-1">
+                                <SelectInput
+                                    v-model="form.cost_currency"
+                                    :error="form.errors.cost_currency"
+                                    input-id="cost_currency"
+                                    input-name="cost_currency"
+                                    :options="currencies"
+                                    @reset="form.clearErrors('cost_currency')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-2">
+                            <FormLabel>Duration</FormLabel>
+                            <div class="mt-1">
+                                <NumberInput
+                                    v-model="form.duration"
+                                    :error="form.errors.duration"
+                                    input-id="duration"
+                                    input-name="duration"
+                                    @reset="form.clearErrors('duration')"
                                 />
                             </div>
                         </div>

@@ -10,6 +10,7 @@ import Upcoming from './OneToOnes/Upcoming.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
+import RequestTraining from './OneToOnes/RequestTraining.vue'
 
 defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],
@@ -177,6 +178,10 @@ function isActive(tab: string): boolean {
         <Create
             v-if="isActive('create')"
             :direct-reports="directReports"
+            @set-active="setActive"
+        />
+        <RequestTraining
+            v-if="isActive('request-training')"
             @set-active="setActive"
         />
     </div>

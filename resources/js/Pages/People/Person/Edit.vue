@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {IdentificationIcon, KeyIcon, MailIcon, UserGroupIcon} from '@heroicons/vue/24/outline'
+import {IdentificationIcon, KeyIcon, EnvelopeIcon, UserGroupIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -77,7 +77,7 @@ function isActive(tab: string): boolean {
                     aria-current="page"
                     @click="setActive('address')"
                 >
-                    <MailIcon
+                    <EnvelopeIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
                             'text-gray-400 group-hover:text-gray-500': ! isActive('address'),

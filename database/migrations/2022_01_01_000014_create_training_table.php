@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->string('description');
             $table->text('location')->nullable();
             $table->unsignedBigInteger('cost')->nullable();
+            $table->string('cost_currency')->nullable();
             $table->unsignedSmallInteger('duration')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

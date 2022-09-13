@@ -182,6 +182,7 @@ export interface Training {
     provider: string,
     location?: string,
     cost?: number,
+    cost_currency?: Currency,
     duration?: number,
     notes?: string
 }

@@ -6,7 +6,7 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {ComplexSelectOption, Currency, Department, Person} from '../../../types'
+import type {ComplexSelectOption, Department, Person} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
@@ -15,6 +15,7 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import ColourInput from '@/Components/Controls/ColourInput.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
+import currencies from '../../../Shared/currencies'
 
 const props = defineProps<{
     person: Person,
@@ -45,8 +46,6 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
     {value: 'monthly', display: 'Monthly'},
     {value: 'yearly', display: 'Yearly'}
 ]
-
-const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
 const form: InertiaForm<InformationData> = useForm({
     user_id: props.person.user_id,
@@ -247,7 +246,7 @@ function submit(): void {
                                     :error="form.errors.remuneration_currency"
                                     input-id="remuneration_currency"
                                     input-name="remuneration_currency"
-                                    :options="remunerationCurrencies"
+                                    :options="currencies"
                                     @reset="form.clearErrors('remuneration_currency')"
                                 />
                             </div>

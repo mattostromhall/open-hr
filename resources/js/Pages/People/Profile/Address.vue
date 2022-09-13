@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {PlusIcon} from '@heroicons/vue/24/solid'
-import {MailIcon} from '@heroicons/vue/24/outline'
+import {EnvelopeIcon} from '@heroicons/vue/24/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
@@ -68,7 +68,7 @@ function submit(): void {
                 v-if="! showForm"
                 class="bg-white py-6 px-4 text-center sm:rounded-md sm:p-6"
             >
-                <MailIcon class="mx-auto h-12 w-12 text-gray-400" />
+                <EnvelopeIcon class="mx-auto h-12 w-12 text-gray-400" />
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
                     No address
                 </h3>
