@@ -168,6 +168,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/tasks/{task}/complete', CompleteTaskController::class)
         ->name('task.complete');
 
+    Route::get('/training', [TrainingController::class, 'index'])
+        ->name('training.index');
     Route::post('/training', [TrainingController::class, 'store'])
         ->name('training.store');
     Route::post('/training/{training}', [TrainingController::class, 'show'])

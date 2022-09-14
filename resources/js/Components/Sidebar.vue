@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
-import {BellIcon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, UserIcon, UsersIcon, XMarkIcon} from '@heroicons/vue/24/outline'
+import {BellIcon, AcademicCapIcon, ChartBarIcon, FolderIcon, HomeIcon, UserIcon, UsersIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
@@ -137,16 +137,20 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 Performance
                             </Link>
 
-                            <a
-                                href="#"
-                                class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                            <Link
+                                href="/training"
+                                class="group flex items-center rounded-md p-2 text-base font-medium text-white"
+                                :class="{
+                                    'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/training',
+                                    'bg-indigo-800': $page.url === '/training'
+                                }"
                             >
-                                <CalendarIcon
+                                <AcademicCapIcon
                                     class="mr-4 h-6 w-6 shrink-0 text-indigo-300"
                                     aria-hidden="true"
                                 />
-                                Calendar
-                            </a>
+                                Training
+                            </Link>
 
                             <Link
                                 href="/documents"
@@ -273,16 +277,20 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         Performance
                     </Link>
 
-                    <a
-                        href="#"
-                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                    <Link
+                        href="/training"
+                        class="group flex items-center rounded-md p-2 text-sm font-medium text-white"
+                        :class="{
+                            'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/training',
+                            'bg-indigo-800': $page.url === '/training'
+                        }"
                     >
-                        <CalendarIcon
+                        <AcademicCapIcon
                             class="mr-3 h-6 w-6 shrink-0 text-indigo-300"
                             aria-hidden="true"
                         />
-                        Calendar
-                    </a>
+                        Training
+                    </Link>
 
                     <Link
                         href="/documents"

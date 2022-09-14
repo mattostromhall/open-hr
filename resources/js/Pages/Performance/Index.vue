@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {AcademicCapIcon, ChatBubbleOvalLeftIcon, CheckCircleIcon, InboxIcon, SparklesIcon, UsersIcon} from '@heroicons/vue/24/outline'
+import {ChatBubbleOvalLeftIcon, CheckCircleIcon, InboxIcon, SparklesIcon, UsersIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
@@ -10,7 +10,6 @@ import Upcoming from './OneToOnes/Upcoming.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
-import RequestTraining from './Training/RequestTraining.vue'
 
 defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],
@@ -20,9 +19,9 @@ defineProps<{
     objectives: Objective[]
 }>()
 
-type ActiveTab = 'request-121' | 'schedule-121' | 'upcoming' | 'current' | 'create' | 'request-training'
+type ActiveTab = 'request' | 'schedule' | 'upcoming' | 'current' | 'create'
 
-const activeTab: Ref<ActiveTab> = ref('request-121')
+const activeTab: Ref<ActiveTab> = ref('request')
 
 function setActive(tab: ActiveTab): void {
     activeTab.value = tab
@@ -47,17 +46,17 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request-121'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request-121')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request')
                     }"
                     aria-current="page"
-                    @click="setActive('request-121')"
+                    @click="setActive('request')"
                 >
                     <UsersIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('request-121'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('request-121')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('request'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('request')
                         }"
                     />
                     <span class="truncate">Request a One-to-one</span>
@@ -65,17 +64,17 @@ function isActive(tab: string): boolean {
                 <button
                     class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
                     :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('schedule-121'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('schedule-121')
+                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('schedule'),
+                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('schedule')
                     }"
                     aria-current="page"
-                    @click="setActive('schedule-121')"
+                    @click="setActive('schedule')"
                 >
                     <InboxIcon
                         class="mr-3 -ml-1 h-6 w-6 shrink-0"
                         :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('schedule-121'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('schedule-121')
+                            'text-gray-400 group-hover:text-gray-500': ! isActive('schedule'),
+                            'text-indigo-500 group-hover:text-indigo-500': isActive('schedule')
                         }"
                     />
                     <span class="truncate">Schedule One-to-ones</span>
@@ -134,33 +133,15 @@ function isActive(tab: string): boolean {
                     />
                     <span class="truncate">Create an Objective</span>
                 </button>
-                <button
-                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
-                    :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('request-training'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('request-training')
-                    }"
-                    aria-current="page"
-                    @click="setActive('request-training')"
-                >
-                    <AcademicCapIcon
-                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('request-training'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('request-training')
-                        }"
-                    />
-                    <span class="truncate">Request Training</span>
-                </button>
             </nav>
         </aside>
         <RequestOneToOne
-            v-if="isActive('request-121')"
+            v-if="isActive('request')"
             :manager="manager"
             @set-active="setActive"
         />
         <ScheduleOneToOne
-            v-if="isActive('schedule-121')"
+            v-if="isActive('schedule')"
             :direct-reports="directReports"
             :recurrence-intervals="recurrenceIntervals"
             @set-active="setActive"
@@ -178,10 +159,6 @@ function isActive(tab: string): boolean {
         <Create
             v-if="isActive('create')"
             :direct-reports="directReports"
-            @set-active="setActive"
-        />
-        <RequestTraining
-            v-if="isActive('request-training')"
             @set-active="setActive"
         />
     </div>
