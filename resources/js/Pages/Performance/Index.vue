@@ -10,7 +10,7 @@ import Upcoming from './OneToOnes/Upcoming.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
-import RequestTraining from './OneToOnes/RequestTraining.vue'
+import RequestTraining from './Training/RequestTraining.vue'
 
 defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],

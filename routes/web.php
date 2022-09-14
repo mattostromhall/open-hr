@@ -170,9 +170,13 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/training', [TrainingController::class, 'store'])
         ->name('training.store');
+    Route::post('/training/{training}', [TrainingController::class, 'show'])
+        ->name('training.show');
 
     Route::get('training/{training}/review', [ReviewTrainingController::class, 'show'])
         ->name('training.review.show');
+    Route::patch('training/{training}/review', [ReviewTrainingController::class, 'update'])
+        ->name('training.review.update');
 });
 
 require __DIR__ . '/auth.php';
