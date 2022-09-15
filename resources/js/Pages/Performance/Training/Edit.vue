@@ -6,52 +6,61 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import usePerson from '../../../Hooks/usePerson'
 import type {Training} from '../../../types'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import currencies from '../../../Shared/currencies'
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
-type TrainingRequestData = Omit<Training, 'id'>
+const props = defineProps<{
+    training: Training
+}>()
 
-const emit = defineEmits(['setActive'])
+type TrainingData = Omit<Training, 'id'>
 
-const person = usePerson()
-
-const form: InertiaForm<TrainingRequestData> = useForm({
-    person_id: person.value.id,
-    status: 1,
-    state: 1,
-    description: '',
-    provider: '',
-    location: undefined,
-    cost: undefined,
-    cost_currency: undefined,
-    duration: undefined,
-    notes: undefined
+const form: InertiaForm<TrainingData> = useForm({
+    person_id: props.training.person_id,
+    status: props.training.status,
+    state: props.training.state,
+    description: props.training.description,
+    provider: props.training.provider,
+    location: props.training.location,
+    cost: props.training.cost,
+    cost_currency: props.training.cost_currency,
+    duration: props.training.duration,
+    notes: props.training.notes
 })
 
 function submit(): void {
-    form.post('/training', {
-        onSuccess: () => {
-            emit('setActive', 'awaiting')
-            form.reset()
-        }
-    })
+    form.put(`/training/${props.training.id}`)
 }
 </script>
 
 <template>
-    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+    <Head>
+        <title>Edit Training</title>
+    </Head>
+
+    <PageHeading>
+        <span class="font-medium">Editing</span> - {{ training.description }}
+        <template #link>
+            <LightIndigoLink :href="`/training/${training.id}`">
+                View
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Request Training
+                            Update Training Request
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Submit a request to your manager.
+                            Submit an amended request to your manager.
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">

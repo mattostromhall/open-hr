@@ -174,6 +174,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('training.store');
     Route::get('/training/{training}', [TrainingController::class, 'show'])
         ->name('training.show');
+    Route::get('/training/{training}/edit', [TrainingController::class, 'edit'])
+        ->name('training.edit');
     Route::put('/training/{training}', [TrainingController::class, 'update'])
         ->name('training.update');
 
