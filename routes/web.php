@@ -172,7 +172,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('training.index');
     Route::post('/training', [TrainingController::class, 'store'])
         ->name('training.store');
-    Route::post('/training/{training}', [TrainingController::class, 'show'])
+    Route::get('/training/{training}', [TrainingController::class, 'show'])
         ->name('training.show');
     Route::put('/training/{training}', [TrainingController::class, 'update'])
         ->name('training.update');

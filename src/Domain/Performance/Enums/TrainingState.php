@@ -8,10 +8,10 @@ enum TrainingState: int
     case STARTED = 2;
     case COMPLETED = 3;
 
-    public function statusDisplay(): string
+    public function stateDisplay(): string
     {
         return match ($this) {
-            self::TODO => 'todo',
+            self::TODO => 'not started',
             self::STARTED => 'started',
             self::COMPLETED => 'completed',
         };

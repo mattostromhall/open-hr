@@ -2,7 +2,7 @@
 import type {DocumentListItem} from '../../../types'
 import ListItem from './DocumentListItem.vue'
 import AddDirectory from './AddDirectory.vue'
-import {ArrowCircleLeftIcon} from '@heroicons/vue/24/outline'
+import {ArrowLeftCircleIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 
 const props = defineProps<{
@@ -28,7 +28,7 @@ const props = defineProps<{
                                         v-if="props.backPath"
                                         :href="props.backPath"
                                     >
-                                        <ArrowCircleLeftIcon class="h-5 w-5" />
+                                        <ArrowLeftCircleIcon class="h-5 w-5" />
                                     </Link>
                                     <span class="sr-only">Back</span>
                                 </th>

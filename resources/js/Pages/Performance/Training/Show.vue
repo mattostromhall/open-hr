@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import {useDateFormat} from '@vueuse/core'
 import type {Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import Tasks from '@/Pages/Performance/Objectives/Tasks.vue'
+import type {Person} from '../../../types'
 
 const props = defineProps<{
-    training: Training
+    training: Training,
+    status: string,
+    state: string,
+    person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
 
 type TrainingStateData = Pick<Training, 'state'>
@@ -47,7 +49,7 @@ function complete() {
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    Training Information
+                    Training for {{ person.full_name }}
                 </h3>
                 <form
                     v-if="training.status === 2 && training.state === 1"
@@ -66,20 +68,19 @@ function complete() {
                 <dl class="sm:divide-y sm:divide-gray-200">
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Title
+                            Description
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            {{ objective.title }}
+                            {{ training.description }}
                         </dd>
                     </div>
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Description
+                            Provider
                         </dt>
-                        <dd
-                            class="prose mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"
-                            v-html="objective.description"
-                        />
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            {{ training.provider }}
+                        </dd>
                     </div>
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
@@ -89,41 +90,66 @@ function complete() {
                             <p
                                 class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
                                 :class="{
-                                    'bg-green-100 text-green-800': status(objective) === 'completed',
-                                    'bg-blue-100 text-blue-800': status(objective) === 'current',
-                                    'bg-red-100 text-red-800': status(objective) === 'overdue'
+                                    'bg-blue-100 text-blue-800': status === 'pending',
+                                    'bg-green-100 text-green-800': status === 'approved',
+                                    'bg-red-100 text-red-800': status === 'rejected'
                                 }"
                             >
-                                {{ status(objective) === 'current' ? `${objective.days_remaining} days remaining` : status(objective) }}
+                                {{ status }}
                             </p>
                         </dd>
                     </div>
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Due at
+                            State
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            {{ useDateFormat(objective.due_at, 'DD/MM/YYYY').value }}
+                            <p
+                                class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
+                                :class="{
+                                    'bg-orange-100 text-orange-800': state === 'not started',
+                                    'bg-blue-100 text-blue-800': state === 'started',
+                                    'bg-green-100 text-green-800': state === 'completed'
+                                }"
+                            >
+                                {{ state }}
+                            </p>
                         </dd>
                     </div>
-                    <div
-                        v-if="objective.completed_at"
-                        class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6"
-                    >
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
-                            Completed at
+                            Location
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            {{ useDateFormat(objective.completed_at, 'DD/MM/YYYY').value }}
+                            {{ training.location ?? '-' }}
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Cost
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            {{ training.cost ? `${training.cost_currency}${training.cost}` : '-' }}
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Duration
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            {{ training.duration ?? '-' }}
+                        </dd>
+                    </div>
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Notes
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            {{ training.notes ?? '-' }}
                         </dd>
                     </div>
                 </dl>
             </div>
         </div>
-        <Tasks
-            class="mt-12"
-            :objective="objective"
-            :tasks="tasks"
-        />
     </section>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {FolderAddIcon} from '@heroicons/vue/24/outline'
+import {FolderPlusIcon} from '@heroicons/vue/24/outline'
 import TextInput from '../../../Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
@@ -61,7 +61,7 @@ function submit() {
         @click="showNameInput"
     >
         <td class="w-5 whitespace-nowrap py-2 pl-3 pr-1 text-sm font-medium text-blue-500">
-            <FolderAddIcon
+            <FolderPlusIcon
                 class="h-5 w-5"
                 @click="submit"
             />
