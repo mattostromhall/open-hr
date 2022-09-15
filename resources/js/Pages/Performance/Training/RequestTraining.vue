@@ -34,7 +34,7 @@ const form: InertiaForm<TrainingRequestData> = useForm({
 function submit(): void {
     form.post('/training', {
         onSuccess: () => {
-            emit('setActive', 'training')
+            emit('setActive', 'awaiting')
             form.reset()
         }
     })

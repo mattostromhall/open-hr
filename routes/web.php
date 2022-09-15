@@ -163,7 +163,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
-    Route::post('/tasks/{task}', [ObjectiveTaskController::class, 'update'])
+    Route::put('/tasks/{task}', [ObjectiveTaskController::class, 'update'])
         ->name('task.update');
     Route::post('/tasks/{task}/complete', CompleteTaskController::class)
         ->name('task.complete');
@@ -174,6 +174,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('training.store');
     Route::post('/training/{training}', [TrainingController::class, 'show'])
         ->name('training.show');
+    Route::put('/training/{training}', [TrainingController::class, 'update'])
+        ->name('training.update');
 
     Route::get('training/{training}/review', [ReviewTrainingController::class, 'show'])
         ->name('training.review.show');

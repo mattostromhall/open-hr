@@ -4,6 +4,8 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
+use Domain\Performance\QueryBuilders\TrainingQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +25,16 @@ class Training extends Model
         'state' => TrainingState::class,
         'cost_currency' => Currency::class
     ];
+
+    public static function query(): Builder|TrainingQueryBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): TrainingQueryBuilder
+    {
+        return new TrainingQueryBuilder($query);
+    }
 
     public function person(): BelongsTo
     {

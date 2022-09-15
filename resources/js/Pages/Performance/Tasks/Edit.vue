@@ -23,7 +23,7 @@ const form: InertiaForm<TaskData> = useForm({
 })
 
 function submit(): void {
-    form.post(`/tasks/${props.task.id}`, {
+    form.put(`/tasks/${props.task.id}`, {
         onSuccess: () => {
             emit('updated')
         }

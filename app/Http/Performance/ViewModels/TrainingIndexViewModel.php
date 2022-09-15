@@ -8,5 +8,38 @@ use Illuminate\Support\Collection;
 
 class TrainingIndexViewModel extends ViewModel
 {
-    //
+    public function started()
+    {
+        return person()
+            ->training()
+            ->approved()
+            ->started()
+            ->get();
+    }
+
+    public function notStarted()
+    {
+        return person()
+            ->training()
+            ->approved()
+            ->notStarted()
+            ->get();
+    }
+
+    public function completed()
+    {
+        return person()
+            ->training()
+            ->approved()
+            ->completed()
+            ->get();
+    }
+
+    public function awaitingApproval()
+    {
+        return person()
+            ->training()
+            ->awaitingApproval()
+            ->get();
+    }
 }
