@@ -31,7 +31,7 @@ class RequestTrainingReviewAction
                 body: "Training requested by {$data->person->fullName}, click here to review.",
                 notifiable_id: $manager->id,
                 notifiable_type: 'person',
-                title: 'New Training request',
+                title: 'Training request',
                 link: route('training.review.show', [
                     'training' => $training
                 ])
@@ -41,7 +41,7 @@ class RequestTrainingReviewAction
         $this->sendEmail->execute(
             new EmailNotificationData(
                 recipients: [$manager->user->email],
-                subject: 'New Training request',
+                subject: 'Training request',
                 body: "Training requested by {$data->person->fullName}, click here to review.",
                 link: route('training.review.show', [
                     'training' => $training
