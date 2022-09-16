@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {EyeIcon, EyeOffIcon} from '@heroicons/vue/24/outline'
+import {EyeIcon, EyeSlashIcon} from '@heroicons/vue/24/outline'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 
@@ -63,7 +63,7 @@ function handleInput(e: Event): void {
                 v-if="hidden"
                 class="w-5 text-gray-400"
             />
-            <EyeOffIcon
+            <EyeSlashIcon
                 v-else
                 class="w-5 text-gray-400"
             />

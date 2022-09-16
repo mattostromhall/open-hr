@@ -21,4 +21,10 @@ class PersonQueryBuilder extends Builder
             ->sicknesses()
             ->forCurrentYear();
     }
+
+    public function current(): self
+    {
+        return $this->whereNull('finished_on')
+            ->orWhere('finished_on', '>', now());
+    }
 }

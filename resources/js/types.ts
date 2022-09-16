@@ -87,6 +87,13 @@ export interface Ability {
     title: string
 }
 
+export interface Organisation {
+    id: number,
+    name: string,
+    logo: string,
+    setup_at: string
+}
+
 export interface Person {
     id: number,
     user_id: number,

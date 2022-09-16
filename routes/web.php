@@ -8,6 +8,7 @@ use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
 use App\Http\Auth\Controllers\UpdatePasswordController;
 use App\Http\Dashboard\Controllers\DashboardController;
+use App\Http\Dashboard\Controllers\OrganisationDashboardController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/dashboard', DashboardController::class)
         ->name('dashboard');
+    Route::get('/dashboard/organisation', OrganisationDashboardController::class)
+        ->name('dashboard.organisation');
     Route::redirect('/', 'dashboard');
 
     Route::get('/setup', [SetupController::class, 'index'])
