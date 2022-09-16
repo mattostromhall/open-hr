@@ -11,6 +11,6 @@ class OrganisationDashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Dashboard/Organisation', new OrganisationDashboardViewModel());
+        return Inertia::render('Dashboard/Organisation', new OrganisationDashboardViewModel(organisation()));
     }
 }

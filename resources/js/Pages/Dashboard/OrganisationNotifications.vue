@@ -2,14 +2,14 @@
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Notification} from '../../types'
 
-const props = defineProps<{
-    notifications: Notification[]
+defineProps<{
+    notifications: (Pick<Notification, 'body'>)[]
 }>()
 </script>
 
 <template>
     <section aria-labelledby="notifications-title">
-        <div class="overflow-hidden bg-white rounded-lg shadow">
+        <div class="overflow-hidden rounded-lg bg-white shadow">
             <div class="p-6">
                 <h2
                     id="notifications-title"
@@ -17,7 +17,7 @@ const props = defineProps<{
                 >
                     Organisation Notifications
                 </h2>
-                <div class="flow-root mt-6">
+                <div class="mt-6 flow-root">
                     <h3
                         v-if="notifications.length === 0"
                         class="text-sm font-medium text-gray-900"
@@ -45,7 +45,7 @@ const props = defineProps<{
                 <div class="mt-6">
                     <Link
                         href="/organisation/notifications"
-                        class="flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-md border border-gray-300 shadow-sm"
+                        class="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                     >
                         View all
                     </Link>

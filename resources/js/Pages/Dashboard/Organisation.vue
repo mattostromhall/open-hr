@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
 import OrganisationNotifications from './OrganisationNotifications.vue'
-import Objectives from './Objectives.vue'
 import QuickLinks from './QuickLinks.vue'
 import OrganisationOverview from './OrganisationOverview.vue'
 import type {Organisation} from '../../types'
 import Navigation from './Navigation.vue'
+import type {Notification} from '../../types'
 
 defineProps<{
     organisation: Organisation,
     logo: string,
     headCount: number,
-    departmentCount: number
+    departmentCount: number,
+    organisationNotifications: (Pick<Notification, 'body'>)[]
 }>()
 </script>
 
@@ -36,10 +37,9 @@ defineProps<{
                     />
                     <QuickLinks />
                 </div>
-                <!--                <div class="grid grid-cols-1 gap-4">-->
-                <!--                    <OrganisationNotifications :notifications="organisationNotifications" />-->
-                <!--                    <Objectives :objectives="objectives" />-->
-                <!--                </div>-->
+                <div class="grid grid-cols-1 gap-4">
+                    <OrganisationNotifications :notifications="organisationNotifications" />
+                </div>
             </div>
         </div>
     </section>
