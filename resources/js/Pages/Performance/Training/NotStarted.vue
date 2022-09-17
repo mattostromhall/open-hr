@@ -59,7 +59,7 @@ function requestTraining() {
                                 </div>
                                 <div class="mt-4 shrink-0 sm:mt-0 sm:ml-5">
                                     <p class="inline-flex rounded-full bg-orange-100 px-2 text-xs font-semibold leading-5 text-orange-800">
-                                        Started
+                                        Not Started
                                     </p>
                                 </div>
                             </div>

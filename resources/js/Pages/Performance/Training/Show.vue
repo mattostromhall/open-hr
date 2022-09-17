@@ -14,16 +14,23 @@ const props = defineProps<{
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
 
-type TrainingStateData = Pick<Training, 'state'>
+type TrainingStateData = Pick<Training, 'status' | 'state'>
 
 const form: InertiaForm<TrainingStateData> = useForm({
+    status: props.training.status,
     state: props.training.state
 })
+
+function start() {
+    form.status = 2
+
+    form.post(`/training/${props.training.id}/start`)
+}
 
 function complete() {
     form.state = 3
 
-    form.patch(`/training/${props.training.id}`)
+    form.post(`/training/${props.training.id}/complete`)
 }
 </script>
 
@@ -53,7 +60,7 @@ function complete() {
                 </h3>
                 <form
                     v-if="training.status === 2 && training.state === 1"
-                    @submit.prevent="complete"
+                    @submit.prevent="start"
                 >
                     <IndigoButton>Start</IndigoButton>
                 </form>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {Organisation} from '../../types'
+import {Link} from '@inertiajs/inertia-vue3'
 
 defineProps<{
     organisation: Organisation,
@@ -36,6 +37,14 @@ defineProps<{
                                 {{ organisation.name }}
                             </p>
                         </div>
+                    </div>
+                    <div class="mt-5 flex justify-center sm:mt-0">
+                        <Link
+                            href="/departments/create"
+                            class="flex items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                        >
+                            Add Department
+                        </Link>
                     </div>
                 </div>
             </div>

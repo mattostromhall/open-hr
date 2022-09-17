@@ -22,12 +22,14 @@ use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Performance\Controllers\CompleteObjectiveController;
 use App\Http\Performance\Controllers\CompleteTaskController;
+use App\Http\Performance\Controllers\CompleteTrainingController;
 use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
 use App\Http\Performance\Controllers\OneToOneInviteController;
 use App\Http\Performance\Controllers\PerformanceController;
 use App\Http\Performance\Controllers\ReviewTrainingController;
+use App\Http\Performance\Controllers\StartTrainingController;
 use App\Http\Performance\Controllers\TrainingController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
@@ -163,12 +165,12 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('objective.store');
     Route::put('/objectives/{objective}', [ObjectiveController::class, 'update'])
         ->name('objective.update');
-    Route::post('/objectives/{objective}/complete', CompleteObjectiveController::class)
-        ->name('objective.complete');
     Route::get('/objectives/{objective}', [ObjectiveController::class, 'show'])
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
+    Route::post('/objectives/{objective}/complete', CompleteObjectiveController::class)
+        ->name('objective.complete');
 
     Route::post('/objectives/{objective}/tasks', [ObjectiveTaskController::class, 'store'])
         ->name('task.store');
@@ -187,6 +189,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('training.edit');
     Route::put('/training/{training}', [TrainingController::class, 'update'])
         ->name('training.update');
+    Route::post('/training/{training}/start', StartTrainingController::class)
+        ->name('training.start');
+    Route::post('/training/{training}/complete', CompleteTrainingController::class)
+        ->name('training.complete');
 
     Route::get('training/{training}/review', [ReviewTrainingController::class, 'show'])
         ->name('training.review.show');
