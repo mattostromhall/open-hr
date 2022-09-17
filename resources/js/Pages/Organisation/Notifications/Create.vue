@@ -25,7 +25,7 @@ const form: InertiaForm<NotificationData> = useForm({
     </Head>
 
     <PageHeading>
-        Create Notification
+        Create Organisation Notification
         <template #link>
             <LightIndigoLink href="/organisation/notifications">
                 View all
@@ -58,7 +58,11 @@ const form: InertiaForm<NotificationData> = useForm({
                         <div class="mt-4">
                             <FormLabel>Body <RequiredIcon /></FormLabel>
                             <div class="mt-1">
-                                <EditorInput v-model="form.body" />
+                                <EditorInput
+                                    v-model="form.body"
+                                    :error="form.errors.body"
+                                    @reset="form.clearErrors('body')"
+                                />
                             </div>
                         </div>
                         <div class="mt-4">

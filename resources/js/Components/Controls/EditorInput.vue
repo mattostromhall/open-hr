@@ -4,13 +4,20 @@ import StarterKit from '@tiptap/starter-kit'
 import {Placeholder} from '@tiptap/extension-placeholder'
 import {Underline} from '@tiptap/extension-underline'
 import EditorMenu from './EditorMenu.vue'
-import {watch} from 'vue'
+import {computed, watch} from 'vue'
+import type {ComputedRef} from 'vue'
 
 const props = defineProps<{
-    modelValue: string
+    modelValue: string,
+    error?: string
 }>()
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'reset'])
+
+const editorClasses: ComputedRef<string> = computed(() => props.error
+    ? 'w-full min-h-48 prose max-w-none focus:outline-none bg-white block pt-16 pb-3 px-3 placeholder:text-gray-400 rounded-md border border-red-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+    : 'w-full min-h-48 prose max-w-none focus:outline-none bg-white block pt-16 pb-3 px-3 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+)
 
 const editor = useEditor({
     extensions: [
@@ -23,11 +30,15 @@ const editor = useEditor({
     ],
     editorProps: {
         attributes: {
-            class: 'w-full min-h-48 prose max-w-none focus:outline-none bg-white block pt-16 pb-3 px-3 placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 focus:ring-1 shadow-sm appearance-none'
+            class: editorClasses.value
         },
     },
     content: props.modelValue,
     onUpdate: () => {
+        if (props.error) {
+            emit('reset')
+        }
+
         emit('update:modelValue', editor.value?.getHTML())
     },
 })
@@ -39,6 +50,16 @@ watch(() => props.modelValue, (value) => {
 
     editor.value?.commands.setContent(value, false)
 })
+
+watch(() => props.error, () => {
+    editor.value?.setOptions({
+        editorProps: {
+            attributes: {
+                class: editorClasses.value
+            },
+        },
+    })
+})
 </script>
 
 <template>
@@ -48,5 +69,11 @@ watch(() => props.modelValue, (value) => {
             :editor="editor"
         />
         <EditorContent :editor="editor" />
+        <p
+            v-if="error"
+            class="mt-1 text-sm text-red-500"
+        >
+            {{ error }}
+        </p>
     </div>
 </template>

@@ -71,7 +71,11 @@ function submit(): void {
                         <div class="col-span-6">
                             <FormLabel>Description <RequiredIcon /></FormLabel>
                             <div class="mt-1">
-                                <EditorInput v-model="form.description" />
+                                <EditorInput
+                                    v-model="form.description"
+                                    :error="form.errors.description"
+                                    @reset="form.clearErrors('description')"
+                                />
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
