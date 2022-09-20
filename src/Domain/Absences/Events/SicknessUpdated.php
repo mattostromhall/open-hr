@@ -2,7 +2,6 @@
 
 namespace Domain\Absences\Events;
 
-use Domain\Absences\Models\Holiday;
 use Domain\People\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -12,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Support\Contracts\ActionableEvent;
 use Support\Enums\Action;
 
-class HolidayDeleted implements ActionableEvent
+class SicknessUpdated implements ActionableEvent
 {
     use Dispatchable;
     use InteractsWithSockets;
@@ -25,7 +24,7 @@ class HolidayDeleted implements ActionableEvent
      */
     public Person $person;
 
-    public function __construct(public Holiday $holiday)
+    public function __construct(public Sickness $sickness)
     {
         $this->person = person();
     }
@@ -42,21 +41,21 @@ class HolidayDeleted implements ActionableEvent
 
     public function action(): Action
     {
-        return Action::DELETED;
+        return Action::UPDATED;
     }
 
     public function payload(): string
     {
-        return $this->holiday->toJson();
+        return $this->sickness->toJson();
     }
 
     public function actionableId(): int
     {
-        return $this->holiday->id;
+        return $this->sickness->id;
     }
 
     public function actionableType(): string
     {
-        return 'holiday';
+        return 'sickness';
     }
 }

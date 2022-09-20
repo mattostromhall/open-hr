@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use Domain\Absences\Events\HolidayCreated;
+use Domain\Absences\Events\HolidayDeleted;
+use Domain\Absences\Events\HolidayUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Support\Listeners\LogAction;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        HolidayCreated::class => [
+            LogAction::class
+        ],
+        HolidayUpdated::class => [
+            LogAction::class
+        ],
+        HolidayDeleted::class => [
+            LogAction::class
+        ]
     ];
 
     /**

@@ -3,12 +3,14 @@
 namespace Domain\Absences\Events;
 
 use Domain\Absences\Models\Holiday;
+use Domain\People\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Support\Contracts\ActionableEvent;
+use Support\Enums\Action;
 
 class HolidayCreated implements ActionableEvent
 {
@@ -16,20 +18,40 @@ class HolidayCreated implements ActionableEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    public int $performed_by;
+    public Person $person;
 
     public function __construct(public Holiday $holiday)
     {
-        $this->performed_by = person()->id;
+        $this->person = person();
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-    public function broadcastOn()
+    public function broadcastOn(): Channel|PrivateChannel|array
     {
         return new PrivateChannel('channel-name');
+    }
+
+    public function person(): Person
+    {
+        return $this->person;
+    }
+
+    public function action(): Action
+    {
+        return Action::CREATED;
+    }
+
+    public function payload(): string
+    {
+        return $this->holiday->toJson();
+    }
+
+    public function actionableId(): int
+    {
+        return $this->holiday->id;
+    }
+
+    public function actionableType(): string
+    {
+        return 'holiday';
     }
 }
