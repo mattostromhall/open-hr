@@ -3,6 +3,9 @@
 namespace Domain\Absences\Models;
 
 use Domain\Absences\Collections\SicknessCollection;
+use Domain\Absences\Events\SicknessCreated;
+use Domain\Absences\Events\SicknessDeleted;
+use Domain\Absences\Events\SicknessUpdated;
 use Domain\Absences\QueryBuilders\SicknessQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +23,12 @@ class Sickness extends Model
         'start_at' => 'date',
         'finish_at' => 'date',
         'duration' => PeriodCast::class
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => SicknessCreated::class,
+        'updated' => SicknessUpdated::class,
+        'deleted' => SicknessDeleted::class
     ];
 
     public function newEloquentBuilder($query): SicknessQueryBuilder

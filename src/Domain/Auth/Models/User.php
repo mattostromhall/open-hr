@@ -3,6 +3,9 @@
 namespace Domain\Auth\Models;
 
 use Domain\Auth\Collections\UserCollection;
+use Domain\Auth\Events\UserCreated;
+use Domain\Auth\Events\UserDeleted;
+use Domain\Auth\Events\UserUpdated;
 use Domain\Auth\QueryBuilders\UserQueryBuilder;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,6 +33,12 @@ class User extends Authenticatable
     protected $casts = [
         'active' => 'boolean',
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class,
+        'deleted' => UserDeleted::class
     ];
 
     protected $with = ['person'];
