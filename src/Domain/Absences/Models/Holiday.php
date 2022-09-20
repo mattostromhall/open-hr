@@ -5,6 +5,9 @@ namespace Domain\Absences\Models;
 use Domain\Absences\Collections\HolidayCollection;
 use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
+use Domain\Absences\Events\HolidayDeleted;
+use Domain\Absences\Events\HolidayCreated;
+use Domain\Absences\Events\HolidayUpdated;
 use Domain\Absences\QueryBuilders\HolidayQueryBuilder;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,6 +28,12 @@ class Holiday extends Model
         'finish_at' => 'date',
         'half_day' => HalfDay::class,
         'duration' => PeriodCast::class
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => HolidayCreated::class,
+        'updated' => HolidayUpdated::class,
+        'deleted' => HolidayDeleted::class
     ];
 
     public static function query(): Builder|HolidayQueryBuilder

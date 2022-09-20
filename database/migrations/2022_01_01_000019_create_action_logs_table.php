@@ -12,16 +12,14 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('action_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->text('address_line');
-            $table->string('town_city');
-            $table->string('region');
-            $table->string('country');
-            $table->string('postal_code');
+                ->constrained();
+            $table->string('action');
+            $table->text('payload');
+            $table->unsignedBigInteger('actionable_id');
+            $table->string('actionable_type');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('action_logs');
     }
 };
