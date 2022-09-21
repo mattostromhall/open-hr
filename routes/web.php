@@ -34,6 +34,7 @@ use App\Http\Performance\Controllers\TrainingController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
+use App\Http\Support\Controllers\ActionLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,31 +115,31 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::put('/addresses/{address}', [AddressController::class, 'update'])
         ->name('address.update');
 
-    Route::get('holidays', [HolidayController::class, 'index'])
+    Route::get('/holidays', [HolidayController::class, 'index'])
         ->name('holiday.index');
-    Route::post('holidays', [HolidayController::class, 'store'])
+    Route::post('/holidays', [HolidayController::class, 'store'])
         ->name('holiday.store');
-    Route::get('holidays/calendar', HolidayCalendarController::class)
+    Route::get('/holidays/calendar', HolidayCalendarController::class)
         ->name('holiday.calendar');
-    Route::get('holidays/{holiday}', [HolidayController::class, 'show'])
+    Route::get('/holidays/{holiday}', [HolidayController::class, 'show'])
         ->name('holiday.show');
-    Route::get('holidays/{holiday}/edit', [HolidayController::class, 'edit'])
+    Route::get('/holidays/{holiday}/edit', [HolidayController::class, 'edit'])
         ->name('holiday.edit');
-    Route::put('holidays/{holiday}', [HolidayController::class, 'update'])
+    Route::put('/holidays/{holiday}', [HolidayController::class, 'update'])
         ->name('holiday.update');
-    Route::get('holidays/{holiday}/review', [ReviewHolidayController::class, 'show'])
+    Route::get('/holidays/{holiday}/review', [ReviewHolidayController::class, 'show'])
         ->name('holiday.review.show');
-    Route::patch('holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])
+    Route::patch('/holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])
         ->name('holiday.review.update');
 
-    Route::get('documents', [DocumentController::class, 'index'])
+    Route::get('/documents', [DocumentController::class, 'index'])
         ->name('document.index');
-    Route::post('documents', [DocumentController::class, 'store'])
+    Route::post('/documents', [DocumentController::class, 'store'])
         ->name('document.store');
-    Route::get('documents/download/{path}', DownloadDocumentController::class)
+    Route::get('/documents/download/{path}', DownloadDocumentController::class)
         ->where('path', '.*')
         ->name('document.download');
-    Route::get('documents/{path}', [DocumentController::class, 'index'])
+    Route::get('/documents/{path}', [DocumentController::class, 'index'])
         ->where('path', '.*')
         ->name('document.index.path');
 
@@ -194,10 +195,13 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/training/{training}/complete', CompleteTrainingController::class)
         ->name('training.complete');
 
-    Route::get('training/{training}/review', [ReviewTrainingController::class, 'show'])
+    Route::get('/training/{training}/review', [ReviewTrainingController::class, 'show'])
         ->name('training.review.show');
-    Route::patch('training/{training}/review', [ReviewTrainingController::class, 'update'])
+    Route::patch('/training/{training}/review', [ReviewTrainingController::class, 'update'])
         ->name('training.review.update');
+
+    Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
+        ->name('logs.show');
 });
 
 require __DIR__ . '/auth.php';

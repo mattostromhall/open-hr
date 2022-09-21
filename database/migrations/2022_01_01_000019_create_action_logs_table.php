@@ -21,6 +21,8 @@ return new class () extends Migration {
             $table->unsignedBigInteger('actionable_id');
             $table->string('actionable_type');
             $table->timestamps();
+
+            $table->index(['actionable_type', 'actionable_id']);
         });
     }
 

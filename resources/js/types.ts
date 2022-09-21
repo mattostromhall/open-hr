@@ -20,6 +20,16 @@ export type SelectOption = string | number | ComplexSelectOption
 
 export type Documentable = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
 
+export type ActionLogAction = 'CREATED' | 'UPDATED' | 'DELETED'
+
+export type Json =
+    | null
+    | boolean
+    | string
+    | number
+    | Json[]
+    | {[key: string]: Json};
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,
@@ -192,6 +202,15 @@ export interface Training {
     cost_currency?: Currency,
     duration?: number,
     notes?: string
+}
+
+export interface ActionLog {
+    id: number,
+    person_id: number,
+    action: ActionLogAction,
+    payload: Json,
+    actionable_id: number,
+    actionable_type: string
 }
 
 export interface FlashMessage {
