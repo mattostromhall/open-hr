@@ -1,15 +1,39 @@
 <script setup lang="ts">
+import {useTimeAgo} from '@vueuse/core'
 import type {ActionLog, Person} from '../../../types'
 import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/vue/24/outline'
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
 defineProps<{
     actionLogs: (ActionLog & {
+        created_at: string,
         person: Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>
     })[]
 }>()
+
+function calculateTimeAgo(actionDate: string) {
+    const timeAgo = useTimeAgo(new Date(actionDate))
+
+    return timeAgo.value
+}
 </script>
 
 <template>
+    <Head>
+        <title>Action Log</title>
+    </Head>
+
+    <PageHeading>
+        Viewing Action Log
+        <template #link>
+            <LightIndigoLink href="/organisation/dashboard">
+                Dashboard
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+
     <section class="p-8">
         <div class="space-y-6 bg-white p-8 shadow sm:w-full sm:max-w-3xl sm:rounded-md lg:col-span-9">
             <div class="flow-root">
@@ -29,18 +53,25 @@ defineProps<{
                             />
                             <div class="relative flex space-x-3">
                                 <div>
-                                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-400 ring-8 ring-white">
-                                        <PencilIcon
-                                            v-if="actionLog.action === 'UPDATED'"
-                                            class="h-5 w-5 text-white"
-                                        />
+                                    <span
+                                        class="flex h-8 w-8 items-center justify-center rounded-full ring-8 ring-white"
+                                        :class="{
+                                            'bg-green-500': actionLog.action === 'CREATED',
+                                            'bg-blue-500': actionLog.action === 'UPDATED',
+                                            'bg-red-500': actionLog.action === 'DELETED'
+                                        }"
+                                    >
                                         <PlusIcon
                                             v-if="actionLog.action === 'CREATED'"
-                                            class="h-5 w-5 text-white"
+                                            class="h-4 w-4 text-green-50"
+                                        />
+                                        <PencilIcon
+                                            v-if="actionLog.action === 'UPDATED'"
+                                            class="h-4 w-4 text-blue-50"
                                         />
                                         <TrashIcon
                                             v-if="actionLog.action === 'DELETED'"
-                                            class="h-5 w-5 text-white"
+                                            class="h-4 w-4 text-red-50"
                                         />
                                     </span>
                                 </div>
@@ -51,7 +82,7 @@ defineProps<{
                                         </p>
                                     </div>
                                     <div class="whitespace-nowrap text-right text-sm text-gray-500">
-                                        <time datetime="2020-09-20">Sep 20</time>
+                                        <p>{{ calculateTimeAgo(actionLog.created_at) }}</p>
                                     </div>
                                 </div>
                             </div>
