@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Notification} from '../../types'
+import useStripHTMLTags from '../../Composables/useStripHTMLTags'
 
 defineProps<{
     notifications: (Pick<Notification, 'body'>)[]
@@ -36,7 +37,7 @@ defineProps<{
                         >
                             <div class="relative focus-within:ring-2 focus-within:ring-indigo-500">
                                 <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                                    {{ notification }}
+                                    {{ useStripHTMLTags(notification).value }}
                                 </p>
                             </div>
                         </li>
