@@ -2,6 +2,9 @@
 
 namespace Domain\Recruitment\Models;
 
+use Domain\Recruitment\Events\VacancyCreated;
+use Domain\Recruitment\Events\VacancyDeleted;
+use Domain\Recruitment\Events\VacancyUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +20,12 @@ class Vacancy extends Model
     protected $casts = [
         'open_at' => 'date',
         'close_at' => 'date',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => VacancyCreated::class,
+        'updated' => VacancyUpdated::class,
+        'deleted' => VacancyDeleted::class
     ];
 
     public function applications(): HasMany

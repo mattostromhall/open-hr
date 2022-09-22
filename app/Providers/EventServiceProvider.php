@@ -23,6 +23,36 @@ use Domain\Files\Events\DocumentUpdated;
 use Domain\Notifications\Events\NotificationCreated;
 use Domain\Notifications\Events\NotificationDeleted;
 use Domain\Notifications\Events\NotificationUpdated;
+use Domain\Organisation\Events\DepartmentCreated;
+use Domain\Organisation\Events\DepartmentDeleted;
+use Domain\Organisation\Events\DepartmentUpdated;
+use Domain\Organisation\Events\OrganisationCreated;
+use Domain\Organisation\Events\OrganisationDeleted;
+use Domain\Organisation\Events\OrganisationUpdated;
+use Domain\People\Events\AddressCreated;
+use Domain\People\Events\AddressDeleted;
+use Domain\People\Events\AddressUpdated;
+use Domain\People\Events\PersonCreated;
+use Domain\People\Events\PersonDeleted;
+use Domain\People\Events\PersonUpdated;
+use Domain\Performance\Events\ObjectiveCreated;
+use Domain\Performance\Events\ObjectiveDeleted;
+use Domain\Performance\Events\ObjectiveUpdated;
+use Domain\Performance\Events\OneToOneCreated;
+use Domain\Performance\Events\OneToOneDeleted;
+use Domain\Performance\Events\OneToOneUpdated;
+use Domain\Performance\Events\TaskCreated;
+use Domain\Performance\Events\TaskDeleted;
+use Domain\Performance\Events\TaskUpdated;
+use Domain\Performance\Events\TrainingCreated;
+use Domain\Performance\Events\TrainingDeleted;
+use Domain\Performance\Events\TrainingUpdated;
+use Domain\Recruitment\Events\ApplicationCreated;
+use Domain\Recruitment\Events\ApplicationDeleted;
+use Domain\Recruitment\Events\ApplicationUpdated;
+use Domain\Recruitment\Events\VacancyCreated;
+use Domain\Recruitment\Events\VacancyDeleted;
+use Domain\Recruitment\Events\VacancyUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -101,6 +131,96 @@ class EventServiceProvider extends ServiceProvider
             LogAction::class
         ],
         NotificationDeleted::class => [
+            LogAction::class
+        ],
+        DepartmentCreated::class => [
+            LogAction::class
+        ],
+        DepartmentUpdated::class => [
+            LogAction::class
+        ],
+        DepartmentDeleted::class => [
+            LogAction::class
+        ],
+        OrganisationCreated::class => [
+            LogAction::class
+        ],
+        OrganisationUpdated::class => [
+            LogAction::class
+        ],
+        OrganisationDeleted::class => [
+            LogAction::class
+        ],
+        AddressCreated::class => [
+            LogAction::class
+        ],
+        AddressUpdated::class => [
+            LogAction::class
+        ],
+        AddressDeleted::class => [
+            LogAction::class
+        ],
+        PersonCreated::class => [
+            LogAction::class
+        ],
+        PersonUpdated::class => [
+            LogAction::class
+        ],
+        PersonDeleted::class => [
+            LogAction::class
+        ],
+        ObjectiveCreated::class => [
+            LogAction::class
+        ],
+        ObjectiveUpdated::class => [
+            LogAction::class
+        ],
+        ObjectiveDeleted::class => [
+            LogAction::class
+        ],
+        OneToOneCreated::class => [
+            LogAction::class
+        ],
+        OneToOneUpdated::class => [
+            LogAction::class
+        ],
+        OneToOneDeleted::class => [
+            LogAction::class
+        ],
+        TaskCreated::class => [
+            LogAction::class
+        ],
+        TaskUpdated::class => [
+            LogAction::class
+        ],
+        TaskDeleted::class => [
+            LogAction::class
+        ],
+        TrainingCreated::class => [
+            LogAction::class
+        ],
+        TrainingUpdated::class => [
+            LogAction::class
+        ],
+        TrainingDeleted::class => [
+            LogAction::class
+        ],
+        ApplicationCreated::class => [
+            LogAction::class
+        ],
+        ApplicationUpdated::class => [
+            LogAction::class
+        ],
+        ApplicationDeleted::class => [
+            LogAction::class
+        ],
+        VacancyCreated::class => [
+            LogAction::class
+        ],
+        VacancyUpdated::class => [
+            LogAction::class
+        ],
+        VacancyDeleted::class => [
             LogAction::class
         ]
     ];

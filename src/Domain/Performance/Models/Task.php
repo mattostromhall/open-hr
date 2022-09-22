@@ -2,6 +2,9 @@
 
 namespace Domain\Performance\Models;
 
+use Domain\Performance\Events\TaskCreated;
+use Domain\Performance\Events\TaskDeleted;
+use Domain\Performance\Events\TaskUpdated;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +19,12 @@ class Task extends Model
     protected $casts = [
         'due_at' => 'date',
         'completed_at' => 'date',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => TaskCreated::class,
+        'updated' => TaskUpdated::class,
+        'deleted' => TaskDeleted::class
     ];
 
     protected $appends = ['days_remaining'];

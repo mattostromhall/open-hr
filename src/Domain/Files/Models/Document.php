@@ -4,6 +4,9 @@ namespace Domain\Files\Models;
 
 use Domain\Files\Collections\DocumentCollection;
 use Domain\Files\Enums\DocumentableType;
+use Domain\Files\Events\DocumentCreated;
+use Domain\Files\Events\DocumentDeleted;
+use Domain\Files\Events\DocumentUpdated;
 use Domain\Files\QueryBuilders\DocumentQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -19,6 +22,12 @@ class Document extends Model
 
     protected $casts = [
         'documentable_type' => DocumentableType::class
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => DocumentCreated::class,
+        'updated' => DocumentUpdated::class,
+        'deleted' => DocumentDeleted::class
     ];
 
     public static function query(): Builder|DocumentQueryBuilder

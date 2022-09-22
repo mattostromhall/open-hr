@@ -2,6 +2,9 @@
 
 namespace Domain\Expenses\Models;
 
+use Domain\Expenses\Events\ExpenseCreated;
+use Domain\Expenses\Events\ExpenseDeleted;
+use Domain\Expenses\Events\ExpenseUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +21,12 @@ class Expense extends Model
 
     protected $casts = [
         'date' => 'date',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ExpenseCreated::class,
+        'updated' => ExpenseUpdated::class,
+        'deleted' => ExpenseDeleted::class
     ];
 
     public function type(): HasOne

@@ -2,6 +2,9 @@
 
 namespace Domain\Performance\Models;
 
+use Domain\Performance\Events\ObjectiveCreated;
+use Domain\Performance\Events\ObjectiveDeleted;
+use Domain\Performance\Events\ObjectiveUpdated;
 use Domain\Performance\QueryBuilders\ObjectiveQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -20,6 +23,12 @@ class Objective extends Model
     protected $casts = [
         'due_at' => 'date',
         'completed_at' => 'date',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ObjectiveCreated::class,
+        'updated' => ObjectiveUpdated::class,
+        'deleted' => ObjectiveDeleted::class
     ];
 
     protected $appends = ['days_remaining'];

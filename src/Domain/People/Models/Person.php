@@ -11,6 +11,9 @@ use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Models\Department;
 use Domain\People\Collections\PersonCollection;
 use Domain\People\Enums\RemunerationInterval;
+use Domain\People\Events\PersonCreated;
+use Domain\People\Events\PersonDeleted;
+use Domain\People\Events\PersonUpdated;
 use Domain\People\QueryBuilders\PersonQueryBuilder;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\OneToOne;
@@ -37,6 +40,12 @@ class Person extends Model
         'remuneration_interval' => RemunerationInterval::class,
         'started_on' => 'date',
         'finished_on' => 'date',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => PersonCreated::class,
+        'updated' => PersonUpdated::class,
+        'deleted' => PersonDeleted::class
     ];
 
     protected $appends = ['full_name'];

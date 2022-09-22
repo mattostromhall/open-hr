@@ -3,6 +3,9 @@
 namespace Domain\Organisation\Models;
 
 use Domain\Files\Models\Document;
+use Domain\Organisation\Events\DepartmentCreated;
+use Domain\Organisation\Events\DepartmentDeleted;
+use Domain\Organisation\Events\DepartmentUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +18,12 @@ class Department extends Model
 {
     use HasFactory;
     use Unguarded;
+
+    protected $dispatchesEvents = [
+        'created' => DepartmentCreated::class,
+        'updated' => DepartmentUpdated::class,
+        'deleted' => DepartmentDeleted::class
+    ];
 
     public function head(): HasOne
     {

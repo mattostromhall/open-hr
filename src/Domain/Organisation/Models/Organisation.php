@@ -2,6 +2,9 @@
 
 namespace Domain\Organisation\Models;
 
+use Domain\Organisation\Events\OrganisationCreated;
+use Domain\Organisation\Events\OrganisationDeleted;
+use Domain\Organisation\Events\OrganisationUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -18,6 +21,12 @@ class Organisation extends Model
 
     protected $casts = [
         'setup_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => OrganisationCreated::class,
+        'updated' => OrganisationUpdated::class,
+        'deleted' => OrganisationDeleted::class
     ];
 
     public function documents(): MorphMany

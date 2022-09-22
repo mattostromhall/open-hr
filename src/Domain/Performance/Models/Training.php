@@ -4,6 +4,9 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
+use Domain\Performance\Events\TrainingCreated;
+use Domain\Performance\Events\TrainingDeleted;
+use Domain\Performance\Events\TrainingUpdated;
 use Domain\Performance\QueryBuilders\TrainingQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +27,12 @@ class Training extends Model
         'status' => TrainingStatus::class,
         'state' => TrainingState::class,
         'cost_currency' => Currency::class
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => TrainingCreated::class,
+        'updated' => TrainingUpdated::class,
+        'deleted' => TrainingDeleted::class
     ];
 
     public static function query(): Builder|TrainingQueryBuilder

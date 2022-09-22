@@ -4,6 +4,9 @@ namespace Domain\Performance\Models;
 
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
+use Domain\Performance\Events\OneToOneCreated;
+use Domain\Performance\Events\OneToOneDeleted;
+use Domain\Performance\Events\OneToOneUpdated;
 use Domain\Performance\QueryBuilders\OneToOneQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -25,6 +28,12 @@ class OneToOne extends Model
         'completed_at' => 'datetime',
         'recurring' => 'boolean',
         'recurrence_interval' => RecurrenceInterval::class
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => OneToOneCreated::class,
+        'updated' => OneToOneUpdated::class,
+        'deleted' => OneToOneDeleted::class
     ];
 
     protected $appends = ['status'];

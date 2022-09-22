@@ -2,6 +2,9 @@
 
 namespace Domain\Notifications\Models;
 
+use Domain\Notifications\Events\NotificationCreated;
+use Domain\Notifications\Events\NotificationDeleted;
+use Domain\Notifications\Events\NotificationUpdated;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +20,12 @@ class Notification extends Model
 
     protected $casts = [
         'read' => 'boolean'
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => NotificationCreated::class,
+        'updated' => NotificationUpdated::class,
+        'deleted' => NotificationDeleted::class
     ];
 
     public function notifiable(): MorphTo
