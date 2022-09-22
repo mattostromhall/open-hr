@@ -11,6 +11,7 @@ use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Dashboard\Controllers\DepartmentDashboardController;
 use App\Http\Dashboard\Controllers\ManagementDashboardController;
 use App\Http\Dashboard\Controllers\OrganisationDashboardController;
+use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
@@ -199,6 +200,11 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('training.review.show');
     Route::patch('/training/{training}/review', [ReviewTrainingController::class, 'update'])
         ->name('training.review.update');
+
+    Route::get('/departments', [DepartmentController::class, 'index'])
+        ->name('department.index');
+    Route::get('/departments/create', [DepartmentController::class, 'create'])
+        ->name('department.create');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

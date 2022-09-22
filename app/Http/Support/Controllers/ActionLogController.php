@@ -10,6 +10,6 @@ class ActionLogController extends Controller
 {
     public function show(string $type, int $id): Response
     {
-        return Inertia::render('Organisation/ActionLogs/Show', new ActionLogViewModel($type, $id));
+        return Inertia::render('ActionLogs/Show', new ActionLogViewModel($type, $id));
     }
 }

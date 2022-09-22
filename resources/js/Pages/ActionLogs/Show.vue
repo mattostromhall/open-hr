@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useTimeAgo} from '@vueuse/core'
-import type {ActionLog, Person} from '../../../types'
+import type {ActionLog, Person} from '../../types'
 import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
