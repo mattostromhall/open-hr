@@ -45,7 +45,7 @@ function isSelected(id: number) {
 
 <template>
     <Head>
-        <title>People</title>
+        <title>Departments</title>
     </Head>
 
     <PageHeading>
@@ -142,7 +142,12 @@ function isSelected(id: number) {
                                         {{ department.name }}
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
-                                        {{ department.head.full_name }}
+                                        <Link
+                                            class="text-indigo-600"
+                                            :href="`/people/${department.head.id}`"
+                                        >
+                                            {{ department.head.full_name }}
+                                        </Link>
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ department.members_count }} members

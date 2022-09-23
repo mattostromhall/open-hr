@@ -2,6 +2,7 @@
 
 namespace App\Http\Departments\Controllers;
 
+use App\Http\Departments\ViewModels\CreateDepartmentViewModel;
 use App\Http\Departments\ViewModels\DepartmentsViewModel;
 use App\Http\Support\Controllers\Controller;
 use Inertia\Inertia;
@@ -16,6 +17,6 @@ class DepartmentController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Departments/Create');
+        return Inertia::render('Departments/Create', new CreateDepartmentViewModel());
     }
 }

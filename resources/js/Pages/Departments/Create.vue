@@ -1,9 +1,73 @@
 <script setup lang="ts">
+import {Head, useForm} from '@inertiajs/inertia-vue3'
+import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import type {Department, Person} from '../../types'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
+import TextInput from '@/Components/Controls/TextInput.vue'
+import RequiredIcon from '@/Components/RequiredIcon.vue'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
+defineProps<{
+    people: (Pick<Person, 'id' | 'full_name'>)[]
+}>()
+
+type DepartmentData = Pick<Department, 'name'> & {head_of_department_id?: number}
+
+const form: InertiaForm<DepartmentData> = useForm({
+    name: '',
+    head_of_department_id: undefined
+})
 </script>
 
 <template>
-    <div>
-        Create
+    <Head>
+        <title>Create Department</title>
+    </Head>
+
+    <PageHeading>
+        Create Department
+        <template #link>
+            <LightIndigoLink href="/people">
+                All Departments
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
+        <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+            <form @submit.prevent="">
+                <div class="shadow sm:rounded-md">
+                    <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
+                        <div>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">
+                                Department Information
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-4">
+                                <FormLabel>Name <RequiredIcon /></FormLabel>
+                                <div class="mt-1">
+                                    <TextInput
+                                        v-model="form.name"
+                                        :error="form.errors.name"
+                                        input-id="name"
+                                        input-name="name"
+                                        @reset="form.clearErrors('name')"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
+                        <IndigoButton
+                            :disabled="form.processing"
+                        >
+                            Submit
+                        </IndigoButton>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
