@@ -2,19 +2,21 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {hasOwnProperty} from '../../../types'
+import type {Department, Person, User} from '../../../types'
 import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
 
-const props = defineProps({
-    people: {
-        type: Array,
-        default: () => []
-    }
-})
+const props = defineProps<{
+    people: (Pick<User, 'id' | 'email'> & {
+        person: Pick<Person, 'id' | 'user_id' | 'department_id' | 'first_name' | 'last_name' | 'full_name' | 'pronouns' | 'position'>
+        & {
+            department?: Pick<Department, 'id' | 'name'>
+        }
+    })[]
+}>()
 
 let selected: Ref<number[]> = ref([])
 
@@ -28,14 +30,7 @@ function updateSelected(isSelected: boolean, id: number) {
 
 function toggleSelected(select: boolean) {
     if (select) {
-        return selected.value = props.people.map(person => {
-            if (typeof person === 'object'
-                && person
-                && hasOwnProperty(person, 'id')
-            ) {
-                return person.id
-            }
-        }) as number[]
+        return selected.value = props.people.map(person => person.id)
     }
 
     return selected.value = []
@@ -47,13 +42,15 @@ function isSelected(id: number) {
 </script>
 
 <template>
-    <Head title="People" />
+    <Head>
+        <title>People</title>
+    </Head>
 
     <PageHeading>
         People
         <template #link>
             <IndigoLink href="/people/create">
-                Add person
+                Add Person
             </IndigoLink>
         </template>
     </PageHeading>

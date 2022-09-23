@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
 import OrganisationNotifications from './OrganisationNotifications.vue'
-import QuickLinks from './QuickLinks.vue'
+import OrganisationQuickLinks from './OrganisationQuickLinks.vue'
 import OrganisationOverview from './OrganisationOverview.vue'
 import type {Organisation} from '../../types'
 import Navigation from './Navigation.vue'
@@ -35,7 +35,7 @@ defineProps<{
                         :head-count="headCount"
                         :department-count="departmentCount"
                     />
-                    <QuickLinks />
+                    <OrganisationQuickLinks />
                 </div>
                 <div class="grid grid-cols-1 gap-4">
                     <OrganisationNotifications :notifications="organisationNotifications" />

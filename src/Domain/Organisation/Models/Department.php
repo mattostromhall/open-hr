@@ -6,6 +6,8 @@ use Domain\Files\Models\Document;
 use Domain\Organisation\Events\DepartmentCreated;
 use Domain\Organisation\Events\DepartmentDeleted;
 use Domain\Organisation\Events\DepartmentUpdated;
+use Domain\Organisation\QueryBuilders\DepartmentQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,9 +27,19 @@ class Department extends Model
         'deleted' => DepartmentDeleted::class
     ];
 
+    public static function query(): Builder|DepartmentQueryBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): DepartmentQueryBuilder
+    {
+        return new DepartmentQueryBuilder($query);
+    }
+
     public function head(): HasOne
     {
-        return $this->hasOne(Person::class);
+        return $this->hasOne(Person::class, 'id', 'head_of_department_id');
     }
 
     public function members(): HasMany
