@@ -9,6 +9,7 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
+import Members from './Members.vue'
 
 const props = defineProps<{
     department: Department,
@@ -86,5 +87,6 @@ const form: InertiaForm<DepartmentData> = useForm({
                 </div>
             </form>
         </div>
+        <Members />
     </div>
 </template>

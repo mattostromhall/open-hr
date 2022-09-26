@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/inertia-vue3'
 import type {Department, Person} from '../../types'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
@@ -63,13 +63,14 @@ const size: ComputedRef<number> = computed(() => props.members.length)
                             Members
                         </dt>
                         <dd class="mt-1 space-x-1 space-y-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            <span
-                                v-for="{full_name} in members"
-                                :key="full_name"
-                                class="inline-flex rounded-full bg-indigo-100 px-2 text-xs font-semibold leading-5 text-indigo-800"
+                            <Link
+                                v-for="member in members"
+                                :key="member.full_name"
+                                class="inline-flex rounded-full bg-indigo-100 px-2 text-xs font-semibold leading-5 text-indigo-800 transition ease-in-out hover:bg-indigo-50"
+                                :href="`/people/${member.id}`"
                             >
-                                {{ full_name }}
-                            </span>
+                                {{ member.full_name }}
+                            </Link>
                         </dd>
                     </div>
                 </dl>
