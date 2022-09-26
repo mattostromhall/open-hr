@@ -6,7 +6,7 @@ use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Address;
 use Domain\People\Models\Person;
 
-it('creates an address', function () {
+it('updates an address', function () {
     $person = Person::factory()->create();
     $address = Address::factory()
         ->for($person)
@@ -20,6 +20,8 @@ it('creates an address', function () {
         country: 'Test',
         postal_code: 'AB1 2CD'
     );
+
+    $this->assertModelExists($address);
 
     $action->execute($address, $addressData);
 

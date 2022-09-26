@@ -4,7 +4,7 @@ namespace App\Http\Departments\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\People\Models\Person;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class CreateDepartmentViewModel extends ViewModel
 {
@@ -17,6 +17,10 @@ class CreateDepartmentViewModel extends ViewModel
                 fn ($query) =>
                 $query->select('head_of_department_id')->from('departments')
             )
-            ->get();
+            ->get()
+            ->map(fn (Person $person) => [
+                'value' => $person->id,
+                'display' => $person->full_name
+            ]);
     }
 }

@@ -205,6 +205,14 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('department.index');
     Route::get('/departments/create', [DepartmentController::class, 'create'])
         ->name('department.create');
+    Route::post('/departments', [DepartmentController::class, 'store'])
+        ->name('department.store');
+    Route::get('/departments/{department}', [DepartmentController::class, 'show'])
+        ->name('department.show');
+    Route::get('/departments/{department}/edit', [DepartmentController::class, 'edit'])
+        ->name('department.edit');
+    Route::put('/departments/{department}', [DepartmentController::class, 'update'])
+        ->name('department.update');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

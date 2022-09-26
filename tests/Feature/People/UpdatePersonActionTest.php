@@ -31,6 +31,8 @@ it('updates a person', function () {
         finished_on: null
     );
 
+    $this->assertModelExists($person);
+
     $action->execute($person, $personData);
 
     $this->assertDatabaseHas('people', [

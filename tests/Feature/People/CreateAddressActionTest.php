@@ -1,6 +1,5 @@
 <?php
 
-use Domain\Auth\Models\User;
 use Domain\People\Actions\CreateAddressAction;
 use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Person;

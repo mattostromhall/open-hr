@@ -12,6 +12,7 @@ class CreateOrganisationAction
 {
     public function __construct(protected StoreFileAction $storeFile)
     {
+        //
     }
 
     public function execute(OrganisationData $data): Organisation

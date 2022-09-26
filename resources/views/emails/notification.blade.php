@@ -1,4 +1,4 @@
 <p>{{ $body }}</p>
 @if ($link)
-    <a href="{{ $link }}">Review</a>
+    <a href="{{ $link }}">View</a>
 @endif

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Department, SelectOption} from '../../types'
+import type {Department, Person, SelectOption} from '../../types'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -10,34 +10,37 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 
-defineProps<{
-    people: SelectOption[]
+const props = defineProps<{
+    department: Department,
+    members: (Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>)[],
+    nonMembers: SelectOption[],
+    headOptions: SelectOption[]
 }>()
 
-type DepartmentData = Pick<Department, 'name'> & {head_of_department_id?: number}
+type DepartmentData = Omit<Department, 'id'>
 
 const form: InertiaForm<DepartmentData> = useForm({
-    name: '',
-    head_of_department_id: undefined
+    name: props.department.name,
+    head_of_department_id: props.department.head_of_department_id
 })
 </script>
 
 <template>
     <Head>
-        <title>Create Department</title>
+        <title>Edit Department</title>
     </Head>
 
     <PageHeading>
-        Create Department
+        Edit Department
         <template #link>
-            <LightIndigoLink href="/people">
+            <LightIndigoLink href="/departments">
                 All Departments
             </LightIndigoLink>
         </template>
     </PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-            <form @submit.prevent="form.post('/departments')">
+            <form @submit.prevent="form.put(`/departments/${department.id}`)">
                 <div class="shadow sm:rounded-md">
                     <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                         <div>
@@ -64,7 +67,7 @@ const form: InertiaForm<DepartmentData> = useForm({
                                     <SearchableSelectInput
                                         v-model="form.head_of_department_id"
                                         :error="form.errors.head_of_department_id"
-                                        :options="people"
+                                        :options="headOptions"
                                         input-id="head_of_department_id"
                                         input-name="head_of_department_id"
                                         @reset="form.clearErrors('head_of_department_id')"

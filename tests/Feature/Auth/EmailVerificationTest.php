@@ -3,6 +3,7 @@
 use Domain\Auth\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
@@ -21,8 +22,6 @@ test('email can be verified', function () {
         'email_verified_at' => null,
     ]);
 
-    Event::fake();
-
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
@@ -31,7 +30,6 @@ test('email can be verified', function () {
 
     $response = $this->actingAs($user)->get($verificationUrl);
 
-    Event::assertDispatched(Verified::class);
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
     $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
 });
