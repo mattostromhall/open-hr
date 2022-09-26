@@ -37,8 +37,8 @@ function isActive(tab: string): boolean {
     <PageHeading>
         Edit Department
         <template #link>
-            <LightIndigoLink href="/departments">
-                All Departments
+            <LightIndigoLink :href="`/departments/${department.id}`">
+                View
             </LightIndigoLink>
         </template>
     </PageHeading>

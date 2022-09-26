@@ -49,7 +49,7 @@ function isSelected(id: number) {
     </Head>
 
     <PageHeading>
-        People
+        Departments
         <template #link>
             <IndigoLink href="/departments/create">
                 Add Department

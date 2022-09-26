@@ -2,6 +2,7 @@
 
 namespace Domain\Organisation\Actions;
 
+use Domain\Files\Actions\CreateDirectoryAction;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
@@ -13,6 +14,7 @@ class SetupDepartmentAction
 {
     public function __construct(
         protected CreateDepartmentAction $createDepartment,
+        protected CreateDirectoryAction $createDirectory,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {
@@ -22,6 +24,8 @@ class SetupDepartmentAction
     public function execute(DepartmentData $data): Department
     {
         $department = $this->createDepartment->execute($data);
+
+        $this->createDirectory->execute('documents/departments/' . $data->name);
 
         $this->createNotification->execute(
             new NotificationData(

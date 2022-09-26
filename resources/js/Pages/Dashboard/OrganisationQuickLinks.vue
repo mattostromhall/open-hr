@@ -61,7 +61,7 @@ import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/documents"
+                            href="/documents/organisation"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -73,7 +73,7 @@ import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        View your organisation, department and personal documents.
+                        View your organisation documents.
                     </p>
                 </div>
                 <span
