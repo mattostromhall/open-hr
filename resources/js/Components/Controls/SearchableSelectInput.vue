@@ -5,6 +5,7 @@ import {onClickOutside} from '@vueuse/core'
 import {createPopper} from '@popperjs/core'
 import type {Instance} from '@popperjs/core'
 import type {ComplexSelectOption, SelectOption} from '../../types'
+import {ChevronDownIcon, ChevronUpIcon} from '@heroicons/vue/24/solid'
 
 const props = defineProps<{
     modelValue?: string|number,
@@ -220,40 +221,18 @@ onBeforeUnmount(() => {
             </button>
             <button
                 ref="toggleInput"
-                class="absolute right-0 flex items-center justify-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
+                class="absolute right-0 flex h-full items-center justify-center p-1.5 text-xs font-semibold focus:border-transparent focus:outline-none focus:ring focus:ring-indigo-400"
                 type="button"
                 @click="toggle"
             >
-                <svg
+                <ChevronDownIcon
                     v-show="! data.isOpen"
-                    xmlns="http://www.w3.org/2000/svg"
                     class="h-3.5 w-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                    />
-                </svg>
-                <svg
+                />
+                <ChevronUpIcon
                     v-show="data.isOpen"
-                    xmlns="http://www.w3.org/2000/svg"
                     class="h-3.5 w-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 15l7-7 7 7"
-                    />
-                </svg>
+                />
             </button>
         </div>
         <p

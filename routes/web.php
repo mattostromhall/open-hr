@@ -12,6 +12,7 @@ use App\Http\Dashboard\Controllers\DepartmentDashboardController;
 use App\Http\Dashboard\Controllers\ManagementDashboardController;
 use App\Http\Dashboard\Controllers\OrganisationDashboardController;
 use App\Http\Departments\Controllers\DepartmentController;
+use App\Http\Departments\Controllers\DepartmentMemberController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
@@ -213,6 +214,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('department.edit');
     Route::put('/departments/{department}', [DepartmentController::class, 'update'])
         ->name('department.update');
+
+    Route::post('/departments/{department}/members', DepartmentMemberController::class)
+        ->name('department.members');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

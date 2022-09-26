@@ -12,7 +12,7 @@ import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
 import type {Address, Role, User} from '../../../types'
 
-const props = defineProps<{
+defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
     person: Person,
     people: (Pick<Person, 'id'|'full_name'>)[],
@@ -23,7 +23,7 @@ const props = defineProps<{
     allRoles: Role[]
 }>()
 
-type ActiveTab = 'information'|'address'|'reports'|'access'
+type ActiveTab = 'information' | 'address' | 'reports'  |'access'
 
 const activeTab: Ref<ActiveTab> = ref('information')
 
@@ -37,7 +37,9 @@ function isActive(tab: string): boolean {
 </script>
 
 <template>
-    <Head :title="`Edit Person - ${person.full_name}`" />
+    <Head>
+        <title>Edit Person - {{ person.full_name }}</title>
+    </Head>
 
     <PageHeading>
         <span class="font-normal">Editing - </span>{{ person.full_name }}

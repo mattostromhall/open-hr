@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Department, Person, SelectOption} from '../../types'
+import type {Department, SelectOption} from '../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -9,25 +9,20 @@ import MultiSelectInput from '@/Components/Controls/MultiSelectInput.vue'
 
 const props = defineProps<{
     department: Department,
-    members: SelectOption[],
-    nonMembers: SelectOption[]
+    members: number[],
+    people: SelectOption[]
 }>()
 
-const directReportOptions = props.people
-    .filter(person => person.id !== props.person.manager_id)
-    .map(person => {
-        return {
-            value: person.id,
-            display: person.full_name
-        }
-    })
+interface MemberData {
+    members: number[]
+}
 
-const form: InertiaForm<{direct_reports: number[]}> = useForm({
-    direct_reports: props.directReports
+const form: InertiaForm<MemberData> = useForm({
+    members: props.members
 })
 
 function submit(): void {
-    form.post(`/people/${props.person.id}/direct-reports`)
+    form.post(`/departments/${props.department.id}/members`)
 }
 </script>
 
@@ -41,20 +36,20 @@ function submit(): void {
                             Members
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Manage who is a member of {{ person.full_name }}
+                            Manage who is a member of {{ department.name }}
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
+                        <div class="col-span-6">
                             <FormLabel>Reports <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <MultiSelectInput
-                                    v-model="form.direct_reports"
-                                    :error="form.errors.direct_reports"
-                                    :options="directReportOptions"
-                                    input-id="direct_reports"
-                                    input-name="direct_reports"
-                                    @reset="form.clearErrors('direct_reports')"
+                                    v-model="form.members"
+                                    :error="form.errors.members"
+                                    :options="people"
+                                    input-id="members"
+                                    input-name="members"
+                                    @reset="form.clearErrors('members')"
                                 />
                             </div>
                         </div>

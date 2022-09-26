@@ -10,9 +10,9 @@ use Illuminate\Http\RedirectResponse;
 
 class DirectReportController extends Controller
 {
-    public function __invoke(DirectReportRequest $request, Person $person, ManageDirectReportsAction $syncDirectReports): RedirectResponse
+    public function __invoke(DirectReportRequest $request, Person $person, ManageDirectReportsAction $manageDirectReports): RedirectResponse
     {
-        $syncDirectReports->execute($person, $request->validated('direct_reports'));
+        $manageDirectReports->execute($person, $request->validated('direct_reports'));
 
         return back()->with('flash.success', 'Direct reports updated!');
     }

@@ -23,23 +23,15 @@ class EditDepartmentViewModel extends ViewModel
     {
         return $this->department
             ->members
-            ->map(fn (Person $member) => [
-                'value' => $member->id,
-                'display' => $member->full_name
-            ]);
+            ->pluck('id');
     }
 
-    public function nonMembers(): Collection
+    public function people(): Collection
     {
         return Person::query()
             ->select('id', 'first_name', 'last_name')
-            ->whereNull('department_id')
-            ->orWhereNot('department_id', $this->department->id)
             ->get()
-            ->map(fn (Person $person) => [
-                'value' => $person->id,
-                'display' => $person->full_name
-            ]);
+            ->mapToSelect();
     }
 
     public function headOptions(): Collection
@@ -54,9 +46,6 @@ class EditDepartmentViewModel extends ViewModel
                     ->whereNot('head_of_department_id', $this->department->head_of_department_id)
             )
             ->get()
-            ->map(fn (Person $person) => [
-                'value' => $person->id,
-                'display' => $person->full_name
-            ]);
+            ->mapToSelect();
     }
 }

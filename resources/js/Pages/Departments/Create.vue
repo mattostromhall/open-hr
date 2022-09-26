@@ -30,7 +30,7 @@ const form: InertiaForm<DepartmentData> = useForm({
     <PageHeading>
         Create Department
         <template #link>
-            <LightIndigoLink href="/people">
+            <LightIndigoLink href="/departments">
                 All Departments
             </LightIndigoLink>
         </template>

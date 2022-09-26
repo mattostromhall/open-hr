@@ -18,9 +18,6 @@ class CreateDepartmentViewModel extends ViewModel
                 $query->select('head_of_department_id')->from('departments')
             )
             ->get()
-            ->map(fn (Person $person) => [
-                'value' => $person->id,
-                'display' => $person->full_name
-            ]);
+            ->mapToSelect();
     }
 }
