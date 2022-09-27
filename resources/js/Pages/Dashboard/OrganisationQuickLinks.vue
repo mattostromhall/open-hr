@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue/24/outline'
+import {ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -73,7 +73,7 @@ import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        View your organisation documents.
+                        View your Organisation documents.
                     </p>
                 </div>
                 <span
@@ -94,13 +94,13 @@ import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div>
                     <span class="inline-flex rounded-lg bg-sky-50 p-3 text-sky-700 ring-4 ring-white">
-                        <UsersIcon class="h-6 w-6" />
+                        <ClipboardDocumentListIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/performance"
+                            href="/expense-types"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -108,11 +108,11 @@ import {ChartBarIcon, TagIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Performance
+                            Expense Types
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Schedule one-to-ones or view your current objectives.
+                        View all Expense Types or add a new one.
                     </p>
                 </div>
                 <span

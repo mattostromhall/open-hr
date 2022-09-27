@@ -204,6 +204,11 @@ export interface Training {
     notes?: string
 }
 
+export interface ExpenseType {
+    id: number,
+    type: string
+}
+
 export interface ActionLog {
     id: number,
     person_id: number,
@@ -211,6 +216,11 @@ export interface ActionLog {
     payload: Json,
     actionable_id: number,
     actionable_type: string
+}
+
+export interface TimeStamp {
+    created_at: string,
+    updated_at: string
 }
 
 export interface FlashMessage {

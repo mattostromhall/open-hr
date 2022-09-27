@@ -13,6 +13,7 @@ use App\Http\Dashboard\Controllers\ManagementDashboardController;
 use App\Http\Dashboard\Controllers\OrganisationDashboardController;
 use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Departments\Controllers\DepartmentMemberController;
+use App\Http\Expenses\Controllers\ExpenseTypeController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
@@ -217,6 +218,17 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/departments/{department}/members', DepartmentMemberController::class)
         ->name('department.members');
+
+    Route::get('/expense-types', [ExpenseTypeController::class, 'index'])
+        ->name('expense-type.index');
+    Route::get('/expense-types/create', [ExpenseTypeController::class, 'create'])
+        ->name('expense-type.create');
+    Route::post('/expense-types', [ExpenseTypeController::class, 'store'])
+        ->name('expense-type.store');
+    Route::get('/expense-types/{expense_type}/edit', [ExpenseTypeController::class, 'edit'])
+        ->name('expense-type.edit');
+    Route::put('/expense-types/{expense_type}', [ExpenseTypeController::class, 'update'])
+        ->name('expense-type.update');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');
