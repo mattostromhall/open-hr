@@ -96,8 +96,8 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 href="/dashboard"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white"
                                 :class="{
-                                    'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
-                                    'bg-indigo-800': $page.url === '/dashboard'
+                                    'hover:bg-indigo-500 hover:bg-opacity-75': ! $page.url.startsWith('/dashboard'),
+                                    'bg-indigo-800': $page.url.startsWith('/dashboard')
                                 }"
                             >
                                 <HomeIcon
@@ -236,8 +236,8 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         href="/dashboard"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white"
                         :class="{
-                            'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/dashboard',
-                            'bg-indigo-800': $page.url === '/dashboard'
+                            'hover:bg-indigo-500 hover:bg-opacity-75': ! $page.url.startsWith('/dashboard'),
+                            'bg-indigo-800': $page.url.startsWith('/dashboard')
                         }"
                     >
                         <HomeIcon
