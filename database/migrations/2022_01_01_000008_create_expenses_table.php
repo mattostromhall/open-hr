@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->foreignId('expense_type_id')
                 ->constrained();
             $table->unsignedTinyInteger('status')->index();
-            $table->unsignedInteger('value');
+            $table->float('value');
             $table->date('date');
             $table->text('notes')->nullable();
 
