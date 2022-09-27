@@ -19,6 +19,7 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
             $table->foreignId('expense_type_id')
                 ->constrained();
+            $table->unsignedTinyInteger('status')->index();
             $table->unsignedInteger('value');
             $table->date('date');
             $table->text('notes')->nullable();

@@ -2,6 +2,7 @@
 
 namespace Domain\Expenses\Models;
 
+use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Events\ExpenseCreated;
 use Domain\Expenses\Events\ExpenseDeleted;
 use Domain\Expenses\Events\ExpenseUpdated;
@@ -20,7 +21,8 @@ class Expense extends Model
     use Unguarded;
 
     protected $casts = [
-        'date' => 'date',
+        'status' => ExpenseStatus::class,
+        'date' => 'date'
     ];
 
     protected $dispatchesEvents = [

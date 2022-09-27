@@ -2,17 +2,20 @@
 
 namespace Domain\Expenses\DataTransferObjects;
 
+use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Models\ExpenseType;
 use Domain\People\Models\Person;
+use Illuminate\Support\Carbon;
 
 class ExpenseData
 {
     public function __construct(
         public readonly Person $person,
         public readonly ExpenseType $type,
-        public readonly int $value,
-        public readonly string $date,
-        public readonly ?string $notes
+        public readonly ExpenseStatus $status,
+        public readonly float $value,
+        public readonly Carbon $date,
+        public readonly ?string $notes = null
     ) {
         //
     }
