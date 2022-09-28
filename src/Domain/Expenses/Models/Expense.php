@@ -6,6 +6,8 @@ use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Events\ExpenseCreated;
 use Domain\Expenses\Events\ExpenseDeleted;
 use Domain\Expenses\Events\ExpenseUpdated;
+use Domain\Expenses\QueryBuilders\ExpenseQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,9 +33,19 @@ class Expense extends Model
         'deleted' => ExpenseDeleted::class
     ];
 
+    public static function query(): Builder|ExpenseQueryBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): ExpenseQueryBuilder
+    {
+        return new ExpenseQueryBuilder($query);
+    }
+
     public function type(): HasOne
     {
-        return $this->hasOne(ExpenseType::class);
+        return $this->hasOne(ExpenseType::class, 'id', 'expense_type_id');
     }
 
     public function documents(): MorphMany

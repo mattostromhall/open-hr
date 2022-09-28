@@ -14,12 +14,7 @@ class HolidaysViewModel extends ViewModel
             ->whereApproved()
             ->orderBy('start_at')
             ->get()
-            ->map(function ($holiday) {
-                return [
-                    'duration' => $holiday->duration->inWeekDays(),
-                    ...$holiday->toArray()
-                ];
-            });
+            ->includeDuration();
     }
 
     public function pending()
@@ -30,12 +25,7 @@ class HolidaysViewModel extends ViewModel
             ->wherePending()
             ->orderBy('start_at')
             ->get()
-            ->map(function ($holiday) {
-                return [
-                    'duration' => $holiday->duration->inWeekDays(),
-                    ...$holiday->toArray()
-                ];
-            });
+            ->includeDuration();
     }
 
     public function rejected()

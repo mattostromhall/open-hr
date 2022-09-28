@@ -192,8 +192,8 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
-                        <a
-                            href="#"
+                        <Link
+                            href="/expenses"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -202,10 +202,10 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
                                 aria-hidden="true"
                             />
                             Submit an expense
-                        </a>
+                        </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.
+                        Submit an expense and track the status of your submitted expenses.
                     </p>
                 </div>
                 <span

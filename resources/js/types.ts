@@ -16,6 +16,8 @@ export type TrainingStatus = 1 | 2 | 3
 
 export type TrainingState = 1 | 2 | 3
 
+export type ExpenseStatus = 1 | 2 | 3
+
 export type SelectOption = string | number | ComplexSelectOption
 
 export type Documentable = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
@@ -207,6 +209,16 @@ export interface Training {
 export interface ExpenseType {
     id: number,
     type: string
+}
+
+export interface Expense {
+    id: number,
+    person_id: number,
+    expense_type_id: number,
+    status: ExpenseStatus,
+    value: number,
+    date: string,
+    notes?: string
 }
 
 export interface ActionLog {

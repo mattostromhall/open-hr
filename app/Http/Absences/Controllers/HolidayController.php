@@ -9,7 +9,6 @@ use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\AmendHolidayAction;
 use Domain\Absences\Actions\RequestHolidayAction;
-use Domain\Absences\Actions\UpdateHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Http\RedirectResponse;

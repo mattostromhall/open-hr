@@ -4,6 +4,7 @@ namespace Domain\Absences\Collections;
 
 use Domain\Absences\Models\Holiday;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class HolidayCollection extends Collection
 {
@@ -16,5 +17,15 @@ class HolidayCollection extends Collection
 
             return $holiday->duration->inWeekDays();
         })->sum();
+    }
+
+    public function includeDuration(): self|SupportCollection
+    {
+        return $this->map(function (Holiday $holiday) {
+            return [
+            'duration' => $holiday->duration->inWeekDays(),
+            ...$holiday->toArray()
+        ];
+        });
     }
 }

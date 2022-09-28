@@ -13,6 +13,7 @@ use App\Http\Dashboard\Controllers\ManagementDashboardController;
 use App\Http\Dashboard\Controllers\OrganisationDashboardController;
 use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Departments\Controllers\DepartmentMemberController;
+use App\Http\Expenses\Controllers\ExpenseController;
 use App\Http\Expenses\Controllers\ExpenseTypeController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
@@ -229,6 +230,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('expense-type.edit');
     Route::put('/expense-types/{expense_type}', [ExpenseTypeController::class, 'update'])
         ->name('expense-type.update');
+
+    Route::get('/expenses', [ExpenseController::class, 'index'])
+        ->name('expense.index');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

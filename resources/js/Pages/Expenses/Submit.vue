@@ -7,35 +7,30 @@ import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import usePerson from '../../../Hooks/usePerson'
-import type {Holiday} from '../../../types'
+import usePerson from '../../Hooks/usePerson'
+import type {Expense, SelectOption} from '../../types'
 
-type HolidayRequestData = Omit<Holiday, 'id'>
+defineProps<{
+    expenseTypes: SelectOption[]
+}>()
+
+type SubmitExpenseData = Omit<Expense, 'id' | 'expense_type_id'> & {expense_type_id?: number}
 
 const emit = defineEmits(['setActive'])
 
 const person = usePerson()
 
-const halfDayOptions = [
-    {value: 'am', display: 'AM'},
-    {value: 'pm', display: 'PM'}
-]
-
-const form: InertiaForm<HolidayRequestData> = useForm({
+const form: InertiaForm<SubmitExpenseData> = useForm({
     person_id: person.value.id,
+    expense_type_id: undefined,
     status: 1,
-    start_at: '',
-    finish_at: '',
-    half_day: undefined,
+    value: 0,
+    date: '',
     notes: undefined
 })
 
 function submit(): void {
-    if (form.half_day) {
-        form.finish_at = form.start_at
-    }
-
-    form.post('/holidays', {
+    form.post('/expenses', {
         onSuccess: () => {
             emit('setActive', 'pending')
             form.reset()
@@ -51,52 +46,36 @@ function submit(): void {
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Request holiday
+                            Submit an Expense
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Submit a holiday request to your manager.
+                            Submit an Expense to your manager.
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Start at <RequiredIcon /></FormLabel>
+                            <FormLabel>Date <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <DateInput
-                                    v-model="form.start_at"
-                                    :error="form.errors.start_at"
-                                    input-id="start_at"
-                                    input-name="start_at"
-                                    @reset="form.clearErrors('start_at')"
-                                />
-                            </div>
-                        </div>
-                        <div
-                            v-if="! form.half_day"
-                            class="col-span-6 sm:col-span-4"
-                        >
-                            <FormLabel>Finish at <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <DateInput
-                                    v-model="form.finish_at"
-                                    :error="form.errors.finish_at"
-                                    input-id="finish_at"
-                                    input-name="finish_at"
-                                    :base-start-on="form.start_at"
-                                    @reset="form.clearErrors('finish_at')"
+                                    v-model="form.date"
+                                    :error="form.errors.date"
+                                    input-id="date"
+                                    input-name="date"
+                                    @reset="form.clearErrors('date')"
                                 />
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Half day</FormLabel>
+                            <FormLabel>Type</FormLabel>
                             <div class="mt-1">
                                 <SelectInput
-                                    v-model="form.half_day"
-                                    :error="form.errors.half_day"
-                                    :options="halfDayOptions"
-                                    input-id="half_day"
-                                    input-name="half_day"
-                                    placeholder="Select an option for Half day..."
-                                    @reset="form.clearErrors('half_day')"
+                                    v-model="form.expense_type_id"
+                                    :error="form.errors.expense_type_id"
+                                    :options="expenseTypes"
+                                    input-id="expense_type"
+                                    input-name="expense_type"
+                                    placeholder="Select an Expense Type..."
+                                    @reset="form.clearErrors('expense_type_id')"
                                 />
                             </div>
                         </div>

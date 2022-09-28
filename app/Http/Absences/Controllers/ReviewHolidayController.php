@@ -8,7 +8,6 @@ use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\ReviewHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
-use Domain\Auth\Enums\Ability;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
