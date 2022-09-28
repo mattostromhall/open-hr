@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import type {Ref} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import type {DocumentListItem} from '../../../types'
+import type {Documentable, DocumentListItem} from '../../../types'
 import {FolderIcon} from '@heroicons/vue/24/outline'
 import usePerson from '../../../Hooks/usePerson'
 import DocumentList from './DocumentList.vue'
@@ -13,6 +13,7 @@ import UploadDocuments from './UploadDocuments.vue'
 
 const props = defineProps<{
     path: string,
+    documentableType: Documentable,
     topLevelDirectories: DocumentListItem[],
     directories: DocumentListItem[],
     files: DocumentListItem[],
@@ -42,7 +43,9 @@ function hideDocumentsModal() {
 </script>
 
 <template>
-    <Head title="Documents" />
+    <Head>
+        <title>Documents</title>
+    </Head>
 
     <PageHeading>
         Documents
@@ -54,6 +57,7 @@ function hideDocumentsModal() {
                 >
                     <UploadDocuments
                         :path="props.path"
+                        :documentable-type="documentableType"
                         @uploaded="hideDocumentsModal"
                     />
                 </SimpleModal>
@@ -109,7 +113,10 @@ function hideDocumentsModal() {
                 :back-path="props.backPath"
                 :items="documentList"
             />
-            <UploadDocuments :path="props.path" />
+            <UploadDocuments
+                :path="props.path"
+                :documentable-type="documentableType"
+            />
         </div>
     </div>
 </template>

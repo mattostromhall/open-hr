@@ -7,7 +7,8 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Documentable} from '../../../types'
 
 const props = defineProps<{
-    path: string
+    path: string,
+    documentableType: Documentable
 }>()
 
 const emit = defineEmits(['uploaded'])
@@ -23,12 +24,15 @@ const form: InertiaForm<DocumentsData> = useForm({
     path: props.path,
     documents: undefined,
     documentable_id: 1,
-    documentable_type: 'organisation'
+    documentable_type: props.documentableType
 })
 
 function submit() {
     form.post('/documents', {
-        onSuccess: () => emit('uploaded')
+        onSuccess: () => {
+            emit('uploaded')
+            form.reset()
+        }
     })
 }
 </script>

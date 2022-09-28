@@ -2,12 +2,33 @@
 
 namespace Domain\Files\Enums;
 
+use Illuminate\Support\Str;
+
 enum DocumentableType: string
 {
-    case APPLICATIONS = 'applications';
-    case DEPARTMENTS = 'departments';
-    case EXPENSES = 'expenses';
+    case APPLICATION = 'application';
+    case DEPARTMENT = 'department';
+    case EXPENSE = 'expense';
     case ORGANISATION = 'organisation';
-    case PEOPLE = 'people';
-    case VACANCIES = 'vacancies';
+    case PERSON = 'person';
+    case VACANCY = 'vacancy';
+
+    public function plural(): string
+    {
+        return match ($this) {
+            self::ORGANISATION => $this->value,
+            self::APPLICATION,
+            self::DEPARTMENT,
+            self::EXPENSE,
+            self::PERSON,
+            self::VACANCY => Str::plural($this->value)
+        };
+    }
+
+    public static function fromPlural(string $plural): self
+    {
+        $singular = Str::singular($plural);
+
+        return self::from($singular);
+    }
 }

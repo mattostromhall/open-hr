@@ -2,7 +2,7 @@
 
 namespace App\Http\Expenses\Controllers;
 
-use App\Http\Departments\Requests\ExpenseTypeRequest;
+use App\Http\Expenses\Requests\ExpenseTypeRequest;
 use App\Http\Expenses\ViewModels\ExpenseTypesViewModel;
 use App\Http\Expenses\ViewModels\ExpenseTypeViewModel;
 use App\Http\Support\Controllers\Controller;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PaperClipIcon} from '@heroicons/vue/24/outline'
 
-const props = defineProps<{
+defineProps<{
     file: File
     name: string
 }>()

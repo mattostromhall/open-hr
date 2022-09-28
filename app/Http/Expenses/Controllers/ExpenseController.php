@@ -2,10 +2,9 @@
 
 namespace App\Http\Expenses\Controllers;
 
-use App\Http\Departments\Requests\ExpenseTypeRequest;
+use App\Http\Expenses\Requests\ExpenseTypeRequest;
+use App\Http\Expenses\Requests\SubmitExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpensesViewModel;
-use App\Http\Expenses\ViewModels\ExpenseTypesViewModel;
-use App\Http\Expenses\ViewModels\ExpenseTypeViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\CreateExpenseTypeAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
@@ -22,23 +21,13 @@ class ExpenseController extends Controller
         return Inertia::render('Expenses/Index', new ExpensesViewModel());
     }
 
-    public function create(): Response
+    public function store(SubmitExpenseRequest $request, CreateExpenseTypeAction $submitExpense): RedirectResponse
     {
-        return Inertia::render('Expenses/ExpenseTypes/Create');
-    }
-
-    public function store(ExpenseTypeRequest $request, CreateExpenseTypeAction $createExpense): RedirectResponse
-    {
-        $createExpense->execute(
+        $submitExpense->execute(
             ExpenseTypeData::from($request->validated())
         );
 
-        return redirect(route('expense-type.index'))->with('flash.success', 'Expense Type created!');
-    }
-
-    public function edit(ExpenseType $expenseType): Response
-    {
-        return Inertia::render('Expenses/ExpenseTypes/Edit', new ExpenseTypeViewModel($expenseType));
+        return redirect(route('expense.index'))->with('flash.success', 'Expense submitted!');
     }
 
     public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeAction $updateExpense): RedirectResponse
@@ -48,9 +37,9 @@ class ExpenseController extends Controller
         $updated = $updateExpense->execute($expenseType, $expenseTypeData);
 
         if (! $updated) {
-            return back()->with('flash.error', 'There was a problem with updating the Expense Type, please try again.');
+            return back()->with('flash.error', 'There was a problem with updating the Expense, please try again.');
         }
 
-        return redirect()->to(route('expense-type.index'))->with('flash.success', 'Expense Type updated!');
+        return redirect()->to(route('expense.index'))->with('flash.success', 'Expense updated!');
     }
 }

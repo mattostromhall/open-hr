@@ -3,10 +3,13 @@ import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
+import NumberInput from '@/Components/Controls/NumberInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import FileInput from '@/Components/Controls/FileInput.vue'
+import FilePreview from '@/Components/FilePreview.vue'
 import usePerson from '../../Hooks/usePerson'
 import type {Expense, SelectOption} from '../../types'
 
@@ -14,7 +17,12 @@ defineProps<{
     expenseTypes: SelectOption[]
 }>()
 
-type SubmitExpenseData = Omit<Expense, 'id' | 'expense_type_id'> & {expense_type_id?: number}
+type SubmitExpenseData = Omit<Expense, 'id' | 'expense_type_id'>
+    &
+    {
+        expense_type_id?: number
+        documents: File | File[] | undefined
+    }
 
 const emit = defineEmits(['setActive'])
 
@@ -26,7 +34,8 @@ const form: InertiaForm<SubmitExpenseData> = useForm({
     status: 1,
     value: 0,
     date: '',
-    notes: undefined
+    notes: undefined,
+    documents: undefined
 })
 
 function submit(): void {
@@ -53,18 +62,6 @@ function submit(): void {
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Date <RequiredIcon /></FormLabel>
-                            <div class="mt-1">
-                                <DateInput
-                                    v-model="form.date"
-                                    :error="form.errors.date"
-                                    input-id="date"
-                                    input-name="date"
-                                    @reset="form.clearErrors('date')"
-                                />
-                            </div>
-                        </div>
                         <div class="col-span-6 sm:col-span-3">
                             <FormLabel>Type</FormLabel>
                             <div class="mt-1">
@@ -79,6 +76,31 @@ function submit(): void {
                                 />
                             </div>
                         </div>
+                        <div class="col-span-6 sm:col-span-4">
+                            <FormLabel>Cost</FormLabel>
+                            <div class="mt-1">
+                                <NumberInput
+                                    v-model="form.value"
+                                    :error="form.errors.value"
+                                    input-id="value"
+                                    input-name="value"
+                                    :step="0.01"
+                                    @reset="form.clearErrors('value')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-5">
+                            <FormLabel>Date <RequiredIcon /></FormLabel>
+                            <div class="mt-1">
+                                <DateInput
+                                    v-model="form.date"
+                                    :error="form.errors.date"
+                                    input-id="date"
+                                    input-name="date"
+                                    @reset="form.clearErrors('date')"
+                                />
+                            </div>
+                        </div>
                         <div class="col-span-6">
                             <FormLabel>Notes</FormLabel>
                             <div class="mt-1">
@@ -90,6 +112,21 @@ function submit(): void {
                                     @reset="form.clearErrors('notes')"
                                 />
                             </div>
+                        </div>
+                        <div class="col-span-6">
+                            <FileInput
+                                input-id="documents"
+                                input-name="documents"
+                                :multiple="true"
+                                @update:model-value="form.documents = $event"
+                            />
+                            <FilePreview
+                                v-for="(document, index) in form.documents"
+                                :key="index"
+                                class="mt-5"
+                                :file="document"
+                                :name="document?.name"
+                            />
                         </div>
                     </div>
                 </div>

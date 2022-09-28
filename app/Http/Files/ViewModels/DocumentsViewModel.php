@@ -33,12 +33,26 @@ class DocumentsViewModel extends ViewModel
         return $back;
     }
 
+    public function documentableType(): DocumentableType
+    {
+        $type = Str::of($this->path)
+            ->after('/documents/')
+            ->before('/')
+            ->toString();
+
+        if (! $type) {
+            return DocumentableType::ORGANISATION;
+        }
+
+        return DocumentableType::fromPlural($type);
+    }
+
     public function topLevelDirectories(): array
     {
         return collect(DocumentableType::cases())
             ->map(fn (DocumentableType $type) => [
-                'path' => '/documents/' . $type->value,
-                'name' => $type->value
+                'path' => '/documents/' . $type->plural(),
+                'name' => $type->plural()
             ])
             ->toArray();
     }

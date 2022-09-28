@@ -191,7 +191,7 @@ function processFiles(files: File[]) {
                     class="pt-1 text-sm text-indigo-500 transition ease-in-out group-hover:text-indigo-600"
                     :class="{'text-indigo-600': state.dragActive}"
                 >
-                    Upload a file
+                    {{ multiple ? 'Upload files' : 'Upload a file' }}
                 </span>
                 <span
                     class="text-xs text-gray-500 transition ease-in-out group-hover:text-indigo-600"
