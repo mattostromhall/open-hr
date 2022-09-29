@@ -13,8 +13,7 @@ import UploadDocuments from './UploadDocuments.vue'
 
 const props = defineProps<{
     path: string,
-    documentableId: number,
-    documentableType: Documentable,
+    documentable: Documentable
     topLevelDirectories: DocumentListItem[],
     directories: DocumentListItem[],
     files: DocumentListItem[],
@@ -58,8 +57,7 @@ function hideDocumentsModal() {
                 >
                     <UploadDocuments
                         :path="props.path"
-                        :documentable-id="documentableId"
-                        :documentable-type="documentableType"
+                        :documentable="documentable"
                         @uploaded="hideDocumentsModal"
                     />
                 </SimpleModal>
@@ -117,8 +115,7 @@ function hideDocumentsModal() {
             />
             <UploadDocuments
                 :path="props.path"
-                :documentable-id="documentableId"
-                :documentable-type="documentableType"
+                :documentable="documentable"
             />
         </div>
     </div>

@@ -20,7 +20,7 @@ export type ExpenseStatus = 1 | 2 | 3
 
 export type SelectOption = string | number | ComplexSelectOption
 
-export type Documentable = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
+export type DocumentableType = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
 
 export type ActionLogAction = 'CREATED' | 'UPDATED' | 'DELETED'
 
@@ -42,6 +42,11 @@ export interface FileInput {
 export interface FileType {
     value: string,
     display: string
+}
+
+export interface Documentable {
+    id: number,
+    type: DocumentableType
 }
 
 export interface DocumentListItem {

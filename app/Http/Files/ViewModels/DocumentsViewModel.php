@@ -3,6 +3,7 @@
 namespace App\Http\Files\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Files\DataTransferObjects\DocumentableData;
 use Domain\Files\DataTransferObjects\DocumentListItemData;
 use Domain\Files\Enums\DocumentableType;
 use Domain\Files\Models\Document;
@@ -12,8 +13,10 @@ use Illuminate\Support\Str;
 
 class DocumentsViewModel extends ViewModel
 {
-    public function __construct(protected string $path)
-    {
+    public function __construct(
+        protected string $path,
+        protected DocumentableData $documentableData
+    ) {
         //
     }
 
@@ -33,27 +36,9 @@ class DocumentsViewModel extends ViewModel
         return $back;
     }
 
-    public function documentableType(): DocumentableType
+    public function documentable(): DocumentableData
     {
-        $type = Str::of($this->path)
-            ->after('/documents/')
-            ->before('/')
-            ->toString();
-
-        if (! $type) {
-            return DocumentableType::ORGANISATION;
-        }
-
-        return DocumentableType::fromPlural($type);
-    }
-
-    public function documentableId(): int
-    {
-        if ($this->documentableType() === DocumentableType::ORGANISATION) {
-            return 1;
-        }
-
-        return 2;
+        return $this->documentableData;
     }
 
     public function topLevelDirectories(): array

@@ -5,6 +5,7 @@ namespace App\Http\Files\Controllers;
 use App\Http\Files\Requests\StoreDocumentRequest;
 use App\Http\Files\ViewModels\DocumentsViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Files\Actions\DocumentableDataFromDocumentPathAction;
 use Domain\Files\Actions\UploadDocumentsAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,9 @@ class DocumentController extends Controller
 
         abort_unless(Storage::exists($prefixedPath), 404);
 
-        return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath));
+        $documentableData = app(DocumentableDataFromDocumentPathAction::class)->execute($prefixedPath);
+
+        return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath, $documentableData));
     }
 
     public function store(

@@ -25,6 +25,13 @@ class StoreDocumentRequest extends FormRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'documents.*' => 'documents',
+        ];
+    }
+
     public function validatedData(): Collection
     {
         return collect($this->validated('documents'))

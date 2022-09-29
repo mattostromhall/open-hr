@@ -4,12 +4,13 @@ import {useForm} from '@inertiajs/inertia-vue3'
 import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Documentable} from '../../../types'
+import type {Documentable, DocumentableType} from '../../../types'
+import {computed} from 'vue'
+import type {ComputedRef} from 'vue'
 
 const props = defineProps<{
     path: string,
-    documentableId: number,
-    documentableType: Documentable
+    documentable: Documentable
 }>()
 
 const emit = defineEmits(['uploaded'])
@@ -18,14 +19,29 @@ interface DocumentsData {
     path: string,
     documents: File | File[] | undefined,
     documentable_id: number,
-    documentable_type: Documentable
+    documentable_type: DocumentableType
 }
 
 const form: InertiaForm<DocumentsData> = useForm({
     path: props.path,
     documents: undefined,
-    documentable_id: props.documentableId,
-    documentable_type: props.documentableType
+    documentable_id: props.documentable.id,
+    documentable_type: props.documentable.type
+})
+
+const error: ComputedRef<string> = computed(() => {
+    let message = ''
+
+    Object.entries(form.errors).find(([key, value]) => {
+        if (key.startsWith('documents')) {
+            message = value
+            return true
+        }
+
+        return false
+    })
+
+    return message
 })
 
 function submit() {
@@ -58,8 +74,9 @@ function submit() {
                                     input-id="upload"
                                     input-name="upload"
                                     :multiple="true"
-                                    :error="form.errors.documents"
+                                    :error="error"
                                     @update:model-value="form.documents = $event"
+                                    @reset="form.clearErrors()"
                                 />
                                 <FilePreview
                                     v-for="(document, index) in form.documents"
