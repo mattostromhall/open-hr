@@ -5,9 +5,7 @@ namespace App\Http\Files\Controllers;
 use App\Http\Files\Requests\StoreDocumentRequest;
 use App\Http\Files\ViewModels\DocumentsViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Files\Actions\StoreDocumentAction;
-use Domain\Files\Actions\StoreFileAction;
-use Domain\Files\DataTransferObjects\UploadedDocumentData;
+use Domain\Files\Actions\UploadDocumentsAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -26,19 +24,9 @@ class DocumentController extends Controller
 
     public function store(
         StoreDocumentRequest $request,
-        StoreFileAction $storeFile,
-        StoreDocumentAction $storeDocument
+        UploadDocumentsAction $uploadDocuments
     ): RedirectResponse {
-        // need to add an action in here to determine whether all documents uploaded, and if not return a message saying which ones failed to upload
-        $request->validatedData()->each(function (UploadedDocumentData $data) use ($storeFile, $storeDocument) {
-            $stored = $storeFile->execute($data->fileData);
-
-            if (! $stored) {
-                return;
-            }
-
-            $storeDocument->execute($data->documentData);
-        });
+        $uploadDocuments->execute($request->validatedData());
 
         return back()->with('flash.success', 'Documents successfully uploaded!');
     }

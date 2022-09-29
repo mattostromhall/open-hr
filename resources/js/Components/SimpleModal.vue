@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
+import {onBeforeUnmount, onMounted, ref, watch} from 'vue'
 import type {Ref} from 'vue'
 import {TransitionRoot} from '@headlessui/vue'
 
@@ -9,6 +9,14 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['close', 'update:modelValue'])
+
+watch(() => props.modelValue, () => {
+    if (props.modelValue) {
+        return document.querySelector('body')?.classList.add('overflow-hidden')
+    }
+
+    document.querySelector('body')?.classList.remove('overflow-hidden')
+})
 
 const modal: Ref<HTMLDivElement | null> = ref(null)
 
@@ -36,7 +44,6 @@ function handleEnter() {
 }
 
 onMounted(() => {
-    document.querySelector('body')?.classList.add('overflow-hidden')
     window.addEventListener('resize', handleResize)
     handleResize()
 })

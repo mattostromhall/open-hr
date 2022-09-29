@@ -10,10 +10,10 @@ use Domain\Notifications\Actions\SendEmailNotificationAction;
 class SubmitExpenseAction
 {
     public function __construct(
-        CreateExpenseAction $createExpense,
-        StoreDocumentAction $storeDocument,
-        CreateNotificationAction $createNotification,
-        SendEmailNotificationAction $sendEmail
+        protected CreateExpenseAction $createExpense,
+        protected StoreDocumentAction $storeDocument,
+        protected CreateNotificationAction $createNotification,
+        protected SendEmailNotificationAction $sendEmail
     ) {
         //
     }

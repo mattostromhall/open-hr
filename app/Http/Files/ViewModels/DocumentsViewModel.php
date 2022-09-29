@@ -47,6 +47,15 @@ class DocumentsViewModel extends ViewModel
         return DocumentableType::fromPlural($type);
     }
 
+    public function documentableId(): int
+    {
+        if ($this->documentableType() === DocumentableType::ORGANISATION) {
+            return 1;
+        }
+
+        return 2;
+    }
+
     public function topLevelDirectories(): array
     {
         return collect(DocumentableType::cases())

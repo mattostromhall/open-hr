@@ -8,6 +8,7 @@ import type {Documentable} from '../../../types'
 
 const props = defineProps<{
     path: string,
+    documentableId: number,
     documentableType: Documentable
 }>()
 
@@ -23,7 +24,7 @@ interface DocumentsData {
 const form: InertiaForm<DocumentsData> = useForm({
     path: props.path,
     documents: undefined,
-    documentable_id: 1,
+    documentable_id: props.documentableId,
     documentable_type: props.documentableType
 })
 
@@ -57,6 +58,7 @@ function submit() {
                                     input-id="upload"
                                     input-name="upload"
                                     :multiple="true"
+                                    :error="form.errors.documents"
                                     @update:model-value="form.documents = $event"
                                 />
                                 <FilePreview
