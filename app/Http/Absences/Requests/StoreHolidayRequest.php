@@ -14,7 +14,7 @@ class StoreHolidayRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'person_id' => ['required', 'integer'],
+            'person_id' => ['required', 'numeric'],
             'status' => ['required', new Enum(HolidayStatus::class)],
             'start_at' => ['required', 'date', 'after_or_equal:today'],
             'finish_at' => ['required', 'date', function ($attribute, $value, $fail) {

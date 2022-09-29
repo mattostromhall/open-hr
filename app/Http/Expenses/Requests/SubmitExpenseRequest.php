@@ -2,18 +2,25 @@
 
 namespace App\Http\Expenses\Requests;
 
+use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class SubmitExpenseRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('departments')->ignore($this->department?->id)],
-            'head_of_department_id' => ['required', 'numeric']
+            'person_id' => ['required', 'numeric'],
+            'expense_type_id' => ['required', 'numeric'],
+            'status' => ['required', new Enum(ExpenseStatus::class)],
+            'value' => ['required', 'numeric'],
+            'date' => ['required', 'date'],
+            'notes' => ['string', 'nullable'],
+            'documents' => ['required', 'array', 'min:1', 'max:10'],
+            'documents.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,docx', 'max:20000']
         ];
     }
 
@@ -21,10 +28,15 @@ class SubmitExpenseRequest extends FormRequest
     {
         return array_merge(
             $this->safe([
-                'name'
+                'value',
+                'notes'
             ]),
             [
-                'head' => Person::find($this->head_of_department_id)
+                'person' => Person::find($this->validated('person_id')),
+                'type' => Person::find($this->validated('expense_type_id')),
+                'status' => ExpenseStatus::from($this->validated('status')),
+                'date' => Carbon::parse($this->validated('date')),
+                'documents' => collect($this->validated('documents'))
             ]
         );
     }
