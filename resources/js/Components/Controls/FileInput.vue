@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {computed, reactive} from 'vue'
-import type {ComputedRef} from 'vue'
+import {computed, reactive, ref} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import type {FileInput, FileType} from '../../types'
 
 const props = defineProps({
@@ -160,6 +160,12 @@ function processFiles(files: File[]) {
 
     emit('update:modelValue', files)
 }
+
+let focused: Ref<boolean> = ref(false)
+
+function toggleFocus() {
+    focused.value = ! focused.value
+}
 </script>
 
 <template>
@@ -168,13 +174,13 @@ function processFiles(files: File[]) {
             class="relative flex h-32 w-full flex-col rounded-lg border-2 border-dotted border-gray-300 transition ease-in-out hover:border-indigo-600 hover:bg-indigo-100"
             :class="{
                 'border-red-500': error,
-                'bg-indigo-100 border-indigo-600': state.dragActive
+                'bg-indigo-100 border-indigo-600': state.dragActive || focused
             }"
         >
             <span class="flex cursor-pointer flex-col items-center justify-center p-4">
                 <svg
                     class="h-12 w-12 text-gray-400 transition ease-in-out group-hover:text-indigo-600"
-                    :class="{'text-indigo-600': state.dragActive}"
+                    :class="{'text-indigo-600': state.dragActive || focused}"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -189,13 +195,13 @@ function processFiles(files: File[]) {
                 </svg>
                 <span
                     class="pt-1 text-sm text-indigo-500 transition ease-in-out group-hover:text-indigo-600"
-                    :class="{'text-indigo-600': state.dragActive}"
+                    :class="{'text-indigo-600': state.dragActive || focused}"
                 >
                     {{ multiple ? 'Upload files' : 'Upload a file' }}
                 </span>
                 <span
                     class="text-xs text-gray-500 transition ease-in-out group-hover:text-indigo-600"
-                    :class="{'text-indigo-600': state.dragActive}"
+                    :class="{'text-indigo-600': state.dragActive || focused}"
                 >
                     {{ allowedTypesDisplay }} up to {{ maxSizeInMB }}MB
                 </span>
@@ -206,6 +212,8 @@ function processFiles(files: File[]) {
                 type="file"
                 class="absolute h-full w-full cursor-pointer opacity-0"
                 :multiple="multiple"
+                @focus="toggleFocus"
+                @blur="toggleFocus"
                 @dragenter.prevent="setDragActive"
                 @dragover.prevent="setDragActive"
                 @dragleave.prevent="setDragInactive"

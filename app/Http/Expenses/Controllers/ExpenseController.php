@@ -6,7 +6,6 @@ use App\Http\Expenses\Requests\ExpenseTypeRequest;
 use App\Http\Expenses\Requests\SubmitExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpensesViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Expenses\Actions\CreateExpenseTypeAction;
 use Domain\Expenses\Actions\SubmitExpenseAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
 use Domain\Expenses\DataTransferObjects\ExpenseTypeData;
@@ -28,9 +27,9 @@ class ExpenseController extends Controller
     {
         try {
             $submitExpense->execute(
-                SubmittedExpenseData::from($request->validated())
+                SubmittedExpenseData::from($request->validatedData())
             );
-        } catch (Exception) {
+        } catch (Exception $e) {
             return redirect(route('expense.index'))->with('flash.error', 'Part of your Expense submission failed, please review for any missing information or documents.');
         }
 

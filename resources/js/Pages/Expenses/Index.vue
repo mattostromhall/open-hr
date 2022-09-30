@@ -120,6 +120,9 @@ function isActive(tab: string): boolean {
                 </button>
             </nav>
         </aside>
-        <Submit :expense-types="expenseTypes" />
+        <Submit
+            v-if="activeTab === 'submit'"
+            :expense-types="expenseTypes"
+        />
     </div>
 </template>

@@ -12,6 +12,8 @@ import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import usePerson from '../../Hooks/usePerson'
 import type {Expense, SelectOption} from '../../types'
+import {computed} from 'vue'
+import type {ComputedRef} from 'vue'
 
 defineProps<{
     expenseTypes: SelectOption[]
@@ -36,6 +38,21 @@ const form: InertiaForm<SubmitExpenseData> = useForm({
     date: '',
     notes: undefined,
     documents: undefined
+})
+
+const documentError: ComputedRef<string> = computed(() => {
+    let message = ''
+
+    Object.entries(form.errors).find(([key, value]) => {
+        if (key.startsWith('documents')) {
+            message = value
+            return true
+        }
+
+        return false
+    })
+
+    return message
 })
 
 function submit(): void {
@@ -80,7 +97,7 @@ function submit(): void {
                             <FormLabel>Cost</FormLabel>
                             <div class="mt-1">
                                 <NumberInput
-                                    v-model="form.value"
+                                    v-model.number="form.value"
                                     :error="form.errors.value"
                                     input-id="value"
                                     input-name="value"
@@ -115,10 +132,12 @@ function submit(): void {
                         </div>
                         <div class="col-span-6">
                             <FileInput
+                                :error="documentError"
                                 input-id="documents"
                                 input-name="documents"
                                 :multiple="true"
                                 @update:model-value="form.documents = $event"
+                                @reset="form.clearErrors()"
                             />
                             <FilePreview
                                 v-for="(document, index) in form.documents"

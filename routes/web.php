@@ -15,6 +15,7 @@ use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Departments\Controllers\DepartmentMemberController;
 use App\Http\Expenses\Controllers\ExpenseController;
 use App\Http\Expenses\Controllers\ExpenseTypeController;
+use App\Http\Expenses\Controllers\ReviewExpenseController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
@@ -233,6 +234,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('/expenses', [ExpenseController::class, 'index'])
         ->name('expense.index');
+    Route::post('/expenses', [ExpenseController::class, 'store'])
+        ->name('expense.store');
+    Route::get('/expenses/{expense}/review', [ReviewExpenseController::class, 'show'])
+        ->name('expense.review.show');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

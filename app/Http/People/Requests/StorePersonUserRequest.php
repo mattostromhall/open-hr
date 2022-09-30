@@ -51,12 +51,14 @@ class StorePersonUserRequest extends FormRequest
     {
         return array_merge(
             [
-                'user_data' => UserData::from($this->safe([
-                    'email',
-                    'active',
-                    'password',
-                    'reset_required'
-                ]))
+                'user_data' => UserData::from(
+                    $this->safe([
+                        'email',
+                        'active',
+                        'password',
+                        'reset_required'
+                    ])
+                )
             ],
             $this->safe([
                 'title',
