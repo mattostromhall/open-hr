@@ -11,4 +11,30 @@ class ExpenseViewModel extends ViewModel
     {
         //
     }
+
+    public function expense(): Expense
+    {
+        return $this->expense;
+    }
+
+    public function type()
+    {
+        return $this->expense
+            ->type
+            ->type;
+    }
+
+    public function requester()
+    {
+        return $this->expense
+            ->person
+            ->full_name;
+    }
+
+    public function status()
+    {
+        return $this->expense
+            ->status
+            ->statusDisplay();
+    }
 }

@@ -5,11 +5,13 @@ namespace App\Http\Expenses\Controllers;
 use App\Http\Expenses\Requests\ExpenseTypeRequest;
 use App\Http\Expenses\Requests\SubmitExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpensesViewModel;
+use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\SubmitExpenseAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
 use Domain\Expenses\DataTransferObjects\ExpenseTypeData;
 use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
+use Domain\Expenses\Models\Expense;
 use Domain\Expenses\Models\ExpenseType;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -34,6 +36,11 @@ class ExpenseController extends Controller
         }
 
         return redirect(route('expense.index'))->with('flash.success', 'Expense submitted!');
+    }
+
+    public function show(Expense $expense): Response
+    {
+        return Inertia::render('Expenses/Show', new ExpenseViewModel($expense));
     }
 
 //    public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeAction $updateExpense): RedirectResponse

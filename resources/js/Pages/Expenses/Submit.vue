@@ -35,6 +35,7 @@ const form: InertiaForm<SubmitExpenseData> = useForm({
     expense_type_id: undefined,
     status: 1,
     value: 0,
+    value_currency: 'GBP',
     date: '',
     notes: undefined,
     documents: undefined
@@ -79,7 +80,7 @@ function submit(): void {
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
+                        <div class="col-span-6 sm:col-span-4">
                             <FormLabel>Type</FormLabel>
                             <div class="mt-1">
                                 <SelectInput
@@ -93,8 +94,8 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Cost</FormLabel>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Value</FormLabel>
                             <div class="mt-1">
                                 <NumberInput
                                     v-model.number="form.value"
@@ -103,6 +104,20 @@ function submit(): void {
                                     input-name="value"
                                     :step="0.01"
                                     @reset="form.clearErrors('value')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <FormLabel>Currency</FormLabel>
+                            <div class="mt-1">
+                                <SelectInput
+                                    v-model="form.value_currency"
+                                    :error="form.errors.value_currency"
+                                    :options="expenseTypes"
+                                    input-id="value_currency"
+                                    input-name="value_currency"
+                                    placeholder="Select a Currency..."
+                                    @reset="form.clearErrors('value_currency')"
                                 />
                             </div>
                         </div>

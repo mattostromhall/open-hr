@@ -236,6 +236,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('expense.index');
     Route::post('/expenses', [ExpenseController::class, 'store'])
         ->name('expense.store');
+    Route::get('/expenses/{expense}', [ExpenseController::class, 'show'])
+        ->name('expense.show');
     Route::get('/expenses/{expense}/review', [ReviewExpenseController::class, 'show'])
         ->name('expense.review.show');
 

@@ -222,8 +222,13 @@ export interface Expense {
     expense_type_id: number,
     status: ExpenseStatus,
     value: number,
+    value_currency: Currency,
     date: string,
     notes?: string
+}
+
+export interface ExpenseWithType extends Expense {
+    type: string
 }
 
 export interface ActionLog {

@@ -21,6 +21,7 @@ return new class () extends Migration {
                 ->constrained();
             $table->unsignedTinyInteger('status')->index();
             $table->float('value');
+            $table->string('value_currency');
             $table->date('date');
             $table->text('notes')->nullable();
 

@@ -16,6 +16,7 @@ it('updates an expense', function () {
         type: $expenseType,
         status: ExpenseStatus::APPROVED,
         value: $expense->value,
+        value_currency: $expense->value_currency,
         date: $expense->date
     );
 
@@ -28,6 +29,7 @@ it('updates an expense', function () {
         'expense_type_id' => $expenseData->type->id,
         'status' => $expenseData->status,
         'value' => $expenseData->value,
+        'value_currency' => $expenseData->value_currency,
         'date' => $expenseData->date->toDateString()
     ]);
 });

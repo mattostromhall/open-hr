@@ -7,6 +7,7 @@ use Domain\Expenses\Models\Expense;
 use Domain\Expenses\Models\ExpenseType;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Support\Enums\Currency;
 
 class ExpenseFactory extends Factory
 {
@@ -19,6 +20,7 @@ class ExpenseFactory extends Factory
             'expense_type_id' => ExpenseType::factory(),
             'status' => ExpenseStatus::PENDING,
             'value' => 9.50,
+            'value_currency' => Currency::GBP,
             'date' => now()
         ];
     }

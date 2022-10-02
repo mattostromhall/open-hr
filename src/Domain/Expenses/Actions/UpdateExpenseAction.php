@@ -14,6 +14,7 @@ class UpdateExpenseAction
             'expense_type_id' => $data->type->id,
             'status' => $data->status,
             'value' => $data->value,
+            'value_currency' => $data->value_currency,
             'date' => $data->date,
             'notes' => $data->notes
         ]);

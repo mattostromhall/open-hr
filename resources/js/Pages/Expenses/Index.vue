@@ -5,12 +5,11 @@ import {CheckCircleIcon, ClockIcon, QuestionMarkCircleIcon, XCircleIcon} from '@
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {Expense, SelectOption} from '../../types'
+import type {ExpenseWithType, SelectOption} from '../../types'
 import Submit from './Submit.vue'
-
-interface ExpenseWithType extends Expense {
-    type: string
-}
+import Approved from './Approved.vue'
+import Pending from './Pending.vue'
+import Rejected from './Rejected.vue'
 
 defineProps<{
     expenseTypes: SelectOption[],
@@ -123,6 +122,18 @@ function isActive(tab: string): boolean {
         <Submit
             v-if="activeTab === 'submit'"
             :expense-types="expenseTypes"
+        />
+        <Approved
+            v-if="activeTab === 'approved'"
+            :approved="approved"
+        />
+        <Pending
+            v-if="activeTab === 'pending'"
+            :pending="pending"
+        />
+        <Rejected
+            v-if="activeTab === 'rejected'"
+            :rejected="rejected"
         />
     </div>
 </template>

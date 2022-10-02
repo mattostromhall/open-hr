@@ -5,6 +5,7 @@ use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Models\ExpenseType;
 use Domain\People\Models\Person;
+use Support\Enums\Currency;
 
 it('creates an expense', function () {
     $person = Person::factory()->create();
@@ -16,6 +17,7 @@ it('creates an expense', function () {
         type: $expenseType,
         status: ExpenseStatus::PENDING,
         value: 9.50,
+        value_currency: Currency::GBP,
         date: now()
     );
 
@@ -26,6 +28,7 @@ it('creates an expense', function () {
         'expense_type_id' => $expenseData->type->id,
         'status' => $expenseData->status,
         'value' => $expenseData->value,
+        'value_currency' => Currency::GBP,
         'date' => $expenseData->date->toDateString()
     ]);
 });

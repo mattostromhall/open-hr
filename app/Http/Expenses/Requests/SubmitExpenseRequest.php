@@ -9,6 +9,7 @@ use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
+use Support\Enums\Currency;
 
 class SubmitExpenseRequest extends FormRequest
 {
@@ -19,6 +20,7 @@ class SubmitExpenseRequest extends FormRequest
             'expense_type_id' => ['required', 'numeric'],
             'status' => ['required', new Enum(ExpenseStatus::class)],
             'value' => ['required', 'numeric'],
+            'value_currency' => ['required', new Enum(Currency::class)],
             'date' => ['required', 'date'],
             'notes' => ['string', 'nullable'],
             'documents' => ['required', 'array', 'min:1', 'max:10'],
@@ -39,6 +41,7 @@ class SubmitExpenseRequest extends FormRequest
                         'person' => Person::query()->find($this->validated('person_id')),
                         'type' => ExpenseType::query()->find($this->validated('expense_type_id')),
                         'status' => ExpenseStatus::from($this->validated('status')),
+                        'value_currency' => Currency::from($this->validated('value_currency')),
                         'date' => Carbon::parse($this->validated('date'))
                     ]
                 )
