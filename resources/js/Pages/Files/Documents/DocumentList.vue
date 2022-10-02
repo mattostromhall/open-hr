@@ -6,8 +6,8 @@ import {ArrowLeftCircleIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 
 const props = defineProps<{
-    path: string,
     items: DocumentListItem[],
+    path?: string,
     backPath?: string
 }>()
 </script>
@@ -70,7 +70,10 @@ const props = defineProps<{
                                 :key="item.name"
                                 :item="item"
                             />
-                            <AddDirectory :path="props.path" />
+                            <AddDirectory
+                                v-if="props.path"
+                                :path="path"
+                            />
                         </tbody>
                     </table>
                 </div>

@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type {Expense} from '../../types'
+import type {DocumentListItem, Expense} from '../../types'
 import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {computed} from 'vue'
+import DocumentList from '../Files/Documents/DocumentList.vue'
 
 const props = defineProps<{
     expense: Expense,
-    requester: string
+    requester: string,
+    documents: DocumentListItem[]
 }>()
 
 const statusMap = {
@@ -80,7 +82,7 @@ const status = computed(() => statusMap[props.expense.status])
                             Value
                         </dt>
                         <dd class="mt-1 text-sm uppercase text-gray-900 sm:col-span-2 sm:mt-0">
-                            {{ expense.value }}
+                            {{ expense.value }} {{ expense.value_currency }}
                         </dd>
                     </div>
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
@@ -94,5 +96,9 @@ const status = computed(() => statusMap[props.expense.status])
                 </dl>
             </div>
         </div>
+        <DocumentList
+            class="mt-6"
+            :items="documents"
+        />
     </section>
 </template>

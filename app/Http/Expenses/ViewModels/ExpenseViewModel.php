@@ -4,6 +4,8 @@ namespace App\Http\Expenses\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Expenses\Models\Expense;
+use Domain\Expenses\Models\ExpenseType;
+use Illuminate\Support\Collection;
 
 class ExpenseViewModel extends ViewModel
 {
@@ -36,5 +38,22 @@ class ExpenseViewModel extends ViewModel
         return $this->expense
             ->status
             ->statusDisplay();
+    }
+
+    public function expenseTypes(): Collection
+    {
+        return ExpenseType::query()
+            ->get()
+            ->map(fn (ExpenseType $expenseType) => [
+                'value' => $expenseType->id,
+                'display' => $expenseType->type
+            ]);
+    }
+
+    public function documents(): Collection
+    {
+        return $this->expense
+            ->documents
+            ->toList();
     }
 }

@@ -1,39 +1,39 @@
 <?php
 
-namespace Domain\Performance\Actions;
+namespace Domain\Expenses\Actions;
 
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
+use Domain\Expenses\DataTransferObjects\ExpenseData;
+use Domain\Expenses\Models\Expense;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
-use Domain\Performance\DataTransferObjects\TrainingData;
-use Domain\Performance\Models\Training;
 
-class ReviewTrainingAction
+class ReviewExpenseAction
 {
     public function __construct(
-        protected UpdateTrainingAction $updateTraining,
+        protected UpdateExpenseAction $updateExpense,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {
         //
     }
 
-    public function execute(Training $training, TrainingData $data): bool
+    public function execute(Expense $expense, ExpenseData $data): bool
     {
-        $updated = $this->updateTraining->execute($training, $data);
+        $updated = $this->updateExpense->execute($expense, $data);
 
         if ($updated) {
             $this->createNotification->execute(
                 new NotificationData(
-                    body: "Your Training request has been updated to {$data->status->statusDisplay()}",
+                    body: "Your submitted Expense has been updated to {$data->status->statusDisplay()}",
                     notifiable_id: $data->person->id,
                     notifiable_type: 'person',
-                    title: 'Training request reviewed',
-                    link: route('training.show', [
-                        'training' => $training
+                    title: 'Submitted Expense reviewed',
+                    link: route('expense.show', [
+                        'expense' => $expense
                     ])
                 )
             );
@@ -41,10 +41,10 @@ class ReviewTrainingAction
             $this->sendEmail->execute(
                 new EmailNotificationData(
                     recipients: [$data->person->user->email],
-                    subject: 'Training request reviewed',
-                    body: "Your Training request has been updated to {$data->status->statusDisplay()}",
-                    link: route('training.show', [
-                        'training' => $training
+                    subject: 'Submitted Expense reviewed',
+                    body: "Your submitted Expense has been updated to {$data->status->statusDisplay()}",
+                    link: route('expense.show', [
+                        'expense' => $expense
                     ])
                 )
             );

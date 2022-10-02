@@ -240,6 +240,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('expense.show');
     Route::get('/expenses/{expense}/review', [ReviewExpenseController::class, 'show'])
         ->name('expense.review.show');
+    Route::patch('/expenses/{expense}/review', [ReviewExpenseController::class, 'update'])
+        ->name('expense.review.update');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

@@ -2,9 +2,13 @@
 
 namespace App\Http\Expenses\Controllers;
 
+use App\Http\Expenses\Requests\ReviewExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Expenses\Actions\ReviewExpenseAction;
+use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -15,19 +19,19 @@ class ReviewExpenseController extends Controller
         return Inertia::render('Expenses/Review', new ExpenseViewModel($expense));
     }
 
-//    public function update(UpdateTrainingRequest $request, Training $training, ReviewTrainingAction $reviewTraining): RedirectResponse
-//    {
-//        $trainingData = TrainingData::from([
-//            ...$training->only('status', 'state', 'description', 'provider', 'location', 'cost', 'cost_currency', 'duration', 'notes'),
-//            ...$request->filteredValidatedData()
-//        ]);
-//
-//        $reviewed = $reviewTraining->execute($training, $trainingData);
-//
-//        if (! $reviewed) {
-//            return back()->with('flash.error', 'There was a problem when reviewing the Training request, please try again.');
-//        }
-//
-//        return redirect()->to(route('dashboard'))->with('flash.success', "Training {$trainingData->status->statusDisplay()}.");
-//    }
+    public function update(ReviewExpenseRequest $request, Expense $expense, ReviewExpenseAction $reviewExpense): RedirectResponse
+    {
+        $expenseData = ExpenseData::from([
+            ...$expense->only('value', 'value_currency', 'date', 'notes'),
+            ...$request->validatedData()
+        ]);
+
+        $reviewed = $reviewExpense->execute($expense, $expenseData);
+
+        if (! $reviewed) {
+            return back()->with('flash.error', 'There was a problem when reviewing the Expense, please try again.');
+        }
+
+        return redirect()->to(route('dashboard'))->with('flash.success', "Expense {$expenseData->status->statusDisplay()}.");
+    }
 }

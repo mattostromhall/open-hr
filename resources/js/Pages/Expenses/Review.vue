@@ -4,21 +4,27 @@ import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
-import type {ExpenseStatus, Expense} from '../../types'
+import SelectInput from '@/Components/Controls/SelectInput.vue'
+import type {ExpenseStatus, Expense, SelectOption, DocumentListItem} from '../../types'
+import RequiredIcon from '@/Components/RequiredIcon.vue'
+import DocumentList from '../Files/Documents/DocumentList.vue'
 
 const props = defineProps<{
     expense: Expense,
-    type: string,
     requester: string,
-    status: string
+    status: string,
+    expenseTypes: SelectOption[],
+    documents: DocumentListItem[]
 }>()
 
 interface ReviewExpenseData {
+    expense_type_id: number,
     status: ExpenseStatus,
     notes?: string
 }
 
 const form: InertiaForm<ReviewExpenseData> = useForm({
+    expense_type_id: props.expense.expense_type_id,
     status: props.expense.status,
     notes: props.expense.notes ?? undefined
 })
@@ -53,10 +59,10 @@ function reject(): void {
                 </h3>
                 <div class="mt-2 max-w-xl text-sm text-gray-500">
                     <p>
-                        Type - {{ type }}
+                        Date - {{ useDateFormat(expense.date, 'DD/MM/YYYY').value }}
                     </p>
                     <p>
-                        Date - {{ useDateFormat(expense.date, 'DD/MM/YYYY').value }}
+                        Value - {{ expense.value }} {{ expense.value_currency }}
                     </p>
                     <p class="mt-1">
                         Status: {{ status }}
@@ -67,6 +73,20 @@ function reject(): void {
                     >
                         Expense info: {{ expense.notes }}
                     </p>
+                </div>
+                <div class="mt-3 max-w-xs">
+                    <FormLabel>Type <RequiredIcon /></FormLabel>
+                    <div class="mt-1">
+                        <SelectInput
+                            v-model="form.expense_type_id"
+                            :error="form.errors.expense_type_id"
+                            :options="expenseTypes"
+                            input-id="expense_type"
+                            input-name="expense_type"
+                            placeholder="Select an Expense Type..."
+                            @reset="form.clearErrors('expense_type_id')"
+                        />
+                    </div>
                 </div>
                 <div class="mt-3">
                     <FormLabel>Notes</FormLabel>
@@ -98,5 +118,9 @@ function reject(): void {
                 </div>
             </div>
         </div>
+        <DocumentList
+            class="mt-6"
+            :items="documents"
+        />
     </section>
 </template>

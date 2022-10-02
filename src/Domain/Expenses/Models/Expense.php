@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Domain\Files\Models\Document;
 use Domain\People\Models\Person;
 use Support\Concerns\Unguarded;
+use Support\Enums\Currency;
 
 class Expense extends Model
 {
@@ -24,6 +25,7 @@ class Expense extends Model
 
     protected $casts = [
         'status' => ExpenseStatus::class,
+        'value_currency' => Currency::class,
         'date' => 'date'
     ];
 
