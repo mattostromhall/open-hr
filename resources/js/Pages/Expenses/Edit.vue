@@ -11,34 +11,37 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import usePerson from '../../Hooks/usePerson'
-import type {Expense, SelectOption} from '../../types'
+import type {DocumentListItem, Expense, SelectOption} from '../../types'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import DocumentList from '../Files/Documents/DocumentList.vue'
 import currencies from '../../Shared/currencies'
 
-defineProps<{
-    expenseTypes: SelectOption[]
+const props = defineProps<{
+    expense: Expense,
+    requester: string,
+    expenseTypes: SelectOption[],
+    documents: DocumentListItem[]
 }>()
 
-type SubmitExpenseData = Omit<Expense, 'id' | 'expense_type_id'>
+type UpdateExpenseData = Omit<Expense, 'id'>
     &
-    {
-        expense_type_id?: number
-        documents: File | File[] | undefined
-    }
-
-const emit = defineEmits(['setActive'])
+    {documents: File | File[] | undefined}
 
 const person = usePerson()
 
-const form: InertiaForm<SubmitExpenseData> = useForm({
+const form: InertiaForm<UpdateExpenseData> = useForm({
+    _method: 'put',
     person_id: person.value.id,
-    expense_type_id: undefined,
-    status: 1,
-    value: 0,
-    value_currency: 'GBP',
-    date: '',
-    notes: undefined,
+    expense_type_id: props.expense.expense_type_id,
+    status: props.expense.status,
+    value: props.expense.value,
+    value_currency: props.expense.value_currency,
+    date: props.expense.date,
+    notes: props.expense.notes,
     documents: undefined
 })
 
@@ -58,26 +61,33 @@ const documentError: ComputedRef<string> = computed(() => {
 })
 
 function submit(): void {
-    form.post('/expenses', {
-        onSuccess: () => {
-            emit('setActive', 'pending')
-            form.reset()
-        }
-    })
+    form.post(`/expenses/${props.expense.id}`)
 }
 </script>
 
 <template>
-    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+    <Head>
+        <title>Edit Expense</title>
+    </Head>
+
+    <PageHeading>
+        <span class="font-medium">Editing</span> - Submitted Expenses by {{ requester }}
+        <template #link>
+            <LightIndigoLink :href="`/expenses/${expense.id}`">
+                View
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <section class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Submit an Expense
+                            Update Expense
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Submit an Expense to your manager.
+                            Submit an amended Expense to your manager.
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
@@ -174,5 +184,11 @@ function submit(): void {
                 </div>
             </div>
         </form>
-    </div>
+    </section>
+    <section
+        v-if="documents.length > 0"
+        class="w-full p-8 sm:max-w-6xl"
+    >
+        <DocumentList :items="documents" />
+    </section>
 </template>

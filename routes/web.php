@@ -238,6 +238,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('expense.store');
     Route::get('/expenses/{expense}', [ExpenseController::class, 'show'])
         ->name('expense.show');
+    Route::get('/expenses/{expense}/edit', [ExpenseController::class, 'edit'])
+        ->name('expense.edit');
+    Route::put('/expenses/{expense}', [ExpenseController::class, 'update'])
+        ->name('expense.update');
     Route::get('/expenses/{expense}/review', [ReviewExpenseController::class, 'show'])
         ->name('expense.review.show');
     Route::patch('/expenses/{expense}/review', [ReviewExpenseController::class, 'update'])

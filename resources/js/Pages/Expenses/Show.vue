@@ -4,22 +4,14 @@ import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import {computed} from 'vue'
 import DocumentList from '../Files/Documents/DocumentList.vue'
 
-const props = defineProps<{
+defineProps<{
     expense: Expense,
     requester: string,
+    status: string,
     documents: DocumentListItem[]
 }>()
-
-const statusMap = {
-    1: 'pending',
-    2: 'approved',
-    3: 'rejected'
-}
-
-const status = computed(() => statusMap[props.expense.status])
 </script>
 
 <template>
@@ -30,9 +22,14 @@ const status = computed(() => statusMap[props.expense.status])
     <PageHeading>
         <span class="font-medium">Viewing</span> - Expense
         <template #link>
-            <LightIndigoLink :href="`/expenses/${expense.id}/edit`">
-                Edit
-            </LightIndigoLink>
+            <div class="flex space-x-2">
+                <LightIndigoLink :href="`/expenses/${expense.id}/edit`">
+                    Edit
+                </LightIndigoLink>
+                <LightIndigoLink href="/expenses">
+                    Submit Expense
+                </LightIndigoLink>
+            </div>
         </template>
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">
@@ -97,6 +94,7 @@ const status = computed(() => statusMap[props.expense.status])
             </div>
         </div>
         <DocumentList
+            v-if="documents.length > 0"
             class="mt-6"
             :items="documents"
         />

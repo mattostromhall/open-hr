@@ -31,7 +31,7 @@ class RequestExpenseReviewAction
                 body: "Expense submitted by {$data->person->full_name}, click here to review.",
                 notifiable_id: $manager->id,
                 notifiable_type: 'person',
-                title: 'New Expense Submitted',
+                title: 'Expense Submitted',
                 link: route('expense.review.show', [
                     'expense' => $expense
                 ])
@@ -41,7 +41,7 @@ class RequestExpenseReviewAction
         $this->sendEmail->execute(
             new EmailNotificationData(
                 recipients: [$manager->user->email],
-                subject: 'New Expense Submitted',
+                subject: 'Expense Submitted',
                 body: "Expense submitted by {$data->person->full_name}, click here to review.",
                 link: route('expense.review.show', [
                     'expense' => $expense

@@ -43,7 +43,9 @@ function submit(): void {
 </script>
 
 <template>
-    <Head title="View Holiday" />
+    <Head>
+        <title>Edit Holiday</title>
+    </Head>
 
     <PageHeading>
         <span class="font-medium">Editing</span> - Holiday request by {{ requester }}

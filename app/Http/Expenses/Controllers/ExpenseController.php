@@ -2,17 +2,15 @@
 
 namespace App\Http\Expenses\Controllers;
 
-use App\Http\Expenses\Requests\ExpenseTypeRequest;
 use App\Http\Expenses\Requests\SubmitExpenseRequest;
+use App\Http\Expenses\Requests\UpdateExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpensesViewModel;
 use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
+use Domain\Expenses\Actions\AmendExpenseAction;
 use Domain\Expenses\Actions\SubmitExpenseAction;
-use Domain\Expenses\Actions\UpdateExpenseTypeAction;
-use Domain\Expenses\DataTransferObjects\ExpenseTypeData;
 use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Models\Expense;
-use Domain\Expenses\Models\ExpenseType;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -43,16 +41,21 @@ class ExpenseController extends Controller
         return Inertia::render('Expenses/Show', new ExpenseViewModel($expense));
     }
 
-//    public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeAction $updateExpense): RedirectResponse
-//    {
-//        $expenseTypeData = ExpenseTypeData::from($request->validated());
-//
-//        $updated = $updateExpense->execute($expenseType, $expenseTypeData);
-//
-//        if (! $updated) {
-//            return back()->with('flash.error', 'There was a problem with updating the Expense, please try again.');
-//        }
-//
-//        return redirect()->to(route('expense.index'))->with('flash.success', 'Expense updated!');
-//    }
+    public function edit(Expense $expense): Response
+    {
+        return Inertia::render('Expenses/Edit', new ExpenseViewModel($expense));
+    }
+
+    public function update(UpdateExpenseRequest $request, Expense $expense, AmendExpenseAction $amendExpense): RedirectResponse
+    {
+        $expenseData = SubmittedExpenseData::from($request->validatedData());
+
+        $updated = $amendExpense->execute($expense, $expenseData);
+
+        if (! $updated) {
+            return back()->with('flash.error', 'There was a problem with updating the Expense, please try again.');
+        }
+
+        return back()->with('flash.success', 'Expense updated!');
+    }
 }
