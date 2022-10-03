@@ -36,6 +36,7 @@ use App\Http\Performance\Controllers\PerformanceController;
 use App\Http\Performance\Controllers\ReviewTrainingController;
 use App\Http\Performance\Controllers\StartTrainingController;
 use App\Http\Performance\Controllers\TrainingController;
+use App\Http\Recruitment\Controllers\VacancyController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
@@ -246,6 +247,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('expense.review.show');
     Route::patch('/expenses/{expense}/review', [ReviewExpenseController::class, 'update'])
         ->name('expense.review.update');
+
+    Route::get('/vacancies', [VacancyController::class, 'index'])
+        ->name('vacancy.index');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

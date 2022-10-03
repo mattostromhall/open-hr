@@ -16,6 +16,9 @@ return new class () extends Migration {
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->string('location');
+            $table->string('contract_type');
+            $table->string('contract_length')->nullable();
             $table->unsignedBigInteger('remuneration');
             $table->string('contact');
             $table->dateTime('open_at');
