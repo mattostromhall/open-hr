@@ -6,7 +6,7 @@ import Approved from './Approved.vue'
 import Pending from './Pending.vue'
 import Rejected from './Rejected.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {SubMenuItem} from '../../../types'
+import type {TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 
 defineProps({
@@ -28,7 +28,7 @@ defineProps({
     }
 })
 
-const subMenu: SubMenuItem[] = [
+const tabs: TabbedContentItem[] = [
     {
         identifier: 'request',
         icon: 'ClockIcon',
@@ -67,7 +67,7 @@ const subMenu: SubMenuItem[] = [
     </PageHeading>
     <TabbedContent
         v-slot="{setActive, isActive}"
-        :sub-menu-items="subMenu"
+        :tabs="tabs"
         :active="active"
     >
         <RequestHoliday

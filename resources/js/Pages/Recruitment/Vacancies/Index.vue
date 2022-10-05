@@ -3,9 +3,9 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '../../../Components/TabbedContent.vue'
-import type {SubMenuItem} from '../../../types'
+import type {TabbedContentItem} from '../../../types'
 
-const tabs: SubMenuItem[] = [
+const tabs: TabbedContentItem[] = [
     {
         identifier: 'index',
         icon: 'ClockIcon',
@@ -29,6 +29,6 @@ const tabs: SubMenuItem[] = [
     </PageHeading>
     <TabbedContent
         active="index"
-        :sub-menu-items="tabs"
+        :tabs="tabs"
     />
 </template>

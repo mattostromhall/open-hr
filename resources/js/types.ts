@@ -32,7 +32,7 @@ export type Json =
     | Json[]
     | {[key: string]: Json};
 
-export interface SubMenuItem {
+export interface TabbedContentItem {
     identifier: string,
     icon: string,
     display: string

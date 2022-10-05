@@ -8,6 +8,11 @@ use Illuminate\Support\Collection;
 
 class ExpensesViewModel extends ViewModel
 {
+    public function active(): string
+    {
+        return 'submit';
+    }
+
     public function expenseTypes(): Collection
     {
         return ExpenseType::query()

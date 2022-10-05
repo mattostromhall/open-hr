@@ -8,6 +8,11 @@ use Illuminate\Support\Collection;
 
 class TrainingIndexViewModel extends ViewModel
 {
+    public function active(): string
+    {
+        return 'request';
+    }
+
     public function started()
     {
         return person()

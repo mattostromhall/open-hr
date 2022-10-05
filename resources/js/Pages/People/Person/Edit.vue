@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {IdentificationIcon, KeyIcon, EnvelopeIcon, UserGroupIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -11,6 +10,8 @@ import PersonAddress from '../Profile/Address.vue'
 import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
 import type {Address, Role, User} from '../../../types'
+import type {TabbedContentItem} from '../../../types'
+import TabbedContent from '@/Components/TabbedContent.vue'
 
 defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -25,15 +26,30 @@ defineProps<{
 
 type ActiveTab = 'information' | 'address' | 'reports'  |'access'
 
-const activeTab: Ref<ActiveTab> = ref('information')
+const active: Ref<ActiveTab> = ref('information')
 
-function setActive(tab: ActiveTab): void {
-    activeTab.value = tab
-}
-
-function isActive(tab: string): boolean {
-    return activeTab.value === tab
-}
+const tabs: TabbedContentItem[] = [
+    {
+        identifier: 'information',
+        icon: 'IdentificationIcon',
+        display: 'Information'
+    },
+    {
+        identifier: 'address',
+        icon: 'EnvelopeIcon',
+        display: 'Address'
+    },
+    {
+        identifier: 'reports',
+        icon: 'UserGroupIcon',
+        display: 'Direct Reports'
+    },
+    {
+        identifier: 'access',
+        icon: 'KeyIcon',
+        display: 'Manage Access'
+    }
+]
 </script>
 
 <template>
@@ -49,81 +65,11 @@ function isActive(tab: string): boolean {
             </LightIndigoLink>
         </template>
     </PageHeading>
-    <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
-        <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
-            <nav class="space-y-1">
-                <button
-                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
-                    :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('information'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('information')
-                    }"
-                    aria-current="page"
-                    @click="setActive('information')"
-                >
-                    <IdentificationIcon
-                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('information'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('information')
-                        }"
-                    />
-                    <span class="truncate">Information</span>
-                </button>
-                <button
-                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
-                    :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('address'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('address')
-                    }"
-                    aria-current="page"
-                    @click="setActive('address')"
-                >
-                    <EnvelopeIcon
-                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('address'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('address')
-                        }"
-                    />
-                    <span class="truncate">Address</span>
-                </button>
-                <button
-                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
-                    :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('reports'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('reports')
-                    }"
-                    @click="setActive('reports')"
-                >
-                    <UserGroupIcon
-                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('reports'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('reports')
-                        }"
-                    />
-                    <span class="truncate">Direct Reports</span>
-                </button>
-                <button
-                    class="group flex w-full items-center rounded-md py-2 px-3 text-sm font-medium"
-                    :class="{
-                        'text-gray-900 hover:text-gray-900 hover:bg-gray-50': ! isActive('access'),
-                        'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white': isActive('access')
-                    }"
-                    @click="setActive('access')"
-                >
-                    <KeyIcon
-                        class="mr-3 -ml-1 h-6 w-6 shrink-0"
-                        :class="{
-                            'text-gray-400 group-hover:text-gray-500': ! isActive('credentials'),
-                            'text-indigo-500 group-hover:text-indigo-500': isActive('credentials')
-                        }"
-                    />
-                    <span class="truncate">Manage Access</span>
-                </button>
-            </nav>
-        </aside>
+    <TabbedContent
+        v-slot="{isActive}"
+        :tabs="tabs"
+        :active="active"
+    >
         <Information
             v-if="isActive('information')"
             :person="person"
@@ -147,5 +93,5 @@ function isActive(tab: string): boolean {
             :roles="roles"
             :all-roles="allRoles"
         />
-    </div>
+    </TabbedContent>
 </template>

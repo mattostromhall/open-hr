@@ -8,6 +8,11 @@ use Illuminate\Support\Collection;
 
 class PerformanceViewModel extends ViewModel
 {
+    public function active(): string
+    {
+        return 'request';
+    }
+
     public function directReports()
     {
         return person()->directReports->map(
