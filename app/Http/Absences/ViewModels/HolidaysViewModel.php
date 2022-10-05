@@ -6,6 +6,11 @@ use App\Http\Support\ViewModels\ViewModel;
 
 class HolidaysViewModel extends ViewModel
 {
+    public function active(): string
+    {
+        return 'request';
+    }
+
     public function approved()
     {
         return person()

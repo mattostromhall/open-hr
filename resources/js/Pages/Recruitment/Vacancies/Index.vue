@@ -2,6 +2,16 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import TabbedContent from '../../../Components/TabbedContent.vue'
+import type {SubMenuItem} from '../../../types'
+
+const tabs: SubMenuItem[] = [
+    {
+        identifier: 'index',
+        icon: 'ClockIcon',
+        display: 'All Vacancies'
+    }
+]
 </script>
 
 <template>
@@ -17,7 +27,8 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
             </LightIndigoLink>
         </template>
     </PageHeading>
-    <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
-        Vacancies
-    </div>
+    <TabbedContent
+        active="index"
+        :sub-menu-items="tabs"
+    />
 </template>

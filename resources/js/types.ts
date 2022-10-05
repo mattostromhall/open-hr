@@ -32,6 +32,12 @@ export type Json =
     | Json[]
     | {[key: string]: Json};
 
+export interface SubMenuItem {
+    identifier: string,
+    icon: string,
+    display: string
+}
+
 export interface FileInput {
     validExtension: boolean,
     validSize: boolean,
