@@ -250,6 +250,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::get('/vacancies', [VacancyController::class, 'index'])
         ->name('vacancy.index');
+    Route::post('/vacancies', [VacancyController::class, 'store'])
+        ->name('vacancy.store');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

@@ -5,11 +5,15 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '../../../Components/TabbedContent.vue'
 import type {TabbedContentItem} from '../../../types'
 
+defineProps<{
+    active: TabbedContentItem['identifier']
+}>()
+
 const tabs: TabbedContentItem[] = [
     {
-        identifier: 'index',
+        identifier: 'post',
         icon: 'ClockIcon',
-        display: 'All Vacancies'
+        display: 'Post a Vacancy'
     }
 ]
 </script>
@@ -28,7 +32,9 @@ const tabs: TabbedContentItem[] = [
         </template>
     </PageHeading>
     <TabbedContent
-        active="index"
+        :active="active"
         :tabs="tabs"
-    />
+    >
+        //
+    </TabbedContent>
 </template>

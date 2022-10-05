@@ -14,16 +14,21 @@ return new class () extends Migration {
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('contact_id');
             $table->string('title');
             $table->text('description');
             $table->string('location');
             $table->string('contract_type');
             $table->string('contract_length')->nullable();
             $table->unsignedBigInteger('remuneration');
-            $table->string('contact');
+            $table->string('remuneration_currency');
             $table->dateTime('open_at');
             $table->dateTime('close_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('contact_id')
+                ->references('id')
+                ->on('people');
         });
     }
 
