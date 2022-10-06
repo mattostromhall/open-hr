@@ -1,28 +1,31 @@
 <?php
 
-use Domain\People\Models\Person;
-use Domain\Recruitment\Actions\CreateVacancyAction;
+use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Enums\ContractType;
-use function Pest\Faker\faker;
+use Domain\Recruitment\Models\Vacancy;
 use Support\Enums\Currency;
+use function Pest\Faker\faker;
 
-it('creates a vacancy', function () {
-    $person = Person::factory()->create();
+it('updates a vacancy', function () {
+    $vacancy = Vacancy::factory()->create();
 
-    $action = app(CreateVacancyAction::class);
+    $action = app(UpdateVacancyAction::class);
     $vacancyData = new VacancyData(
-        contact: $person,
-        title: 'Web Developer',
+        contact: $vacancy->contact,
+        title: $vacancy->title,
         description: faker()->randomHtml(),
-        location: 'UK',
-        contract_type: ContractType::FULL_TIME,
+        location: $vacancy->location,
+        contract_type: ContractType::FIXED_TERM,
         remuneration: 70000,
-        remuneration_currency: Currency::GBP,
-        open_at: now()
+        remuneration_currency: Currency::USD,
+        open_at: $vacancy->open_at,
+        contract_length: '1 year'
     );
 
-    $action->execute($vacancyData);
+    $this->assertModelExists($vacancy);
+
+    $action->execute($vacancy, $vacancyData);
 
     $this->assertDatabaseHas('vacancies', [
         'contact_id' => $vacancyData->contact->id,

@@ -1,7 +1,6 @@
 <?php
 
 use Domain\People\Models\Person;
-use Domain\Performance\Actions\CreateObjectiveAction;
 use Domain\Performance\Actions\UpdateObjectiveAction;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
