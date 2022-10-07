@@ -6,6 +6,7 @@ import {Underline} from '@tiptap/extension-underline'
 import EditorMenu from './EditorMenu.vue'
 import {computed, watch} from 'vue'
 import type {ComputedRef} from 'vue'
+import EditorPreview from './EditorPreview.vue'
 
 const props = defineProps<{
     modelValue: string,
@@ -68,6 +69,7 @@ watch(() => props.error, () => {
             class="absolute top-0 left-0 z-10"
             :editor="editor"
         />
+        <EditorPreview class="absolute top-0 right-0 z-10" />
         <EditorContent :editor="editor" />
         <p
             v-if="error"
