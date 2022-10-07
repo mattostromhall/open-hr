@@ -13,12 +13,12 @@ class VacancyData
         public readonly Person $contact,
         public readonly string $title,
         public readonly string $description,
-        public readonly string $location,
-        public readonly ContractType $contract_type,
-        public readonly int $remuneration,
-        public readonly Currency $remuneration_currency,
-        public readonly Carbon $open_at,
+        public readonly ?string $location = null,
+        public readonly ?ContractType $contract_type = null,
         public readonly ?string $contract_length = null,
+        public readonly ?int $remuneration = null,
+        public readonly ?Currency $remuneration_currency = null,
+        public readonly ?Carbon $open_at = null,
         public readonly ?Carbon $close_at = null
     ) {
         //

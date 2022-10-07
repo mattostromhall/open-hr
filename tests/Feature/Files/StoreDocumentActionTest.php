@@ -13,7 +13,7 @@ it('stores a document', function () {
         extension: 'pdf',
         disk: 'local',
         documentable_id: 1,
-        documentable_type: DocumentableType::PEOPLE
+        documentable_type: DocumentableType::PERSON
     );
 
     $action->execute($documentData);

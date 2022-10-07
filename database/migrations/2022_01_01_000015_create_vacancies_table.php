@@ -20,9 +20,9 @@ return new class () extends Migration {
             $table->string('location');
             $table->string('contract_type');
             $table->string('contract_length')->nullable();
-            $table->unsignedBigInteger('remuneration');
-            $table->string('remuneration_currency');
-            $table->dateTime('open_at');
+            $table->unsignedBigInteger('remuneration')->nullable();
+            $table->string('remuneration_currency')->nullable();
+            $table->dateTime('open_at')->nullable();
             $table->dateTime('close_at')->nullable();
             $table->timestamps();
 

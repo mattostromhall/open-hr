@@ -17,10 +17,10 @@ it('updates a vacancy', function () {
         description: faker()->randomHtml(),
         location: $vacancy->location,
         contract_type: ContractType::FIXED_TERM,
+        contract_length: '1 year',
         remuneration: 70000,
         remuneration_currency: Currency::USD,
-        open_at: $vacancy->open_at,
-        contract_length: '1 year'
+        open_at: $vacancy->open_at
     );
 
     $this->assertModelExists($vacancy);

@@ -24,6 +24,8 @@ export type DocumentableType = 'application' | 'expense' | 'organisation' | 'per
 
 export type ActionLogAction = 'CREATED' | 'UPDATED' | 'DELETED'
 
+export type ContractType = 'fixed term' | 'full time' | 'part time' | 'freelancer' | 'apprenticeship' | 'internship'
+
 export type Json =
     | null
     | boolean
@@ -235,6 +237,20 @@ export interface Expense {
 
 export interface ExpenseWithType extends Expense {
     type: string
+}
+
+export interface Vacancy {
+    id: number,
+    contact_id: number,
+    title: string,
+    description: string,
+    location?: string,
+    contract_type?: ContractType,
+    contract_length?: string,
+    remuneration?: number,
+    remuneration_currency?: Currency,
+    open_at?: string,
+    close_at?: string
 }
 
 export interface ActionLog {
