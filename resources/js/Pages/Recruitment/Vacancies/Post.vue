@@ -180,6 +180,7 @@ function submit() {
                                 <EditorInput
                                     v-model="form.description"
                                     :error="form.errors.description"
+                                    :preview-enabled="true"
                                     @reset="form.clearErrors('description')"
                                 />
                             </div>

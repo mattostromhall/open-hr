@@ -4,12 +4,13 @@ import StarterKit from '@tiptap/starter-kit'
 import {Placeholder} from '@tiptap/extension-placeholder'
 import {Underline} from '@tiptap/extension-underline'
 import EditorMenu from './EditorMenu.vue'
-import {computed, watch} from 'vue'
-import type {ComputedRef} from 'vue'
+import {computed, ref, watch} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import EditorPreview from './EditorPreview.vue'
 
 const props = defineProps<{
     modelValue: string,
+    previewEnabled?: boolean,
     error?: string
 }>()
 
@@ -61,6 +62,8 @@ watch(() => props.error, () => {
         },
     })
 })
+
+const preview: Ref<boolean> = ref(props.previewEnabled ?? false)
 </script>
 
 <template>
@@ -69,7 +72,11 @@ watch(() => props.error, () => {
             class="absolute top-0 left-0 z-10"
             :editor="editor"
         />
-        <EditorPreview class="absolute top-0 right-0 z-10" />
+        <EditorPreview
+            v-if="preview"
+            :preview-content="modelValue"
+            class="absolute top-0 right-0 z-10"
+        />
         <EditorContent :editor="editor" />
         <p
             v-if="error"
