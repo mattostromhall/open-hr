@@ -7,6 +7,9 @@ use Domain\Recruitment\Enums\ContractType;
 use Domain\Recruitment\Events\VacancyCreated;
 use Domain\Recruitment\Events\VacancyDeleted;
 use Domain\Recruitment\Events\VacancyUpdated;
+use Domain\Recruitment\QueryBuilders\VacancyQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +23,7 @@ class Vacancy extends Model
 {
     use HasFactory;
     use Unguarded;
+    use HasUuids;
 
     protected $casts = [
         'contract_type' => ContractType::class,
@@ -33,6 +37,16 @@ class Vacancy extends Model
         'updated' => VacancyUpdated::class,
         'deleted' => VacancyDeleted::class
     ];
+
+    public static function query(): Builder|VacancyQueryBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): VacancyQueryBuilder
+    {
+        return new VacancyQueryBuilder($query);
+    }
 
     public function contact(): BelongsTo
     {

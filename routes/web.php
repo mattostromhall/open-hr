@@ -36,6 +36,7 @@ use App\Http\Performance\Controllers\PerformanceController;
 use App\Http\Performance\Controllers\ReviewTrainingController;
 use App\Http\Performance\Controllers\StartTrainingController;
 use App\Http\Performance\Controllers\TrainingController;
+use App\Http\Recruitment\Controllers\VacancyApplicationController;
 use App\Http\Recruitment\Controllers\VacancyController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
@@ -253,8 +254,14 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/vacancies', [VacancyController::class, 'store'])
         ->name('vacancy.store');
 
+    Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
+        ->name('vacancy.application');
+
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');
 });
+
+Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
+    ->name('vacancy.application');
 
 require __DIR__ . '/auth.php';

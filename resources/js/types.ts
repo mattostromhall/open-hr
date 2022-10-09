@@ -240,7 +240,7 @@ export interface ExpenseWithType extends Expense {
 }
 
 export interface Vacancy {
-    id: number,
+    id: string,
     contact_id: number,
     title: string,
     description: string,
