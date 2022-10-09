@@ -2,7 +2,7 @@
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Objective} from '../../types'
 defineProps<{
-    objectives: Objective[]
+    objectives: (Pick<Objective, 'id' | 'title' | 'description'>)[]
 }>()
 </script>
 
