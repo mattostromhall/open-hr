@@ -2,14 +2,13 @@
 
 namespace Domain\Organisation\Models;
 
-use Domain\Organisation\Events\OrganisationCreated;
+use Domain\Files\Models\Document;
+use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Events\OrganisationDeleted;
 use Domain\Organisation\Events\OrganisationUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Domain\Files\Models\Document;
-use Domain\Notifications\Models\Notification;
 use Support\Concerns\Unguarded;
 
 class Organisation extends Model
@@ -24,7 +23,6 @@ class Organisation extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => OrganisationCreated::class,
         'updated' => OrganisationUpdated::class,
         'deleted' => OrganisationDeleted::class
     ];

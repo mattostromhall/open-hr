@@ -14,9 +14,10 @@ return new class () extends Migration {
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('vacancy_id')
+            $table->foreignId('vacancy_id')
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->unsignedTinyInteger('status')->index();
             $table->string('name');
             $table->string('contact_number');
             $table->string('contact_email');

@@ -13,12 +13,13 @@ return new class () extends Migration {
     public function up()
     {
         Schema::create('vacancies', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->unsignedBigInteger('contact_id');
+            $table->uuid('public_id');
             $table->string('title');
             $table->text('description');
-            $table->string('location');
-            $table->string('contract_type');
+            $table->string('location')->nullable();
+            $table->string('contract_type')->nullable();
             $table->string('contract_length')->nullable();
             $table->unsignedBigInteger('remuneration')->nullable();
             $table->string('remuneration_currency')->nullable();

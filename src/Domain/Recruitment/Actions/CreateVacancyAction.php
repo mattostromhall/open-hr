@@ -11,6 +11,7 @@ class CreateVacancyAction
     {
         return Vacancy::create([
             'contact_id' => $data->contact->id,
+            'public_id' => $data->public_id,
             'title' => $data->title,
             'description' => $data->description,
             'location' => $data->location,

@@ -6,6 +6,7 @@ use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ContractType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Enum;
 use Support\Enums\Currency;
 
@@ -39,6 +40,7 @@ class StoreVacancyRequest extends FormRequest
             ]),
             [
                 'contact' => Person::query()->find($this->validated('contact_id')),
+                'public_id' => Str::uuid(),
                 'contract_type' => $this->validated('contract_type') ? ContractType::from($this->validated('contract_type')) : null,
                 'remuneration_currency' => $this->validated('remuneration_currency') ? Currency::from($this->validated('remuneration_currency')) : null,
                 'open_at' => $this->validated('open_at') ? Carbon::parse($this->validated('open_at')) : null,

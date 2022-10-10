@@ -4,6 +4,7 @@ use Domain\People\Models\Person;
 use Domain\Recruitment\Actions\CreateVacancyAction;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Enums\ContractType;
+use Illuminate\Support\Str;
 use function Pest\Faker\faker;
 use Support\Enums\Currency;
 
@@ -13,6 +14,7 @@ it('creates a vacancy', function () {
     $action = app(CreateVacancyAction::class);
     $vacancyData = new VacancyData(
         contact: $person,
+        public_id: Str::uuid(),
         title: 'Web Developer',
         description: faker()->randomHtml(),
         location: 'UK',
@@ -26,6 +28,7 @@ it('creates a vacancy', function () {
 
     $this->assertDatabaseHas('vacancies', [
         'contact_id' => $vacancyData->contact->id,
+        'public_id' => $vacancyData->public_id,
         'title' => $vacancyData->title,
         'description' => $vacancyData->description,
         'location' => $vacancyData->location,

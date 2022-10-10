@@ -5,10 +5,13 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import EditorInput from '@/Components/Controls/EditorInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import FileInput from '@/Components/Controls/FileInput.vue'
+import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Application, Vacancy} from '../../../../types'
+import {ref} from 'vue'
+import type {Ref} from 'vue'
 
 const props = defineProps<{
     vacancy: Vacancy,
@@ -23,12 +26,15 @@ type ApplicationData = Omit<Application, 'id'>
 const form: InertiaForm<ApplicationData> = useForm({
     id: undefined,
     vacancy_id: props.vacancy.id,
+    status: 1,
     name: '',
     contact_number: '',
     contact_email: '',
     cover_letter: undefined,
     cv: undefined
 })
+
+const coverLetter: Ref<boolean> = ref(false)
 
 function submit() {
     form.post(`vacancies/${props.vacancy.id}/applications`)
@@ -86,7 +92,16 @@ function submit() {
                             </div>
                         </div>
                         <div class="col-span-6">
-                            <FormLabel>Cover Letter (optional)</FormLabel>
+                            <FormLabel>Add a cover letter?</FormLabel>
+                            <div class="mt-1">
+                                <ToggleInput v-model="coverLetter" />
+                            </div>
+                        </div>
+                        <div
+                            v-if="coverLetter"
+                            class="col-span-6"
+                        >
+                            <FormLabel>Cover Letter</FormLabel>
                             <div class="mt-1">
                                 <EditorInput
                                     v-model="form.cover_letter"
@@ -97,7 +112,7 @@ function submit() {
                             </div>
                         </div>
                         <div class="col-span-6">
-                            <FormLabel>Curriculum Vitae <RequiredIcon /></FormLabel>
+                            <FormLabel>Resume/CV <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <FileInput
                                     :error="form.errors.cv"

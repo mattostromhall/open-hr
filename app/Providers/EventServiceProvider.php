@@ -142,9 +142,6 @@ class EventServiceProvider extends ServiceProvider
         DepartmentDeleted::class => [
             LogAction::class
         ],
-        OrganisationCreated::class => [
-            LogAction::class
-        ],
         OrganisationUpdated::class => [
             LogAction::class
         ],

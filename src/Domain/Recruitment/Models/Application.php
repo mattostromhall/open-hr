@@ -2,6 +2,7 @@
 
 namespace Domain\Recruitment\Models;
 
+use Domain\Recruitment\Enums\ApplicationStatus;
 use Domain\Recruitment\Events\ApplicationCreated;
 use Domain\Recruitment\Events\ApplicationDeleted;
 use Domain\Recruitment\Events\ApplicationUpdated;
@@ -16,6 +17,10 @@ class Application extends Model
 {
     use HasFactory;
     use Unguarded;
+
+    protected $casts = [
+        'status' => ApplicationStatus::class
+    ];
 
     protected $dispatchesEvents = [
         'created' => ApplicationCreated::class,

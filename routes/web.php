@@ -254,7 +254,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::post('/vacancies', [VacancyController::class, 'store'])
         ->name('vacancy.store');
 
-    Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
+    Route::get('/vacancies/{public_id}/apply', VacancyApplicationController::class)
         ->name('vacancy.application');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])

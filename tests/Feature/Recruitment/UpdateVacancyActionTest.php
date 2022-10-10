@@ -13,6 +13,7 @@ it('updates a vacancy', function () {
     $action = app(UpdateVacancyAction::class);
     $vacancyData = new VacancyData(
         contact: $vacancy->contact,
+        public_id: $vacancy->public_id,
         title: $vacancy->title,
         description: faker()->randomHtml(),
         location: $vacancy->location,
@@ -29,6 +30,7 @@ it('updates a vacancy', function () {
 
     $this->assertDatabaseHas('vacancies', [
         'contact_id' => $vacancyData->contact->id,
+        'public_id' => $vacancyData->public_id,
         'title' => $vacancyData->title,
         'description' => $vacancyData->description,
         'location' => $vacancyData->location,

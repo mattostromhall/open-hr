@@ -11,6 +11,7 @@ class VacancyData
 {
     public function __construct(
         public readonly Person $contact,
+        public readonly string $public_id,
         public readonly string $title,
         public readonly string $description,
         public readonly ?string $location = null,

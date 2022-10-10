@@ -18,7 +18,7 @@ class VacancyCreated implements ActionableEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    public Person $person;
+    public ?Person $person;
 
     public function __construct(public Vacancy $vacancy)
     {

@@ -18,6 +18,8 @@ export type TrainingState = 1 | 2 | 3
 
 export type ExpenseStatus = 1 | 2 | 3
 
+export type ApplicationStatus = 1 | 2 | 3
+
 export type SelectOption = string | number | ComplexSelectOption
 
 export type DocumentableType = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
@@ -256,6 +258,7 @@ export interface Vacancy {
 export interface Application {
     id: number,
     vacancy_id: string,
+    status: ApplicationStatus,
     name: string,
     contact_number: number | string,
     contact_email: string,

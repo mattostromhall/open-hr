@@ -16,6 +16,7 @@ class VacancyFactory extends Factory
     {
         return [
             'contact_id' => Person::factory(),
+            'public_id' => $this->faker->uuid(),
             'title' => $this->faker->text(20),
             'description' => $this->faker->randomHtml(),
             'location' => $this->faker->country(),

@@ -1,5 +1,8 @@
 <?php
 
+use Domain\Auth\Models\User;
+use Domain\Organisation\Models\Organisation;
+use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -17,6 +20,10 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class)
     ->beforeEach(fn () => Model::unsetEventDispatcher())
+//    ->beforeEach(function () {
+//        $person = setupCompanyAndUser();
+//        $this->actingAs($person->user);
+//    })
     ->in('Feature');
 
 /*
@@ -45,7 +52,15 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
-}
+//function setupCompanyAndUser(): Person
+//{
+//    Organisation::factory()->create();
+//    $dispatcher = Model::getEventDispatcher();
+//    Model::unsetEventDispatcher();
+//
+//    $person = Person::factory()->create();
+//
+//    Model::setEventDispatcher($dispatcher);
+//
+//    return $person;
+//}
