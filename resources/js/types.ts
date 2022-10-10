@@ -253,6 +253,15 @@ export interface Vacancy {
     close_at?: string
 }
 
+export interface Application {
+    id: number,
+    vacancy_id: string,
+    name: string,
+    contact_number: number | string,
+    contact_email: string,
+    cover_letter?: string
+}
+
 export interface ActionLog {
     id: number,
     person_id: number,

@@ -17,7 +17,7 @@ const emit = defineEmits(['uploaded'])
 
 interface DocumentsData {
     path: string,
-    documents: File | File[] | undefined,
+    documents?: File | File[],
     documentable_id: number,
     documentable_type: DocumentableType
 }

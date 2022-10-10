@@ -10,7 +10,8 @@ class ApplicationData
         public readonly Vacancy $vacancy,
         public readonly string $name,
         public readonly string $contact_number,
-        public readonly string $contact_email
+        public readonly string $contact_email,
+        public readonly ?string $cover_letter = null
     ) {
         //
     }
