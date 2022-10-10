@@ -3,10 +3,12 @@
 namespace App\Http\Recruitment\Controllers;
 
 use App\Http\Recruitment\Requests\StoreVacancyRequest;
+use App\Http\Recruitment\ViewModels\ShowVacancyViewModel;
 use App\Http\Recruitment\ViewModels\VacanciesViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Recruitment\Actions\CreateVacancyAction;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
+use Domain\Recruitment\Models\Vacancy;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,5 +27,10 @@ class VacancyController extends Controller
         );
 
         return back()->with('flash.success', 'Vacancy posted!');
+    }
+
+    public function show(Vacancy $vacancy): Response
+    {
+        return Inertia::render('Recruitment/Vacancies/Show', new ShowVacancyViewModel($vacancy));
     }
 }

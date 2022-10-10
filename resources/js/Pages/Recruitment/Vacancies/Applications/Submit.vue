@@ -37,7 +37,7 @@ const form: InertiaForm<ApplicationData> = useForm({
 const coverLetter: Ref<boolean> = ref(false)
 
 function submit() {
-    form.post(`vacancies/${props.vacancy.id}/applications`)
+    form.post('/applications')
 }
 </script>
 
