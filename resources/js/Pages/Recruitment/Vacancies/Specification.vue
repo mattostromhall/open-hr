@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import type {Vacancy} from '../../../types'
-import {Link} from '@inertiajs/inertia-vue3'
 
 defineProps<{
     vacancy: Vacancy,
@@ -13,8 +12,13 @@ defineProps<{
 </script>
 
 <template>
-    <div class="sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-        <div class="bg-white px-4 py-5 shadow sm:rounded-md sm:px-6">
+    <div class="w-full max-w-4xl overflow-hidden bg-white shadow sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+            <h2 class="text-lg font-medium leading-6 text-gray-900">
+                Vacancy Information
+            </h2>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">
@@ -69,17 +73,6 @@ defineProps<{
                     </dd>
                 </div>
                 <div
-                    v-if="vacancy.open_at"
-                    class="sm:col-span-1"
-                >
-                    <dt class="text-sm font-medium text-gray-500">
-                        Opens
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900">
-                        {{ useDateFormat(vacancy.open_at, 'DD/MM/YYYY').value }}
-                    </dd>
-                </div>
-                <div
                     v-if="vacancy.close_at"
                     class="sm:col-span-1"
                 >
@@ -90,20 +83,15 @@ defineProps<{
                         {{ useDateFormat(vacancy.close_at, 'DD/MM/YYYY').value }}
                     </dd>
                 </div>
-                <div
-                    v-if="vacancy.close_at"
-                    class="sm:col-span-1"
-                >
+                <div class="sm:col-span-2">
                     <dt class="text-sm font-medium text-gray-500">
-                        Application Form
+                        Description
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900">
-                        <Link
-                            class="text-indigo-600"
-                            :href="`/vacancies/${vacancy.public_id}/apply`"
-                        >
-                            View
-                        </Link>
+                    <dd class="mt-1">
+                        <div
+                            class="prose max-w-none"
+                            v-html="vacancy.description"
+                        />
                     </dd>
                 </div>
             </dl>

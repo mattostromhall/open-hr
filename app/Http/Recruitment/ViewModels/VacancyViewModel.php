@@ -16,6 +16,7 @@ class VacancyViewModel extends ViewModel
     {
         return $this->vacancy->only(
             'id',
+            'public_id',
             'title',
             'description',
             'location',

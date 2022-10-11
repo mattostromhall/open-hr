@@ -43,15 +43,9 @@ export interface TabbedContentItem {
 }
 
 export interface FileInput {
-    validExtension: boolean,
     validSize: boolean,
     dragActive: boolean,
     message?: string
-}
-
-export interface FileType {
-    value: string,
-    display: string
 }
 
 export interface Documentable {
@@ -244,6 +238,7 @@ export interface ExpenseWithType extends Expense {
 export interface Vacancy {
     id: string,
     contact_id: number,
+    public_id: string,
     title: string,
     description: string,
     location?: string,

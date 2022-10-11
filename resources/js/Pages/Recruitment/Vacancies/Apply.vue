@@ -3,7 +3,7 @@ import type {Vacancy} from '../../../types'
 import {Head} from '@inertiajs/inertia-vue3'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
-import Overview from './Overview.vue'
+import Specification from './Specification.vue'
 import Submit from './Applications/Submit.vue'
 
 defineProps<{
@@ -94,7 +94,7 @@ export default {
                 </nav>
             </div>
         </div>
-        <Overview
+        <Specification
             v-if="active === 'vacancy'"
             :vacancy="vacancy"
             :contact="contact"

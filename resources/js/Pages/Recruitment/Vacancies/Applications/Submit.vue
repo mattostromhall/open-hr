@@ -118,6 +118,7 @@ function submit() {
                                     :error="form.errors.cv"
                                     input-id="cv"
                                     input-name="cv"
+                                    :types="['pdf', 'docx']"
                                     @update:model-value="form.cv = $event"
                                     @reset="form.clearErrors('cv')"
                                 />

@@ -18,13 +18,8 @@ const props = defineProps({
         required: true
     },
     types: {
-        type: Array as () => FileType[],
-        default: () => [
-            {value: 'image/png', display: 'png'},
-            {value: 'image/jpg', display: 'jpg'},
-            {value: 'image/jpeg', display: 'jpeg'},
-            {value: 'application/pdf', display: 'pdf'}
-        ]
+        type: Array,
+        default: () => ['png', 'jpg', 'jpeg', 'pdf', 'docx']
     },
     maxSize: {
         type: Number,
@@ -39,26 +34,16 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'reset'])
 
 const state: FileInput = reactive({
-    validExtension: true,
     validSize: true,
     dragActive: false,
     message: ''
 })
 
-const allowedTypesDisplay: ComputedRef<string> = computed(() => {
+
+const allowedTypes: ComputedRef<string> = computed(() => {
     return props.types
-        .map(type => {
-            return type.display
-        })
         .join(', ')
         .toUpperCase()
-})
-
-const allowedTypes: ComputedRef<string[]> = computed(() => {
-    return props.types
-        .map(type => {
-            return type.value
-        })
 })
 
 const maxSizeInMB: ComputedRef<number> = computed(() => {
@@ -70,7 +55,6 @@ function resetInput() {
         emit('reset')
     }
 
-    state.validExtension = true
     state.validSize = true
     state.message = ''
 }
@@ -122,12 +106,6 @@ function processUpload(event: Event | DragEvent): void {
 }
 
 function processFile(file: File) {
-    if (! allowedTypes.value.includes(file.type)) {
-        state.validExtension = false
-        state.message = `Invalid file type, allowed types: ${allowedTypesDisplay.value}`
-        return
-    }
-
     if (file.size > props.maxSize) {
         state.validSize = false
         state.message = 'File exceeds maximum file size'
@@ -138,15 +116,6 @@ function processFile(file: File) {
 }
 
 function processFiles(files: File[]) {
-    const validExtensions = files.every(file => allowedTypes.value.includes(file.type))
-
-    if (! validExtensions) {
-        state.validExtension = false
-        state.message = `Invalid file type, allowed types: ${allowedTypesDisplay.value}`
-
-        return
-    }
-
     const size: number = files
         .map(file => file.size)
         .reduce((prev, current) => prev + current, 0)
@@ -203,7 +172,7 @@ function toggleFocus() {
                     class="text-xs text-gray-500 transition ease-in-out group-hover:text-indigo-600"
                     :class="{'text-indigo-600': state.dragActive || focused}"
                 >
-                    {{ allowedTypesDisplay }} up to {{ maxSizeInMB }}MB
+                    {{ allowedTypes }} up to {{ maxSizeInMB }}MB
                 </span>
             </span>
             <input
