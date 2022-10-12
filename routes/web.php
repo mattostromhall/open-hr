@@ -260,6 +260,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
 
     Route::post('/applications', [ApplicationController::class, 'store'])
         ->name('application.store');
+    Route::post('/applications/{application}', [ApplicationController::class, 'show'])
+        ->name('application.show');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');

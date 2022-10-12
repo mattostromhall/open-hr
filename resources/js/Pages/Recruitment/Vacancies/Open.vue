@@ -63,24 +63,33 @@ function postVacancy() {
                                 <div class="w-44 truncate">
                                     <div class="flex text-sm text-indigo-500">
                                         <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0" />
-                                        <p>
+                                        <p v-if="vacancy.open_at">
                                             Opens
                                             {{ formatDate(vacancy.open_at) }}
+                                        </p>
+                                        <p v-else>
+                                            Opens not set
                                         </p>
                                     </div>
                                     <div class="mt-2 flex">
                                         <div class="flex items-center text-sm text-gray-500">
                                             <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0 text-gray-400" />
-                                            <p>
+                                            <p v-if="vacancy.close_at">
                                                 Closes
                                                 {{ formatDate(vacancy.close_at) }}
+                                            </p>
+                                            <p v-else>
+                                                Closes not set
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                     <p class="truncate px-3 text-sm text-gray-400">
-                                        {{ vacancy.title }} - <span class="capitalize">{{ vacancy.contract_type }}</span>, {{ vacancy.location }}
+                                        {{ vacancy.title }}<span
+                                            v-if="vacancy.contract_type"
+                                            class="capitalize"
+                                        > - {{ vacancy.contract_type }}</span><span v-if="vacancy.location">, {{ vacancy.location }}</span>
                                     </p>
                                 </div>
                                 <div class="mt-4 shrink-0 sm:mt-0 sm:ml-5">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Recruitment\Controllers;
 
-use App\Http\Recruitment\ViewModels\VacancyViewModel;
+use App\Http\Recruitment\ViewModels\VacancyApplicationViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Recruitment\Models\Vacancy;
 use Inertia\Inertia;
@@ -14,6 +14,6 @@ class VacancyApplicationController extends Controller
     {
         $vacancy = Vacancy::firstWhere('public_id', $public_id);
 
-        return Inertia::render('Recruitment/Vacancies/Apply', new VacancyViewModel($vacancy));
+        return Inertia::render('Recruitment/Vacancies/Apply', new VacancyApplicationViewModel($vacancy));
     }
 }

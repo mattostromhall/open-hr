@@ -5,14 +5,13 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Overview from './Overview.vue'
+import Applications from './Applications.vue'
+import type {Person} from '../../../types'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
     vacancy: Vacancy,
-    contact: {
-        name: string,
-        email: string
-    },
+    contact: Pick<Person, 'id' | 'full_name'>,
     applications: Application[]
 }>()
 
@@ -52,6 +51,10 @@ const tabs: TabbedContentItem[] = [
             v-if="isActive('overview')"
             :vacancy="vacancy"
             :contact="contact"
+        />
+        <Applications
+            v-if="isActive('applications')"
+            :applications="applications"
         />
     </TabbedContent>
 </template>

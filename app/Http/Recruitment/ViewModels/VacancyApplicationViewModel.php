@@ -5,16 +5,11 @@ namespace App\Http\Recruitment\ViewModels;
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Recruitment\Models\Vacancy;
 
-class VacancyViewModel extends ViewModel
+class VacancyApplicationViewModel extends ViewModel
 {
     public function __construct(protected Vacancy $vacancy)
     {
         //
-    }
-
-    public function active(): string
-    {
-        return 'overview';
     }
 
     public function vacancy(): array
@@ -34,13 +29,13 @@ class VacancyViewModel extends ViewModel
         );
     }
 
-    public function contact()
+    public function contact(): array
     {
-        return $this->vacancy->contact->only('id', 'full_name');
-    }
+        $contact = $this->vacancy->contact;
 
-    public function applications()
-    {
-        return $this->vacancy->applications;
+        return [
+            'name' => $contact->full_name,
+            'email' => $contact->user->email
+        ];
     }
 }

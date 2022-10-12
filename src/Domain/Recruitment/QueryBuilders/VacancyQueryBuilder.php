@@ -10,7 +10,8 @@ class VacancyQueryBuilder extends Builder
     public function whereOpen(): self
     {
         return $this->where('open_at', '<=', now())
-            ->where('close_at', '>', now());
+            ->where('close_at', '>', now())
+            ->orWhereNull('close_at');
     }
 
     public function whereClosed(): self

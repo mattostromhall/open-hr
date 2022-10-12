@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import type {Vacancy} from '../../../types'
+import type {Person, Vacancy} from '../../../types'
 import {Link} from '@inertiajs/inertia-vue3'
 
 defineProps<{
     vacancy: Vacancy,
-    contact: {
-        name: string,
-        email: string
-    }
+    contact: Pick<Person, 'id' | 'full_name'>
 }>()
 </script>
 
@@ -29,10 +26,12 @@ defineProps<{
                         Contact
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900">
-                        <a
+                        <Link
                             class="text-indigo-600"
-                            :href="`mailto:${contact.email}`"
-                        >{{ contact.name }} - {{ contact.email }}</a>
+                            :href="`/people/${contact.id}`"
+                        >
+                            {{ contact.full_name }}
+                        </Link>
                     </dd>
                 </div>
                 <div
@@ -104,6 +103,17 @@ defineProps<{
                         >
                             View
                         </Link>
+                    </dd>
+                </div>
+                <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">
+                        Description
+                    </dt>
+                    <dd class="mt-1">
+                        <div
+                            class="prose max-w-none"
+                            v-html="vacancy.description"
+                        />
                     </dd>
                 </div>
             </dl>

@@ -3,8 +3,8 @@
 namespace App\Http\Recruitment\Controllers;
 
 use App\Http\Recruitment\Requests\StoreVacancyRequest;
-use App\Http\Recruitment\ViewModels\ShowVacancyViewModel;
 use App\Http\Recruitment\ViewModels\VacanciesViewModel;
+use App\Http\Recruitment\ViewModels\VacancyViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Recruitment\Actions\CreateVacancyAction;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
@@ -31,6 +31,6 @@ class VacancyController extends Controller
 
     public function show(Vacancy $vacancy): Response
     {
-        return Inertia::render('Recruitment/Vacancies/Show', new ShowVacancyViewModel($vacancy));
+        return Inertia::render('Recruitment/Vacancies/Show', new VacancyViewModel($vacancy));
     }
 }
