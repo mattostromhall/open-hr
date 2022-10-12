@@ -89,10 +89,7 @@ defineProps<{
                         {{ useDateFormat(vacancy.close_at, 'DD/MM/YYYY').value }}
                     </dd>
                 </div>
-                <div
-                    v-if="vacancy.close_at"
-                    class="sm:col-span-1"
-                >
+                <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">
                         Application Form
                     </dt>

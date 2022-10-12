@@ -115,6 +115,18 @@ export interface Organisation {
     setup_at: string
 }
 
+export interface Document {
+    id: number,
+    name: string,
+    directory: string,
+    size: number,
+    extension: string,
+    disk: string,
+    documentable_id: number,
+    documentable_type: string,
+    path: string
+}
+
 export interface Person {
     id: number,
     user_id: number,

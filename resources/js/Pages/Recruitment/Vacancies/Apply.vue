@@ -4,7 +4,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import Specification from './Specification.vue'
-import Submit from './Applications/Submit.vue'
+import Submit from '../Applications/Submit.vue'
 
 defineProps<{
     vacancy: Vacancy,

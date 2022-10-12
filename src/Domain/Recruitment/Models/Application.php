@@ -9,8 +9,8 @@ use Domain\Recruitment\Events\ApplicationUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Domain\Files\Models\Document;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Support\Concerns\Unguarded;
 
 class Application extends Model
@@ -33,8 +33,8 @@ class Application extends Model
         return $this->belongsTo(Vacancy::class);
     }
 
-    public function documents(): MorphMany
+    public function cv(): MorphOne
     {
-        return $this->morphMany(Document::class, 'documentable');
+        return $this->morphOne(Document::class, 'documentable');
     }
 }

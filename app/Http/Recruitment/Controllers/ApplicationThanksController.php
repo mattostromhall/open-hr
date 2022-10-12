@@ -10,6 +10,6 @@ class ApplicationThanksController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Recruitment/Vacancies/Applications/Thanks');
+        return Inertia::render('Recruitment/Applications/Thanks');
     }
 }

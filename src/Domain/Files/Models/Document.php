@@ -30,6 +30,8 @@ class Document extends Model
         'deleted' => DocumentDeleted::class
     ];
 
+    protected $appends = ['path'];
+
     public static function query(): Builder|DocumentQueryBuilder
     {
         return parent::query();
