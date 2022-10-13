@@ -179,6 +179,14 @@ export interface Holiday {
     notes?: string
 }
 
+export interface Sickness {
+    id: number,
+    person_id: number,
+    start_at: string,
+    finish_at?: string,
+    notes?: string
+}
+
 export interface OneToOne {
     id: number,
     person_id: number,

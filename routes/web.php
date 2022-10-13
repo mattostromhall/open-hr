@@ -3,6 +3,7 @@
 use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
+use App\Http\Absences\Controllers\SicknessController;
 use App\Http\Auth\Controllers\RoleController;
 use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
@@ -143,6 +144,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('holiday.review.show');
     Route::patch('/holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])
         ->name('holiday.review.update');
+
+    Route::get('/sicknesses', [SicknessController::class, 'index'])
+        ->name('sickness.index');
 
     Route::get('/documents', [DocumentController::class, 'index'])
         ->name('document.index');

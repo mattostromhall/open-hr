@@ -138,8 +138,8 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
-                        <a
-                            href="#"
+                        <Link
+                            href="/sicknesses"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -147,11 +147,11 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Reports
-                        </a>
+                            Sicknesses
+                        </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.
+                        Log sick days or view all sick days for the current year.
                     </p>
                 </div>
                 <span
