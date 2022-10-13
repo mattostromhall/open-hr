@@ -17,6 +17,11 @@ class ApplicationViewModel extends ViewModel
         return $this->application;
     }
 
+    public function status()
+    {
+        return $this->application->status->statusDisplay();
+    }
+
     public function vacancy(): array
     {
         return $this->application->vacancy->only('id', 'title');

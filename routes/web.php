@@ -38,6 +38,9 @@ use App\Http\Performance\Controllers\StartTrainingController;
 use App\Http\Performance\Controllers\TrainingController;
 use App\Http\Recruitment\Controllers\ApplicationController;
 use App\Http\Recruitment\Controllers\ApplicationThanksController;
+use App\Http\Recruitment\Controllers\PendingApplicationController;
+use App\Http\Recruitment\Controllers\SuccessfulApplicationController;
+use App\Http\Recruitment\Controllers\UnsuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\VacancyApplicationController;
 use App\Http\Recruitment\Controllers\VacancyController;
 use App\Http\Setup\Controllers\SetupController;
@@ -262,6 +265,12 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('application.store');
     Route::get('/applications/{application}', [ApplicationController::class, 'show'])
         ->name('application.show');
+    Route::post('/applications/{application}/pending', PendingApplicationController::class)
+        ->name('application.pending');
+    Route::post('/applications/{application}/successful', SuccessfulApplicationController::class)
+        ->name('application.successful');
+    Route::post('/applications/{application}/unsuccessful', UnsuccessfulApplicationController::class)
+        ->name('application.unsuccessful');
 
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');
