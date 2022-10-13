@@ -3,14 +3,15 @@
 namespace Domain\Absences\DataTransferObjects;
 
 use Domain\People\Models\Person;
+use Illuminate\Support\Carbon;
 
 class SicknessData
 {
     public function __construct(
         public readonly Person $person,
-        public readonly string $start_at,
-        public readonly ?string $finish_at,
-        public readonly ?string $notes
+        public readonly Carbon $start_at,
+        public readonly ?Carbon $finish_at = null,
+        public readonly ?string $notes = null
     ) {
         //
     }

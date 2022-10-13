@@ -4,17 +4,13 @@ use Domain\Absences\Actions\UpdateHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Enums\HolidayStatus;
 use Domain\Absences\Models\Holiday;
-use Domain\People\Models\Person;
 
 it('updates the holiday', function () {
-    $person = Person::factory()->create();
-    $holiday = Holiday::factory()
-        ->for($person)
-        ->create();
+    $holiday = Holiday::factory()->create();
 
     $action = app(UpdateHolidayAction::class);
     $holidayData = new HolidayData(
-        person: $person,
+        person: $holiday->person,
         status: HolidayStatus::APPROVED,
         start_at: now(),
         finish_at: now()->addDay(),
