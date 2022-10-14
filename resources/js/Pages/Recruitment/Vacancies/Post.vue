@@ -17,7 +17,7 @@ defineProps<{
     contractTypes: ContractType[]
 }>()
 
-type VacancyData = Omit<Vacancy, 'id' | 'contact_id'> & {contact_id?: number}
+type VacancyData = Omit<Vacancy, 'id' | 'contact_id' | 'public_id'> & {contact_id?: number}
 
 const emit = defineEmits(['setActive'])
 

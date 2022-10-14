@@ -11,7 +11,7 @@ import type {Ref} from 'vue'
 const props = defineProps({
     modelValue: {
         type: String,
-        default: () => new Date().toISOString().slice(0, 10)
+        default: ''
     },
     error: {
         type: String,
@@ -131,7 +131,7 @@ function handleInput(dateString: string): void {
             ref="input"
             :name="inputName"
             type="text"
-            class="block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 shadow-sm appearance-none sm:text-sm date-input"
+            class="date-input block w-full appearance-none rounded-md border border-gray-300 py-2 px-3 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             :class="{'border-red-500': error}"
         >
         <p

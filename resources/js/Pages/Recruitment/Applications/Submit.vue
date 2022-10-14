@@ -9,7 +9,7 @@ import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Application, Vacancy} from '../../../../types'
+import type {Application, Vacancy} from '../../../types'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 
