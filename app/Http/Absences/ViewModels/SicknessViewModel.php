@@ -22,4 +22,9 @@ class SicknessViewModel extends ViewModel
     {
         return $this->sickness->person->full_name;
     }
+
+    public function documents()
+    {
+        return $this->sickness->documents;
+    }
 }

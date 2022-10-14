@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Sickness} from '../../../types'
+import type {Document, Sickness} from '../../../types'
 import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -7,7 +7,8 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
 defineProps<{
     sickness: Sickness,
-    logger: string
+    logger: string,
+    documents?: Document[]
 }>()
 </script>
 
