@@ -2,6 +2,7 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\DataTransferObjects\LogSicknessData;
 use Domain\Absences\Models\Sickness;
 use Domain\Files\Actions\UploadDocumentsAction;
 use Domain\Files\DataTransferObjects\DocumentData;
@@ -19,6 +20,17 @@ class LogSicknessAction
         protected UploadDocumentsAction $uploadDocuments
     ) {
         //
+    }
+
+    public function execute(LogSicknessData $data): Sickness
+    {
+        $sickness = $this->createSickness->execute($data->sickness_data);
+
+        $this->uploadDocuments->execute(
+            $this->uploadedDocuments($data->documents, $sickness)
+        );
+
+        return $sickness;
     }
 
     protected function uploadedDocuments(Collection $documents, Sickness $sickness): Collection

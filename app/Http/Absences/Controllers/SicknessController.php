@@ -6,11 +6,14 @@ use App\Http\Absences\Requests\LogSicknessRequest;
 use App\Http\Absences\Requests\UpdateHolidayRequest;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Absences\ViewModels\SicknessesViewModel;
+use App\Http\Absences\ViewModels\SicknessViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\AmendHolidayAction;
+use Domain\Absences\Actions\LogSicknessAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\DataTransferObjects\LogSicknessData;
 use Domain\Absences\Models\Holiday;
+use Domain\Absences\Models\Sickness;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -28,12 +31,12 @@ class SicknessController extends Controller
             LogSicknessData::from($request->validatedData())
         );
 
-        return back()->with('flash.success', 'Holiday request submitted!');
+        return back()->with('flash.success', 'Sick days logged!');
     }
 
-    public function show(Holiday $holiday): Response
+    public function show(Sickness $sickness): Response
     {
-        return Inertia::render('Absences/Holiday/Show', new HolidayViewModel($holiday));
+        return Inertia::render('Absences/Sickness/Show', new SicknessViewModel($sickness));
     }
 
     public function edit(Holiday $holiday): Response
