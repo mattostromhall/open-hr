@@ -4,40 +4,48 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
-import SelectInput from '@/Components/Controls/SelectInput.vue'
+import FileInput from '@/Components/Controls/FileInput.vue'
+import FilePreview from '@/Components/FilePreview.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
-import type {Holiday} from '../../../types'
+import type {Sickness} from '../../../types'
+import {computed} from 'vue'
+import type {ComputedRef} from 'vue'
 
-type HolidayRequestData = Omit<Holiday, 'id'>
+type LogSicknessData = Omit<Sickness, 'id'> & {documents?: File | File[]}
 
 const emit = defineEmits(['setActive'])
 
 const person = usePerson()
 
-const halfDayOptions = [
-    {value: 'am', display: 'AM'},
-    {value: 'pm', display: 'PM'}
-]
-
-const form: InertiaForm<HolidayRequestData> = useForm({
+const form: InertiaForm<LogSicknessData> = useForm({
     person_id: person.value.id,
-    status: 1,
     start_at: '',
-    finish_at: '',
-    half_day: undefined,
-    notes: undefined
+    finish_at: undefined,
+    notes: undefined,
+    documents: undefined
+})
+
+const documentError: ComputedRef<string> = computed(() => {
+    let message = ''
+
+    Object.entries(form.errors).find(([key, value]) => {
+        if (key.startsWith('documents')) {
+            message = value
+            return true
+        }
+
+        return false
+    })
+
+    return message
 })
 
 function submit(): void {
-    if (form.half_day) {
-        form.finish_at = form.start_at
-    }
-
-    form.post('/holidays', {
+    form.post('/sicknesses', {
         onSuccess: () => {
-            emit('setActive', 'pending')
+            emit('setActive', 'sicknesses')
             form.reset()
         }
     })
@@ -51,10 +59,10 @@ function submit(): void {
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Request holiday
+                            Log a Sick Day
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Submit a holiday request to your manager.
+                            Log a Sick Day and provide any information as required.
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
@@ -70,33 +78,15 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div
-                            v-if="! form.half_day"
-                            class="col-span-6 sm:col-span-4"
-                        >
-                            <FormLabel>Finish at <RequiredIcon /></FormLabel>
+                        <div class="col-span-6 sm:col-span-4">
+                            <FormLabel>Finish at</FormLabel>
                             <div class="mt-1">
                                 <DateInput
                                     v-model="form.finish_at"
                                     :error="form.errors.finish_at"
                                     input-id="finish_at"
                                     input-name="finish_at"
-                                    :base-start-on="form.start_at"
                                     @reset="form.clearErrors('finish_at')"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                            <FormLabel>Half day</FormLabel>
-                            <div class="mt-1">
-                                <SelectInput
-                                    v-model="form.half_day"
-                                    :error="form.errors.half_day"
-                                    :options="halfDayOptions"
-                                    input-id="half_day"
-                                    input-name="half_day"
-                                    placeholder="Select an option for Half day..."
-                                    @reset="form.clearErrors('half_day')"
                                 />
                             </div>
                         </div>
@@ -109,6 +99,26 @@ function submit(): void {
                                     input-id="notes"
                                     input-name="notes"
                                     @reset="form.clearErrors('notes')"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-span-6">
+                            <FormLabel>Documents</FormLabel>
+                            <div class="mt-1">
+                                <FileInput
+                                    :error="documentError"
+                                    input-id="documents"
+                                    input-name="documents"
+                                    :multiple="true"
+                                    @update:model-value="form.documents = $event"
+                                    @reset="form.clearErrors()"
+                                />
+                                <FilePreview
+                                    v-for="(document, index) in form.documents"
+                                    :key="index"
+                                    class="mt-5"
+                                    :file="document"
+                                    :name="document?.name"
                                 />
                             </div>
                         </div>

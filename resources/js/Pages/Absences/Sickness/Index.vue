@@ -16,11 +16,11 @@ const tabs: TabbedContentItem[] = [
     {
         identifier: 'log',
         icon: 'ClockIcon',
-        display: 'Log Sickness'
+        display: 'Log a Sick day'
     },
     {
         identifier: 'sicknesses',
-        icon: 'CheckCircleIcon',
+        icon: 'FaceFrownIcon',
         display: 'Sicknesses this year'
     }
 ]

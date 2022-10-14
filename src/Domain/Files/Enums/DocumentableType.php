@@ -11,6 +11,7 @@ enum DocumentableType: string
     case EXPENSE = 'expense';
     case ORGANISATION = 'organisation';
     case PERSON = 'person';
+    case SICKNESS = 'sickness';
     case VACANCY = 'vacancy';
 
     public function plural(): string
@@ -21,6 +22,7 @@ enum DocumentableType: string
             self::DEPARTMENT,
             self::EXPENSE,
             self::PERSON,
+            self::SICKNESS,
             self::VACANCY => Str::plural($this->value)
         };
     }

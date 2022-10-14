@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/vue/24/outline'
+import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -133,7 +133,7 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div>
                     <span class="inline-flex rounded-lg bg-yellow-50 p-3 text-yellow-700 ring-4 ring-white">
-                        <ChartBarIcon class="h-6 w-6" />
+                        <FaceFrownIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">
@@ -147,7 +147,7 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Sicknesses
+                            Sick Days
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
@@ -172,22 +172,7 @@ import {ChartBarIcon, ClockIcon, DocumentTextIcon, UsersIcon} from '@heroicons/v
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-bl-lg">
                 <div>
                     <span class="inline-flex rounded-lg bg-rose-50 p-3 text-rose-700 ring-4 ring-white">
-                        <!-- Heroicon name: outline/receipt-refund -->
-                        <svg
-                            class="h-6 w-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"
-                            />
-                        </svg>
+                        <ReceiptRefundIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">

@@ -22,7 +22,7 @@ export type ApplicationStatus = 1 | 2 | 3
 
 export type SelectOption = string | number | ComplexSelectOption
 
-export type DocumentableType = 'application' | 'expense' | 'organisation' | 'person' | 'vacancy'
+export type DocumentableType = 'application' | 'expense' | 'organisation' | 'person' | 'sickness' | 'vacancy'
 
 export type ActionLogAction = 'CREATED' | 'UPDATED' | 'DELETED'
 

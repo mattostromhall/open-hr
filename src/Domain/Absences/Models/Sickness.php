@@ -7,10 +7,12 @@ use Domain\Absences\Events\SicknessCreated;
 use Domain\Absences\Events\SicknessDeleted;
 use Domain\Absences\Events\SicknessUpdated;
 use Domain\Absences\QueryBuilders\SicknessQueryBuilder;
+use Domain\Files\Models\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\Casts\PeriodCast;
 use Support\Concerns\Unguarded;
 
@@ -44,5 +46,10 @@ class Sickness extends Model
     public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);
+    }
+
+    public function documents(): MorphMany
+    {
+        return $this->morphMany(Document::class, 'documentable');
     }
 }

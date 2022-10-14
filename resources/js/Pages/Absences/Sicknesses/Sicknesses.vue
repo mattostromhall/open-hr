@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
+import {CalendarIcon, ChevronRightIcon, FaceSmileIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Sickness} from '../../../types'
 
 defineProps<{
-    sicknesses: Pick<Sickness, 'id' | 'start_at' | 'finish_at'> & {duration: number}
+    sicknesses: (Pick<Sickness, 'id' | 'start_at' | 'finish_at'> & {duration: number})[]
 }>()
 
 function formatDate(date: string): string {
@@ -17,6 +17,15 @@ function formatDate(date: string): string {
 
 <template>
     <div class="sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+        <div
+            v-if="sicknesses.length === 0"
+            class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"
+        >
+            <FaceSmileIcon class="mx-auto h-12 w-12 text-gray-400" />
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+                No Sick days taken!
+            </h3>
+        </div>
         <div class="bg-white shadow sm:rounded-md">
             <ul
                 role="list"

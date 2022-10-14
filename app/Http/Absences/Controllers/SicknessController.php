@@ -2,15 +2,14 @@
 
 namespace App\Http\Absences\Controllers;
 
-use App\Http\Absences\Requests\StoreHolidayRequest;
+use App\Http\Absences\Requests\LogSicknessRequest;
 use App\Http\Absences\Requests\UpdateHolidayRequest;
-use App\Http\Absences\ViewModels\HolidaysViewModel;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Absences\ViewModels\SicknessesViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\AmendHolidayAction;
-use Domain\Absences\Actions\RequestHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
+use Domain\Absences\DataTransferObjects\LogSicknessData;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -23,10 +22,10 @@ class SicknessController extends Controller
         return Inertia::render('Absences/Sickness/Index', new SicknessesViewModel());
     }
 
-    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
+    public function store(LogSicknessRequest $request, LogSicknessAction $logSickness): RedirectResponse
     {
-        $requestHoliday->execute(
-            HolidayData::from($request->validatedData())
+        $logSickness->execute(
+            LogSicknessData::from($request->validatedData())
         );
 
         return back()->with('flash.success', 'Holiday request submitted!');
