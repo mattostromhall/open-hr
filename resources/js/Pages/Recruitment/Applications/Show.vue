@@ -7,6 +7,7 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {PaperClipIcon} from '@heroicons/vue/24/outline'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
+import DocumentDownloadList from '../../../Components/DocumentDownloadList.vue'
 
 const props = defineProps<{
     vacancy: Pick<Vacancy, 'id' | 'title'>,
@@ -148,23 +149,7 @@ function unsuccessful() {
                             Resume / CV
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                            <ul
-                                role="list"
-                                class="divide-y divide-gray-200 rounded-md border border-gray-200"
-                            >
-                                <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                                    <div class="flex w-0 flex-1 items-center">
-                                        <PaperClipIcon class="h-5 w-5 shrink-0 text-gray-400" />
-                                        <span class="ml-2 w-0 flex-1 truncate">{{ cv.name }}.{{ cv.extension }}</span>
-                                    </div>
-                                    <div class="ml-4 shrink-0">
-                                        <a
-                                            :href="cv.path"
-                                            class="font-medium text-indigo-600 hover:text-indigo-500"
-                                        >Download</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            <DocumentDownloadList :documents="cv" />
                         </dd>
                     </div>
                 </dl>

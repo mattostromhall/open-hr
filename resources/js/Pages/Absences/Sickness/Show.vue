@@ -4,6 +4,7 @@ import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import DocumentDownloadList from '@/Components/DocumentDownloadList.vue'
 
 defineProps<{
     sickness: Sickness,
@@ -64,6 +65,14 @@ defineProps<{
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             {{ sickness.notes ?? '-' }}
+                        </dd>
+                    </div>
+                    <div class="items-center py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Documents
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                            <DocumentDownloadList :documents="documents" />
                         </dd>
                     </div>
                 </dl>
