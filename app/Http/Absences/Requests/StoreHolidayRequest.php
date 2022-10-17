@@ -14,7 +14,7 @@ class StoreHolidayRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'person_id' => ['required', 'numeric'],
+            'person_id' => ['required', 'numeric', 'exists:people,id'],
             'status' => ['required', new Enum(HolidayStatus::class)],
             'start_at' => ['required', 'date', 'after_or_equal:today'],
             'finish_at' => ['required', 'date', function ($attribute, $value, $fail) {
@@ -30,18 +30,18 @@ class StoreHolidayRequest extends FormRequest
                 }
             }],
             'half_day' => ['string', new Enum(HalfDay::class)],
-            'notes' => ['string']
+            'notes' => ['string', 'nullable']
         ];
     }
 
     public function validatedData(): array
     {
         return [
-            'person' => Person::find($this->person_id),
-            'status' => HolidayStatus::from($this->status),
-            'start_at' => Carbon::parse($this->start_at),
-            'finish_at' => Carbon::parse($this->finish_at),
-            'half_day' => $this->half_day ? HalfDay::from($this->half_day) : null,
+            'person' => Person::find($this->validated('person_id')),
+            'status' => HolidayStatus::from($this->validated('status')),
+            'start_at' => Carbon::parse($this->validated('start_at')),
+            'finish_at' => Carbon::parse($this->validated('finish_at')),
+            'half_day' => $this->validated('half_day') ? HalfDay::from($this->validated('half_day')) : null,
             'notes' => $this->validated('notes')
         ];
     }
