@@ -22,7 +22,7 @@ class HolidayCalendarViewModel extends ViewModel
     public function holidayEvents(): SupportCollection
     {
         return $this->holidaysWithPerson()
-            ->map(function ($holiday) {
+            ->map(function (Holiday $holiday) {
                 return [
                     'title' => $holiday->person->fullName . ' ' . ($holiday->half_day ? $holiday->half_day->value : $holiday->duration->inWeekDays() . ' ' . Str::plural('day', $holiday->duration->inWeekDays())),
                     'start' => $holiday->start_at,

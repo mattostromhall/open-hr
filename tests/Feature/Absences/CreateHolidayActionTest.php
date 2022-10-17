@@ -3,7 +3,6 @@
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
-use Domain\Auth\Models\User;
 use Domain\Absences\Actions\CreateHolidayAction;
 use Domain\People\Models\Person;
 
