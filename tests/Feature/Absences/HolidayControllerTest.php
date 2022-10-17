@@ -91,7 +91,7 @@ it('returns the holiday index', function () {
         );
 });
 
-it('stores a holiday request when the correct information is provided', function () {
+it('stores a holiday request when the correct data is provided', function () {
     $response = $this->post(route('holiday.store'), [
         'person_id' => $this->person->id,
         'status' => HolidayStatus::PENDING->value,
@@ -104,7 +104,7 @@ it('stores a holiday request when the correct information is provided', function
         ->assertSessionHas('flash.success', 'Holiday request submitted!');
 });
 
-it('returns validation errors when storing a holiday request with incorrect information', function () {
+it('returns validation errors when storing a holiday request with incorrect data', function () {
     $response = $this->post(route('holiday.store'), [
         'person_id' => '',
         'status' => '',
@@ -112,5 +112,65 @@ it('returns validation errors when storing a holiday request with incorrect info
         'finish_at' => ''
     ]);
 
-    $response->assertSessionHasErrors(['person_id', 'status', 'start_at', 'finish_at']);
+    $response
+        ->assertStatus(302)
+        ->assertSessionHasErrors(['person_id', 'status', 'start_at', 'finish_at']);
+});
+
+it('shows the holiday', function () {
+    $holiday = Holiday::factory()->create();
+
+    $this->get(route('holiday.show', ['holiday' => $holiday]))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Absences/Holiday/Show')
+                ->has('holiday')
+                ->has('requester')
+        );
+});
+
+it('returns the holiday to edit', function () {
+    $holiday = Holiday::factory()->create();
+
+    $this->get(route('holiday.edit', ['holiday' => $holiday]))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Absences/Holiday/Edit')
+                ->has('holiday')
+                ->has('requester')
+        );
+});
+
+it('updates the holiday request when the correct data is provided', function () {
+    $holiday = Holiday::factory()->create([
+        'status' => HolidayStatus::PENDING
+    ]);
+
+    $response = $this->put(route('holiday.update', ['holiday' => $holiday]), [
+        'status' => HolidayStatus::APPROVED->value,
+        'start_at' => now()->toDateString(),
+        'finish_at' => now()->addDays(2)->toDateString()
+    ]);
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Holiday updated!');
+});
+
+it('returns validation errors when update the holiday with incorrect data', function () {
+    $holiday = Holiday::factory()->create([
+        'status' => HolidayStatus::PENDING
+    ]);
+
+    $response = $this->put(route('holiday.update', ['holiday' => $holiday]), [
+        'status' => HolidayStatus::APPROVED->value,
+        'start_at' => now()->subDay()->toDateString(),
+        'finish_at' => now()->subDays(3)->toDateString()
+    ]);
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHasErrors(['start_at', 'finish_at']);
 });
