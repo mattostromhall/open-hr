@@ -26,9 +26,11 @@ class LogSicknessAction
     {
         $sickness = $this->createSickness->execute($data->sickness_data);
 
-        $this->uploadDocuments->execute(
-            $this->uploadedDocuments($data->documents, $sickness)
-        );
+        if ($data->documents) {
+            $this->uploadDocuments->execute(
+                $this->uploadedDocuments($data->documents, $sickness)
+            );
+        }
 
         return $sickness;
     }

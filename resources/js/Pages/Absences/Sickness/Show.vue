@@ -21,9 +21,14 @@ defineProps<{
     <PageHeading>
         <span class="font-medium">Viewing</span> - Logged Sickness
         <template #link>
-            <LightIndigoLink :href="`/sicknesses/${sickness.id}/edit`">
-                Edit
-            </LightIndigoLink>
+            <div class="flex space-x-2">
+                <LightIndigoLink href="/sicknesses">
+                    All Sick Days
+                </LightIndigoLink>
+                <LightIndigoLink :href="`/sicknesses/${sickness.id}/edit`">
+                    Edit
+                </LightIndigoLink>
+            </div>
         </template>
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">
@@ -72,7 +77,11 @@ defineProps<{
                             Documents
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                            <DocumentDownloadList :documents="documents" />
+                            <DocumentDownloadList
+                                v-if="documents.length > 0"
+                                :documents="documents"
+                            />
+                            <span v-else>-</span>
                         </dd>
                     </div>
                 </dl>

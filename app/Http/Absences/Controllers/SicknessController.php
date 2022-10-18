@@ -39,9 +39,9 @@ class SicknessController extends Controller
         return Inertia::render('Absences/Sickness/Show', new SicknessViewModel($sickness));
     }
 
-    public function edit(Holiday $holiday): Response
+    public function edit(Sickness $sickness): Response
     {
-        return Inertia::render('Absences/Holiday/Edit', new HolidayViewModel($holiday));
+        return Inertia::render('Absences/Sickness/Edit', new SicknessViewModel($sickness));
     }
 
     public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse

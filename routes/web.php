@@ -151,6 +151,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('sickness.store');
     Route::get('/sicknesses/{sickness}', [SicknessController::class, 'show'])
         ->name('sickness.show');
+    Route::get('/sicknesses/{sickness}/edit', [SicknessController::class, 'edit'])
+        ->name('sickness.edit');
 
     Route::get('/documents', [DocumentController::class, 'index'])
         ->name('document.index');

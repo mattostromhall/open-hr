@@ -8,7 +8,7 @@ class LogSicknessData
 {
     public function __construct(
         public readonly SicknessData $sickness_data,
-        public readonly Collection $documents
+        public readonly ?Collection $documents = null
     ) {
         //
     }

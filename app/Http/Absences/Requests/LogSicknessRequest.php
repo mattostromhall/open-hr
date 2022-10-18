@@ -16,8 +16,8 @@ class LogSicknessRequest extends FormRequest
             'start_at' => ['required', 'date'],
             'finish_at' => ['date', 'nullable'],
             'notes' => ['string', 'nullable'],
-            'documents' => ['required', 'array', 'min:1', 'max:10'],
-            'documents.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,docx', 'max:20000']
+            'documents' => ['array', 'min:1', 'max:10', 'nullable'],
+            'documents.*' => ['file', 'mimes:jpg,jpeg,png,pdf,docx', 'max:20000']
         ];
     }
 
@@ -36,7 +36,7 @@ class LogSicknessRequest extends FormRequest
                     ]
                 )
             ),
-            'documents' => collect($this->validated('documents'))
+            'documents' => $this->validated('documents') ? collect($this->validated('documents')) : null
         ];
     }
 }
