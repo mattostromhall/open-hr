@@ -159,7 +159,7 @@ it('updates the holiday request when the correct data is provided', function () 
         ->assertSessionHas('flash.success', 'Holiday updated!');
 });
 
-it('returns validation errors when update the holiday with incorrect data', function () {
+it('returns validation errors when updating the holiday with incorrect data', function () {
     $holiday = Holiday::factory()->create([
         'status' => HolidayStatus::PENDING
     ]);

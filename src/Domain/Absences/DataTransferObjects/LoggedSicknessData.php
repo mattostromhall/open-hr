@@ -4,7 +4,7 @@ namespace Domain\Absences\DataTransferObjects;
 
 use Illuminate\Support\Collection;
 
-class LogSicknessData
+class LoggedSicknessData
 {
     public function __construct(
         public readonly SicknessData $sickness_data,

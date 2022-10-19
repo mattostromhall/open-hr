@@ -13,18 +13,18 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class LogSicknessAction
+class AmendSicknessAction
 {
     public function __construct(
-        protected CreateSicknessAction $createSickness,
+        protected UpdateSicknessAction $updateSickness,
         protected UploadDocumentsAction $uploadDocuments
     ) {
         //
     }
 
-    public function execute(LoggedSicknessData $data): Sickness
+    public function execute(Sickness $sickness, LoggedSicknessData $data): bool
     {
-        $sickness = $this->createSickness->execute($data->sickness_data);
+        $updated = $this->updateSickness->execute($sickness, $data->sickness_data);
 
         if ($data->documents) {
             $this->uploadDocuments->execute(
@@ -32,7 +32,7 @@ class LogSicknessAction
             );
         }
 
-        return $sickness;
+        return $updated;
     }
 
     protected function uploadedDocuments(Collection $documents, Sickness $sickness): Collection

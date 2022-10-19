@@ -9,21 +9,25 @@ import FilePreview from '@/Components/FilePreview.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
-import type {Sickness} from '../../../types'
+import type {Document, Sickness} from '../../../types'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
-type LogSicknessData = Omit<Sickness, 'id'> & {documents?: File | File[]}
+const props = defineProps<{
+    sickness: Sickness,
+    logger: string
+}>()
 
-const emit = defineEmits(['setActive'])
-
-const person = usePerson()
+type LogSicknessData = Omit<Sickness, 'id' | 'person_id'> & {documents?: File | File[]}
 
 const form: InertiaForm<LogSicknessData> = useForm({
-    person_id: person.value.id,
-    start_at: '',
-    finish_at: undefined,
-    notes: undefined,
+    _method: 'put',
+    start_at: props.sickness.start_at,
+    finish_at: props.sickness.finish_at,
+    notes: props.sickness.notes,
     documents: undefined
 })
 
@@ -43,27 +47,31 @@ const documentError: ComputedRef<string> = computed(() => {
 })
 
 function submit(): void {
-    form.post('/sicknesses', {
-        onSuccess: () => {
-            emit('setActive', 'sicknesses')
-            form.reset()
-        }
-    })
+    form.post(`/sicknesses/${props.sickness.id}`)
 }
 </script>
 
 <template>
-    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+    <Head>
+        <title>Edit Sickness</title>
+    </Head>
+
+    <PageHeading>
+        <span class="font-medium">Editing</span> - Sickness logged by {{ logger }}
+        <template #link>
+            <LightIndigoLink :href="`/sicknesses/${sickness.id}`">
+                View
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Log a Sick Day/Days
+                            Update Sick Day/Days
                         </h3>
-                        <p class="mt-1 text-sm text-gray-500">
-                            Log a Sick Day/Days and provide any information as required.
-                        </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">

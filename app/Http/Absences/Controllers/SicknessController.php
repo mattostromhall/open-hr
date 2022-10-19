@@ -3,16 +3,13 @@
 namespace App\Http\Absences\Controllers;
 
 use App\Http\Absences\Requests\LogSicknessRequest;
-use App\Http\Absences\Requests\UpdateHolidayRequest;
-use App\Http\Absences\ViewModels\HolidayViewModel;
+use App\Http\Absences\Requests\UpdateSicknessRequest;
 use App\Http\Absences\ViewModels\SicknessesViewModel;
 use App\Http\Absences\ViewModels\SicknessViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Absences\Actions\AmendHolidayAction;
+use Domain\Absences\Actions\AmendSicknessAction;
 use Domain\Absences\Actions\LogSicknessAction;
-use Domain\Absences\DataTransferObjects\HolidayData;
-use Domain\Absences\DataTransferObjects\LogSicknessData;
-use Domain\Absences\Models\Holiday;
+use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\Models\Sickness;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -28,7 +25,7 @@ class SicknessController extends Controller
     public function store(LogSicknessRequest $request, LogSicknessAction $logSickness): RedirectResponse
     {
         $logSickness->execute(
-            LogSicknessData::from($request->validatedData())
+            LoggedSicknessData::from($request->validatedData())
         );
 
         return back()->with('flash.success', 'Sick days logged!');
@@ -44,16 +41,16 @@ class SicknessController extends Controller
         return Inertia::render('Absences/Sickness/Edit', new SicknessViewModel($sickness));
     }
 
-    public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse
+    public function update(UpdateSicknessRequest $request, Sickness $sickness, AmendSicknessAction $amendSickness): RedirectResponse
     {
-        $holidayData = HolidayData::from($request->validatedData());
+        $sicknessData = LoggedSicknessData::from($request->validatedData());
 
-        $updated = $amendHoliday->execute($holiday, $holidayData);
+        $updated = $amendSickness->execute($sickness, $sicknessData);
 
         if (! $updated) {
-            return back()->with('flash.error', 'There was a problem with updating the Holiday request, please try again.');
+            return back()->with('flash.error', 'There was a problem with updating the Sickness, please try again.');
         }
 
-        return redirect()->to(route('holiday.index'))->with('flash.success', 'Holiday updated!');
+        return redirect()->to(route('sickness.index'))->with('flash.success', 'Sickness updated!');
     }
 }

@@ -87,39 +87,30 @@ it('returns the sickness to edit', function () {
         ->assertInertia(
             fn (Assert $page) => $page
                 ->component('Absences/Sickness/Edit')
-//                ->has('holiday')
-//                ->has('requester')
+                ->has('sickness')
+                ->has('logger')
         );
 });
 
-it('updates the holiday request when the correct data is provided', function () {
-    $holiday = Holiday::factory()->create([
-        'status' => HolidayStatus::PENDING
-    ]);
+it('updates the sickness when the correct data is provided', function () {
+    $sickness = Sickness::factory()->create();
 
-    $response = $this->put(route('holiday.update', ['holiday' => $holiday]), [
-        'status' => HolidayStatus::APPROVED->value,
+    $response = $this->put(route('sickness.update', ['sickness' => $sickness]), [
         'start_at' => now()->toDateString(),
         'finish_at' => now()->addDays(2)->toDateString()
     ]);
 
     $response
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Holiday updated!');
+        ->assertSessionHas('flash.success', 'Sickness updated!');
 });
 
-it('returns validation errors when update the holiday with incorrect data', function () {
-    $holiday = Holiday::factory()->create([
-        'status' => HolidayStatus::PENDING
-    ]);
+it('returns validation errors when updating the sickness with incorrect data', function () {
+    $sickness = Sickness::factory()->create();
 
-    $response = $this->put(route('holiday.update', ['holiday' => $holiday]), [
-        'status' => HolidayStatus::APPROVED->value,
-        'start_at' => now()->subDay()->toDateString(),
-        'finish_at' => now()->subDays(3)->toDateString()
-    ]);
+    $response = $this->put(route('sickness.update', ['sickness' => $sickness]));
 
     $response
         ->assertStatus(302)
-        ->assertSessionHasErrors(['start_at', 'finish_at']);
+        ->assertSessionHasErrors(['start_at']);
 });

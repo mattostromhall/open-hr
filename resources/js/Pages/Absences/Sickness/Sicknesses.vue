@@ -45,7 +45,7 @@ function formatDate(date: string): string {
                                     <div class="flex text-sm text-indigo-500">
                                         <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0" />
                                         <p>
-                                            Starts
+                                            Started
                                             {{ formatDate(sickness.start_at) }}
                                         </p>
                                     </div>
@@ -53,7 +53,7 @@ function formatDate(date: string): string {
                                         <div class="flex items-center text-sm text-gray-500">
                                             <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0 text-gray-400" />
                                             <p v-if="sickness.finish_at">
-                                                Finishes
+                                                Finished
                                                 {{ formatDate(sickness.finish_at) }}
                                             </p>
                                         </div>

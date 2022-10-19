@@ -2,6 +2,7 @@
 
 namespace Domain\Absences\Events;
 
+use Domain\Absences\Models\Sickness;
 use Domain\People\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;

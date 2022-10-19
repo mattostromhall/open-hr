@@ -5,7 +5,7 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Sickness, TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import LogSickness from './LogSickness.vue'
-import Sicknesses from '../Sicknesses/Sicknesses.vue'
+import Sicknesses from './Sicknesses.vue'
 
 defineProps<{
     active: string,
