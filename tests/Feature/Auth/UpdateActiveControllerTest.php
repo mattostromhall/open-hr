@@ -29,3 +29,13 @@ it('activates the user', function () {
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Activated!');
 });
+
+it('returns validation errors if the active state is incorrect', function () {
+    $this->patch(route('user.update.active', [
+        'user' => $this->person->user
+    ]), [
+        'active' => ''
+    ])
+        ->assertStatus(302)
+        ->assertSessionHasErrors(['active']);
+});
