@@ -26,7 +26,7 @@ it('synchronises the department members with the member data provided', function
         ->assertSessionHas('flash.success', 'Department Members updated!');
 });
 
-it('returns validation errors if the department members  data provided is incorrect', function () {
+it('returns validation errors if the department members data provided is incorrect', function () {
     $department = Department::factory()->create();
     $people = Person::factory()->count(3)->create();
 
