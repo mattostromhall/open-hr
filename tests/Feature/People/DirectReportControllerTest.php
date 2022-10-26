@@ -1,9 +1,7 @@
 <?php
 
 use Domain\Organisation\Models\Organisation;
-use Domain\People\Models\Address;
 use Domain\People\Models\Person;
-use function Pest\Faker\faker;
 
 beforeEach(function () {
     Organisation::factory()->create();
