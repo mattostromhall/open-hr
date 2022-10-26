@@ -7,13 +7,10 @@ use Domain\People\Models\Address;
 use Domain\People\Models\Person;
 
 it('updates an address', function () {
-    $person = Person::factory()->create();
-    $address = Address::factory()
-        ->for($person)
-        ->create();
+    $address = Address::factory()->create();
     $action = app(UpdateAddressAction::class);
     $addressData = new AddressData(
-        person: $person,
+        person: $address->person,
         address_line: '1 Test Close',
         town_city: 'Town',
         region: 'Region',
