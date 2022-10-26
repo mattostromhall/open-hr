@@ -2,12 +2,9 @@
 
 use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Models\Expense;
-use Domain\Expenses\Models\ExpenseType;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
-use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
-use Support\Enums\Currency;
 
 beforeEach(function () {
     Organisation::factory()->create();
