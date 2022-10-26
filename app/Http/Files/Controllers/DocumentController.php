@@ -25,10 +25,8 @@ class DocumentController extends Controller
         return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath, $documentableData));
     }
 
-    public function store(
-        StoreDocumentRequest $request,
-        UploadDocumentsAction $uploadDocuments
-    ): RedirectResponse {
+    public function store(StoreDocumentRequest $request, UploadDocumentsAction $uploadDocuments): RedirectResponse
+    {
         $uploadDocuments->execute($request->validatedData());
 
         return back()->with('flash.success', 'Documents successfully uploaded!');
