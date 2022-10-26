@@ -117,7 +117,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::put('/people/{person}', [PersonController::class, 'update'])
         ->name('person.update');
 
-    Route::post('/people/{person}/direct-reports', DirectReportController::class);
+    Route::post('/people/{person}/direct-reports', DirectReportController::class)
+        ->name('person.direct-reports');
 
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
