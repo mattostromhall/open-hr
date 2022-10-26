@@ -87,9 +87,9 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/organisation/notifications', [OrganisationNotificationController::class, 'index'])
         ->name('organisation.notifications');
     Route::get('/organisation/notifications/create', [OrganisationNotificationController::class, 'create'])
-        ->name('organisation.notifications.create');
+        ->name('organisation.notification.create');
     Route::post('/organisation/notifications', [OrganisationNotificationController::class, 'store'])
-        ->name('organisation.notifications.store');
+        ->name('organisation.notification.store');
 
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
         ->name('notifications.read');
