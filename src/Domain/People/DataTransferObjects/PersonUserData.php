@@ -25,12 +25,12 @@ class PersonUserData
         public readonly string $contact_number,
         public readonly string $contact_email,
         public readonly Carbon $started_on,
-        public readonly ?Person $manager,
-        public readonly ?Department $department,
-        public readonly ?string $title,
-        public readonly ?string $initials,
-        public readonly ?string $pronouns,
-        public readonly ?Carbon $finished_on,
+        public readonly ?Person $manager = null,
+        public readonly ?Department $department = null,
+        public readonly ?string $title = null,
+        public readonly ?string $initials = null,
+        public readonly ?string $pronouns = null,
+        public readonly ?Carbon $finished_on = null,
         public readonly ?int $holiday_carry_allocation = 0,
         public readonly ?int $holiday_carried = 0
     ) {

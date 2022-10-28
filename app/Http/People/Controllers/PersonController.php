@@ -36,7 +36,7 @@ class PersonController extends Controller
         );
 
         return redirect(route('person.index'))
-            ->with('flash.success', "Person successfully created!");
+            ->with('flash.success', 'Person successfully created!');
     }
 
     public function show(Person $person): Response
