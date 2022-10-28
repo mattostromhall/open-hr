@@ -24,28 +24,32 @@ class CompleteTrainingAction
             'state' => TrainingState::COMPLETED
         ]);
 
-        $this->createNotification->execute(
-            new NotificationData(
-                body: "Training - {$training->description} completed by {$training->person->fullName}",
-                notifiable_id: $training->person->manager->id,
-                notifiable_type: 'person',
-                title: 'Training completed',
-                link: route('training.show', [
-                    'training' => $training
-                ])
-            )
-        );
+        $manager = $training->person->manager;
 
-        $this->sendEmail->execute(
-            new EmailNotificationData(
-                recipients: [$training->person->manager->user->email],
-                subject: 'Training completed',
-                body: "Training - {$training->description} completed by {$training->person->fullName}",
-                link: route('training.show', [
-                    'training' => $training
-                ])
-            )
-        );
+        if ($manager) {
+            $this->createNotification->execute(
+                new NotificationData(
+                    body: "Training - {$training->description} completed by {$training->person->fullName}",
+                    notifiable_id: $manager->id,
+                    notifiable_type: 'person',
+                    title: 'Training completed',
+                    link: route('training.show', [
+                        'training' => $training
+                    ])
+                )
+            );
+
+            $this->sendEmail->execute(
+                new EmailNotificationData(
+                    recipients: [$manager->user->email],
+                    subject: 'Training completed',
+                    body: "Training - {$training->description} completed by {$training->person->fullName}",
+                    link: route('training.show', [
+                        'training' => $training
+                    ])
+                )
+            );
+        }
 
         return $updated;
     }
