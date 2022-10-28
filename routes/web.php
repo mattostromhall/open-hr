@@ -123,7 +123,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/people/{person}/profile', [PersonProfileController::class, 'edit'])
         ->name('person.profile');
     Route::patch('/people/{person}/profile', [PersonProfileController::class, 'update'])
-        ->name('profile.update.personal');
+        ->name('profile.update');
 
     Route::post('/people/{person}/address', [AddressController::class, 'store'])
         ->name('address.store');

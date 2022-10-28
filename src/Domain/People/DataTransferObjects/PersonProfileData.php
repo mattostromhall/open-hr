@@ -17,9 +17,9 @@ class PersonProfileData
         public readonly Carbon $dob,
         public readonly string $contact_number,
         public readonly string $contact_email,
-        public readonly ?string $title,
-        public readonly ?string $initials,
-        public readonly ?string $pronouns
+        public readonly ?string $title = null,
+        public readonly ?string $initials = null,
+        public readonly ?string $pronouns = null
     ) {
         //
     }
