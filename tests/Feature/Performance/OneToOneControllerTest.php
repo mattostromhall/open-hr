@@ -4,11 +4,8 @@ use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
-use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\OneToOne;
 use Inertia\Testing\AssertableInertia as Assert;
-
-use function Pest\Faker\faker;
 
 beforeEach(function () {
     Organisation::factory()->create();
