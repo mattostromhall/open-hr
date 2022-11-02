@@ -81,7 +81,7 @@ it('returns the person create page', function () {
 });
 
 it('creates a new user and person when the correct data is provided', function () {
-    $password = faker()->password();
+    $password = faker()->password(8);
     $response = $this->post(route('person.store'), [
         // User
         'email' => faker()->companyEmail(),
