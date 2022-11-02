@@ -43,7 +43,10 @@ class TrainingController extends Controller
 
     public function update(UpdateTrainingRequest $request, Training $training, AmendTrainingAction $amendTraining): RedirectResponse
     {
-        $trainingData = TrainingData::from($request->validatedData());
+        $trainingData = TrainingData::from([
+            ...$training->only('status', 'state', 'provider', 'description', 'location', 'cost', 'cost_currency', 'duration', 'notes'),
+            ...$request->filteredValidatedData()
+        ]);
 
         $updated = $amendTraining->execute($training, $trainingData);
 
