@@ -275,10 +275,6 @@ Route::middleware(['auth', 'setup'])->group(function () {
     Route::get('/vacancies/{vacancy}', [VacancyController::class, 'show'])
         ->name('vacancy.show');
 
-    Route::post('/applications', [ApplicationController::class, 'store'])
-        ->name('application.store');
-    Route::get('/applications/{application}', [ApplicationController::class, 'show'])
-        ->name('application.show');
     Route::post('/applications/{application}/pending', PendingApplicationController::class)
         ->name('application.pending');
     Route::post('/applications/{application}/successful', SuccessfulApplicationController::class)
@@ -290,10 +286,17 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('logs.show');
 });
 
-Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
-    ->name('vacancy.application');
+Route::middleware(['setup'])->group(function () {
+    Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
+        ->name('vacancy.application');
 
-Route::get('/applications/thanks', ApplicationThanksController::class)
-    ->name('application.thanks');
+    Route::post('/applications', [ApplicationController::class, 'store'])
+        ->name('application.store');
+    Route::get('/applications/{application}', [ApplicationController::class, 'show'])
+        ->name('application.show');
+
+    Route::get('/applications/thanks', ApplicationThanksController::class)
+        ->name('application.thanks');
+});
 
 require __DIR__ . '/auth.php';
