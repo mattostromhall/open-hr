@@ -20,8 +20,8 @@ class StoreOneToOneRequest extends FormRequest
             'person_status' => ['required', new Enum(OneToOneStatus::class)],
             'manager_status' => ['required', new Enum(OneToOneStatus::class)],
             'scheduled_at' => ['required', 'date', 'after_or_equal:today'],
-            'recurring' => ['boolean'],
-            'recurrence_interval' => [new Enum(RecurrenceInterval::class)],
+            'recurring' => ['required', 'boolean'],
+            'recurrence_interval' => ['required', new Enum(RecurrenceInterval::class)],
             'completed_at' => ['date', 'after_or_equal:scheduled_at'],
             'notes' => ['string', 'nullable']
         ];

@@ -38,7 +38,7 @@ class OneToOneController extends Controller
     public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, AmendOneToOneAction $amendOneToOne): RedirectResponse
     {
         $oneToOneData = OneToOneData::from([
-            ...$oneToOne->only('person_status', 'manager_status'),
+            ...$oneToOne->only('person_status', 'manager_status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
             ...$request->filteredValidatedData()
         ]);
 
