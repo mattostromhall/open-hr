@@ -12,8 +12,8 @@ class UpdateTaskRequest extends FormRequest
     {
         return [
             'description' => ['string'],
-            'due_at' => ['date', 'after_or_equal:today'],
-            'completed_at' => ['date', 'after_or_equal:due_at', 'nullable']
+            'due_at' => ['date'],
+            'completed_at' => ['date', 'nullable']
         ];
     }
 

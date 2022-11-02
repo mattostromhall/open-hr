@@ -33,11 +33,6 @@ class ObjectiveTaskController extends Controller
             ->with('flash.success', 'Task successfully created!');
     }
 
-    public function edit(Objective $objective): Response
-    {
-        return Inertia::render('Performance/Objectives/Edit', new ObjectiveViewModel($objective));
-    }
-
     public function update(UpdateTaskRequest $request, Task $task, AmendTaskAction $amendTask): RedirectResponse
     {
         $taskData = TaskData::from([
