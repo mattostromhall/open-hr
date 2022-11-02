@@ -290,13 +290,13 @@ Route::middleware(['setup'])->group(function () {
     Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
         ->name('vacancy.application');
 
+    Route::get('/applications/thanks', ApplicationThanksController::class)
+        ->name('application.thanks');
+
     Route::post('/applications', [ApplicationController::class, 'store'])
         ->name('application.store');
     Route::get('/applications/{application}', [ApplicationController::class, 'show'])
         ->name('application.show');
-
-    Route::get('/applications/thanks', ApplicationThanksController::class)
-        ->name('application.thanks');
 });
 
 require __DIR__ . '/auth.php';
