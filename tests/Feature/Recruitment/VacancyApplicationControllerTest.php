@@ -1,13 +1,8 @@
 <?php
 
 use Domain\Organisation\Models\Organisation;
-use Domain\Recruitment\Enums\ApplicationStatus;
-use Domain\Recruitment\Models\Application;
 use Domain\Recruitment\Models\Vacancy;
-use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
-
-use function Pest\Faker\faker;
 
 beforeEach(function () {
     Organisation::factory()->create();
