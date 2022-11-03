@@ -9,6 +9,7 @@ class AmendOneToOneAction
 {
     public function __construct(
         protected UpdateOneToOneAction $updateOneToOne,
+        protected CreateOneToOneRecurrenceAction $createRecurrence,
         protected OneToOneInviteAction $oneToOneInvite
     ) {
         //
@@ -19,6 +20,7 @@ class AmendOneToOneAction
         $updated = $this->updateOneToOne->execute($oneToOne, $data);
 
         if ($updated) {
+            $this->createRecurrence->execute($data);
             $this->oneToOneInvite->execute($oneToOne, $data);
         }
 
