@@ -3,7 +3,10 @@
 namespace App\Http\Recruitment\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\People\Models\Person;
+use Domain\Recruitment\Enums\ContractType;
 use Domain\Recruitment\Models\Vacancy;
+use Illuminate\Support\Collection;
 
 class VacancyViewModel extends ViewModel
 {
@@ -21,6 +24,7 @@ class VacancyViewModel extends ViewModel
     {
         return $this->vacancy->only(
             'id',
+            'contact_id',
             'public_id',
             'title',
             'description',
@@ -42,5 +46,21 @@ class VacancyViewModel extends ViewModel
     public function applications()
     {
         return $this->vacancy->applications;
+    }
+
+    public function contacts(): Collection
+    {
+        return Person::query()
+            ->select('id', 'first_name', 'last_name')
+            ->get()
+            ->map(fn (Person $person) => [
+                'value' => $person->id,
+                'display' => $person->full_name
+            ]);
+    }
+
+    public function contractTypes(): array
+    {
+        return ContractType::cases();
     }
 }

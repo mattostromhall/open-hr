@@ -11,50 +11,59 @@ import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import currencies from '../../../Shared/currencies'
+import {Head} from '@inertiajs/inertia-vue3'
+import PageHeading from '@/Components/PageHeading.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
-defineProps<{
+const props = defineProps<{
+    vacancy: Vacancy,
     contacts: SelectOption[],
     contractTypes: ContractType[]
 }>()
 
-type VacancyData = Omit<Vacancy, 'id' | 'contact_id' | 'public_id'> & {contact_id?: number}
-
-const emit = defineEmits(['setActive'])
+type VacancyData = Omit<Vacancy, 'id' | 'public_id'>
 
 const form: InertiaForm<VacancyData> = useForm({
-    contact_id: undefined,
-    title: '',
-    description: '',
-    location: undefined,
-    contract_type: undefined,
-    contract_length: undefined,
-    remuneration: undefined,
-    remuneration_currency: undefined,
-    open_at: undefined,
-    close_at: undefined
+    contact_id: props.vacancy.contact_id,
+    title: props.vacancy.title,
+    description: props.vacancy.description,
+    location: props.vacancy.location,
+    contract_type: props.vacancy.contract_type,
+    contract_length: props.vacancy.contract_length,
+    remuneration: props.vacancy.remuneration,
+    remuneration_currency: props.vacancy.remuneration_currency,
+    open_at: props.vacancy.open_at,
+    close_at: props.vacancy.close_at
 })
 
 function submit() {
-    form.post('/vacancies', {
-        onSuccess: () => {
-            emit('setActive', 'open')
-            form.reset()
-        }
-    })
+    form.put(`/vacancies/${props.vacancy.id}`)
 }
 </script>
 
 <template>
-    <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
+    <Head>
+        <title>Edit Vacancy</title>
+    </Head>
+
+    <PageHeading>
+        <span class="font-medium">Editing</span> - {{ vacancy.title }}
+        <template #link>
+            <LightIndigoLink :href="`/vacancies/${vacancy.id}`">
+                View
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Post a Vacancy
+                            Update Vacancy
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Post a Vacancy for your Organisation.
+                            Update the Posted Vacancy for your Organisation.
                         </p>
                     </div>
                     <div class="grid grid-cols-6 gap-6">

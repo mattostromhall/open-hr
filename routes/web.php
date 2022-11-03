@@ -274,6 +274,10 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('vacancy.store');
     Route::get('/vacancies/{vacancy}', [VacancyController::class, 'show'])
         ->name('vacancy.show');
+    Route::get('/vacancies/{vacancy}/edit', [VacancyController::class, 'edit'])
+        ->name('vacancy.edit');
+    Route::put('/vacancies/{vacancy}', [VacancyController::class, 'update'])
+        ->name('vacancy.update');
 
     Route::post('/applications/{application}/pending', PendingApplicationController::class)
         ->name('application.pending');

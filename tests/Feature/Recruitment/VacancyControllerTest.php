@@ -83,6 +83,7 @@ it('shows the vacancy', function () {
                 ->where('active', 'overview')
                 ->hasAll([
                     'vacancy.id',
+                    'vacancy.contact_id',
                     'vacancy.public_id',
                     'vacancy.title',
                     'vacancy.description',
@@ -98,4 +99,68 @@ it('shows the vacancy', function () {
                     'applications' => 3
                 ])
         );
+});
+
+it('returns the vacancy to edit', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $this->get(route('vacancy.edit', ['vacancy' => $vacancy]))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Recruitment/Vacancies/Edit')
+                ->hasAll([
+                    'vacancy.id',
+                    'vacancy.contact_id',
+                    'vacancy.public_id',
+                    'vacancy.title',
+                    'vacancy.description',
+                    'vacancy.location',
+                    'vacancy.contract_type',
+                    'vacancy.contract_length',
+                    'vacancy.remuneration',
+                    'vacancy.remuneration_currency',
+                    'vacancy.open_at',
+                    'vacancy.close_at',
+                    'contacts',
+                    'contractTypes'
+                ])
+        );
+});
+
+it('updates the vacancy when the correct data is provided', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
+        'contact_id' => $this->person->id,
+        'title' => faker()->text(),
+        'description' => faker()->randomHtml(),
+        'location' => 'remote',
+        'contract_type' => ContractType::FULL_TIME->value,
+        'remuneration' => 70000,
+        'remuneration_currency' => Currency::GBP->value,
+        'open_at' => now(),
+        'close_at' => now()->addDays(90)
+    ]);
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Vacancy updated!');
+});
+
+it('returns validation errors when updating a vacancy with incorrect data', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
+        'contact_id' => null,
+        'title' => null,
+        'description' => null,
+        'contract_type' => 'not a type',
+        'open_at' => 'not a date',
+        'close_at' => null
+    ]);
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHasErrors(['contact_id', 'title', 'description', 'contract_type', 'open_at', 'close_at']);
 });

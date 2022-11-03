@@ -37,9 +37,14 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         Viewing - {{ vacancy.title }}
         <template #link>
-            <LightIndigoLink href="/vacancies">
-                All Vacancies
-            </LightIndigoLink>
+            <div class="flex space-x-2">
+                <LightIndigoLink :href="`/vacancies/${vacancy.id}/edit`">
+                    Edit
+                </LightIndigoLink>
+                <LightIndigoLink href="/vacancies">
+                    All Vacancies
+                </LightIndigoLink>
+            </div>
         </template>
     </PageHeading>
     <TabbedContent
