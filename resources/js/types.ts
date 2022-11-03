@@ -272,7 +272,7 @@ export interface Vacancy {
 
 export interface Application {
     id: number,
-    vacancy_id: string,
+    vacancy_id: number,
     status: ApplicationStatus,
     name: string,
     contact_number: number | string,

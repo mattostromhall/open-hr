@@ -10,10 +10,8 @@ use Inertia\Response;
 
 class VacancyApplicationController extends Controller
 {
-    public function __invoke(string $public_id): Response
+    public function __invoke(Vacancy $vacancy): Response
     {
-        $vacancy = Vacancy::firstWhere('public_id', $public_id);
-
         return Inertia::render('Recruitment/Vacancies/Apply', new VacancyApplicationViewModel($vacancy));
     }
 }

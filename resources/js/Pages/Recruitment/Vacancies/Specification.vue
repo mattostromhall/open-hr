@@ -3,7 +3,7 @@ import {useDateFormat} from '@vueuse/core'
 import type {Vacancy} from '../../../types'
 
 defineProps<{
-    vacancy: Vacancy,
+    vacancy: Omit<Vacancy, 'id'>,
     contact: {
         name: string,
         email: string

@@ -15,7 +15,6 @@ class VacancyApplicationViewModel extends ViewModel
     public function vacancy(): array
     {
         return $this->vacancy->only(
-            'id',
             'public_id',
             'title',
             'description',

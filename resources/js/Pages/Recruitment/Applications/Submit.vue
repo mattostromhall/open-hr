@@ -14,18 +14,17 @@ import {ref} from 'vue'
 import type {Ref} from 'vue'
 
 const props = defineProps<{
-    vacancy: Vacancy,
+    vacancy: Omit<Vacancy, 'id'>,
 }>()
 
-type ApplicationData = Omit<Application, 'id'>
+type ApplicationData = Omit<Application, 'id' | 'vacancy_id'>
     & {
-        id?: number,
+        vacancy_public_id: string,
         cv?: File
     }
 
 const form: InertiaForm<ApplicationData> = useForm({
-    id: undefined,
-    vacancy_id: props.vacancy.id,
+    vacancy_public_id: props.vacancy.public_id,
     status: 1,
     name: '',
     contact_number: '',

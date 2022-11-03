@@ -7,7 +7,7 @@ import Specification from './Specification.vue'
 import Submit from '../Applications/Submit.vue'
 
 defineProps<{
-    vacancy: Vacancy,
+    vacancy: Omit<Vacancy, 'id'>,
     contact: {
         name: string,
         email: string

@@ -13,7 +13,7 @@ class SubmitApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vacancy_id' => ['required', 'numeric', 'exists:vacancies,id'],
+            'vacancy_public_id' => ['required', 'string', 'exists:vacancies,public_id'],
             'status' => ['required', new Enum(ApplicationStatus::class)],
             'name' => ['required', 'string', 'max:255'],
             'contact_number' => ['required', 'string', 'min:2', 'max:20'],
@@ -35,7 +35,7 @@ class SubmitApplicationRequest extends FormRequest
                         'cover_letter'
                     ]),
                     [
-                        'vacancy' => Vacancy::query()->find($this->validated('vacancy_id')),
+                        'vacancy' => Vacancy::query()->firstWhere('public_id', $this->validated('vacancy_public_id')),
                         'status' => ApplicationStatus::from($this->validated('status'))
                     ]
                 )

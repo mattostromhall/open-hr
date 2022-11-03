@@ -287,7 +287,7 @@ Route::middleware(['auth', 'setup'])->group(function () {
 });
 
 Route::middleware(['setup'])->group(function () {
-    Route::get('/vacancies/{vacancy}/apply', VacancyApplicationController::class)
+    Route::get('/vacancies/{vacancy:public_id}/apply', VacancyApplicationController::class)
         ->name('vacancy.application');
 
     Route::get('/applications/thanks', ApplicationThanksController::class)

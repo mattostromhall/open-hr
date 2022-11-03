@@ -17,7 +17,7 @@ it('submits an application when the correct data is provided', function () {
     $vacancy = Vacancy::factory()->create();
 
     $response = $this->post(route('application.store'), [
-        'vacancy_id' => $vacancy->id,
+        'vacancy_public_id' => $vacancy->public_id,
         'status' => ApplicationStatus::PENDING->value,
         'name' => faker()->name(),
         'contact_number' => faker()->phoneNumber(),
@@ -32,7 +32,7 @@ it('submits an application when the correct data is provided', function () {
 
 it('returns validation errors when submitting an application with incorrect data', function () {
     $response = $this->post(route('application.store'), [
-        'vacancy_id' => null,
+        'vacancy_public_id' => null,
         'status' => null,
         'name' => null,
         'contact_number' => null,
@@ -42,7 +42,7 @@ it('returns validation errors when submitting an application with incorrect data
 
     $response
         ->assertStatus(302)
-        ->assertSessionHasErrors(['vacancy_id', 'status', 'name', 'contact_number', 'contact_email', 'cv']);
+        ->assertSessionHasErrors(['vacancy_public_id', 'status', 'name', 'contact_number', 'contact_email', 'cv']);
 });
 
 it('shows the application', function () {
