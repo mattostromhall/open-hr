@@ -47,7 +47,9 @@ function submit(): void {
 </script>
 
 <template>
-    <Head title="Editing One-to-one" />
+    <Head>
+        <title>Editing One-to-one</title>
+    </Head>
 
     <PageHeading>
         <span class="font-medium">Editing</span> - One-to-one

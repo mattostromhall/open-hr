@@ -22,7 +22,7 @@ class StoreOneToOneRequest extends FormRequest
             'scheduled_at' => ['required', 'date', 'after_or_equal:today'],
             'recurring' => ['required', 'boolean'],
             'recurrence_interval' => ['required', new Enum(RecurrenceInterval::class)],
-            'completed_at' => ['date', 'after_or_equal:scheduled_at'],
+            'completed_at' => ['date', 'after_or_equal:scheduled_at', 'nullable'],
             'notes' => ['string', 'nullable']
         ];
     }

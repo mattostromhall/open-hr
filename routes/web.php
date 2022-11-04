@@ -27,6 +27,7 @@ use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
 use App\Http\Performance\Controllers\CompleteObjectiveController;
+use App\Http\Performance\Controllers\CompleteOneToOneController;
 use App\Http\Performance\Controllers\CompleteTaskController;
 use App\Http\Performance\Controllers\CompleteTrainingController;
 use App\Http\Performance\Controllers\ObjectiveController;
@@ -187,6 +188,8 @@ Route::middleware(['auth', 'setup'])->group(function () {
         ->name('one-to-one.invite.show');
     Route::patch('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'update'])
         ->name('one-to-one.invite.update');
+    Route::post('/one-to-ones/{one_to_one}/complete', CompleteOneToOneController::class)
+        ->name('one-to-one.complete');
 
     Route::post('/objectives', [ObjectiveController::class, 'store'])
         ->name('objective.store');

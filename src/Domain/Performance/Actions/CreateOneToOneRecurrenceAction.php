@@ -12,8 +12,12 @@ class CreateOneToOneRecurrenceAction
         //
     }
 
-    public function execute(OneToOneData $data): OneToOne
+    public function execute(OneToOneData $data): ?OneToOne
     {
+        if (! $data->recurring || ! $data->completed_at) {
+            return null;
+        }
+
         return $this->scheduleOneToOne->execute($data);
     }
 }
