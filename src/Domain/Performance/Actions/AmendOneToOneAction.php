@@ -4,6 +4,7 @@ namespace Domain\Performance\Actions;
 
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
+use Exception;
 
 class AmendOneToOneAction
 {
@@ -20,8 +21,12 @@ class AmendOneToOneAction
         $updated = $this->updateOneToOne->execute($oneToOne, $data);
 
         if ($updated) {
-            $this->createRecurrence->execute($data);
-            $this->oneToOneInvite->execute($oneToOne, $data);
+            try {
+                $this->createRecurrence->execute($data);
+                $this->oneToOneInvite->execute($oneToOne, $data);
+            } catch (Exception) {
+                return false;
+            }
         }
 
         return $updated;
