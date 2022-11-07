@@ -4,8 +4,9 @@ namespace Domain\Absences\DataTransferObjects;
 
 use Domain\People\Models\Person;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class SicknessData
+class SicknessData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
@@ -14,10 +15,5 @@ class SicknessData
         public readonly ?string $notes = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

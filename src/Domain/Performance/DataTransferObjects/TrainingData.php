@@ -5,9 +5,10 @@ namespace Domain\Performance\DataTransferObjects;
 use Domain\People\Models\Person;
 use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
+use Support\DataTransferObjects\DataTransferObject;
 use Support\Enums\Currency;
 
-class TrainingData
+class TrainingData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
@@ -22,10 +23,5 @@ class TrainingData
         public readonly ?string $notes = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

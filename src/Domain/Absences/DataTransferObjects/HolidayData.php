@@ -6,8 +6,9 @@ use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
 use Domain\People\Models\Person;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class HolidayData
+class HolidayData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
@@ -18,10 +19,5 @@ class HolidayData
         public readonly ?string $notes
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

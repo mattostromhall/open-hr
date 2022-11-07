@@ -3,8 +3,9 @@
 namespace Domain\Files\DataTransferObjects;
 
 use Illuminate\Http\UploadedFile;
+use Support\DataTransferObjects\DataTransferObject;
 
-class UploadedFileData
+class UploadedFileData extends DataTransferObject
 {
     public function __construct(
         public readonly UploadedFile $file,
@@ -13,10 +14,5 @@ class UploadedFileData
         public readonly string|array $disk = []
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

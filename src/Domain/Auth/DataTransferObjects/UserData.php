@@ -2,7 +2,9 @@
 
 namespace Domain\Auth\DataTransferObjects;
 
-class UserData
+use Support\DataTransferObjects\DataTransferObject;
+
+class UserData extends DataTransferObject
 {
     public function __construct(
         public readonly string $email,
@@ -11,10 +13,5 @@ class UserData
         public readonly bool $reset_required = false,
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

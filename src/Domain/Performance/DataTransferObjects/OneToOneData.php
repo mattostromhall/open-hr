@@ -6,8 +6,9 @@ use Domain\People\Models\Person;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class OneToOneData
+class OneToOneData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
@@ -22,10 +23,5 @@ class OneToOneData
         public readonly ?string $notes = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

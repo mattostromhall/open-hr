@@ -3,8 +3,9 @@
 namespace Domain\People\DataTransferObjects;
 
 use Domain\People\Models\Person;
+use Support\DataTransferObjects\DataTransferObject;
 
-class AddressData
+class AddressData extends DataTransferObject
 {
     public function __construct(
         public readonly Person|null $person,
@@ -15,10 +16,5 @@ class AddressData
         public readonly string $postal_code
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

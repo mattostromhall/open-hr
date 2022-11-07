@@ -41,12 +41,12 @@ class SubmitExpenseAction
         return $documents->map(
             fn (UploadedFile $document) =>
             UploadedDocumentData::from([
-                new UploadedFileData(
+                'fileData' => new UploadedFileData(
                     file: $document,
                     path: "/documents/expenses/{$expense->id}",
                     name: Str::beforeLast($document->getClientOriginalName(), '.')
                 ),
-                new DocumentData(
+                'documentData' => new DocumentData(
                     name: Str::beforeLast($document->getClientOriginalName(), '.'),
                     directory: "/documents/expenses/{$expense->id}",
                     size: $document->getSize(),

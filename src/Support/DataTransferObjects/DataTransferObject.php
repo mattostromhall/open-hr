@@ -12,6 +12,7 @@ abstract class DataTransferObject
 {
     public static function from(array $data): static
     {
+        ray($data);
         $reflectedDTO = new ReflectionClass(get_called_class());
 
         foreach ($reflectedDTO->getConstructor()->getParameters() as $param) {
@@ -37,11 +38,25 @@ abstract class DataTransferObject
     {
         $paramType = $param->getType()->getName();
 
-        if (array_key_exists($param->getName(), $data) && $data[$param->getName()] instanceof Model) {
+        if (
+            array_key_exists($param->getName(), $data)
+            && $data[$param->getName()] instanceof Model
+        ) {
             return $data;
         }
 
-        if (class_exists($paramType) && is_a($paramType, Model::class, true)) {
+        if (
+            array_key_exists($param->getName(), $data)
+            && ! $data[$param->getName()]
+            && $param->allowsNull()
+        ) {
+            return $data;
+        }
+
+        if (
+            class_exists($paramType)
+            && is_a($paramType, Model::class, true)
+        ) {
             $modelArg = $paramType::query()->find($data[$param->getName() . '_id']);
             $data[$param->getName()] = $modelArg;
         }
@@ -52,8 +67,13 @@ abstract class DataTransferObject
     protected static function resolveEnum(ReflectionParameter $param, array $data): array
     {
         $paramType = $param->getType()->getName();
+        $param->allowsNull();
 
         if (! array_key_exists($param->getName(), $data)) {
+            return $data;
+        }
+
+        if (! $data[$param->getName()] && $param->allowsNull()) {
             return $data;
         }
 
@@ -77,7 +97,11 @@ abstract class DataTransferObject
             return $data;
         }
 
-        if ($data[$param->getName()] instanceof Carbon || is_null($data[$param->getName()])) {
+        if (! $data[$param->getName()] && $param->allowsNull()) {
+            return $data;
+        }
+
+        if ($data[$param->getName()] instanceof Carbon) {
             return $data;
         }
 

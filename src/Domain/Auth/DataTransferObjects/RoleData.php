@@ -3,8 +3,9 @@
 namespace Domain\Auth\DataTransferObjects;
 
 use Illuminate\Support\Collection;
+use Support\DataTransferObjects\DataTransferObject;
 
-class RoleData
+class RoleData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
@@ -12,10 +13,5 @@ class RoleData
         public readonly ?Collection $abilities
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

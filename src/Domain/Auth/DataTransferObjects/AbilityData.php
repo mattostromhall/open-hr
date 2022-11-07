@@ -2,17 +2,14 @@
 
 namespace Domain\Auth\DataTransferObjects;
 
-class AbilityData
+use Support\DataTransferObjects\DataTransferObject;
+
+class AbilityData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
         public readonly string $title
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

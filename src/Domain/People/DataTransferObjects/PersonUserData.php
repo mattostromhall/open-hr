@@ -7,9 +7,10 @@ use Domain\Organisation\Models\Department;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 use Support\Enums\Currency;
 
-class PersonUserData
+class PersonUserData extends DataTransferObject
 {
     public function __construct(
         public readonly UserData $user_data,
@@ -35,10 +36,5 @@ class PersonUserData
         public readonly ?int $holiday_carried = 0
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

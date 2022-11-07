@@ -64,20 +64,20 @@ class SubmitApplicationAction
     protected function uploadedCV(UploadedFile $cv, Application $application): UploadedDocumentData
     {
         return UploadedDocumentData::from([
-                new UploadedFileData(
-                    file: $cv,
-                    path: "/documents/applications/{$application->id}",
-                    name: Str::beforeLast($cv->getClientOriginalName(), '.')
-                ),
-                new DocumentData(
-                    name: Str::beforeLast($cv->getClientOriginalName(), '.'),
-                    directory: "/documents/applications/{$application->id}",
-                    size: $cv->getSize(),
-                    extension: $cv->extension(),
-                    disk: config('filesystems.default'),
-                    documentable_id: $application->id,
-                    documentable_type: DocumentableType::APPLICATION
-                )
-            ]);
+            'fileData' => new UploadedFileData(
+                file: $cv,
+                path: "/documents/applications/{$application->id}",
+                name: Str::beforeLast($cv->getClientOriginalName(), '.')
+            ),
+            'documentData' => new DocumentData(
+                name: Str::beforeLast($cv->getClientOriginalName(), '.'),
+                directory: "/documents/applications/{$application->id}",
+                size: $cv->getSize(),
+                extension: $cv->extension(),
+                disk: config('filesystems.default'),
+                documentable_id: $application->id,
+                documentable_type: DocumentableType::APPLICATION
+            )
+        ]);
     }
 }

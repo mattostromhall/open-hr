@@ -2,7 +2,9 @@
 
 namespace Domain\Notifications\DataTransferObjects;
 
-class NotificationData
+use Support\DataTransferObjects\DataTransferObject;
+
+class NotificationData extends DataTransferObject
 {
     public function __construct(
         public readonly string $body,
@@ -13,10 +15,5 @@ class NotificationData
         public readonly bool $read = false,
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

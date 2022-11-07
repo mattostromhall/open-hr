@@ -4,8 +4,9 @@ namespace Domain\Organisation\DataTransferObjects;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class OrganisationData
+class OrganisationData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
@@ -13,10 +14,5 @@ class OrganisationData
         public readonly ?Carbon $setup_at = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

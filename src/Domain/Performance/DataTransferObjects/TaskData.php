@@ -4,8 +4,9 @@ namespace Domain\Performance\DataTransferObjects;
 
 use Domain\Performance\Models\Objective;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class TaskData
+class TaskData extends DataTransferObject
 {
     public function __construct(
         public readonly Objective $objective,
@@ -14,10 +15,5 @@ class TaskData
         public readonly ?Carbon $completed_at = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

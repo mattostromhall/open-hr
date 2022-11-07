@@ -7,9 +7,10 @@ use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 use Support\Enums\Currency;
 
-class PersonProfileData
+class PersonProfileData extends DataTransferObject
 {
     public function __construct(
         public readonly string $first_name,
@@ -22,10 +23,5 @@ class PersonProfileData
         public readonly ?string $pronouns = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

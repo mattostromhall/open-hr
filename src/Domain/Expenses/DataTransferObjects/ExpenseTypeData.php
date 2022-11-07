@@ -2,16 +2,13 @@
 
 namespace Domain\Expenses\DataTransferObjects;
 
-class ExpenseTypeData
+use Support\DataTransferObjects\DataTransferObject;
+
+class ExpenseTypeData extends DataTransferObject
 {
     public function __construct(
         public readonly string $type,
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

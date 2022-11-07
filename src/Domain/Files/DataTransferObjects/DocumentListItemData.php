@@ -3,8 +3,9 @@
 namespace Domain\Files\DataTransferObjects;
 
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 
-class DocumentListItemData
+class DocumentListItemData extends DataTransferObject
 {
     public function __construct(
         public readonly string $path,
@@ -14,10 +15,5 @@ class DocumentListItemData
         public readonly ?Carbon $modified = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

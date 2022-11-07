@@ -2,7 +2,9 @@
 
 namespace Domain\Auth\DataTransferObjects;
 
-class ResetPasswordData
+use Support\DataTransferObjects\DataTransferObject;
+
+class ResetPasswordData extends DataTransferObject
 {
     public function __construct(
         public readonly string $email,
@@ -11,10 +13,5 @@ class ResetPasswordData
         public readonly string $token
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

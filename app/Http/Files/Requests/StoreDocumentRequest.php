@@ -37,12 +37,12 @@ class StoreDocumentRequest extends FormRequest
         return collect($this->validated('documents'))
             ->map(function (UploadedFile $document) {
                 return UploadedDocumentData::from([
-                    new UploadedFileData(
+                    'fileData' => new UploadedFileData(
                         file: $document,
                         path: $this->validated('path'),
                         name: Str::beforeLast($document->getClientOriginalName(), '.')
                     ),
-                    new DocumentData(
+                    'documentData' => new DocumentData(
                         name: Str::beforeLast($document->getClientOriginalName(), '.'),
                         directory: $this->validated('path'),
                         size: $document->getSize(),

@@ -3,8 +3,9 @@
 namespace Domain\Files\DataTransferObjects;
 
 use Domain\Files\Enums\DocumentableType;
+use Support\DataTransferObjects\DataTransferObject;
 
-class DocumentData
+class DocumentData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
@@ -16,10 +17,5 @@ class DocumentData
         public readonly DocumentableType $documentable_type
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }
