@@ -24,9 +24,7 @@ class SicknessController extends Controller
 
     public function store(LogSicknessRequest $request, LogSicknessAction $logSickness): RedirectResponse
     {
-        $logSickness->execute(
-            LoggedSicknessData::from($request->validatedData())
-        );
+        $logSickness->execute($request->loggedSicknessData());
 
         return back()->with('flash.success', 'Sick days logged!');
     }
@@ -43,9 +41,7 @@ class SicknessController extends Controller
 
     public function update(UpdateSicknessRequest $request, Sickness $sickness, AmendSicknessAction $amendSickness): RedirectResponse
     {
-        $sicknessData = LoggedSicknessData::from($request->validatedData());
-
-        $updated = $amendSickness->execute($sickness, $sicknessData);
+        $updated = $amendSickness->execute($sickness, $request->loggedSicknessData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Sickness, please try again.');

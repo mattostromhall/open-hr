@@ -27,10 +27,7 @@ class ReviewHolidayController extends Controller
 
     public function update(UpdateHolidayRequest $request, Holiday $holiday, ReviewHolidayAction $reviewHoliday): RedirectResponse
     {
-        $holidayData = HolidayData::from([
-            ...$holiday->only('status', 'start_at', 'finish_at', 'half_day', 'notes'),
-            ...$request->filteredValidatedData()
-        ]);
+        $holidayData = $request->holidayData();
 
         $reviewed = $reviewHoliday->execute($holiday, $holidayData);
 

@@ -15,8 +15,8 @@ class HolidayData extends DataTransferObject
         public readonly HolidayStatus $status,
         public readonly Carbon $start_at,
         public readonly Carbon $finish_at,
-        public readonly ?HalfDay $half_day,
-        public readonly ?string $notes
+        public readonly ?HalfDay $half_day = null,
+        public readonly ?string $notes = null
     ) {
         //
     }

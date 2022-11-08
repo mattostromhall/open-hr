@@ -2,10 +2,9 @@
 
 namespace App\Http\Absences\Requests;
 
+use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\DataTransferObjects\SicknessData;
-use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 
 class LogSicknessRequest extends FormRequest
 {
@@ -21,22 +20,11 @@ class LogSicknessRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function loggedSicknessData(): LoggedSicknessData
     {
-        return [
-            'sickness_data' => SicknessData::from(
-                array_merge(
-                    $this->safe([
-                        'notes'
-                    ]),
-                    [
-                        'person' => Person::query()->find($this->validated('person_id')),
-                        'start_at' => Carbon::parse($this->validated('start_at')),
-                        'finish_at' => $this->validated('finish_at') ? Carbon::parse($this->validated('finish_at')) : null
-                    ]
-                )
-            ),
+        return LoggedSicknessData::from([
+            'sickness_data' => SicknessData::from($this->safe()->all()),
             'documents' => $this->validated('documents') ? collect($this->validated('documents')) : null
-        ];
+        ]);
     }
 }

@@ -24,9 +24,7 @@ class HolidayController extends Controller
 
     public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
     {
-        $requestHoliday->execute(
-            HolidayData::from($request->validatedData())
-        );
+        $requestHoliday->execute($request->holidayData());
 
         return back()->with('flash.success', 'Holiday request submitted!');
     }
@@ -43,9 +41,7 @@ class HolidayController extends Controller
 
     public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse
     {
-        $holidayData = HolidayData::from($request->validatedData());
-
-        $updated = $amendHoliday->execute($holiday, $holidayData);
+        $updated = $amendHoliday->execute($holiday, $request->holidayData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Holiday request, please try again.');

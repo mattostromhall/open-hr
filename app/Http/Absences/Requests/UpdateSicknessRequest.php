@@ -2,8 +2,8 @@
 
 namespace App\Http\Absences\Requests;
 
+use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\DataTransferObjects\SicknessData;
-use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
@@ -18,6 +18,21 @@ class UpdateSicknessRequest extends FormRequest
             'documents' => ['array', 'min:1', 'max:10', 'nullable'],
             'documents.*' => ['file', 'mimes:jpg,jpeg,png,pdf,docx', 'max:20000']
         ];
+    }
+
+    public function loggedSicknessData(): LoggedSicknessData
+    {
+        return LoggedSicknessData::from([
+            'sickness_data' => SicknessData::from([
+                'person' => $this->sickness->person,
+                ...$this->safe([
+                    'start_at',
+                    'finish_at',
+                    'notes'
+                ])
+            ]),
+            'documents' => $this->validated('documents') ? collect($this->validated('documents')) : null
+        ]);
     }
 
     public function validatedData(): array

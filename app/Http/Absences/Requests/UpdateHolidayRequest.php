@@ -2,9 +2,9 @@
 
 namespace App\Http\Absences\Requests;
 
+use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Enums\HalfDay;
 use Domain\Absences\Enums\HolidayStatus;
-use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
@@ -33,20 +33,12 @@ class UpdateHolidayRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function holidayData(): HolidayData
     {
-        return [
+        return HolidayData::from([
             'person' => $this->holiday->person,
-            'status' => $this->status ? HolidayStatus::from($this->status) : null,
-            'start_at' => $this->start_at ? Carbon::parse($this->start_at) : null,
-            'finish_at' => $this->finish_at ? Carbon::parse($this->finish_at) : null,
-            'half_day' => $this->half_day ? HalfDay::from($this->half_day) : null,
-            'notes' => $this->validated('notes')
-        ];
-    }
-
-    public function filteredValidatedData(): array
-    {
-        return array_filter($this->validatedData());
+            ...$this->holiday->toArray(),
+            ...$this->safe()->all()
+        ]);
     }
 }
