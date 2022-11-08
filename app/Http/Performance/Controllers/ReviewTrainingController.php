@@ -23,10 +23,7 @@ class ReviewTrainingController extends Controller
 
     public function update(UpdateTrainingRequest $request, Training $training, ReviewTrainingAction $reviewTraining): RedirectResponse
     {
-        $trainingData = TrainingData::from([
-            ...$training->only('status', 'state', 'description', 'provider', 'location', 'cost', 'cost_currency', 'duration', 'notes'),
-            ...$request->filteredValidatedData()
-        ]);
+        $trainingData = $request->trainingData();
 
         $reviewed = $reviewTraining->execute($training, $trainingData);
 

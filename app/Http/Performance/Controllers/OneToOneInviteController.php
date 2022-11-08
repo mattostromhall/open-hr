@@ -21,12 +21,7 @@ class OneToOneInviteController extends Controller
 
     public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse): RedirectResponse
     {
-        $oneToOneData = OneToOneData::from([
-            ...$oneToOne->only('person_status', 'manager_status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes'),
-            ...$request->filteredValidatedData()
-        ]);
-
-        $inviteResponse->execute($oneToOne, $oneToOneData);
+        $inviteResponse->execute($oneToOne, $request->oneToOneData());
 
         return redirect(route('performance.index'))->with('flash.success', 'One-to-one updated!');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Performance\Requests;
 
 use Domain\People\Models\Person;
+use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
 use Domain\Performance\Enums\TrainingState;
@@ -30,23 +31,8 @@ class StoreTrainingRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function trainingData(): TrainingData
     {
-        return array_merge(
-            $this->safe([
-                'description',
-                'provider',
-                'location',
-                'cost',
-                'duration',
-                'notes'
-            ]),
-            [
-                'person' => Person::find($this->validated('person_id')),
-                'status' => TrainingStatus::from($this->validated('status')),
-                'state' => TrainingState::from($this->validated('state')),
-                'cost_currency' => $this->validated('cost_currency') ? Currency::from($this->validated('cost_currency')) : null
-            ]
-        );
+        return TrainingData::from($this->safe()->all());
     }
 }

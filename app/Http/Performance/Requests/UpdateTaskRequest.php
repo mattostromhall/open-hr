@@ -3,6 +3,7 @@
 namespace App\Http\Performance\Requests;
 
 use Domain\People\Models\Person;
+use Domain\Performance\DataTransferObjects\TaskData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
@@ -15,6 +16,14 @@ class UpdateTaskRequest extends FormRequest
             'due_at' => ['date'],
             'completed_at' => ['date', 'nullable']
         ];
+    }
+
+    public function taskData(): TaskData
+    {
+        return TaskData::from([
+            'objective' => $this->task->objective,
+            ...$this->safe()->all()
+        ]);
     }
 
     public function validatedData(): array

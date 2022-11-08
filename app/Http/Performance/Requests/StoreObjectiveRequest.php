@@ -3,6 +3,7 @@
 namespace App\Http\Performance\Requests;
 
 use Domain\People\Models\Person;
+use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
@@ -18,17 +19,8 @@ class StoreObjectiveRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function objectiveData(): ObjectiveData
     {
-        return array_merge(
-            $this->safe([
-                'title',
-                'description'
-            ]),
-            [
-                'person' => Person::find($this->validated('person_id')),
-                'due_at' => Carbon::parse($this->validated('due_at'))
-            ]
-        );
+        return ObjectiveData::from($this->safe()->all());
     }
 }

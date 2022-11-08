@@ -25,9 +25,7 @@ class ObjectiveTaskController extends Controller
 {
     public function store(StoreTaskRequest $request, Objective $objective, SetTaskAction $setTask): RedirectResponse
     {
-        $setTask->execute(
-            TaskData::from($request->validatedData())
-        );
+        $setTask->execute($request->taskData());
 
         return redirect(route('objective.show', ['objective' => $objective]))
             ->with('flash.success', 'Task successfully created!');
@@ -35,12 +33,7 @@ class ObjectiveTaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task, AmendTaskAction $amendTask): RedirectResponse
     {
-        $taskData = TaskData::from([
-            ...$task->only('description', 'due_at', 'completed_at'),
-            ...$request->filteredValidatedData()
-        ]);
-
-        $updated = $amendTask->execute($task, $taskData);
+        $updated = $amendTask->execute($task, $request->taskData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Task, please try again.');

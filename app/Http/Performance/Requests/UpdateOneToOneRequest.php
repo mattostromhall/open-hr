@@ -2,7 +2,7 @@
 
 namespace App\Http\Performance\Requests;
 
-use Domain\People\Models\Person;
+use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,28 +24,13 @@ class UpdateOneToOneRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function oneToOneData(): OneToOneData
     {
-        return array_merge(
-            $this->safe([
-                'recurring',
-                'notes'
-            ]),
-            [
-                'person' => $this->one_to_one->person,
-                'manager' => $this->one_to_one->manager,
-                'requester_id' => $this->one_to_one->requester_id,
-                'person_status' => $this->validated('person_status') ? OneToOneStatus::from($this->validated('person_status')) : null,
-                'manager_status' => $this->validated('manager_status') ? OneToOneStatus::from($this->validated('manager_status')) : null,
-                'scheduled_at' => $this->validated('scheduled_at') ? Carbon::parse($this->validated('scheduled_at')) : null,
-                'recurrence_interval' => $this->validated('recurrence_interval') ? RecurrenceInterval::from($this->validated('recurrence_interval')) : null,
-                'completed_at' => $this->validated('completed_at') ? Carbon::parse($this->validated('completed_at')) : null
-            ]
-        );
-    }
-
-    public function filteredValidatedData(): array
-    {
-        return array_filter($this->validatedData());
+        return OneToOneData::from([
+            'person' => $this->one_to_one->person,
+            'manager' => $this->one_to_one->manager,
+            ...$this->one_to_one->toArray(),
+            ...$this->safe()->all()
+        ]);
     }
 }

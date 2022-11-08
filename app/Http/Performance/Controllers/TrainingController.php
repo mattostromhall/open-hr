@@ -9,7 +9,6 @@ use App\Http\Performance\ViewModels\TrainingViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\AmendTrainingAction;
 use Domain\Performance\Actions\RequestTrainingAction;
-use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -24,9 +23,7 @@ class TrainingController extends Controller
 
     public function store(StoreTrainingRequest $request, RequestTrainingAction $requestTraining): RedirectResponse
     {
-        $requestTraining->execute(
-            TrainingData::from($request->validatedData())
-        );
+        $requestTraining->execute($request->trainingData());
 
         return back()->with('flash.success', 'Training request submitted!');
     }
@@ -43,12 +40,7 @@ class TrainingController extends Controller
 
     public function update(UpdateTrainingRequest $request, Training $training, AmendTrainingAction $amendTraining): RedirectResponse
     {
-        $trainingData = TrainingData::from([
-            ...$training->only('status', 'state', 'provider', 'description', 'location', 'cost', 'cost_currency', 'duration', 'notes'),
-            ...$request->filteredValidatedData()
-        ]);
-
-        $updated = $amendTraining->execute($training, $trainingData);
+        $updated = $amendTraining->execute($training, $request->trainingData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Training request, please try again.');

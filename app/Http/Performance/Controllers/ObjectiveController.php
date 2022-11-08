@@ -18,9 +18,7 @@ class ObjectiveController extends Controller
 {
     public function store(StoreObjectiveRequest $request, SetObjectiveAction $setObjective): RedirectResponse
     {
-        $objective = $setObjective->execute(
-            ObjectiveData::from($request->validatedData())
-        );
+        $objective = $setObjective->execute($request->objectiveData());
 
         return redirect(route('objective.edit', ['objective' => $objective]))
             ->with('flash.success', 'Objective successfully created!');
@@ -38,12 +36,7 @@ class ObjectiveController extends Controller
 
     public function update(UpdateObjectiveRequest $request, Objective $objective, AmendObjectiveAction $amendObjective): RedirectResponse
     {
-        $objectiveData = ObjectiveData::from([
-            ...$objective->only('title', 'description', 'due_at', 'completed_at'),
-            ...$request->filteredValidatedData()
-        ]);
-
-        $updated = $amendObjective->execute($objective, $objectiveData);
+        $updated = $amendObjective->execute($objective, $request->objectiveData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Objective, please try again.');
