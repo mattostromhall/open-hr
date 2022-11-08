@@ -4,7 +4,6 @@ namespace App\Http\Performance\Controllers;
 
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\CompleteOneToOneAction;
-use Domain\Performance\Actions\CreateOneToOneRecurrenceAction;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,8 +13,7 @@ class CompleteOneToOneController extends Controller
     public function __invoke(
         Request $request,
         OneToOne $oneToOne,
-        CompleteOneToOneAction $completeOneToOne,
-        CreateOneToOneRecurrenceAction $createRecurrence
+        CompleteOneToOneAction $completeOneToOne
     ): RedirectResponse {
         $completed = $completeOneToOne->execute($oneToOne);
 
