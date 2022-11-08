@@ -5,9 +5,10 @@ namespace Domain\Recruitment\DataTransferObjects;
 use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ContractType;
 use Illuminate\Support\Carbon;
+use Support\DataTransferObjects\DataTransferObject;
 use Support\Enums\Currency;
 
-class VacancyData
+class VacancyData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $contact,
@@ -23,10 +24,5 @@ class VacancyData
         public readonly ?Carbon $close_at = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

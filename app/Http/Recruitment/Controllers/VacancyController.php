@@ -9,7 +9,6 @@ use App\Http\Recruitment\ViewModels\VacancyViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Recruitment\Actions\CreateVacancyAction;
 use Domain\Recruitment\Actions\UpdateVacancyAction;
-use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Models\Vacancy;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -24,9 +23,7 @@ class VacancyController extends Controller
 
     public function store(StoreVacancyRequest $request, CreateVacancyAction $createVacancy): RedirectResponse
     {
-        $createVacancy->execute(
-            VacancyData::from($request->validatedData())
-        );
+        $createVacancy->execute($request->vacancyData());
 
         return back()->with('flash.success', 'Vacancy posted!');
     }
@@ -43,12 +40,7 @@ class VacancyController extends Controller
 
     public function update(UpdateVacancyRequest $request, Vacancy $vacancy, UpdateVacancyAction $updateVacancy): RedirectResponse
     {
-        $vacancyData = VacancyData::from([
-            ...$vacancy->only('title', 'description', 'location', 'contract_type', 'contract_length', 'remuneration', 'remuneration_currency', 'open_at', 'close_at'),
-            ...$request->filteredValidatedData()
-        ]);
-
-        $updated = $updateVacancy->execute($vacancy, $vacancyData);
+        $updated = $updateVacancy->execute($vacancy, $request->vacancyData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Vacancy, please try again.');

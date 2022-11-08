@@ -5,7 +5,7 @@ namespace Support\DataTransferObjects;
 use Domain\People\Models\Person;
 use Support\Enums\Action;
 
-class ActionLogData
+class ActionLogData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
@@ -15,10 +15,5 @@ class ActionLogData
         public readonly string $actionable_type
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Recruitment\Requests;
 
 use Domain\People\Models\Person;
+use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Enums\ContractType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
@@ -28,24 +29,11 @@ class StoreVacancyRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function vacancyData(): VacancyData
     {
-        return array_merge(
-            $this->safe([
-                'title',
-                'description',
-                'location',
-                'contract_length',
-                'remuneration'
-            ]),
-            [
-                'contact' => Person::query()->find($this->validated('contact_id')),
-                'public_id' => Str::uuid(),
-                'contract_type' => $this->validated('contract_type') ? ContractType::from($this->validated('contract_type')) : null,
-                'remuneration_currency' => $this->validated('remuneration_currency') ? Currency::from($this->validated('remuneration_currency')) : null,
-                'open_at' => $this->validated('open_at') ? Carbon::parse($this->validated('open_at')) : null,
-                'close_at' => $this->validated('close_at') ? Carbon::parse($this->validated('close_at')) : null
-            ]
-        );
+        return VacancyData::from([
+            'public_id' => Str::uuid(),
+            ...$this->safe()->all()
+        ]);
     }
 }

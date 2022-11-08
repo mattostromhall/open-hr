@@ -4,8 +4,9 @@ namespace Domain\Recruitment\DataTransferObjects;
 
 use Domain\Recruitment\Enums\ApplicationStatus;
 use Domain\Recruitment\Models\Vacancy;
+use Support\DataTransferObjects\DataTransferObject;
 
-class ApplicationData
+class ApplicationData extends DataTransferObject
 {
     public function __construct(
         public readonly Vacancy $vacancy,
@@ -16,10 +17,5 @@ class ApplicationData
         public readonly ?string $cover_letter = null
     ) {
         //
-    }
-
-    public static function from(array $data): self
-    {
-        return new self(...$data);
     }
 }
