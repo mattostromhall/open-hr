@@ -31,11 +31,19 @@ class PerformanceViewModel extends ViewModel
             ?? person()->department->head->only('id', 'full_name');
     }
 
-    public function oneToOnes()
+    public function upcomingOneToOnes()
     {
         return person()
             ->oneToOnes()
             ->upcoming()
+            ->get();
+    }
+
+    public function previousOneToOnes()
+    {
+        return person()
+            ->oneToOnes()
+            ->previous()
             ->get();
     }
 

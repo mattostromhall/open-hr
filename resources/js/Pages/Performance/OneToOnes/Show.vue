@@ -29,9 +29,14 @@ function complete() {
     <PageHeading>
         <span class="font-medium">Viewing</span> - One-to-one
         <template #link>
-            <LightIndigoLink :href="`/one-to-ones/${oneToOne.id}/edit`">
-                Edit
-            </LightIndigoLink>
+            <div class="flex space-x-2">
+                <LightIndigoLink :href="`/one-to-ones/${oneToOne.id}/edit`">
+                    Edit
+                </LightIndigoLink>
+                <LightIndigoLink href="/performance?active=upcoming">
+                    View all
+                </LightIndigoLink>
+            </div>
         </template>
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">

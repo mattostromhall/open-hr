@@ -26,6 +26,20 @@ class OneToOneQueryBuilder extends Builder
                 $query->where(fn (self $query) => $query->whereStatusInvited());
                 $query->orWhere(fn (self $query) => $query->whereStatusAccepted());
             })
+            ->whereNull('completed_at')
+            ->orderBy('scheduled_at');
+    }
+
+    public function previous(): self
+    {
+        return $this->where(function (self $query) {
+            $query->where('scheduled_at', '<', now());
+            $query->orWhereNotNull('completed_at');
+        })
+            ->where(function (self $query) {
+                $query->where(fn (self $query) => $query->whereStatusInvited());
+                $query->orWhere(fn (self $query) => $query->whereStatusAccepted());
+            })
             ->orderBy('scheduled_at');
     }
 }

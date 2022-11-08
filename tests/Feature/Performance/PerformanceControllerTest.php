@@ -26,7 +26,8 @@ it('returns the performance index', function () {
                     'manager',
                     'manager.id',
                     'manager.full_name',
-                    'oneToOnes',
+                    'upcomingOneToOnes',
+                    'previousOneToOnes',
                     'objectives',
                     'training'
                 ])

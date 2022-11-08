@@ -4,6 +4,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
 import ScheduleOneToOne from './OneToOnes/ScheduleOneToOne.vue'
 import Upcoming from './OneToOnes/Upcoming.vue'
+import Previous from './OneToOnes/Previous.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
 import type {Objective, OneToOne, Person, SelectOption} from '../../types'
@@ -15,7 +16,8 @@ defineProps<{
     directReports: (Pick<Person, 'id'|'full_name'>)[],
     recurrenceIntervals: SelectOption[],
     manager: Pick<Person, 'id'|'full_name'>,
-    oneToOnes: OneToOne[],
+    upcomingOneToOnes: OneToOne[],
+    previousOneToOnes: OneToOne[],
     objectives: Objective[]
 }>()
 
@@ -34,6 +36,11 @@ const tabs: TabbedContentItem[] = [
         identifier: 'upcoming',
         icon: 'ChatBubbleOvalLeftIcon',
         display: 'Upcoming One-to-ones'
+    },
+    {
+        identifier: 'previous',
+        icon: 'ChatBubbleOvalLeftEllipsisIcon',
+        display: 'Previous One-to-ones'
     },
     {
         identifier: 'current',
@@ -74,7 +81,12 @@ const tabs: TabbedContentItem[] = [
         />
         <Upcoming
             v-if="isActive('upcoming')"
-            :one-to-ones="oneToOnes"
+            :one-to-ones="upcomingOneToOnes"
+            @set-active="setActive"
+        />
+        <Previous
+            v-if="isActive('previous')"
+            :one-to-ones="previousOneToOnes"
             @set-active="setActive"
         />
         <Current
