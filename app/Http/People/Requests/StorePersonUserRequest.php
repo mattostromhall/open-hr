@@ -5,6 +5,7 @@ namespace App\Http\People\Requests;
 use Domain\Auth\DataTransferObjects\UserData;
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Department;
+use Domain\People\DataTransferObjects\PersonUserData;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
@@ -47,43 +48,39 @@ class StorePersonUserRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function personUserData(): PersonUserData
     {
-        return array_merge(
-            [
-                'user_data' => UserData::from(
-                    $this->safe([
-                        'email',
-                        'active',
-                        'password',
-                        'reset_required'
-                    ])
-                )
-            ],
-            $this->safe([
+        return PersonUserData::from([
+            'user_data' => UserData::from(
+                $this->safe([
+                    'email',
+                    'active',
+                    'password',
+                    'reset_required'
+                ])
+            ),
+            ...$this->safe([
+                'manager_id',
+                'department_id',
                 'title',
                 'first_name',
                 'last_name',
                 'initials',
                 'pronouns',
+                'dob',
                 'position',
                 'remuneration',
+                'remuneration_interval',
+                'remuneration_currency',
                 'base_holiday_allocation',
                 'holiday_carry_allocation',
                 'holiday_carried',
                 'sickness_allocation',
                 'contact_number',
-                'contact_email'
-            ]),
-            [
-                'manager' => Person::find($this->manager_id),
-                'department' => Department::find($this->department_id),
-                'dob' => Carbon::parse($this->dob),
-                'remuneration_interval' => RemunerationInterval::from($this->remuneration_interval),
-                'remuneration_currency' => Currency::from($this->remuneration_currency),
-                'started_on' => Carbon::parse($this->started_on),
-                'finished_on' => $this->finished_on ? Carbon::parse($this->finished_on) : null
-            ]
-        );
+                'contact_email',
+                'started_on',
+                'finished_on'
+            ])
+        ]);
     }
 }

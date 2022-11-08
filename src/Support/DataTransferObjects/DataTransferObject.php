@@ -56,6 +56,7 @@ abstract class DataTransferObject
         if (
             class_exists($paramType)
             && is_a($paramType, Model::class, true)
+            && array_key_exists($param->getName() . '_id', $data)
         ) {
             $modelArg = $paramType::query()->find($data[$param->getName() . '_id']);
             $data[$param->getName()] = $modelArg;

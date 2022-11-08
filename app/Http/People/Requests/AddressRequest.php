@@ -2,6 +2,7 @@
 
 namespace App\Http\People\Requests;
 
+use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -18,19 +19,11 @@ class AddressRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function addressData(): AddressData
     {
-        return array_merge(
-            $this->safe([
-                'address_line',
-                'country',
-                'region',
-                'town_city',
-                'postal_code'
-            ]),
-            [
-                'person' => Person::find($this->person)
-            ]
-        );
+        return AddressData::from([
+            'person' => Person::find($this->person) ?? $this->address->person,
+            ...$this->safe()->all()
+        ]);
     }
 }

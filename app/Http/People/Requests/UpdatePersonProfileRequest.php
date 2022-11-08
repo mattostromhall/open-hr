@@ -2,6 +2,7 @@
 
 namespace App\Http\People\Requests;
 
+use Domain\People\DataTransferObjects\PersonProfileData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
@@ -22,22 +23,8 @@ class UpdatePersonProfileRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function personProfileData(): PersonProfileData
     {
-        return array_merge(
-            $this->safe([
-                'title',
-                'first_name',
-                'last_name',
-                'initials',
-                'pronouns',
-                'position',
-                'contact_number',
-                'contact_email'
-            ]),
-            [
-                'dob' => Carbon::parse($this->dob),
-            ]
-        );
+        return PersonProfileData::from($this->safe()->all());
     }
 }

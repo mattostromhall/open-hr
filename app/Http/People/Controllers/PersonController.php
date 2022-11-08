@@ -10,8 +10,6 @@ use App\Http\People\ViewModels\PersonViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\People\Actions\CreatePersonUserAction;
 use Domain\People\Actions\UpdatePersonAction;
-use Domain\People\DataTransferObjects\PersonData;
-use Domain\People\DataTransferObjects\PersonUserData;
 use Domain\People\Models\Person;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -31,9 +29,7 @@ class PersonController extends Controller
 
     public function store(StorePersonUserRequest $request, CreatePersonUserAction $createPerson): RedirectResponse
     {
-        $createPerson->execute(
-            PersonUserData::from($request->validatedData())
-        );
+        $createPerson->execute($request->personUserData());
 
         return redirect(route('person.index'))
             ->with('flash.success', 'Person successfully created!');
@@ -51,10 +47,7 @@ class PersonController extends Controller
 
     public function update(UpdatePersonRequest $request, Person $person, UpdatePersonAction $updatePerson): RedirectResponse
     {
-        $updated = $updatePerson->execute(
-            $person,
-            PersonData::from($request->validatedData())
-        );
+        $updated = $updatePerson->execute($person, $request->personData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem updating the information, please try again.');

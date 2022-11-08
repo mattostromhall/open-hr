@@ -4,6 +4,7 @@ namespace App\Http\People\Requests;
 
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Department;
+use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,34 +43,8 @@ class UpdatePersonRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function personData(): PersonData
     {
-        return array_merge(
-            $this->safe([
-                'title',
-                'first_name',
-                'last_name',
-                'initials',
-                'pronouns',
-                'position',
-                'remuneration',
-                'base_holiday_allocation',
-                'holiday_carry_allocation',
-                'holiday_carried',
-                'sickness_allocation',
-                'contact_number',
-                'contact_email'
-            ]),
-            [
-                'user' => User::find($this->user_id),
-                'manager' => Person::find($this->manager_id),
-                'department' => Department::find($this->department_id),
-                'dob' => Carbon::parse($this->dob),
-                'remuneration_interval' => RemunerationInterval::from($this->remuneration_interval),
-                'remuneration_currency' => Currency::from($this->remuneration_currency),
-                'started_on' => Carbon::parse($this->started_on),
-                'finished_on' => $this->finished_on ? Carbon::parse($this->finished_on) : null
-            ]
-        );
+        return PersonData::from($this->safe()->all());
     }
 }

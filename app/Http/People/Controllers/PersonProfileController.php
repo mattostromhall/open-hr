@@ -6,7 +6,6 @@ use App\Http\People\Requests\UpdatePersonProfileRequest;
 use App\Http\People\ViewModels\PersonProfileViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\People\Actions\UpdatePersonProfileAction;
-use Domain\People\DataTransferObjects\PersonProfileData;
 use Domain\People\Models\Person;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -21,7 +20,7 @@ class PersonProfileController extends Controller
 
     public function update(UpdatePersonProfileRequest $request, Person $person, UpdatePersonProfileAction $updateProfile): RedirectResponse
     {
-        $updated = $updateProfile->execute($person, PersonProfileData::from($request->validatedData()));
+        $updated = $updateProfile->execute($person, $request->personProfileData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem when updating your Personal Information, please try again.');

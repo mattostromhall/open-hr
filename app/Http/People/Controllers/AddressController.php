@@ -14,16 +14,14 @@ class AddressController extends Controller
 {
     public function store(AddressRequest $request, CreateAddressAction $createAddress): RedirectResponse
     {
-        $createAddress->execute(
-            AddressData::from($request->validatedData())
-        );
+        $createAddress->execute($request->addressData());
 
         return back()->with('flash.success', 'Address successfully created!');
     }
 
     public function update(AddressRequest $request, Address $address, UpdateAddressAction $updateAddress): RedirectResponse
     {
-        $updated = $updateAddress->execute($address, AddressData::from($request->validatedData()));
+        $updated = $updateAddress->execute($address, $request->addressData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem when updating your Address, please try again.');
