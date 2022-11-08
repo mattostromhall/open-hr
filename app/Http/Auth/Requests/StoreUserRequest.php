@@ -2,6 +2,7 @@
 
 namespace App\Http\Auth\Requests;
 
+use Domain\Auth\DataTransferObjects\UserData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -15,5 +16,10 @@ class StoreUserRequest extends FormRequest
             'password' => ['required', 'confirmed', Password::defaults()],
             'reset_required' => ['boolean']
         ];
+    }
+
+    public function userData(): UserData
+    {
+        return UserData::from($this->validated());
     }
 }

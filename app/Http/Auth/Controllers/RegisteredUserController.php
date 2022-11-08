@@ -26,9 +26,7 @@ class RegisteredUserController extends Controller
 
     public function store(StoreUserRequest $request, CreateUserAction $createUser): RedirectResponse
     {
-        $user = $createUser->execute(
-            UserData::from($request->validated())
-        );
+        $user = $createUser->execute($request->userData());
 
         event(new Registered($user));
 

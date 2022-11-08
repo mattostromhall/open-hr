@@ -28,9 +28,7 @@ class NewPasswordController extends Controller
      */
     public function store(NewPasswordRequest $request, ResetPasswordAction $resetPassword): RedirectResponse
     {
-        $status = $resetPassword->execute(
-            ResetPasswordData::from($request->data())
-        );
+        $status = $resetPassword->execute($request->resetPasswordData());
 
         if ($status === Password::PASSWORD_RESET) {
             return redirect()->route('login')->with('status', $status);
