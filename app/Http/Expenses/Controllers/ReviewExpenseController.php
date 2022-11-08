@@ -21,10 +21,7 @@ class ReviewExpenseController extends Controller
 
     public function update(ReviewExpenseRequest $request, Expense $expense, ReviewExpenseAction $reviewExpense): RedirectResponse
     {
-        $expenseData = ExpenseData::from([
-            ...$expense->only('value', 'value_currency', 'date', 'notes'),
-            ...$request->validatedData()
-        ]);
+        $expenseData = $request->expenseData();
 
         $reviewed = $reviewExpense->execute($expense, $expenseData);
 

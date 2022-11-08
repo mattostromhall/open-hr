@@ -3,6 +3,7 @@
 namespace App\Http\Expenses\Requests;
 
 use Domain\Expenses\DataTransferObjects\ExpenseData;
+use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Models\ExpenseType;
 use Domain\People\Models\Person;
@@ -28,25 +29,11 @@ class SubmitExpenseRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function submittedExpenseData(): SubmittedExpenseData
     {
-        return [
-            'expense_data' => ExpenseData::from(
-                array_merge(
-                    $this->safe([
-                        'value',
-                        'notes'
-                    ]),
-                    [
-                        'person' => Person::query()->find($this->validated('person_id')),
-                        'type' => ExpenseType::query()->find($this->validated('expense_type_id')),
-                        'status' => ExpenseStatus::from($this->validated('status')),
-                        'value_currency' => Currency::from($this->validated('value_currency')),
-                        'date' => Carbon::parse($this->validated('date'))
-                    ]
-                )
-            ),
+        return SubmittedExpenseData::from([
+            'expense_data' => ExpenseData::from($this->safe()->all()),
             'documents' => collect($this->validated('documents'))
-        ];
+        ]);
     }
 }

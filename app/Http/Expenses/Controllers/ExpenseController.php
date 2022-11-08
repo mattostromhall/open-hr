@@ -26,9 +26,7 @@ class ExpenseController extends Controller
     public function store(SubmitExpenseRequest $request, SubmitExpenseAction $submitExpense): RedirectResponse
     {
         try {
-            $submitExpense->execute(
-                SubmittedExpenseData::from($request->validatedData())
-            );
+            $submitExpense->execute($request->submittedExpenseData());
         } catch (Exception $e) {
             return redirect(route('expense.index'))->with('flash.error', 'Part of your Expense submission failed, please review for any missing information or documents.');
         }
@@ -48,9 +46,7 @@ class ExpenseController extends Controller
 
     public function update(UpdateExpenseRequest $request, Expense $expense, AmendExpenseAction $amendExpense): RedirectResponse
     {
-        $expenseData = SubmittedExpenseData::from($request->validatedData());
-
-        $updated = $amendExpense->execute($expense, $expenseData);
+        $updated = $amendExpense->execute($expense, $request->submittedExpenseData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Expense, please try again.');

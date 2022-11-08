@@ -67,7 +67,6 @@ abstract class DataTransferObject
     protected static function resolveEnum(ReflectionParameter $param, array $data): array
     {
         $paramType = $param->getType()->getName();
-        $param->allowsNull();
 
         if (! array_key_exists($param->getName(), $data)) {
             return $data;
@@ -82,7 +81,7 @@ abstract class DataTransferObject
         }
 
         if (class_exists($paramType) && enum_exists($paramType)) {
-            $enum = $paramType::from($data[$param->getName()]);
+            $enum = $paramType::tryFrom($data[$param->getName()]);
             $data[$param->getName()] = $enum;
         }
 

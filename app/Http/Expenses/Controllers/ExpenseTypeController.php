@@ -28,9 +28,7 @@ class ExpenseTypeController extends Controller
 
     public function store(ExpenseTypeRequest $request, CreateExpenseTypeAction $createExpense): RedirectResponse
     {
-        $createExpense->execute(
-            ExpenseTypeData::from($request->validated())
-        );
+        $createExpense->execute($request->expenseTypeData());
 
         return redirect(route('expense-type.index'))->with('flash.success', 'Expense Type created!');
     }
@@ -42,9 +40,7 @@ class ExpenseTypeController extends Controller
 
     public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeAction $updateExpense): RedirectResponse
     {
-        $expenseTypeData = ExpenseTypeData::from($request->validated());
-
-        $updated = $updateExpense->execute($expenseType, $expenseTypeData);
+        $updated = $updateExpense->execute($expenseType, $request->expenseTypeData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Expense Type, please try again.');

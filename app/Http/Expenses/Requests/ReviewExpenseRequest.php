@@ -22,17 +22,12 @@ class ReviewExpenseRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function expenseData(): ExpenseData
     {
-        return array_merge(
-            $this->safe([
-                'notes'
-            ]),
-            [
-                'person' => $this->expense->person,
-                'type' => ExpenseType::query()->find($this->validated('expense_type_id')),
-                'status' => ExpenseStatus::from($this->validated('status'))
-            ]
-        );
+        return ExpenseData::from([
+            'person' => $this->expense->person,
+            ...$this->expense->toArray(),
+            ...$this->safe()->all()
+        ]);
     }
 }

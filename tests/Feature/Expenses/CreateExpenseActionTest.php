@@ -14,7 +14,7 @@ it('creates an expense', function () {
     $action = app(CreateExpenseAction::class);
     $expenseData = new ExpenseData(
         person: $person,
-        type: $expenseType,
+        expense_type: $expenseType,
         status: ExpenseStatus::PENDING,
         value: 9.50,
         value_currency: Currency::GBP,
@@ -25,7 +25,7 @@ it('creates an expense', function () {
 
     $this->assertDatabaseHas('expenses', [
         'person_id' => $expenseData->person->id,
-        'expense_type_id' => $expenseData->type->id,
+        'expense_type_id' => $expenseData->expense_type->id,
         'status' => $expenseData->status,
         'value' => $expenseData->value,
         'value_currency' => Currency::GBP,

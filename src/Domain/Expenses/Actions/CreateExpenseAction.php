@@ -11,7 +11,7 @@ class CreateExpenseAction
     {
         return Expense::create([
             'person_id' => $data->person->id,
-            'expense_type_id' => $data->type->id,
+            'expense_type_id' => $data->expense_type->id,
             'status' => $data->status,
             'value' => $data->value,
             'value_currency' => $data->value_currency,

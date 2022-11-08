@@ -13,7 +13,7 @@ class ExpenseData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,
-        public readonly ExpenseType $type,
+        public readonly ExpenseType $expense_type,
         public readonly ExpenseStatus $status,
         public readonly float $value,
         public readonly Currency $value_currency,
