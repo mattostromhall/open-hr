@@ -2,6 +2,7 @@
 
 namespace App\Http\Notifications\Requests;
 
+use Domain\Notifications\DataTransferObjects\NotificationData;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateNotificationRequest extends FormRequest
@@ -16,13 +17,11 @@ class UpdateNotificationRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function notificationData(): NotificationData
     {
-        return array_filter([
-            'title' => $this->validated('title'),
-            'body' => $this->validated('body'),
-            'link' => $this->validated('link'),
-            'read' => $this->validated('read'),
+        return NotificationData::from([
+            ...$this->notification->toArray(),
+            ...$this->safe()->all()
         ]);
     }
 }

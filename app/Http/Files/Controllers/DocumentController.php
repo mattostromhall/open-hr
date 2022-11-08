@@ -27,7 +27,7 @@ class DocumentController extends Controller
 
     public function store(StoreDocumentRequest $request, UploadDocumentsAction $uploadDocuments): RedirectResponse
     {
-        $uploadDocuments->execute($request->validatedData());
+        $uploadDocuments->execute($request->uploadedDocumentDataCollection());
 
         return back()->with('flash.success', 'Documents successfully uploaded!');
     }

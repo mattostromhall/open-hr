@@ -32,7 +32,7 @@ class StoreDocumentRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): Collection
+    public function uploadedDocumentDataCollection(): Collection
     {
         return collect($this->validated('documents'))
             ->map(function (UploadedFile $document) {

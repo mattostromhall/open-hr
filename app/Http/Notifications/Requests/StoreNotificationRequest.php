@@ -2,6 +2,7 @@
 
 namespace App\Http\Notifications\Requests;
 
+use Domain\Notifications\DataTransferObjects\NotificationData;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreNotificationRequest extends FormRequest
@@ -15,12 +16,12 @@ class StoreNotificationRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function organisationNotificationData(): NotificationData
     {
-        return [
-            'title' => $this->validated('title'),
-            'body' => $this->validated('body'),
-            'link' => $this->validated('link')
-        ];
+        return NotificationData::from([
+            'notifiable_id' => organisation()->id,
+            'notifiable_type' => 'organisation',
+            ...$this->safe()->all()
+        ]);
     }
 }

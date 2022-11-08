@@ -25,15 +25,7 @@ class OrganisationNotificationController extends Controller
 
     public function store(StoreNotificationRequest $request, CreateNotificationAction $createNotification): RedirectResponse
     {
-        $createNotification->execute(
-            new NotificationData(
-                body: $request->validated('body'),
-                notifiable_id: organisation()->id,
-                notifiable_type: 'organisation',
-                title: $request->validated('title'),
-                link: $request->validated('link')
-            )
-        );
+        $createNotification->execute($request->organisationNotificationData());
 
         return redirect(route('organisation.notifications'))
             ->with('flash.success', 'Organisation notification successfully created!');
