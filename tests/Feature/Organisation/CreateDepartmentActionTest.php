@@ -9,13 +9,13 @@ it('creates a department', function () {
     $action = app(CreateDepartmentAction::class);
     $departmentData = new DepartmentData(
         name: 'Technology',
-        head: $person
+        head_of_department: $person
     );
 
     $action->execute($departmentData);
 
     $this->assertDatabaseHas('departments', [
         'name' => 'Technology',
-        'head_of_department_id' => $departmentData->head->id
+        'head_of_department_id' => $departmentData->head_of_department->id
     ]);
 });

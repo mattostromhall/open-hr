@@ -9,7 +9,7 @@ class DepartmentData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
-        public readonly Person $head
+        public readonly Person $head_of_department
     ) {
         //
     }

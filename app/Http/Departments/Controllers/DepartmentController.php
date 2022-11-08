@@ -30,9 +30,7 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request, SetupDepartmentAction $setupDepartment): RedirectResponse
     {
-        $department = $setupDepartment->execute(
-            DepartmentData::from($request->validatedData())
-        );
+        $department = $setupDepartment->execute($request->departmentData());
 
         return redirect(
             route('department.show', [
@@ -53,9 +51,7 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department, AmendDepartmentAction $amendDepartment): RedirectResponse
     {
-        $departmentData = DepartmentData::from($request->validatedData());
-
-        $updated = $amendDepartment->execute($department, $departmentData);
+        $updated = $amendDepartment->execute($department, $request->departmentData());
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Department, please try again.');

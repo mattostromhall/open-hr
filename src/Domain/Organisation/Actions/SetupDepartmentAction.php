@@ -30,7 +30,7 @@ class SetupDepartmentAction
         $this->createNotification->execute(
             new NotificationData(
                 body: "You have been made the Head of Department for {$data->name}",
-                notifiable_id: $data->head->id,
+                notifiable_id: $data->head_of_department->id,
                 notifiable_type: 'person',
                 title: 'Assigned as Head of Department',
                 link: route('department.show', [
@@ -41,7 +41,7 @@ class SetupDepartmentAction
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$data->head->user->email],
+                recipients: [$data->head_of_department->user->email],
                 subject: 'Assigned as Head of Department',
                 body: "You have been made the Head of Department for {$data->name}",
                 link: route('department.show', [

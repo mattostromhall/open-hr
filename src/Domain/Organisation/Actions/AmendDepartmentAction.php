@@ -21,14 +21,14 @@ class AmendDepartmentAction
 
     public function execute(Department $department, DepartmentData $data): bool
     {
-        $newHeadOfDepartment = $department->head_of_department_id !== $data->head->id;
+        $newHeadOfDepartment = $department->head_of_department_id !== $data->head_of_department->id;
         $updated = $this->updateDepartment->execute($department, $data);
 
         if ($updated && $newHeadOfDepartment) {
             $this->createNotification->execute(
                 new NotificationData(
                     body: "You have been made the Head of Department for {$data->name}",
-                    notifiable_id: $data->head->id,
+                    notifiable_id: $data->head_of_department->id,
                     notifiable_type: 'person',
                     title: 'Assigned as Head of Department',
                     link: route('department.show', [
@@ -39,7 +39,7 @@ class AmendDepartmentAction
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->head->user->email],
+                    recipients: [$data->head_of_department->user->email],
                     subject: 'Assigned as Head of Department',
                     body: "You have been made the Head of Department for {$data->name}",
                     link: route('department.show', [

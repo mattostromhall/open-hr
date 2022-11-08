@@ -2,9 +2,8 @@
 
 namespace App\Http\Departments\Requests;
 
-use Domain\People\Models\Person;
+use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
@@ -17,15 +16,8 @@ class DepartmentRequest extends FormRequest
         ];
     }
 
-    public function validatedData(): array
+    public function departmentData(): DepartmentData
     {
-        return array_merge(
-            $this->safe([
-                'name'
-            ]),
-            [
-                'head' => Person::find($this->head_of_department_id)
-            ]
-        );
+        return DepartmentData::from($this->safe()->all());
     }
 }

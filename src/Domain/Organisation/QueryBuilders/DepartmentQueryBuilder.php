@@ -2,8 +2,6 @@
 
 namespace Domain\Organisation\QueryBuilders;
 
-use Domain\Absences\Enums\HolidayStatus;
-use Domain\Organisation\Enums\OrganisationYear;
 use Illuminate\Database\Eloquent\Builder;
 
 class DepartmentQueryBuilder extends Builder

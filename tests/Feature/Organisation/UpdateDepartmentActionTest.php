@@ -11,7 +11,7 @@ it('updates a department', function () {
     $action = app(UpdateDepartmentAction::class);
     $departmentData = new DepartmentData(
         name: 'Updated name',
-        head: $person
+        head_of_department: $person
     );
 
     $this->assertModelExists($department);
@@ -20,6 +20,6 @@ it('updates a department', function () {
 
     $this->assertDatabaseHas('departments', [
         'name' => $departmentData->name,
-        'head_of_department_id' => $departmentData->head->id
+        'head_of_department_id' => $departmentData->head_of_department->id
     ]);
 });
