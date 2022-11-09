@@ -2,22 +2,26 @@
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import type {Department, Person} from '../../types'
+import type {Department, Person, Paginated, Paginator} from '../../types'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
+import Pagination from '@/Components/Controls/Pagination.vue'
+import _ from 'lodash'
 
 const props = defineProps<{
-    departments: (Pick<Department, 'id' | 'name'>
+    departments: Paginated<(Pick<Department, 'id' | 'name'>
         & {
             members_count: number
         }
         & {
             head: Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>
         }
-    )[]
+    )>
 }>()
+
+const paginator: Paginator = _.omit(props.departments, 'data')
 
 let selected: Ref<number[]> = ref([])
 
@@ -31,7 +35,7 @@ function updateSelected(isSelected: boolean, id: number) {
 
 function toggleSelected(select: boolean) {
     if (select) {
-        return selected.value = props.departments.map(department => department.id)
+        return selected.value = props.departments.data.map(department => department.id)
     }
 
     return selected.value = []
@@ -118,7 +122,7 @@ function isSelected(id: number) {
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="department in departments"
+                                    v-for="department in departments.data"
                                     :key="department.id"
                                     :class="{'bg-gray-50': isSelected(department.id)}"
                                 >
@@ -174,5 +178,6 @@ function isSelected(id: number) {
                 </div>
             </div>
         </div>
+        <Pagination :paginator="paginator" />
     </div>
 </template>

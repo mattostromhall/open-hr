@@ -21,26 +21,26 @@ it('returns the department index', function () {
         ->assertInertia(
             fn (Assert $page) => $page
                 ->component('Departments/Index')
-                ->has('departments', 3)
+                ->has('departments.data', 3)
                 ->hasAll([
-                    'departments.0.id',
-                    'departments.0.name',
-                    'departments.0.members_count',
-                    'departments.0.head',
-                    'departments.0.head.id',
-                    'departments.0.head.full_name',
-                    'departments.1.id',
-                    'departments.1.name',
-                    'departments.1.members_count',
-                    'departments.1.head',
-                    'departments.1.head.id',
-                    'departments.1.head.full_name',
-                    'departments.2.id',
-                    'departments.2.name',
-                    'departments.2.members_count',
-                    'departments.2.head',
-                    'departments.2.head.id',
-                    'departments.2.head.full_name'
+                    'departments.data.0.id',
+                    'departments.data.0.name',
+                    'departments.data.0.members_count',
+                    'departments.data.0.head',
+                    'departments.data.0.head.id',
+                    'departments.data.0.head.full_name',
+                    'departments.data.1.id',
+                    'departments.data.1.name',
+                    'departments.data.1.members_count',
+                    'departments.data.1.head',
+                    'departments.data.1.head.id',
+                    'departments.data.1.head.full_name',
+                    'departments.data.2.id',
+                    'departments.data.2.name',
+                    'departments.data.2.members_count',
+                    'departments.data.2.head',
+                    'departments.data.2.head.id',
+                    'departments.data.2.head.full_name'
                 ])
         );
 });
