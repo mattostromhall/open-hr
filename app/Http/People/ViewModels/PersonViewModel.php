@@ -20,6 +20,11 @@ class PersonViewModel extends ViewModel
         $this->user = $person->user;
     }
 
+    public function active(): string
+    {
+        return request()->query('active', 'information');
+    }
+
     public function user()
     {
         return $this->user;

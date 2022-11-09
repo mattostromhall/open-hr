@@ -13,7 +13,8 @@ import type {Address, Role, User} from '../../../types'
 import type {TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 
-defineProps<{
+const props = defineProps<{
+    active: ActiveTab,
     user: Pick<User, 'id'|'email'|'active'>,
     person: Person,
     people: (Pick<Person, 'id'|'full_name'>)[],
@@ -24,9 +25,9 @@ defineProps<{
     allRoles: Role[]
 }>()
 
-type ActiveTab = 'information' | 'address' | 'reports'  |'access'
+type ActiveTab = 'information' | 'address' | 'reports' | 'access'
 
-const active: Ref<ActiveTab> = ref('information')
+const active: Ref<ActiveTab> = ref(props.active)
 
 const tabs: TabbedContentItem[] = [
     {

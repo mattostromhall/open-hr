@@ -10,25 +10,12 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import CountryInput from '@/Components/Controls/CountryInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
+import type {Address, Person} from '../../../types'
 
-const props = defineProps({
-    person: {
-        type: Object,
-        required: true
-    },
-    address: {
-        type: Object,
-        default: () => {
-            return {
-                address_line: '',
-                country: '',
-                town_city: '',
-                region: '',
-                postal_code: ''
-            }
-        }
-    }
-})
+const props = defineProps<{
+    person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>,
+    address: Address
+}>()
 
 interface AddressData {
     id?: number

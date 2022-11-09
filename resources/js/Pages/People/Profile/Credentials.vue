@@ -8,7 +8,7 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import type {User} from '../../../types'
 
 const props = defineProps<{
-    user: Pick<User, 'id'|'email'>
+    user: Pick<User, 'id' | 'email'>
 }>()
 
 interface UpdateEmailForm {

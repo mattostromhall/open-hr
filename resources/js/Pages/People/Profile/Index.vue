@@ -5,27 +5,18 @@ import {KeyIcon, EnvelopeIcon, UserCircleIcon} from '@heroicons/vue/24/outline'
 import {Head} from '@inertiajs/inertia-vue3'
 import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
-import Address from './Address.vue'
+import PersonAddress from './Address.vue'
 import PageHeading from '@/Components/PageHeading.vue'
+import type {Address, Person, User} from '../../../types'
 
-defineProps({
-    user: {
-        type: Object,
-        required: true
-    },
-    person: {
-        type: Object,
-        required: true
-    },
-    address: {
-        type: Object,
-        default: () => {
-            return {}
-        }
-    }
-})
+const props = defineProps<{
+    active: string,
+    user: Pick<User, 'id' | 'email'>,
+    person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>,
+    address: Address
+}>()
 
-const activeTab: Ref<string> = ref('personal')
+const activeTab: Ref<string> = ref(props.active)
 
 function setActive(tab: string): void {
     activeTab.value = tab
@@ -37,7 +28,9 @@ function isActive(tab: string): boolean {
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head>
+        <title>Profile</title>
+    </Head>
 
     <PageHeading>Profile</PageHeading>
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
@@ -102,7 +95,7 @@ function isActive(tab: string): boolean {
             v-if="isActive('personal')"
             :person="person"
         />
-        <Address
+        <PersonAddress
             v-if="isActive('address')"
             :person="person"
             :address="address"

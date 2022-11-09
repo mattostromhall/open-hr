@@ -6,6 +6,11 @@ use App\Http\Support\ViewModels\ViewModel;
 
 class PersonProfileViewModel extends ViewModel
 {
+    public function active(): string
+    {
+        return request()->query('active', 'personal');
+    }
+
     public function user()
     {
         return auth()->user()

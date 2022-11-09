@@ -8,13 +8,11 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import type {Person} from '../../../types'
 
-const props = defineProps({
-    person: {
-        type: Object,
-        required: true
-    }
-})
+const props = defineProps<{
+    person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>
+}>()
 
 interface PersonalInformationData {
     first_name: string,
