@@ -36,6 +36,43 @@ export type Json =
     | Json[]
     | {[key: string]: Json};
 
+export interface PaginatorLink {
+    url: string | null,
+    label: string,
+    active: boolean
+}
+
+export interface Paginator {
+    current_page: number,
+    first_page_url: string,
+    from: number,
+    last_page: number,
+    last_page_url: string,
+    links: PaginatorLink[],
+    next_page_url: string | null,
+    path: string,
+    per_page: number,
+    prev_page_url: string | null,
+    to: number,
+    total: number
+}
+
+export interface Paginated<T> extends Paginator {
+    current_page: number,
+    data: T[],
+    first_page_url: string,
+    from: number,
+    last_page: number,
+    last_page_url: string,
+    links: PaginatorLink[],
+    next_page_url: string | null,
+    path: string,
+    per_page: number,
+    prev_page_url: string | null,
+    to: number,
+    total: number
+}
+
 export interface TabbedContentItem {
     identifier: string,
     icon: string,

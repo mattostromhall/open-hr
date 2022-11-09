@@ -2,21 +2,25 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import type {Department, Person, User} from '../../../types'
+import type {Department, Paginated, Paginator, Person, User} from '../../../types'
 import {Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
+import Pagination from '@/Components/Controls/Pagination.vue'
+import _ from 'lodash'
 
 const props = defineProps<{
-    people: (Pick<User, 'id' | 'email'> & {
+    people: Paginated<(Pick<User, 'id' | 'email'> & {
         person: Pick<Person, 'id' | 'user_id' | 'department_id' | 'first_name' | 'last_name' | 'full_name' | 'pronouns' | 'position'>
-        & {
+            & {
             department?: Pick<Department, 'id' | 'name'>
         }
-    })[]
+    })>
 }>()
+
+const paginator: Paginator = _.omit(props.people, 'data')
 
 let selected: Ref<number[]> = ref([])
 
@@ -30,7 +34,7 @@ function updateSelected(isSelected: boolean, id: number) {
 
 function toggleSelected(select: boolean) {
     if (select) {
-        return selected.value = props.people.map(person => person.id)
+        return selected.value = props.people.data.map(person => person.id)
     }
 
     return selected.value = []
@@ -129,7 +133,7 @@ function isSelected(id: number) {
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="{id, email, person} in people"
+                                    v-for="{id, email, person} in people.data"
                                     :key="person.id"
                                     :class="{'bg-gray-50': isSelected(id)}"
                                 >
@@ -186,5 +190,6 @@ function isSelected(id: number) {
                 </div>
             </div>
         </div>
+        <Pagination :paginator="paginator" />
     </div>
 </template>
