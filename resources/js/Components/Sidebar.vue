@@ -85,11 +85,9 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </TransitionChild>
                     <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                         <div class="flex shrink-0 items-center px-4">
-                            <img
-                                class="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                                alt="Workflow"
-                            >
+                            <h2 class="text-2xl font-bold text-white">
+                                Open HR
+                            </h2>
                         </div>
                         <nav class="mt-5 space-y-1 px-2">
                             <Link

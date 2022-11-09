@@ -1,22 +1,47 @@
 <script setup lang="ts">
-import type {Paginator} from '../../types'
+import type {Paginator, PaginatorLink} from '../../types'
+import {Link} from '@inertiajs/inertia-vue3'
+import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/vue/20/solid'
 
-defineProps<{
+const props = defineProps<{
     paginator: Paginator
 }>()
+
+const links: PaginatorLink[] = props.paginator.links.slice(1, -1)
 </script>
 
 <template>
     <div class="flex items-center justify-between py-6">
-        <div class="flex flex-1 justify-between sm:hidden">
-            <a
-                href="#"
+        <div
+            v-if="links.length > 1"
+            class="flex flex-1 justify-between sm:hidden"
+        >
+            <Link
+                v-if="paginator.prev_page_url"
+                :href="paginator.prev_page_url"
                 class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >Previous</a>
-            <a
-                href="#"
+            >
+                Previous
+            </Link>
+            <div
+                v-else
+                class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-400"
+            >
+                Previous
+            </div>
+            <Link
+                v-if="paginator.next_page_url"
+                :href="paginator.next_page_url"
                 class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >Next</a>
+            >
+                Next
+            </Link>
+            <div
+                v-else
+                class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-400"
+            >
+                Next
+            </div>
         </div>
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
@@ -30,78 +55,55 @@ defineProps<{
                     results
                 </p>
             </div>
-            <div>
+            <div v-if="links.length > 1">
                 <nav
                     class="isolate inline-flex -space-x-px rounded-md shadow-sm"
                     aria-label="Pagination"
                 >
-                    <a
-                        href="#"
+                    <Link
+                        v-if="paginator.prev_page_url"
+                        :href="paginator.prev_page_url"
                         class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
                     >
                         <span class="sr-only">Previous</span>
-                        <!-- Heroicon name: mini/chevron-left -->
-                        <svg
-                            class="h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </a>
+                        <ChevronLeftIcon class="h-5 w-5" />
+                    </Link>
+                    <div
+                        v-else
+                        class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-300"
+                    >
+                        <span class="sr-only">Previous</span>
+                        <ChevronLeftIcon class="h-5 w-5" />
+                    </div>
                     <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
-                    <a
-                        href="#"
+                    <Link
+                        v-for="link in links"
+                        :key="link.url"
+                        :href="link.url"
                         aria-current="page"
-                        class="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
-                    >1</a>
-                    <a
-                        href="#"
-                        class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >2</a>
-                    <a
-                        href="#"
-                        class="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >3</a>
-                    <span class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                    <a
-                        href="#"
-                        class="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
-                    >8</a>
-                    <a
-                        href="#"
-                        class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >9</a>
-                    <a
-                        href="#"
-                        class="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
-                    >10</a>
-                    <a
-                        href="#"
+                        class="relative inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20"
+                        :class="{
+                            'z-10 bg-indigo-50 border-indigo-500 text-indigo-600': link.active,
+                            'bg-white border-gray-300 text-gray-500 hover:bg-gray-50': ! link.active
+                        }"
+                    >
+                        {{ link.label }}
+                    </Link>
+                    <Link
+                        v-if="paginator.next_page_url"
+                        :href="paginator.next_page_url"
                         class="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
                     >
                         <span class="sr-only">Next</span>
-                        <!-- Heroicon name: mini/chevron-right -->
-                        <svg
-                            class="h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </a>
+                        <ChevronRightIcon class="h-5 w-5" />
+                    </Link>
+                    <div
+                        v-else
+                        class="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-300"
+                    >
+                        <span class="sr-only">Next</span>
+                        <ChevronRightIcon class="h-5 w-5" />
+                    </div>
                 </nav>
             </div>
         </div>

@@ -4,11 +4,11 @@ namespace App\Http\People\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Auth\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PeopleViewModel extends ViewModel
 {
-    public function people(): Collection
+    public function people(): LengthAwarePaginator
     {
         return User::query()
             ->select('id', 'email')
@@ -17,6 +17,6 @@ class PeopleViewModel extends ViewModel
                     'department:id,name'
                 ],
             ])
-            ->get();
+            ->paginate();
     }
 }
