@@ -8,7 +8,6 @@ use App\Http\Expenses\ViewModels\ExpenseTypeViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\CreateExpenseTypeAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
-use Domain\Expenses\DataTransferObjects\ExpenseTypeData;
 use Domain\Expenses\Models\ExpenseType;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;

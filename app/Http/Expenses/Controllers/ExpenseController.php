@@ -9,7 +9,6 @@ use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\AmendExpenseAction;
 use Domain\Expenses\Actions\SubmitExpenseAction;
-use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Models\Expense;
 use Exception;
 use Illuminate\Http\RedirectResponse;
