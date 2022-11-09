@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {ExpenseType} from '../../../types'
+import type {ExpenseType, Paginated, Paginator} from '../../../types'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
@@ -7,10 +7,14 @@ import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {ClipboardDocumentListIcon, PencilIcon, PlusIcon} from '@heroicons/vue/24/outline'
+import Pagination from '@/Components/Controls/Pagination.vue'
+import _ from 'lodash'
 
 const props = defineProps<{
-    expenseTypes: ExpenseType[]
+    expenseTypes: Paginated<ExpenseType>
 }>()
+
+const paginator: Paginator = _.omit(props.expenseTypes, 'data')
 
 let selected: Ref<number[]> = ref([])
 
@@ -24,7 +28,7 @@ function updateSelected(isSelected: boolean, id: number) {
 
 function toggleSelected(select: boolean) {
     if (select) {
-        return selected.value = props.expenseTypes.map(expenseType => expenseType.id)
+        return selected.value = props.expenseTypes.data.map(expenseType => expenseType.id)
     }
 
     return selected.value = []
@@ -124,7 +128,7 @@ function isSelected(id: number) {
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="expenseType in expenseTypes"
+                                    v-for="expenseType in expenseTypes.data"
                                     :key="expenseType.id"
                                     :class="{'bg-gray-50': isSelected(expenseType.id)}"
                                 >
@@ -161,5 +165,6 @@ function isSelected(id: number) {
                 </div>
             </div>
         </div>
+        <Pagination :paginator="paginator" />
     </div>
 </template>

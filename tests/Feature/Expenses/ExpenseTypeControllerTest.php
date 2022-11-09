@@ -19,7 +19,7 @@ it('returns the expense type index', function () {
         ->assertInertia(
             fn (Assert $page) => $page
                 ->component('Expenses/ExpenseTypes/Index')
-                ->has('expenseTypes', 3)
+                ->has('expenseTypes.data', 3)
         );
 });
 
