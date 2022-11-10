@@ -2,13 +2,11 @@
 import {useDateFormat} from '@vueuse/core'
 import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
+import type {Holiday} from '../../../types'
 
-defineProps({
-    rejected: {
-        type: Array,
-        default: () => []
-    }
-})
+defineProps<{
+    rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
+}>()
 
 function formatDate(date: string): string {
     const formatted = useDateFormat(date, 'DD/MM/YYYY')

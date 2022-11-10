@@ -6,27 +6,15 @@ import Approved from './Approved.vue'
 import Pending from './Pending.vue'
 import Rejected from './Rejected.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {TabbedContentItem} from '../../../types'
+import type {Holiday, TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 
-defineProps({
-    active: {
-        type: String,
-        required: true
-    },
-    approved: {
-        type: Array,
-        default: () => []
-    },
-    pending: {
-        type: Array,
-        default: () => []
-    },
-    rejected: {
-        type: Array,
-        default: () => []
-    }
-})
+defineProps<{
+    active: string,
+    approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
+    pending: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
+    rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
+}>()
 
 const tabs: TabbedContentItem[] = [
     {

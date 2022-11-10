@@ -2,13 +2,11 @@
 import {useDateFormat} from '@vueuse/core'
 import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
+import type {Holiday} from '../../../types'
 
-defineProps({
-    approved: {
-        type: Array,
-        default: () => []
-    }
-})
+defineProps<{
+    approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
+}>()
 
 function formatDate(date: string): string {
     const formatted = useDateFormat(date, 'DD/MM/YYYY')
@@ -34,7 +32,7 @@ function formatDate(date: string): string {
                     >
                         <div class="flex items-center p-4 sm:px-6">
                             <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div class="w-44 truncate">
+                                <div class="group w-44 relative">
                                     <div class="flex text-sm text-indigo-500">
                                         <CalendarIcon class="mr-1.5 h-5 w-5 shrink-0" />
                                         <p>
@@ -57,6 +55,9 @@ function formatDate(date: string): string {
                                             </p>
                                         </div>
                                     </div>
+                                    <span class="group-hover:block hidden bg-indigo-500 text-white py-1 px-2 rounded absolute text-xs z-10 -top-7 right-0">
+                                        {{ holiday.duration > 1 ? `${holiday.duration} days` : `${holiday.duration} day` }}
+                                    </span>
                                 </div>
                                 <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                                     <p class="truncate px-3 text-sm text-gray-400">
