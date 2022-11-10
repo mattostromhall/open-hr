@@ -10,7 +10,7 @@ class PerformanceViewModel extends ViewModel
 {
     public function active(): string
     {
-        return 'request';
+        return request()->query('active', 'request');
     }
 
     public function directReports()
@@ -53,11 +53,5 @@ class PerformanceViewModel extends ViewModel
             ->objectives()
             ->current()
             ->get();
-    }
-
-    public function training()
-    {
-        return person()
-            ->training;
     }
 }

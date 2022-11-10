@@ -13,6 +13,10 @@ const props = defineProps<{
 const active: Ref<TabbedContentItem['identifier']> = ref(props.active)
 
 function setActive(identifier: TabbedContentItem['identifier']): void {
+    const searchParams = new URLSearchParams(window.location.search)
+    searchParams.set('active', identifier)
+    history.replaceState(null, '', `${window.location.pathname}?${searchParams.toString()}`)
+
     active.value = identifier
 }
 

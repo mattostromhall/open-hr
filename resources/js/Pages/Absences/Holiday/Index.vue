@@ -10,7 +10,7 @@ import type {Holiday, TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 
 defineProps<{
-    active: string,
+    active: TabbedContentItem['identifier'],
     approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
     pending: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
     rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}

@@ -10,7 +10,7 @@ class TrainingIndexViewModel extends ViewModel
 {
     public function active(): string
     {
-        return 'request';
+        return request()->query('active', 'request');
     }
 
     public function started()
