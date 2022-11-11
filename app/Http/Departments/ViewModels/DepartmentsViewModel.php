@@ -15,6 +15,8 @@ class DepartmentsViewModel extends ViewModel
             ->select('id', 'head_of_department_id', 'name')
             ->includeSize()
             ->includeHead()
-            ->paginate();
+            ->filter(request()->query('search'))
+            ->paginate()
+            ->withQueryString();
     }
 }

@@ -1,20 +1,35 @@
 <script setup lang="ts">
 import type {ExpenseType, Paginated, Paginator} from '../../../types'
-import type {Ref} from 'vue'
-import {ref} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
+import {computed, ref, watch} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {ClipboardDocumentListIcon, PencilIcon, PlusIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
-import {omit} from 'lodash'
+import SearchInput from '@/Components/Controls/SearchInput.vue'
+import {Inertia} from '@inertiajs/inertia'
+import {debounce, omit} from 'lodash'
 
 const props = defineProps<{
+    search?: string,
     expenseTypes: Paginated<ExpenseType>
 }>()
 
-const paginator: Paginator = omit(props.expenseTypes, 'data')
+let search: Ref<string | undefined> = ref(props.search)
+
+watch(search, debounce(function (search) {
+    Inertia.get('/expense-types', search
+        ? {search}
+        : undefined,
+    {
+        preserveState: true,
+        replace: true
+    })
+}, 200))
+
+const paginator: ComputedRef<Paginator> = computed(() => omit(props.expenseTypes, 'data'))
 
 let selected: Ref<number[]> = ref([])
 
@@ -53,8 +68,9 @@ function isSelected(id: number) {
         </template>
     </PageHeading>
     <div class="p-8">
+        <SearchInput v-model="search" />
         <div
-            v-if="expenseTypes.length === 0"
+            v-if="expenseTypes.data.length === 0"
             class="mx-auto sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0"
         >
             <div

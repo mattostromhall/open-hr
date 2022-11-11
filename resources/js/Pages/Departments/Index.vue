@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import {Head, Link} from '@inertiajs/inertia-vue3'
-import {ref} from 'vue'
-import type {Ref} from 'vue'
+import {computed, ref, watch} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import type {Department, Person, Paginated, Paginator} from '../../types'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
-import {omit} from 'lodash'
+import SearchInput from '@/Components/Controls/SearchInput.vue'
+import {Inertia} from '@inertiajs/inertia'
+import {debounce, omit} from 'lodash'
 
 const props = defineProps<{
+    search?: string,
     departments: Paginated<(Pick<Department, 'id' | 'name'>
         & {
             members_count: number
@@ -21,7 +24,19 @@ const props = defineProps<{
     )>
 }>()
 
-const paginator: Paginator = omit(props.departments, 'data')
+let search: Ref<string | undefined> = ref(props.search)
+
+watch(search, debounce(function (search) {
+    Inertia.get('/departments', search
+        ? {search}
+        : undefined,
+    {
+        preserveState: true,
+        replace: true
+    })
+}, 200))
+
+const paginator: ComputedRef<Paginator> = computed(() => omit(props.departments, 'data'))
 
 let selected: Ref<number[]> = ref([])
 
@@ -60,6 +75,7 @@ function isSelected(id: number) {
         </template>
     </PageHeading>
     <div class="p-8">
+        <SearchInput v-model="search" />
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
