@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type {ComputedRef} from 'vue'
 import type {Paginator, PaginatorLink} from '../../types'
+import {computed} from 'vue'
 import {Link} from '@inertiajs/inertia-vue3'
 import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/vue/20/solid'
 
@@ -7,7 +9,7 @@ const props = defineProps<{
     paginator: Paginator
 }>()
 
-const links: PaginatorLink[] = props.paginator.links.slice(1, -1)
+const links: ComputedRef<PaginatorLink[]> = computed(() => props.paginator.links.slice(1, -1))
 </script>
 
 <template>

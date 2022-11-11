@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Head, Link} from '@inertiajs/inertia-vue3'
-import {ref, watch} from 'vue'
-import type {Ref} from 'vue'
+import {computed, ref, watch} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import type {Department, Paginated, Paginator, Person, User} from '../../../types'
 import {Inertia} from '@inertiajs/inertia'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
@@ -25,10 +25,13 @@ const props = defineProps<{
 let search: Ref<string | undefined> = ref(props.search)
 
 watch(search, debounce(function (value) {
-    Inertia.get('/people', { search: value }, { preserveState: true, replace: true })
-}, 300))
+    Inertia.get('/people', {search: value}, {
+        preserveState: true,
+        replace: true
+    })
+}, 200))
 
-const paginator: Paginator = omit(props.people, 'data')
+const paginator: ComputedRef<Paginator> = computed(() => omit(props.people, 'data'))
 
 let selected: Ref<number[]> = ref([])
 

@@ -27,4 +27,9 @@ class PersonQueryBuilder extends Builder
         return $this->whereNull('finished_on')
             ->orWhere('finished_on', '>', now());
     }
+
+    public function filter(string $search = null): self
+    {
+        return $this->where('first_name', 'like', '%'.$search.'%');
+    }
 }
