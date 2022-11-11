@@ -13,7 +13,7 @@ class VacanciesViewModel extends ViewModel
 {
     public function active(): string
     {
-        return 'post';
+        return request()->query('active', 'post');
     }
 
     public function contacts(): SupportCollection

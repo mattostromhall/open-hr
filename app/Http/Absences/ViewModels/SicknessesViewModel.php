@@ -8,7 +8,7 @@ class SicknessesViewModel extends ViewModel
 {
     public function active(): string
     {
-        return 'log';
+        return request()->query('active', 'log');
     }
 
     public function sicknesses()

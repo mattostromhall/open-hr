@@ -8,8 +8,8 @@ import LogSickness from './LogSickness.vue'
 import Sicknesses from './Sicknesses.vue'
 
 defineProps<{
-    active: string,
-    sicknesses: Pick<Sickness, 'id' | 'start_at' | 'finish_at'> & {duration: number}
+    active: TabbedContentItem['identifier'],
+    sicknesses: (Pick<Sickness, 'id' | 'start_at' | 'finish_at'> & {duration: number})[]
 }>()
 
 const tabs: TabbedContentItem[] = [
