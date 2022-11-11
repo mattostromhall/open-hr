@@ -11,6 +11,7 @@ class ExpenseTypesViewModel extends ViewModel
     public function expenseTypes(): LengthAwarePaginator
     {
         return ExpenseType::query()
+            ->filter(request()->query('search'))
             ->paginate()
             ->withQueryString();
     }
