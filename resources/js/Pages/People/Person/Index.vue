@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import {Head} from '@inertiajs/inertia-vue3'
-import {ref} from 'vue'
+import {Head, Link} from '@inertiajs/inertia-vue3'
+import {ref, watch} from 'vue'
 import type {Ref} from 'vue'
 import type {Department, Paginated, Paginator, Person, User} from '../../../types'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Inertia} from '@inertiajs/inertia'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
-import _ from 'lodash'
+import SearchInput from '@/Components/Controls/SearchInput.vue'
+import {debounce, omit} from 'lodash'
 
 const props = defineProps<{
+    search?: string,
     people: Paginated<(Pick<User, 'id' | 'email'> & {
         person: Pick<Person, 'id' | 'user_id' | 'department_id' | 'first_name' | 'last_name' | 'full_name' | 'pronouns' | 'position'>
             & {
@@ -20,7 +22,13 @@ const props = defineProps<{
     })>
 }>()
 
-const paginator: Paginator = _.omit(props.people, 'data')
+let search: Ref<string | undefined> = ref(props.search)
+
+watch(search, debounce(function (value) {
+    Inertia.get('/people', { search: value }, { preserveState: true, replace: true })
+}, 300))
+
+const paginator: Paginator = omit(props.people, 'data')
 
 let selected: Ref<number[]> = ref([])
 
@@ -59,6 +67,7 @@ function isSelected(id: number) {
         </template>
     </PageHeading>
     <div class="p-8">
+        <SearchInput v-model="search" />
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

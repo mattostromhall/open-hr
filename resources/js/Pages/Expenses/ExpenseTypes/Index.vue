@@ -8,13 +8,13 @@ import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {ClipboardDocumentListIcon, PencilIcon, PlusIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
-import _ from 'lodash'
+import {omit} from 'lodash'
 
 const props = defineProps<{
     expenseTypes: Paginated<ExpenseType>
 }>()
 
-const paginator: Paginator = _.omit(props.expenseTypes, 'data')
+const paginator: Paginator = omit(props.expenseTypes, 'data')
 
 let selected: Ref<number[]> = ref([])
 

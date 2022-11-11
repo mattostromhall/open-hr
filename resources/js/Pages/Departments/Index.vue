@@ -8,7 +8,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
-import _ from 'lodash'
+import {omit} from 'lodash'
 
 const props = defineProps<{
     departments: Paginated<(Pick<Department, 'id' | 'name'>
@@ -21,7 +21,7 @@ const props = defineProps<{
     )>
 }>()
 
-const paginator: Paginator = _.omit(props.departments, 'data')
+const paginator: Paginator = omit(props.departments, 'data')
 
 let selected: Ref<number[]> = ref([])
 

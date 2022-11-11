@@ -17,6 +17,7 @@ class PeopleViewModel extends ViewModel
                     'department:id,name'
                 ],
             ])
-            ->paginate();
+            ->paginate()
+            ->withQueryString();
     }
 }
