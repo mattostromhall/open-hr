@@ -2,6 +2,7 @@
 
 namespace Domain\People\QueryBuilders;
 
+use Domain\Organisation\QueryBuilders\DepartmentQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -30,6 +31,15 @@ class PersonQueryBuilder extends Builder
 
     public function filter(string $search = null): self
     {
-        return $this->where('first_name', 'like', '%'.$search.'%');
+        return $this->when(
+            $search,
+            fn () => $this
+                ->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('position', 'like', '%' . $search . '%')
+                ->orWhereHas('department', function (DepartmentQueryBuilder $query) use ($search) {
+                    $query->filter($search);
+                })
+        );
     }
 }

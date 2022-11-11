@@ -36,8 +36,7 @@ class UserQueryBuilder extends Builder
     {
         return $this->when(
             $search,
-            fn () =>
-            $this
+            fn () => $this
                 ->where('email', $search)
                 ->orWhereHas('person', function (PersonQueryBuilder $query) use ($search) {
                     $query->filter($search);

@@ -24,8 +24,11 @@ const props = defineProps<{
 
 let search: Ref<string | undefined> = ref(props.search)
 
-watch(search, debounce(function (value) {
-    Inertia.get('/people', {search: value}, {
+watch(search, debounce(function (search) {
+    Inertia.get('/people', search
+        ? {search}
+        : undefined,
+    {
         preserveState: true,
         replace: true
     })

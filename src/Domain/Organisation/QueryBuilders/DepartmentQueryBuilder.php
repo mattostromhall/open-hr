@@ -15,4 +15,12 @@ class DepartmentQueryBuilder extends Builder
     {
         return $this->with('head:id,first_name,last_name');
     }
+
+    public function filter(string $search = null): self
+    {
+        return $this->when(
+            $search,
+            fn () => $this->where('name', 'like', '%' . $search . '%')
+        );
+    }
 }
