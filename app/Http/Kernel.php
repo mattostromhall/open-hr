@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Setup\Middleware\EnsureSetupComplete;
 use App\Http\Support\Middleware\Authenticate;
 use App\Http\Support\Middleware\EncryptCookies;
+use App\Http\Support\Middleware\EnsureActiveUser;
 use App\Http\Support\Middleware\HandleInertiaRequests;
 use App\Http\Support\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Support\Middleware\RedirectIfAuthenticated;
@@ -89,5 +90,6 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
+        'active' => EnsureActiveUser::class
     ];
 }

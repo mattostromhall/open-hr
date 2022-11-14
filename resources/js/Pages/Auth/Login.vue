@@ -7,22 +7,17 @@ import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
+defineProps<{
+    canResetPassword: boolean,
+    status?: string,
+    deactivated?: string
+}>()
+
 interface LoginForm {
     email: string,
     password: string,
     remember: boolean
 }
-
-defineProps({
-    canResetPassword: {
-        type: Boolean,
-        default: false
-    },
-    status: {
-        type: String,
-        default: undefined
-    }
-})
 
 const form: InertiaForm<LoginForm> = useForm({
     email: '',
@@ -46,7 +41,9 @@ export default {
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head>
+        <title>Log in</title>
+    </Head>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <h1 class="text-4xl font-bold text-center text-indigo-400">
@@ -62,7 +59,12 @@ export default {
             >
                 {{ status }}
             </div>
-
+            <div
+                v-if="deactivated"
+                class="mb-4 text-sm font-medium text-red-600"
+            >
+                {{ deactivated }}
+            </div>
             <form @submit.prevent="submit">
                 <div>
                     <FormLabel>Email</FormLabel>

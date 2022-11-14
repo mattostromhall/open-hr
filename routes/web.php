@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
         ->name('setup.person');
 });
 
-Route::middleware(['auth', 'setup'])->group(function () {
+Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/dashboard', DashboardController::class)
         ->name('dashboard');
     Route::get('/dashboard/management', ManagementDashboardController::class)
