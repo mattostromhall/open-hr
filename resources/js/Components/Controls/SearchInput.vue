@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import {MagnifyingGlassIcon} from '@heroicons/vue/20/solid'
+import {onMounted, ref} from 'vue'
+import type {Ref} from 'vue'
 
-defineProps<{
+const props = defineProps<{
     modelValue?: string
 }>()
 
 defineEmits(['update:modelValue'])
+
+const search: Ref<HTMLInputElement | null> = ref(null)
+
+onMounted(() => {
+    if (props.modelValue) {
+        search.value?.focus()
+    }
+})
 </script>
 
 <template>
@@ -22,6 +32,7 @@ defineEmits(['update:modelValue'])
             </div>
             <input
                 id="search"
+                ref="search"
                 name="search"
                 class="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder:text-gray-500 focus:border-indigo-500 focus:placeholder:text-gray-400 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Search"

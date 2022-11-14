@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DepartmentsViewModel extends ViewModel
 {
+    public function search(): ?string
+    {
+        return request()->query('search');
+    }
+
     public function departments(): LengthAwarePaginator
     {
         return Department::query()

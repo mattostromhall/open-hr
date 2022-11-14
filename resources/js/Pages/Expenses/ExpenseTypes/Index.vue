@@ -71,7 +71,7 @@ function isSelected(id: number) {
         <SearchInput v-model="search" />
         <div
             v-if="expenseTypes.data.length === 0"
-            class="mx-auto sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0"
+            class="mx-auto sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0 mt-8"
         >
             <div
                 class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"

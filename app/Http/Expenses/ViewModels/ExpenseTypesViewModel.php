@@ -8,6 +8,11 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ExpenseTypesViewModel extends ViewModel
 {
+    public function search(): ?string
+    {
+        return request()->query('search');
+    }
+
     public function expenseTypes(): LengthAwarePaginator
     {
         return ExpenseType::query()

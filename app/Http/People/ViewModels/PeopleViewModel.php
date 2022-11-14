@@ -8,6 +8,11 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PeopleViewModel extends ViewModel
 {
+    public function search(): ?string
+    {
+        return request()->query('search');
+    }
+
     public function people(): LengthAwarePaginator
     {
         return User::query()

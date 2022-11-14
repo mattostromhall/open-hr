@@ -7,7 +7,7 @@ import {Inertia} from '@inertiajs/inertia'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
-import {EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
+import {EyeIcon, PencilIcon, PlusIcon, UserIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
 import {debounce, omit} from 'lodash'
@@ -74,7 +74,32 @@ function isSelected(id: number) {
     </PageHeading>
     <div class="p-8">
         <SearchInput v-model="search" />
-        <div class="mt-8 flex flex-col">
+        <div
+            v-if="people.data.length === 0"
+            class="mx-auto sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0 mt-8"
+        >
+            <div
+                class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"
+            >
+                <UserIcon class="mx-auto h-12 w-12 text-gray-400" />
+                <h3 class="mt-2 text-sm font-medium text-gray-900">
+                    No People
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Get started by adding a new Person.
+                </p>
+                <div class="mt-6 flex justify-center">
+                    <IndigoLink href="expense-types/create">
+                        <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
+                        Add
+                    </IndigoLink>
+                </div>
+            </div>
+        </div>
+        <div
+            v-else
+            class="mt-8 flex flex-col"
+        >
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div class="relative overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
