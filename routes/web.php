@@ -143,6 +143,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('holiday.edit');
     Route::put('/holidays/{holiday}', [HolidayController::class, 'update'])
         ->name('holiday.update');
+    Route::delete('/holidays/{holiday}', [HolidayController::class, 'destroy'])
+        ->name('holiday.destroy');
     Route::get('/holidays/{holiday}/review', [ReviewHolidayController::class, 'show'])
         ->name('holiday.review.show');
     Route::patch('/holidays/{holiday}/review', [ReviewHolidayController::class, 'update'])

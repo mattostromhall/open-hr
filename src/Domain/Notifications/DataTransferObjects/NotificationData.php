@@ -11,8 +11,8 @@ class NotificationData extends DataTransferObject
         public readonly int $notifiable_id,
         public readonly string $notifiable_type,
         public readonly ?string $title,
-        public readonly ?string $link,
-        public readonly bool $read = false,
+        public readonly ?string $link = null,
+        public readonly bool $read = false
     ) {
         //
     }

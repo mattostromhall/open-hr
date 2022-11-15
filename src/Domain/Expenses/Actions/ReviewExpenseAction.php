@@ -2,8 +2,6 @@
 
 namespace Domain\Expenses\Actions;
 
-use Domain\Absences\DataTransferObjects\HolidayData;
-use Domain\Absences\Models\Holiday;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Notifications\Actions\CreateNotificationAction;

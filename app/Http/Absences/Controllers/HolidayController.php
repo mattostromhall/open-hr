@@ -8,6 +8,7 @@ use App\Http\Absences\ViewModels\HolidaysViewModel;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\AmendHolidayAction;
+use Domain\Absences\Actions\CancelHolidayAction;
 use Domain\Absences\Actions\RequestHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
@@ -48,5 +49,16 @@ class HolidayController extends Controller
         }
 
         return redirect()->to(route('holiday.index'))->with('flash.success', 'Holiday updated!');
+    }
+
+    public function destroy(Holiday $holiday, CancelHolidayAction $cancelHoliday): RedirectResponse
+    {
+        $cancelled = $cancelHoliday->execute($holiday, HolidayData::from($holiday->toArray()));
+
+        if (! $cancelled) {
+            return back()->with('flash.error', 'There was a problem with cancelling the Holiday request, please try again.');
+        }
+
+        return redirect()->to(route('holiday.index'))->with('flash.success', 'Holiday request cancelled!');
     }
 }

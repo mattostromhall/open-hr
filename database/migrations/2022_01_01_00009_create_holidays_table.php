@@ -22,7 +22,7 @@ return new class () extends Migration {
             $table->date('finish_at');
             $table->enum('half_day', ['am', 'pm'])->nullable();
             $table->text('notes')->nullable();
-
+            $table->softDeletes();
 
             $table->timestamps();
         });
