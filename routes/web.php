@@ -160,6 +160,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('sickness.edit');
     Route::put('/sicknesses/{sickness}', [SicknessController::class, 'update'])
         ->name('sickness.update');
+    Route::delete('/sicknesses/{sickness}', [SicknessController::class, 'destroy'])
+        ->name('sickness.destroy');
 
     Route::get('/documents', [DocumentController::class, 'index'])
         ->name('document.index');

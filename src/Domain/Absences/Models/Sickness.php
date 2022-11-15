@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Casts\PeriodCast;
 use Support\Concerns\Unguarded;
 
@@ -20,6 +21,7 @@ class Sickness extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $casts = [
         'start_at' => 'date',

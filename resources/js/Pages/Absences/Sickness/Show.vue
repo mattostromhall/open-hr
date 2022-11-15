@@ -4,13 +4,19 @@ import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import RedButton from '@/Components/Controls/RedButton.vue'
 import DocumentDownloadList from '@/Components/DocumentDownloadList.vue'
+import {Inertia} from '@inertiajs/inertia'
 
-defineProps<{
+const props = defineProps<{
     sickness: Sickness,
     logger: string,
     documents?: Document[]
 }>()
+
+function deleteSickness() {
+    return Inertia.delete(`/sicknesses/${props.sickness.id}`)
+}
 </script>
 
 <template>
@@ -33,10 +39,13 @@ defineProps<{
     </PageHeading>
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div class="py-5 px-4 sm:px-6">
+            <div class="flex items-center justify-between py-5 px-4 sm:px-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
                     Sickness Information
                 </h3>
+                <form @submit.prevent="deleteSickness">
+                    <RedButton>Delete</RedButton>
+                </form>
             </div>
             <div class="border-t border-gray-200 py-5 px-4 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">

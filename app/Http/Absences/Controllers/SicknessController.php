@@ -8,8 +8,10 @@ use App\Http\Absences\ViewModels\SicknessesViewModel;
 use App\Http\Absences\ViewModels\SicknessViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Absences\Actions\AmendSicknessAction;
+use Domain\Absences\Actions\CancelSicknessAction;
 use Domain\Absences\Actions\LogSicknessAction;
 use Domain\Absences\DataTransferObjects\LoggedSicknessData;
+use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -48,5 +50,16 @@ class SicknessController extends Controller
         }
 
         return redirect()->to(route('sickness.index'))->with('flash.success', 'Sickness updated!');
+    }
+
+    public function destroy(Sickness $sickness, CancelSicknessAction $cancelSickness): RedirectResponse
+    {
+        $cancelled = $cancelSickness->execute($sickness, SicknessData::from($sickness->toArray()));
+
+        if (! $cancelled) {
+            return back()->with('flash.error', 'There was a problem with cancelling the Sick day, please try again.');
+        }
+
+        return redirect()->to(route('sickness.index'))->with('flash.success', 'Sick day cancelled!');
     }
 }

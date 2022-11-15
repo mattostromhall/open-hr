@@ -20,6 +20,8 @@ return new class () extends Migration {
             $table->date('start_at');
             $table->date('finish_at')->nullable();
             $table->text('notes')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
