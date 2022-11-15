@@ -1,7 +1,5 @@
 <?php
 
-use Domain\Absences\Enums\HolidayStatus;
-use Domain\Absences\Models\Holiday;
 use Domain\Absences\Models\Sickness;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -113,4 +111,14 @@ it('returns validation errors when updating the sickness with incorrect data', f
     $response
         ->assertStatus(302)
         ->assertSessionHasErrors(['start_at']);
+});
+
+it('deletes the sickness', function () {
+    $sickness = Sickness::factory()->create();
+
+    $response = $this->delete(route('sickness.destroy', ['sickness' => $sickness]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Sick day cancelled!');
 });

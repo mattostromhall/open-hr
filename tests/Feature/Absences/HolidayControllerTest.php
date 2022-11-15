@@ -174,3 +174,13 @@ it('returns validation errors when updating the holiday with incorrect data', fu
         ->assertStatus(302)
         ->assertSessionHasErrors(['start_at', 'finish_at']);
 });
+
+it('deletes the holiday request', function () {
+    $holiday = Holiday::factory()->create();
+
+    $response = $this->delete(route('holiday.destroy', ['holiday' => $holiday]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Holiday request cancelled!');
+});
