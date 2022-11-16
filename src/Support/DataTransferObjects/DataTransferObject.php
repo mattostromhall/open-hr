@@ -12,7 +12,6 @@ abstract class DataTransferObject
 {
     public static function from(array $data): static
     {
-        ray($data);
         $reflectedDTO = new ReflectionClass(get_called_class());
 
         foreach ($reflectedDTO->getConstructor()->getParameters() as $param) {
