@@ -11,7 +11,7 @@ import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
-import GreyOutlineButton from '../../../Components/Controls/GreyOutlineButton.vue'
+import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 
 const props = defineProps<{
     holiday: Holiday,

@@ -245,6 +245,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('department.edit');
     Route::put('/departments/{department}', [DepartmentController::class, 'update'])
         ->name('department.update');
+    Route::delete('/departments/{department}', [DepartmentController::class, 'destroy'])
+        ->name('department.destroy');
 
     Route::post('/departments/{department}/members', DepartmentMemberController::class)
         ->name('department.members');

@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->unsignedBigInteger('head_of_department_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('head_of_department_id')

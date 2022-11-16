@@ -8,7 +8,7 @@ it('deletes the holiday', function () {
 
     $action = app(DeleteHolidayAction::class);
 
-    $this->assertModelExists($holiday);
+    $this->assertNotSoftDeleted($holiday);
 
     $action->execute($holiday);
 

@@ -8,7 +8,7 @@ it('deletes the sickness', function () {
 
     $action = app(DeleteSicknessAction::class);
 
-    $this->assertModelExists($sickness);
+    $this->assertNotSoftDeleted($sickness);
 
     $action->execute($sickness);
 

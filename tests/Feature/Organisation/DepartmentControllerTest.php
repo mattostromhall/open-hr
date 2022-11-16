@@ -1,7 +1,5 @@
 <?php
 
-use Domain\Absences\Enums\HolidayStatus;
-use Domain\Absences\Models\Holiday;
 use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -123,4 +121,14 @@ it('returns validation errors when updating the department with incorrect data',
     $response
         ->assertStatus(302)
         ->assertSessionHasErrors(['name', 'head_of_department_id']);
+});
+
+it('deletes the department', function () {
+    $department = Department::factory()->create();
+
+    $response = $this->delete(route('department.destroy', ['department' => $department]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Department dissolved!');
 });

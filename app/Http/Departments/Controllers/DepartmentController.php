@@ -9,8 +9,8 @@ use App\Http\Departments\ViewModels\DepartmentViewModel;
 use App\Http\Departments\ViewModels\EditDepartmentViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Organisation\Actions\AmendDepartmentAction;
+use Domain\Organisation\Actions\DissolveDepartmentAction;
 use Domain\Organisation\Actions\SetupDepartmentAction;
-use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -58,5 +58,16 @@ class DepartmentController extends Controller
         }
 
         return redirect()->to(route('department.index'))->with('flash.success', 'Department updated!');
+    }
+
+    public function destroy(Department $department, DissolveDepartmentAction $dissolveDepartment): RedirectResponse
+    {
+        $dissolved = $dissolveDepartment->execute($department);
+
+        if (! $dissolved) {
+            return back()->with('flash.error', 'There was a problem with dissolving the Department, please try again.');
+        }
+
+        return redirect()->to(route('department.index'))->with('flash.success', 'Department dissolved!');
     }
 }
