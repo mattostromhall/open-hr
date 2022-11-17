@@ -21,10 +21,10 @@ return new class () extends Migration {
             $table->string('disk');
             $table->unsignedBigInteger('documentable_id');
             $table->string('documentable_type');
+            $table->softDeletes();
+            $table->timestamps();
 
             $table->unique(['name', 'directory', 'extension']);
-
-            $table->timestamps();
         });
     }
 

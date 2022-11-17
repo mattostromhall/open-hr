@@ -9,6 +9,8 @@ use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\AmendExpenseAction;
 use Domain\Expenses\Actions\SubmitExpenseAction;
+use Domain\Expenses\Actions\WithdrawExpenseAction;
+use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -52,5 +54,16 @@ class ExpenseController extends Controller
         }
 
         return back()->with('flash.success', 'Expense updated!');
+    }
+
+    public function destroy(Expense $expense, WithdrawExpenseAction $withdrawExpense): RedirectResponse
+    {
+        $withdrawn = $withdrawExpense->execute($expense, ExpenseData::from($expense->toArray()));
+
+        if (! $withdrawn) {
+            return back()->with('flash.error', 'There was a problem with withdrawing the Expense, please try again.');
+        }
+
+        return redirect()->to(route('expense.index'))->with('flash.success', 'Expense withdrawn!');
     }
 }

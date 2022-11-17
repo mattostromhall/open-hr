@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Concerns\Unguarded;
 
 class Document extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $casts = [
         'documentable_type' => DocumentableType::class

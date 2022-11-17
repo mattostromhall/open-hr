@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Domain\Files\Models\Document;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Concerns\Unguarded;
 use Support\Enums\Currency;
 
@@ -22,6 +23,7 @@ class Expense extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $casts = [
         'status' => ExpenseStatus::class,

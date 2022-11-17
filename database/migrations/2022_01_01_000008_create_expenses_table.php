@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->string('value_currency');
             $table->date('date');
             $table->text('notes')->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

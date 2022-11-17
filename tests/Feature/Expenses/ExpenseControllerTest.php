@@ -159,3 +159,13 @@ it('returns validation errors when updating the expense with incorrect data', fu
         ->assertStatus(302)
         ->assertSessionHasErrors(['expense_type_id', 'status', 'value', 'value_currency', 'date']);
 });
+
+it('deletes the expense submission', function () {
+    $expense = Expense::factory()->create();
+
+    $response = $this->delete(route('expense.destroy', ['expense' => $expense]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Expense withdrawn!');
+});
