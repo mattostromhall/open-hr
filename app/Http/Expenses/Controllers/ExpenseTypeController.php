@@ -7,6 +7,7 @@ use App\Http\Expenses\ViewModels\ExpenseTypesViewModel;
 use App\Http\Expenses\ViewModels\ExpenseTypeViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Expenses\Actions\CreateExpenseTypeAction;
+use Domain\Expenses\Actions\DeleteExpenseTypeAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
 use Domain\Expenses\Models\ExpenseType;
 use Illuminate\Http\RedirectResponse;
@@ -46,5 +47,16 @@ class ExpenseTypeController extends Controller
         }
 
         return redirect()->to(route('expense-type.index'))->with('flash.success', 'Expense Type updated!');
+    }
+
+    public function destroy(ExpenseType $expenseType, DeleteExpenseTypeAction $deleteExpenseType): RedirectResponse
+    {
+        $deleted = $deleteExpenseType->execute($expenseType);
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem with deleting the Expense Type, please try again.');
+        }
+
+        return redirect()->to(route('expense.index'))->with('flash.success', 'Expense Type deleted!');
     }
 }

@@ -261,6 +261,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('expense-type.edit');
     Route::put('/expense-types/{expense_type}', [ExpenseTypeController::class, 'update'])
         ->name('expense-type.update');
+    Route::delete('/expense-types/{expense_type}', [ExpenseTypeController::class, 'destroy'])
+        ->name('expense-type.destroy');
 
     Route::get('/expenses', [ExpenseController::class, 'index'])
         ->name('expense.index');

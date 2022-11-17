@@ -90,3 +90,13 @@ it('returns validation errors when updating the expense type with incorrect data
         ->assertStatus(302)
         ->assertSessionHasErrors(['type']);
 });
+
+it('deletes the expense type', function () {
+    $expenseType = ExpenseType::factory()->create();
+
+    $response = $this->delete(route('expense-type.destroy', ['expense_type' => $expenseType]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Expense Type deleted!');
+});
