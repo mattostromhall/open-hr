@@ -57,6 +57,6 @@ class ExpenseTypeController extends Controller
             return back()->with('flash.error', 'There was a problem with deleting the Expense Type, please try again.');
         }
 
-        return redirect()->to(route('expense.index'))->with('flash.success', 'Expense Type deleted!');
+        return redirect()->to(route('expense-type.index'))->with('flash.success', 'Expense Type deleted!');
     }
 }

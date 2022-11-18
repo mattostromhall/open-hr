@@ -101,7 +101,7 @@ const showHeadingOptions: Ref<boolean> = ref(false)
         </button>
         <SimpleDropdown
             v-model="showHeadingOptions"
-            position="right"
+            position="below-right"
         >
             <template #button="{toggleDropdown}">
                 <button

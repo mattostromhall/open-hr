@@ -28,8 +28,7 @@ it('returns the performance index', function () {
                     'manager.full_name',
                     'upcomingOneToOnes',
                     'previousOneToOnes',
-                    'objectives',
-                    'training'
+                    'objectives'
                 ])
         );
 });

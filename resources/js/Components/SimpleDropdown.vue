@@ -4,7 +4,7 @@ import type {Ref} from 'vue'
 import {onClickOutside} from '@vueuse/core'
 import {TransitionRoot} from '@headlessui/vue'
 
-type Position = 'left' | 'center' | 'right'
+type Position = 'below-left' | 'below-center' | 'below-right' | 'above-left' | 'above-center' | 'above-right'
 
 const props = defineProps<{
     modelValue: boolean,
@@ -79,11 +79,14 @@ onClickOutside(dropdown, () => hideDropdown())
         >
             <div
                 v-show="modelValue"
-                class="absolute z-20 mt-2 w-max rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                class="z-20 absolute w-max rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 :class="{
-                    'origin-top-left left-0': position === 'left',
-                    'origin-top-right right-0': position === 'right',
-                    'origin-top-right right-0 transform translate-x-1/2': position === 'center'
+                    'mt-2 origin-top-left left-0': position === 'below-left',
+                    'mt-2 origin-top-right right-0': position === 'below-right',
+                    'mt-2 origin-top-right right-0 transform translate-x-1/2': position === 'below-center',
+                    '-mt-2 top-0 left-0 transform -translate-y-full': position === 'above-left',
+                    '-mt-2 top-0 right-0 transform -translate-y-full': position === 'above-right',
+                    '-mt-2 top-0 right-0 transform -translate-y-full translate-x-1/2': position === 'above-center'
                 }"
                 role="menu"
                 aria-orientation="vertical"

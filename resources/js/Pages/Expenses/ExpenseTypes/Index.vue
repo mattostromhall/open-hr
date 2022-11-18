@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type {ExpenseType, Paginated, Paginator} from '../../../types'
 import type {ComputedRef, Ref} from 'vue'
-import {computed, ref, watch} from 'vue'
+import {computed, reactive, ref, watch} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
-import {ClipboardDocumentListIcon, PencilIcon, PlusIcon} from '@heroicons/vue/24/outline'
+import {ClipboardDocumentListIcon, PencilIcon, PlusIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
+import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {Inertia} from '@inertiajs/inertia'
 import {debounce, omit} from 'lodash'
 
@@ -52,6 +53,9 @@ function toggleSelected(select: boolean) {
 function isSelected(id: number) {
     return selected.value.includes(id)
 }
+const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
+    props.expenseTypes.data.map((expenseType) => [expenseType.id, false])
+))
 </script>
 
 <template>
@@ -173,6 +177,30 @@ function isSelected(id: number) {
                                         >
                                             <PencilIcon class="h-4 w-4" /><span class="sr-only">, {{ expenseType.type }}</span>
                                         </Link>
+                                        <SimpleDropdown
+                                            v-model="showDeleteDropdown[expenseType.id]"
+                                            position="above-right"
+                                        >
+                                            <template #button="{toggleDropdown}">
+                                                <button
+                                                    type="button"
+                                                    @click="toggleDropdown"
+                                                >
+                                                    <TrashIcon class="h-4 w-4 ml-2 text-red-600 hover:text-red-900" /><span class="sr-only">, {{ expenseType.type }}</span>
+                                                </button>
+                                            </template>
+                                            <template #default="{hideDropdown}">
+                                                <Link
+                                                    as="button"
+                                                    method="delete"
+                                                    :href="`/expense-types/${expenseType.id}`"
+                                                    class="flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:bg-red-400"
+                                                    @click="hideDropdown"
+                                                >
+                                                    Confirm
+                                                </Link>
+                                            </template>
+                                        </SimpleDropdown>
                                     </td>
                                 </tr>
                             </tbody>
