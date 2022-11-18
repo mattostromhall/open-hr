@@ -167,6 +167,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('document.index');
     Route::post('/documents', [DocumentController::class, 'store'])
         ->name('document.store');
+    Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])
+        ->name('document.destroy');
     Route::get('/documents/download/{path}', DownloadDocumentController::class)
         ->where('path', '.*')
         ->name('document.download');

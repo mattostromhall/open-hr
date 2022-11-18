@@ -1,12 +1,11 @@
 <?php
 
-use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Files\Enums\DocumentableType;
+use Domain\Files\Models\Document;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
-use Support\Enums\Currency;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -71,4 +70,13 @@ it('returns validation errors when uploading documents with incorrect data', fun
     $response
         ->assertStatus(302)
         ->assertSessionHasErrors(['documents', 'documentable_id', 'documentable_type']);
+});
+
+it('deletes the document', function () {
+    $document = Document::factory()->create();
+    $response = $this->delete(route('document.destroy', ['document' => $document]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Document deleted!');
 });
