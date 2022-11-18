@@ -29,3 +29,23 @@ it('returns validation errors when submitting an expense with incorrect data', f
         ->assertStatus(302)
         ->assertSessionHasErrors(['path']);
 });
+
+it('deletes the directory at the path provided', function () {
+    $path = 'test/' . faker()->text(10);
+
+    $createResponse = $this->post(route('directory.store'), [
+        'path' => $path
+    ]);
+
+    $createResponse
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Folder successfully created!');
+
+    $createResponse = $this->post(route('directory.destroy'), [
+        'path' => $path
+    ]);
+
+    $createResponse
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Folder deleted!');
+});

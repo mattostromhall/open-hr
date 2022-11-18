@@ -176,6 +176,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
 
     Route::post('/directories', [DirectoryController::class, 'store'])
         ->name('directory.store');
+    Route::post('/directories/delete', [DirectoryController::class, 'destroy'])
+        ->name('directory.destroy');
 
     Route::get('/performance', PerformanceController::class)
         ->name('performance.index');
