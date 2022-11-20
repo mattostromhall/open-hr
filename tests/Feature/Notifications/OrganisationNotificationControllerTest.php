@@ -1,9 +1,6 @@
 <?php
 
-use Domain\Absences\Enums\HolidayStatus;
-use Domain\Absences\Models\Holiday;
 use Domain\Notifications\Models\Notification;
-use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;

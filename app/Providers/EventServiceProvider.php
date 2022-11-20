@@ -21,12 +21,10 @@ use Domain\Files\Events\DocumentCreated;
 use Domain\Files\Events\DocumentDeleted;
 use Domain\Files\Events\DocumentUpdated;
 use Domain\Notifications\Events\NotificationCreated;
-use Domain\Notifications\Events\NotificationDeleted;
 use Domain\Notifications\Events\NotificationUpdated;
 use Domain\Organisation\Events\DepartmentCreated;
 use Domain\Organisation\Events\DepartmentDeleted;
 use Domain\Organisation\Events\DepartmentUpdated;
-use Domain\Organisation\Events\OrganisationCreated;
 use Domain\Organisation\Events\OrganisationDeleted;
 use Domain\Organisation\Events\OrganisationUpdated;
 use Domain\People\Events\AddressCreated;
@@ -128,9 +126,6 @@ class EventServiceProvider extends ServiceProvider
             LogAction::class
         ],
         NotificationUpdated::class => [
-            LogAction::class
-        ],
-        NotificationDeleted::class => [
             LogAction::class
         ],
         DepartmentCreated::class => [

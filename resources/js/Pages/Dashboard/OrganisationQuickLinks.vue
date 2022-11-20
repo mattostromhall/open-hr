@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
+import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -172,28 +172,13 @@ import {BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocument
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-bl-lg">
                 <div>
                     <span class="inline-flex rounded-lg bg-rose-50 p-3 text-rose-700 ring-4 ring-white">
-                        <!-- Heroicon name: outline/receipt-refund -->
-                        <svg
-                            class="h-6 w-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"
-                            />
-                        </svg>
+                        <BellIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
-                        <a
-                            href="#"
+                        <Link
+                            href="/organisation/notifications/create"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -201,11 +186,11 @@ import {BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocument
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Submit an expense
-                        </a>
+                            Notifications
+                        </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.
+                        Create Notifications for your Organisation.
                     </p>
                 </div>
                 <span

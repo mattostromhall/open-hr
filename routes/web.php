@@ -20,6 +20,7 @@ use App\Http\Expenses\Controllers\ReviewExpenseController;
 use App\Http\Files\Controllers\DirectoryController;
 use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
+use App\Http\Notifications\Controllers\NotificationController;
 use App\Http\Notifications\Controllers\OrganisationNotificationController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
@@ -94,6 +95,9 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
 
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
         ->name('notifications.read');
+
+    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])
+        ->name('notifications.destroy');
 
     Route::patch('/users/{user}/update-email', UpdateEmailController::class)
         ->name('user.update.email');
