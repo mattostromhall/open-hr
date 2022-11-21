@@ -121,6 +121,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('person.edit');
     Route::put('/people/{person}', [PersonController::class, 'update'])
         ->name('person.update');
+    Route::delete('/people/{person}', [PersonController::class, 'destroy'])
+        ->name('person.destroy');
 
     Route::post('/people/{person}/direct-reports', DirectReportController::class)
         ->name('person.direct-reports');

@@ -4,9 +4,11 @@ use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
-use Support\Enums\Currency;
-use function Pest\Faker\faker;
 use Inertia\Testing\AssertableInertia as Assert;
+
+use function Pest\Faker\faker;
+
+use Support\Enums\Currency;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -215,4 +217,12 @@ it('returns validation errors when updating the person with incorrect data', fun
     $response
         ->assertStatus(302)
         ->assertSessionHasErrors(['user_id', 'first_name', 'last_name', 'dob', 'position', 'remuneration', 'remuneration_interval', 'remuneration_currency', 'base_holiday_allocation', 'sickness_allocation', 'contact_number', 'contact_email', 'started_on', 'hex_code']);
+});
+
+it('deletes the person', function () {
+    $response = $this->delete(route('person.destroy', ['person' => $this->person]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Person deleted!');
 });

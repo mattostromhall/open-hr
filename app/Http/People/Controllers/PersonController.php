@@ -9,6 +9,7 @@ use App\Http\People\ViewModels\PeopleViewModel;
 use App\Http\People\ViewModels\PersonViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\People\Actions\CreatePersonUserAction;
+use Domain\People\Actions\DeletePersonUserAction;
 use Domain\People\Actions\UpdatePersonAction;
 use Domain\People\Models\Person;
 use Illuminate\Http\RedirectResponse;
@@ -54,5 +55,18 @@ class PersonController extends Controller
         }
 
         return back()->with('flash.success', 'Person successfully updated!');
+    }
+
+    public function destroy(Person $person, DeletePersonUserAction $deletePerson): RedirectResponse
+    {
+        $deleted = $deletePerson->execute($person, $person->user);
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem deleting the Person, please try again.');
+        }
+
+        return redirect()
+            ->to(route('person.index'))
+            ->with('flash.success', 'Person deleted!');
     }
 }

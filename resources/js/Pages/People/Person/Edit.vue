@@ -90,6 +90,7 @@ const tabs: TabbedContentItem[] = [
         />
         <Access
             v-if="isActive('access')"
+            :person="person"
             :user="user"
             :roles="roles"
             :all-roles="allRoles"

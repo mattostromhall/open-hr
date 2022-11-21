@@ -36,7 +36,7 @@ return new class () extends Migration {
             $table->date('started_on');
             $table->date('finished_on')->nullable();
             $table->string('hex_code')->default('#4f46e5');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -4,12 +4,20 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import MultiSelectInput from '@/Components/Controls/MultiSelectInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import RedButton from '@/Components/Controls/RedButton.vue'
+import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Role, User} from '../../../types'
+import {Inertia} from '@inertiajs/inertia'
+import SimpleModal from '@/Components/SimpleModal.vue'
+import type {Ref} from 'vue'
+import {ref} from 'vue'
+import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
+import type {Person, Role, User} from '../../../types'
 
 const props = defineProps<{
+    person: Pick<Person, 'id'|'full_name'>,
     user: Pick<User, 'id'|'email'|'active'>,
     roles: Role[],
     allRoles: Role[]
@@ -68,6 +76,12 @@ const abilities = computed(() => {
             .map(ability => ability.title)
     )
 })
+
+const showDeleteModal: Ref<boolean> = ref(false)
+
+function deletePerson() {
+    return Inertia.delete(`/people/${props.person.id}`)
+}
 </script>
 
 <template>
@@ -173,6 +187,64 @@ const abilities = computed(() => {
                     >
                         Save
                     </IndigoButton>
+                </div>
+            </div>
+        </form>
+        <form @submit.prevent="deletePerson">
+            <div class="shadow sm:rounded-md">
+                <div class="py-6 px-4 space-y-6 bg-white sm:p-6 sm:rounded-t-md">
+                    <div>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">
+                            Delete
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Remove the person from the system.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-end py-3 px-4 text-right bg-gray-50 sm:px-6 sm:rounded-b-md">
+                    <RedButton
+                        type="button"
+                        @click="showDeleteModal = true"
+                    >
+                        Delete
+                    </RedButton>
+                    <SimpleModal
+                        v-model="showDeleteModal"
+                        modal-classes="px-4 pt-5 pb-4 text-left sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+                    >
+                        <form @submit.prevent="deletePerson">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                    <ExclamationTriangleIcon class="h-6 w-6 text-red-600" />
+                                </div>
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h3
+                                        id="modal-title"
+                                        class="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        Confirm Delete
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500">
+                                            Are you sure you want to delete {{ person.full_name }}? This action cannot be undone.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                <RedButton class="w-full sm:w-auto sm:ml-3">
+                                    Confirm
+                                </RedButton>
+                                <GreyOutlineButton
+                                    class="w-full sm:w-auto mt-3 sm:mt-0"
+                                    @click="showDeleteModal = false"
+                                >
+                                    Cancel
+                                </GreyOutlineButton>
+                            </div>
+                        </form>
+                    </SimpleModal>
                 </div>
             </div>
         </form>
