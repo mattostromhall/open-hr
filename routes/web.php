@@ -134,6 +134,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('address.store');
     Route::put('/addresses/{address}', [AddressController::class, 'update'])
         ->name('address.update');
+    Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])
+        ->name('address.destroy');
 
     Route::get('/holidays', [HolidayController::class, 'index'])
         ->name('holiday.index');

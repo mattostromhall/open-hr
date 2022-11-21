@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->string('region');
             $table->string('country');
             $table->string('postal_code');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

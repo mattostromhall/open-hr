@@ -70,3 +70,13 @@ it('returns validation errors when updating the address with incorrect data', fu
         ->assertStatus(302)
         ->assertSessionHasErrors(['address_line', 'country', 'region', 'town_city', 'postal_code']);
 });
+
+it('deletes the address', function () {
+    $address = Address::factory()->create();
+
+    $response = $this->delete(route('address.destroy', ['address' => $address]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Address deleted!');
+});

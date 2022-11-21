@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {PlusIcon} from '@heroicons/vue/24/solid'
-import {EnvelopeIcon} from '@heroicons/vue/24/outline'
+import {EnvelopeIcon, ExclamationTriangleIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
@@ -8,6 +8,10 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import CountryInput from '@/Components/Controls/CountryInput.vue'
+import RedButton from '@/Components/Controls/RedButton.vue'
+import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import SimpleModal from '@/Components/SimpleModal.vue'
+import {Inertia} from '@inertiajs/inertia'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 import type {Address, Person} from '../../../types'
@@ -37,14 +41,22 @@ const form: InertiaForm<AddressData> = useForm({
     postal_code: props.address?.postal_code ?? ''
 })
 
-function show(): void {
-    showForm.value = true
-}
-
 function submit(): void {
     props.address?.id
         ? form.put(`/addresses/${props.address.id}`)
         : form.post(`/people/${props.person.id}/address`)
+}
+
+const showDeleteModal: Ref<boolean> = ref(false)
+
+function deleteAddress() {
+    return Inertia.delete(`/addresses/${props.address.id}`, {
+        preserveState : false,
+        onSuccess: () => {
+            showDeleteModal.value = false
+            showForm.value = false
+        }
+    })
 }
 </script>
 
@@ -63,7 +75,7 @@ function submit(): void {
                     Add an address to this account
                 </p>
                 <div class="mt-6 flex justify-center">
-                    <IndigoButton @click="show">
+                    <IndigoButton @click="showForm = true">
                         <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Add Address
                     </IndigoButton>
@@ -74,15 +86,60 @@ function submit(): void {
                 @submit.prevent="submit"
             >
                 <div class="space-y-6 bg-white py-6 px-4 sm:p-6">
-                    <div>
-                        <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Address
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-500">
-                            Manage the address stored for you.
-                        </p>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium leading-6 text-gray-900">
+                                Address
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Manage the address stored for you.
+                            </p>
+                        </div>
+                        <RedButton
+                            v-if="address"
+                            class="!px-3"
+                            type="button"
+                            @click="showDeleteModal = true"
+                        >
+                            <TrashIcon class="h-4 w-4" /><span class="sr-only">, Delete</span>
+                        </RedButton>
+                        <SimpleModal
+                            v-model="showDeleteModal"
+                            modal-classes="px-4 pt-5 pb-4 text-left sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+                        >
+                            <form @submit.prevent="deleteAddress">
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <ExclamationTriangleIcon class="h-6 w-6 text-red-600" />
+                                    </div>
+                                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <h3
+                                            id="modal-title"
+                                            class="text-lg font-medium leading-6 text-gray-900"
+                                        >
+                                            Confirm Delete
+                                        </h3>
+                                        <div class="mt-2">
+                                            <p class="text-sm text-gray-500">
+                                                Are you sure you want to delete the Address? This action cannot be undone.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                    <RedButton class="w-full sm:w-auto sm:ml-3">
+                                        Confirm
+                                    </RedButton>
+                                    <GreyOutlineButton
+                                        class="w-full sm:w-auto mt-3 sm:mt-0"
+                                        @click="showDeleteModal = false"
+                                    >
+                                        Cancel
+                                    </GreyOutlineButton>
+                                </div>
+                            </form>
+                        </SimpleModal>
                     </div>
-
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-5">
                             <FormLabel>Address <RequiredIcon /></FormLabel>

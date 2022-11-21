@@ -5,8 +5,8 @@ namespace App\Http\People\Controllers;
 use App\Http\People\Requests\AddressRequest;
 use App\Http\Support\Controllers\Controller;
 use Domain\People\Actions\CreateAddressAction;
+use Domain\People\Actions\DeleteAddressAction;
 use Domain\People\Actions\UpdateAddressAction;
-use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Address;
 use Illuminate\Http\RedirectResponse;
 
@@ -28,5 +28,16 @@ class AddressController extends Controller
         }
 
         return back()->with('flash.success', 'Address successfully updated!');
+    }
+
+    public function destroy(Address $address, DeleteAddressAction $deleteAddress): RedirectResponse
+    {
+        $deleted = $deleteAddress->execute($address);
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem when deleting Address, please try again.');
+        }
+
+        return back()->with('flash.success', 'Address deleted!');
     }
 }
