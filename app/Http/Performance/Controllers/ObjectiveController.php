@@ -8,6 +8,7 @@ use App\Http\Performance\ViewModels\ObjectiveViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\AmendObjectiveAction;
 use Domain\Performance\Actions\SetObjectiveAction;
+use Domain\Performance\Actions\UnsetObjectiveAction;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 use Illuminate\Http\RedirectResponse;
@@ -42,6 +43,21 @@ class ObjectiveController extends Controller
             return back()->with('flash.error', 'There was a problem with updating the Objective, please try again.');
         }
 
-        return redirect()->to(route('performance.index'))->with('flash.success', 'Objective updated!');
+        return redirect()
+            ->to(route('performance.index'))
+            ->with('flash.success', 'Objective updated!');
+    }
+
+    public function destroy(Objective $objective, UnsetObjectiveAction $unsetObjective): RedirectResponse
+    {
+        $deleted = $unsetObjective->execute($objective, ObjectiveData::from($objective->toArray()));
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem with deleting the Objective, please try again.');
+        }
+
+        return redirect()
+            ->to(route('performance.index'))
+            ->with('flash.success', 'Objective deleted!');
     }
 }

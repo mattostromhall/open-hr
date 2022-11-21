@@ -99,3 +99,13 @@ it('returns validation errors when updating the objective with incorrect data', 
         ->assertStatus(302)
         ->assertSessionHasErrors(['title', 'description', 'due_at', 'completed_at']);
 });
+
+it('deletes the objective', function () {
+    $objective = Objective::factory()->create();
+
+    $response = $this->delete(route('objective.destroy', ['objective' => $objective]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Objective deleted!');
+});

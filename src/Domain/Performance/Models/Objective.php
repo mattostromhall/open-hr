@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Concerns\Unguarded;
 
 class Objective extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $casts = [
         'due_at' => 'date',

@@ -215,6 +215,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('objective.show');
     Route::get('/objectives/{objective}/edit', [ObjectiveController::class, 'edit'])
         ->name('objective.edit');
+    Route::delete('/objectives/{objective}', [ObjectiveController::class, 'destroy'])
+        ->name('objective.destroy');
     Route::post('/objectives/{objective}/complete', CompleteObjectiveController::class)
         ->name('objective.complete');
 
