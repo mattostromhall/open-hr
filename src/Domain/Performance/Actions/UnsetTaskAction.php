@@ -6,38 +6,39 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
-use Domain\Performance\DataTransferObjects\ObjectiveData;
-use Domain\Performance\Models\Objective;
+use Domain\Performance\DataTransferObjects\TaskData;
+use Domain\Performance\Models\Task;
+use Illuminate\Support\Str;
 
-class UnsetObjectiveAction
+class UnsetTaskAction
 {
     public function __construct(
-        protected DeleteObjectiveAction $deleteObjective,
+        protected DeleteTaskAction $deleteTask,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {
         //
     }
 
-    public function execute(Objective $objective, ObjectiveData $data): bool
+    public function execute(Task $task, TaskData $data): bool
     {
-        $deleted = $this->deleteObjective->execute($objective);
+        $deleted = $this->deleteTask->execute($task);
 
         if ($deleted) {
             $this->createNotification->execute(
                 new NotificationData(
-                    body: "An Objective has been unset - {$data->title}. Deadline - {$data->due_at->toDateString()}",
-                    notifiable_id: $data->person->id,
+                    body: 'A Task has been unset - ' . Str::substr($data->description, 0, 75) . "... Deadline - {$data->due_at->toDateString()}",
+                    notifiable_id: $data->objective->person->id,
                     notifiable_type: 'person',
-                    title: 'An Objective has been unset',
+                    title: 'A Task has been unset',
                 )
             );
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->person->user->email],
-                    subject: 'An Objective has been unset',
-                    body: "An Objective has been unset - {$data->title}. Deadline - {$data->due_at->toDateString()}"
+                    recipients: [$data->objective->person->user->email],
+                    subject: 'A Task has been unset',
+                    body: "A Task has been unset - {$data->description}. Deadline - {$data->due_at->toDateString()}"
                 )
             );
         }

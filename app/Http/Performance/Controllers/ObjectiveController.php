@@ -53,11 +53,11 @@ class ObjectiveController extends Controller
         $deleted = $unsetObjective->execute($objective, ObjectiveData::from($objective->toArray()));
 
         if (! $deleted) {
-            return back()->with('flash.error', 'There was a problem with deleting the Objective, please try again.');
+            return back()->with('flash.error', 'There was a problem with unsetting the Objective, please try again.');
         }
 
         return redirect()
-            ->to(route('performance.index'))
-            ->with('flash.success', 'Objective deleted!');
+            ->to(route('performance.index', ['active' => 'create']))
+            ->with('flash.success', 'Objective unset!');
     }
 }

@@ -7,12 +7,13 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import type {Task} from '../../../types'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 
 const props = defineProps<{
     task: Task
 }>()
 
-const emit = defineEmits(['updated'])
+const emit = defineEmits(['cancel', 'updated'])
 
 type TaskData = Omit<Task, 'id' | 'days_remaining' | 'completed_at'>
 
@@ -28,6 +29,10 @@ function submit(): void {
             emit('updated')
         }
     })
+}
+
+function cancelEdit() {
+    emit('cancel')
 }
 </script>
 
@@ -66,7 +71,10 @@ function submit(): void {
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
+                <div class="flex justify-between bg-gray-50 py-3 px-4 text-right sm:rounded-b-md sm:px-6">
+                    <GreyOutlineButton @click="cancelEdit">
+                        Cancel
+                    </GreyOutlineButton>
                     <IndigoButton
                         :disabled="form.processing"
                     >

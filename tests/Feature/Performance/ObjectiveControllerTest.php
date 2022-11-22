@@ -107,5 +107,5 @@ it('deletes the objective', function () {
 
     $response
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Objective deleted!');
+        ->assertSessionHas('flash.success', 'Objective unset!');
 });

@@ -9,7 +9,7 @@ use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
 
-it('updates an objective', function () {
+it('updates a task', function () {
     $objective = Objective::factory()->create();
     $task = Task::factory()->create([
         'objective_id' => $objective->id

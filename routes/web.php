@@ -224,6 +224,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('task.store');
     Route::put('/tasks/{task}', [ObjectiveTaskController::class, 'update'])
         ->name('task.update');
+    Route::delete('/tasks/{task}', [ObjectiveTaskController::class, 'destroy'])
+        ->name('task.destroy');
     Route::post('/tasks/{task}/complete', CompleteTaskController::class)
         ->name('task.complete');
 

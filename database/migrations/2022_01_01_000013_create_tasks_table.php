@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->text('description');
             $table->date('due_at');
             $table->date('completed_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

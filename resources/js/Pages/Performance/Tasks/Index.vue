@@ -2,12 +2,14 @@
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Task} from '../../../types'
 import {Inertia} from '@inertiajs/inertia'
-import {PencilIcon} from '@heroicons/vue/24/outline'
-import {ref} from 'vue'
+import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline'
+import {reactive, ref} from 'vue'
 import type {Ref} from 'vue'
 import Edit from './Edit.vue'
+import SimpleDropdown from '@/Components/SimpleDropdown.vue'
+import {Link} from '@inertiajs/inertia-vue3'
 
-defineProps<{
+const props = defineProps<{
     tasks: Task[]
 }>()
 
@@ -32,6 +34,10 @@ function overdue(task: Task): boolean {
 function complete(task: Task) {
     return Inertia.post(`/tasks/${task.id}/complete`)
 }
+
+const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
+    props.tasks.map((task) => [task.id, false])
+))
 </script>
 
 <template>
@@ -77,19 +83,46 @@ function complete(task: Task) {
                         v-html="task.description"
                     />
                 </div>
-                <div class="flex justify-end p-4 text-indigo-600 sm:p-6">
+                <div class="flex justify-end p-4 space-x-2 sm:p-6">
                     <button
+                        class="text-indigo-600"
                         type="button"
                         @click="edit(task)"
                     >
-                        <PencilIcon class="h-4 w-4" /><span class="sr-only" />
+                        <PencilIcon class="h-4 w-4" />
                     </button>
+                    <SimpleDropdown
+                        v-model="showDeleteDropdown[task.id]"
+                        position="below-right"
+                        class="h-4"
+                    >
+                        <template #button="{toggleDropdown}">
+                            <button
+                                type="button"
+                                @click="toggleDropdown"
+                            >
+                                <TrashIcon class="h-4 w-4 text-red-600 hover:text-red-900" />
+                            </button>
+                        </template>
+                        <template #default="{hideDropdown}">
+                            <Link
+                                as="button"
+                                method="delete"
+                                :href="`/tasks/${task.id}`"
+                                class="flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:bg-red-400"
+                                @click="hideDropdown"
+                            >
+                                Confirm
+                            </Link>
+                        </template>
+                    </SimpleDropdown>
                 </div>
             </div>
             <Edit
                 v-else
                 :task="task"
                 @updated="removeFromEditing(task)"
+                @cancel="removeFromEditing(task)"
             />
         </li>
     </ul>

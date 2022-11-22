@@ -66,3 +66,13 @@ it('returns validation errors when updating the task with incorrect data', funct
         ->assertStatus(302)
         ->assertSessionHasErrors(['description', 'due_at', 'completed_at']);
 });
+
+it('deletes the task', function () {
+    $task = Task::factory()->create();
+
+    $response = $this->delete(route('task.destroy', ['task' => $task]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Task unset!');
+});
