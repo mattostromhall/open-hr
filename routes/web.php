@@ -198,6 +198,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('one-to-one.show');
     Route::put('/one-to-ones/{one_to_one}', [OneToOneController::class, 'update'])
         ->name('one-to-one.update');
+    Route::delete('/one-to-ones/{one_to_one}', [OneToOneController::class, 'destroy'])
+        ->name('one-to-one.destroy');
     Route::get('/one-to-ones/{one_to_one}/edit', [OneToOneController::class, 'edit'])
         ->name('one-to-one.edit');
     Route::get('/one-to-ones/{one_to_one}/invite', [OneToOneInviteController::class, 'show'])

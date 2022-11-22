@@ -133,3 +133,16 @@ it('returns validation errors when updating the one-to-one with incorrect data',
         ->assertStatus(302)
         ->assertSessionHasErrors(['person_status', 'manager_status', 'scheduled_at', 'recurring', 'recurrence_interval', 'completed_at', 'notes']);
 });
+
+it('deletes the one-to-one', function () {
+    $oneToOne = OneToOne::factory()->create([
+        'person_id' => $this->person->id,
+        'requester_id' => $this->person->id
+    ]);
+
+    $response = $this->delete(route('one-to-one.destroy', ['one_to_one' => $oneToOne]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'One-to-one cancelled!');
+});

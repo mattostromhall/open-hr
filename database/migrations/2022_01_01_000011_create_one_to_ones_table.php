@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->boolean('recurring')->default(false);
             $table->enum('recurrence_interval', ['never', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'biannually'])->default('never');
             $table->text('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

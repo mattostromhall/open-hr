@@ -7,7 +7,9 @@ use App\Http\Performance\Requests\UpdateOneToOneRequest;
 use App\Http\Performance\ViewModels\OneToOneViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\AmendOneToOneAction;
+use Domain\Performance\Actions\CancelOneToOneAction;
 use Domain\Performance\Actions\ScheduleOneToOneAction;
+use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -41,5 +43,16 @@ class OneToOneController extends Controller
         }
 
         return redirect()->to(route('performance.index'))->with('flash.success', 'One-to-one updated!');
+    }
+
+    public function destroy(OneToOne $oneToOne, CancelOneToOneAction $cancelOneToOne): RedirectResponse
+    {
+        $deleted = $cancelOneToOne->execute($oneToOne, OneToOneData::from($oneToOne->toArray()));
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem with cancelling the One-to-one, please try again.');
+        }
+
+        return redirect()->to(route('performance.index'))->with('flash.success', 'One-to-one cancelled!');
     }
 }
