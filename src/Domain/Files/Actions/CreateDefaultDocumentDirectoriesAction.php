@@ -2,6 +2,7 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Enums\DocumentableType;
 use Illuminate\Support\Collection;
 
 class CreateDefaultDocumentDirectoriesAction
@@ -11,15 +12,13 @@ class CreateDefaultDocumentDirectoriesAction
         //
     }
 
-    /**
-     * @param Collection<string> $directories
-     * @return void
-     */
-    public function execute(Collection $directories): void
+    public function execute(): void
     {
-        $directories->each(
-            fn (string $directory) =>
-            $this->createDirectory->execute("documents/{$directory}")
-        );
+        collect(DocumentableType::cases())
+            ->map(fn (DocumentableType $type) => $type->plural())
+            ->each(
+                fn (string $directory) =>
+                $this->createDirectory->execute("documents/{$directory}")
+            );
     }
 }

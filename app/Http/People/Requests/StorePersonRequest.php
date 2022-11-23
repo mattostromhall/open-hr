@@ -4,6 +4,7 @@ namespace App\Http\People\Requests;
 
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Department;
+use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,6 +39,11 @@ class StorePersonRequest extends FormRequest
             'started_on' => ['required', 'date'],
             'finished_on' => ['date', 'nullable', 'after:started_on']
         ];
+    }
+
+    public function personData(): PersonData
+    {
+        return PersonData::from($this->safe()->all());
     }
 
     public function validatedData(): array

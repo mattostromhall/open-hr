@@ -57,7 +57,7 @@ export default {
             </h2>
         </div>
         <div
-            class="py-8 px-4 bg-white shadow sm:px-10 sm:mx-auto sm:w-full sm:rounded-lg"
+            class="py-8 px-4 bg-white shadow sm:px-10 sm:mx-auto sm:w-full sm:rounded-lg mb-8"
             :class="{
                 'sm:max-w-md': setupStages.current === 1,
                 'sm:max-w-3xl': setupStages.current === 2

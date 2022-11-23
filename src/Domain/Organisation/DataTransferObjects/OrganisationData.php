@@ -10,7 +10,7 @@ class OrganisationData extends DataTransferObject
 {
     public function __construct(
         public readonly string $name,
-        public readonly UploadedFile|string $logo,
+        public readonly ?UploadedFile $logo,
         public readonly ?Carbon $setup_at = null
     ) {
         //

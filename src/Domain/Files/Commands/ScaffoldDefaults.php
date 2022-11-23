@@ -3,7 +3,6 @@
 namespace Domain\Files\Commands;
 
 use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
-use Domain\Files\Enums\DocumentableType;
 use Illuminate\Console\Command;
 
 class ScaffoldDefaults extends Command
@@ -24,9 +23,7 @@ class ScaffoldDefaults extends Command
 
     public function handle(CreateDefaultDocumentDirectoriesAction $createDefaultDocumentDirectories): int
     {
-        $defaultDocumentDirectories = collect(DocumentableType::cases())->map(fn (DocumentableType $type) => $type->plural());
-
-        $createDefaultDocumentDirectories->execute($defaultDocumentDirectories);
+        $createDefaultDocumentDirectories->execute();
 
         return self::SUCCESS;
     }
