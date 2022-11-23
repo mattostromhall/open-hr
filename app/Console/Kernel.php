@@ -2,12 +2,16 @@
 
 namespace App\Console;
 
+use Domain\Files\Commands\ScaffoldDefaults;
 use Domain\Notifications\Models\Notification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        ScaffoldDefaults::class
+    ];
     /**
      * Define the application's command schedule.
      *
