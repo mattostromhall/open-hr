@@ -143,3 +143,13 @@ it('returns validation errors when updating the training with incorrect data', f
         ->assertStatus(302)
         ->assertSessionHasErrors(['status', 'state', 'description', 'provider', 'cost', 'cost_currency']);
 });
+
+it('deletes the training request', function () {
+    $training = Training::factory()->create();
+
+    $response = $this->delete(route('training.destroy', ['training' => $training]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Training request cancelled!');
+});

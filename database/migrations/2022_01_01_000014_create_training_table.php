@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->string('cost_currency')->nullable();
             $table->unsignedSmallInteger('duration')->nullable();
             $table->text('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

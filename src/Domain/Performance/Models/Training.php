@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\People\Models\Person;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Concerns\Unguarded;
 use Support\Enums\Currency;
 
@@ -20,6 +21,7 @@ class Training extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $table = 'training';
 

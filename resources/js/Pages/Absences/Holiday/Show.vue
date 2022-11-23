@@ -56,7 +56,7 @@ function deleteHoliday() {
                     type="button"
                     @click="showDeleteModal = true"
                 >
-                    Delete
+                    Cancel
                 </RedButton>
                 <SimpleModal
                     v-model="showDeleteModal"

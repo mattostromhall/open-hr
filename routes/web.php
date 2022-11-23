@@ -241,6 +241,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('training.edit');
     Route::put('/training/{training}', [TrainingController::class, 'update'])
         ->name('training.update');
+    Route::delete('/training/{training}', [TrainingController::class, 'destroy'])
+        ->name('training.destroy');
     Route::post('/training/{training}/start', StartTrainingController::class)
         ->name('training.start');
     Route::post('/training/{training}/complete', CompleteTrainingController::class)

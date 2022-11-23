@@ -8,7 +8,9 @@ use App\Http\Performance\ViewModels\TrainingIndexViewModel;
 use App\Http\Performance\ViewModels\TrainingViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\AmendTrainingAction;
+use Domain\Performance\Actions\CancelTrainingAction;
 use Domain\Performance\Actions\RequestTrainingAction;
+use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -47,5 +49,16 @@ class TrainingController extends Controller
         }
 
         return redirect()->to(route('training.index'))->with('flash.success', 'Training updated!');
+    }
+
+    public function destroy(Training $training, CancelTrainingAction $cancelTraining): RedirectResponse
+    {
+        $deleted = $cancelTraining->execute($training, TrainingData::from($training->toArray()));
+
+        if (! $deleted) {
+            return back()->with('flash.error', 'There was a problem with cancelling the Training request, please try again.');
+        }
+
+        return redirect()->to(route('training.index'))->with('flash.success', 'Training request cancelled!');
     }
 }
