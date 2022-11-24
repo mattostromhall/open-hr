@@ -13,6 +13,7 @@ enum Role: string
     case ADMIN = 'admin';
     case MANAGER = 'manager';
     case PERSON = 'person';
+    case HEAD_OF_DEPARTMENT = 'head-of-department';
 
     public static function values(): Collection
     {
