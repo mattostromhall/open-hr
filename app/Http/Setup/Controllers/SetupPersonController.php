@@ -13,9 +13,7 @@ class SetupPersonController extends Controller
 {
     public function __invoke(StorePersonRequest $request, CreatePersonAction $createPerson, CompleteSetupAction $completeSetup): RedirectResponse
     {
-        $createPerson->execute(
-            PersonData::from($request->validatedData())
-        );
+        $createPerson->execute($request->personData());
 
         $completeSetup->execute();
 

@@ -45,37 +45,4 @@ class StorePersonRequest extends FormRequest
     {
         return PersonData::from($this->safe()->all());
     }
-
-    public function validatedData(): array
-    {
-        return array_merge(
-            $this->safe([
-                'title',
-                'first_name',
-                'last_name',
-                'initials',
-                'pronouns',
-                'position',
-                'remuneration',
-                'base_holiday_allocation',
-                'holiday_carry_allocation',
-                'holiday_carried',
-                'sickness_allocation',
-                'contact_number',
-                'contact_email'
-            ]),
-            [
-                'user' => User::find($this->validated('user_id')),
-                'manager' => Person::find($this->validated('manager_id')),
-                'department' => Department::find($this->validated('department_id')),
-                'dob' => Carbon::parse($this->validated('dob')),
-                'remuneration_interval' => RemunerationInterval::from($this->validated('remuneration_interval')),
-                'remuneration_currency' => Currency::from($this->validated('remuneration_currency')),
-                'started_on' => Carbon::parse($this->validated('started_on')),
-                'finished_on' => $this->validated('finished_on')
-                    ? Carbon::parse($this->validated('finished_on'))
-                    : null
-            ]
-        );
-    }
 }
