@@ -11,12 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\Files\Models\Document;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Concerns\Unguarded;
 
 class Application extends Model
 {
     use HasFactory;
     use Unguarded;
+    use SoftDeletes;
 
     protected $casts = [
         'status' => ApplicationStatus::class

@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->string('contact_number');
             $table->string('contact_email');
             $table->text('cover_letter')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
