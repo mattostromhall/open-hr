@@ -6,6 +6,7 @@ use App\Http\Support\ViewModels\ViewModel;
 use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ContractType;
 use Domain\Recruitment\Models\Vacancy;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class VacancyViewModel extends ViewModel
@@ -17,7 +18,7 @@ class VacancyViewModel extends ViewModel
 
     public function active(): string
     {
-        return 'overview';
+        return request()->query('active', 'overview');
     }
 
     public function vacancy(): array
@@ -43,9 +44,13 @@ class VacancyViewModel extends ViewModel
         return $this->vacancy->contact->only('id', 'full_name');
     }
 
-    public function applications()
+    public function applications(): LengthAwarePaginator
     {
-        return $this->vacancy->applications;
+        return $this->vacancy
+            ->applications()
+            ->select('id', 'vacancy_id', 'name', 'status', 'contact_number', 'contact_email')
+            ->paginate()
+            ->withQueryString();
     }
 
     public function contacts(): Collection

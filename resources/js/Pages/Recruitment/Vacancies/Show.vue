@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Application, TabbedContentItem, Vacancy} from '../../../types'
+import type {Application, Paginated, TabbedContentItem, Vacancy} from '../../../types'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -12,7 +12,7 @@ defineProps<{
     active: TabbedContentItem['identifier'],
     vacancy: Vacancy,
     contact: Pick<Person, 'id' | 'full_name'>,
-    applications: Application[]
+    applications: Paginated<Omit<Application, 'cover_letter'>>
 }>()
 
 const tabs: TabbedContentItem[] = [

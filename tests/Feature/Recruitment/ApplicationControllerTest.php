@@ -1,6 +1,7 @@
 <?php
 
 use Domain\Organisation\Models\Organisation;
+use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ApplicationStatus;
 use Domain\Recruitment\Models\Application;
 use Domain\Recruitment\Models\Vacancy;
@@ -60,4 +61,17 @@ it('shows the application', function () {
                     'cv'
                 ])
         );
+});
+
+it('deletes the application', function () {
+    $person = Person::factory()->create();
+    $this->actingAs($person->user);
+
+    $application = Application::factory()->create();
+
+    $response = $this->delete(route('application.destroy', ['application' => $application]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Application deleted!');
 });

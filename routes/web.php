@@ -314,6 +314,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::delete('/vacancies/{vacancy}', [VacancyController::class, 'destroy'])
         ->name('vacancy.destroy');
 
+    Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])
+        ->name('application.destroy');
     Route::post('/applications/{application}/pending', PendingApplicationController::class)
         ->name('application.pending');
     Route::post('/applications/{application}/successful', SuccessfulApplicationController::class)

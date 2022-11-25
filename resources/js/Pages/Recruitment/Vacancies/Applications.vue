@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import type {Ref} from 'vue'
+import {computed, reactive, ref} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import type {Application, ApplicationStatus} from '../../../types'
 import {Link} from '@inertiajs/inertia-vue3'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
-import {EnvelopeIcon, EyeIcon, PencilIcon} from '@heroicons/vue/24/outline'
+import {EnvelopeIcon, EyeIcon, TrashIcon} from '@heroicons/vue/24/outline'
+import type {Paginated, Paginator} from '../../../types'
+import Pagination from '@/Components/Controls/Pagination.vue'
+import {omit} from 'lodash'
+import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 
 const props = defineProps<{
-    applications: Application[]
+    applications: Paginated<Omit<Application, 'cover_letter'>>
 }>()
+
+const paginator: ComputedRef<Paginator> = computed(() => omit(props.applications, 'data'))
 
 let selected: Ref<number[]> = ref([])
 
@@ -22,7 +28,7 @@ function updateSelected(isSelected: boolean, id: number) {
 
 function toggleSelected(select: boolean) {
     if (select) {
-        return selected.value = props.applications.map(application => application.id)
+        return selected.value = props.applications.data.map(application => application.id)
     }
 
     return selected.value = []
@@ -43,12 +49,16 @@ function status(status: ApplicationStatus): string {
 
     return 'pending'
 }
+
+const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
+    props.applications.data.map((application) => [application.id, false])
+))
 </script>
 
 <template>
     <div class="sm:w-full sm:px-6 lg:col-span-9 lg:px-0">
         <div
-            v-if="applications.length === 0"
+            v-if="applications.data.length === 0"
             class="bg-white py-6 px-4 text-center shadow sm:max-w-3xl sm:rounded-md sm:p-6"
         >
             <EnvelopeIcon class="mx-auto h-12 w-12 text-gray-400" />
@@ -127,7 +137,7 @@ function status(status: ApplicationStatus): string {
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                                 <tr
-                                    v-for="application in applications"
+                                    v-for="application in applications.data"
                                     :key="application.id"
                                     :class="{'bg-gray-50': isSelected(application.id)}"
                                 >
@@ -168,13 +178,38 @@ function status(status: ApplicationStatus): string {
                                         {{ application.contact_email }}
                                     </td>
                                     <td class="flex justify-end whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6">
-                                        <div class="flex items-center space-x-3">
+                                        <div class="flex items-center">
                                             <Link
                                                 :href="`/applications/${application.id}`"
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >
-                                                <EyeIcon class="h-4 w-4" /><span class="sr-only">, {{ application.full_name }}</span>
+                                                <EyeIcon class="h-4 w-4" /><span class="sr-only">, {{ application.name }}</span>
                                             </Link>
+                                            <SimpleDropdown
+                                                v-model="showDeleteDropdown[application.id]"
+                                                class="h-4"
+                                                position="above-right"
+                                            >
+                                                <template #button="{toggleDropdown}">
+                                                    <button
+                                                        type="button"
+                                                        @click="toggleDropdown"
+                                                    >
+                                                        <TrashIcon class="h-4 w-4 ml-2 text-red-600 hover:text-red-900" /><span class="sr-only">, {{ application.name }}</span>
+                                                    </button>
+                                                </template>
+                                                <template #default="{hideDropdown}">
+                                                    <Link
+                                                        as="button"
+                                                        method="delete"
+                                                        :href="`/applications/${application.id}`"
+                                                        class="flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:bg-red-400"
+                                                        @click="hideDropdown"
+                                                    >
+                                                        Confirm
+                                                    </Link>
+                                                </template>
+                                            </SimpleDropdown>
                                         </div>
                                     </td>
                                 </tr>
@@ -184,5 +219,6 @@ function status(status: ApplicationStatus): string {
                 </div>
             </div>
         </div>
+        <Pagination :paginator="paginator" />
     </div>
 </template>
