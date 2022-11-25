@@ -8,6 +8,7 @@ use App\Http\Recruitment\ViewModels\VacanciesViewModel;
 use App\Http\Recruitment\ViewModels\VacancyViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Recruitment\Actions\CreateVacancyAction;
+use Domain\Recruitment\Actions\DeleteVacancyAction;
 use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Domain\Recruitment\Models\Vacancy;
 use Illuminate\Http\RedirectResponse;
@@ -47,5 +48,16 @@ class VacancyController extends Controller
         }
 
         return redirect()->to(route('vacancy.index'))->with('flash.success', 'Vacancy updated!');
+    }
+
+    public function destroy(Vacancy $vacancy, DeleteVacancyAction $deleteVacancy): RedirectResponse
+    {
+        $updated = $deleteVacancy->execute($vacancy);
+
+        if (! $updated) {
+            return back()->with('flash.error', 'There was a problem with deleting the Vacancy, please try again.');
+        }
+
+        return redirect()->to(route('vacancy.index'))->with('flash.success', 'Vacancy deleted!');
     }
 }

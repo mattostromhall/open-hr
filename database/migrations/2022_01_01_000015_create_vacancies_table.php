@@ -25,6 +25,7 @@ return new class () extends Migration {
             $table->string('remuneration_currency')->nullable();
             $table->dateTime('open_at')->nullable();
             $table->dateTime('close_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('contact_id')

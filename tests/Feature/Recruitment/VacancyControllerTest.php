@@ -164,3 +164,13 @@ it('returns validation errors when updating a vacancy with incorrect data', func
         ->assertStatus(302)
         ->assertSessionHasErrors(['contact_id', 'title', 'description', 'contract_type', 'open_at', 'close_at']);
 });
+
+it('deletes the vacancy', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $response = $this->delete(route('vacancy.destroy', ['vacancy' => $vacancy]));
+
+    $response
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Vacancy deleted!');
+});
