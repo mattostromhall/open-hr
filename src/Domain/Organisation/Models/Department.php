@@ -53,4 +53,9 @@ class Department extends Model
     {
         return $this->morphMany(Document::class, 'documentable');
     }
+
+    public function isHead(Person $person): bool
+    {
+        return $this->head_of_department_id === $person->id;
+    }
 }

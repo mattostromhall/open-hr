@@ -139,6 +139,16 @@ class Person extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function isManagerFor(self $person): bool
+    {
+        return $person->manager_id === $this->id;
+    }
+
+    public function isHeadOfDepartmentFor(self $person): bool
+    {
+        return $person->department?->isHead($this) ?? false;
+    }
+
     protected function fullName(): Attribute
     {
         return Attribute::make(

@@ -20,7 +20,7 @@ class ReviewHolidayController extends Controller
      */
     public function show(Holiday $holiday): Response
     {
-        $this->authorize('show', $holiday);
+        $this->authorize('review', $holiday);
 
         return Inertia::render('Absences/Holiday/Review', new ReviewHolidayViewModel($holiday));
     }

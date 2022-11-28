@@ -96,7 +96,7 @@ it('shows the vacancy', function () {
                     'vacancy.close_at',
                     'contact.id',
                     'contact.full_name',
-                    'applications' => 3
+                    'applications.data' => 3
                 ])
         );
 });

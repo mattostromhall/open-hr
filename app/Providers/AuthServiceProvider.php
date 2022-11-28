@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
             $module = Str::betweenFirst($modelClass, 'Domain\\', '\\');
             $model = Str::after($modelClass, 'Models\\');
 
-            return "App\Http\\{$module}\Policies\\{$model}Policy";
+            return "Domain\\{$module}\Policies\\{$model}Policy";
         });
     }
 }

@@ -32,9 +32,12 @@ enum Ability: string
     case UPLOAD_DOCUMENT = 'upload-document';
     case DOWNLOAD_DOCUMENT = 'download-document';
     case DELETE_DOCUMENT = 'delete-document';
-    case CREATE_NOTIFICATION = 'create-notification';
-    case UPDATE_NOTIFICATION = 'update-notification';
-    case DELETE_NOTIFICATION = 'delete-notification';
+    case CREATE_ORGANISATION_NOTIFICATION = 'create-organisation-notification';
+    case UPDATE_ORGANISATION_NOTIFICATION = 'update-organisation-notification';
+    case DELETE_ORGANISATION_NOTIFICATION = 'delete-organisation-notification';
+    case CREATE_DEPARTMENT_NOTIFICATION = 'create-department-notification';
+    case UPDATE_DEPARTMENT_NOTIFICATION = 'update-department-notification';
+    case DELETE_DEPARTMENT_NOTIFICATION = 'delete-department-notification';
     case VIEW_DEPARTMENT = 'view-department';
     case CREATE_DEPARTMENT = 'create-department';
     case UPDATE_DEPARTMENT = 'update-department';
@@ -75,7 +78,9 @@ enum Ability: string
     case UPDATE_APPLICATION = 'update-application';
     case DELETE_APPLICATION = 'delete-application';
     case ASSIGN_ROLE = 'assign-role';
+    case RETRACT_ROLE = 'retract-role';
     case ASSIGN_ABILITY = 'assign-ability';
+    case RETRACT_ABILITY = 'retract-ability';
 
     public static function values(): Collection
     {
