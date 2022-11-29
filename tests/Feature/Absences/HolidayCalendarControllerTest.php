@@ -1,17 +1,20 @@
 <?php
 
 use Domain\Absences\Models\Holiday;
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
 beforeEach(function () {
     Organisation::factory()->create();
-    $person = Person::factory()->create();
-    $this->actingAs($person->user);
+    $this->person = Person::factory()->create();
+    $this->actingAs($this->person->user);
 });
 
 it('returns the holiday calendar page and data', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     Holiday::factory()->count(3)->create();
 
     $this->get(route('holiday.calendar'))
@@ -41,4 +44,11 @@ it('returns the holiday calendar page and data', function () {
                     'holidayEvents.2.extendedProps'
                 ])
         );
+});
+
+it('returns unauthorized if the person does not have permission to view the holiday calendar', function () {
+    Holiday::factory()->count(3)->create();
+
+    $this->get(route('holiday.calendar'))
+        ->assertForbidden();
 });

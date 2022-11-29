@@ -5,6 +5,7 @@ use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 /*
@@ -19,7 +20,10 @@ use Tests\TestCase;
 */
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->beforeEach(fn () => Model::unsetEventDispatcher())
+    ->beforeEach(function () {
+        Artisan::call('scaffold:defaults');
+        Model::unsetEventDispatcher();
+    })
 //    ->beforeEach(function () {
 //        $person = setupCompanyAndUser();
 //        $this->actingAs($person->user);

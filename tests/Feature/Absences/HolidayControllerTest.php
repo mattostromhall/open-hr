@@ -2,6 +2,7 @@
 
 use Domain\Absences\Enums\HolidayStatus;
 use Domain\Absences\Models\Holiday;
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -92,6 +93,8 @@ it('returns the holiday index', function () {
 });
 
 it('stores a holiday request when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $response = $this->post(route('holiday.store'), [
         'person_id' => $this->person->id,
         'status' => HolidayStatus::PENDING->value,
@@ -102,6 +105,17 @@ it('stores a holiday request when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Holiday request submitted!');
+});
+
+it('returns unauthorized if the person does not have permission to create holiday', function () {
+    $response = $this->post(route('holiday.store'), [
+        'person_id' => $this->person->id,
+        'status' => HolidayStatus::PENDING->value,
+        'start_at' => now()->toDateString(),
+        'finish_at' => now()->addDays(2)->toDateString()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when storing a holiday request with incorrect data', function () {

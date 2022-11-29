@@ -12,6 +12,7 @@ use Domain\Absences\Actions\CancelHolidayAction;
 use Domain\Absences\Actions\RequestHolidayAction;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,25 +24,45 @@ class HolidayController extends Controller
         return Inertia::render('Absences/Holiday/Index', new HolidaysViewModel());
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
     {
+        $this->authorize('create', Holiday::class);
+
         $requestHoliday->execute($request->holidayData());
 
         return back()->with('flash.success', 'Holiday request submitted!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function show(Holiday $holiday): Response
     {
+        $this->authorize('view', $holiday);
+
         return Inertia::render('Absences/Holiday/Show', new HolidayViewModel($holiday));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Holiday $holiday): Response
     {
+        $this->authorize('update', $holiday);
+
         return Inertia::render('Absences/Holiday/Edit', new HolidayViewModel($holiday));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse
     {
+        $this->authorize('update', $holiday);
+
         $updated = $amendHoliday->execute($holiday, $request->holidayData());
 
         if (! $updated) {
@@ -51,8 +72,13 @@ class HolidayController extends Controller
         return redirect()->to(route('holiday.index'))->with('flash.success', 'Holiday updated!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Holiday $holiday, CancelHolidayAction $cancelHoliday): RedirectResponse
     {
+        $this->authorize('delete', $holiday);
+
         $cancelled = $cancelHoliday->execute($holiday, HolidayData::from($holiday->toArray()));
 
         if (! $cancelled) {

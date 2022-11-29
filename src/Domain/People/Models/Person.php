@@ -139,6 +139,11 @@ class Person extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function owns(Model $model, string $ownerKey = 'person_id'): bool
+    {
+        return $model->$ownerKey === $this->id;
+    }
+
     public function isManagerFor(self $person): bool
     {
         return $person->manager_id === $this->id;

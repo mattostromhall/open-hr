@@ -25,8 +25,13 @@ class ReviewHolidayController extends Controller
         return Inertia::render('Absences/Holiday/Review', new ReviewHolidayViewModel($holiday));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateHolidayRequest $request, Holiday $holiday, ReviewHolidayAction $reviewHoliday): RedirectResponse
     {
+        $this->authorize('review', $holiday);
+
         $holidayData = $request->holidayData();
 
         $reviewed = $reviewHoliday->execute($holiday, $holidayData);

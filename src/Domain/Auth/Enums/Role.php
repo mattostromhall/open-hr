@@ -4,7 +4,6 @@ namespace Domain\Auth\Enums;
 
 use Domain\Auth\DataTransferObjects\AbilityData;
 use Domain\Auth\DataTransferObjects\RoleData;
-use Exception;
 use Illuminate\Support\Collection;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 use Silber\Bouncer\Database\Role as BouncerRole;
@@ -23,6 +22,7 @@ enum Role: string
             self::HEAD_OF_DEPARTMENT,
             self::MANAGER => [
                 Ability::REVIEW_HOLIDAY->value,
+                Ability::VIEW_HOLIDAY_CALENDAR->value,
                 Ability::DELETE_SICKNESS->value,
                 Ability::VIEW_USER->value,
                 Ability::CREATE_USER->value,

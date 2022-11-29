@@ -16,6 +16,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
+        "brianium/paratest": "^6.6",
         "fakerphp/faker": "^1.19",
         "friendsofphp/php-cs-fixer": "^3.8.0",
         "laravel/breeze": "^1.9",
@@ -26,6 +27,7 @@
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-faker": "^1.0",
         "pestphp/pest-plugin-laravel": "^1.2",
+        "pestphp/pest-plugin-parallel": "^1.2",
         "phpunit/phpunit": "^9.5.10",
         "predis/predis": "^2.0",
         "spatie/laravel-ignition": "^1.3",

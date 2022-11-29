@@ -13,6 +13,7 @@ enum Ability: string
     case UPDATE_HOLIDAY = 'update-holiday';
     case DELETE_HOLIDAY = 'delete-holiday';
     case REVIEW_HOLIDAY = 'review-holiday';
+    case VIEW_HOLIDAY_CALENDAR = 'view-holiday-calendar';
     case VIEW_SICKNESS = 'view-sickness';
     case CREATE_SICKNESS = 'create-sickness';
     case UPDATE_SICKNESS = 'update-sickness';
