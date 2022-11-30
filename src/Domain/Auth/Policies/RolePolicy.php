@@ -2,7 +2,6 @@
 
 namespace Domain\Auth\Policies;
 
-use Domain\Absences\Models\Holiday;
 use Domain\Auth\Enums\Ability;
 use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
