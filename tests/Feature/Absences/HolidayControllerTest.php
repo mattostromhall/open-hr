@@ -132,7 +132,8 @@ it('returns validation errors when storing a holiday request with incorrect data
 });
 
 it('shows the holiday', function () {
-    $holiday = Holiday::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $holiday = Holiday::factory()->for($this->person)->create();
 
     $this->get(route('holiday.show', ['holiday' => $holiday]))
         ->assertOk()
@@ -144,8 +145,16 @@ it('shows the holiday', function () {
         );
 });
 
-it('returns the holiday to edit', function () {
+it('returns unauthorized if the person does not have permission to view the holiday', function () {
     $holiday = Holiday::factory()->create();
+
+    $this->get(route('holiday.show', ['holiday' => $holiday]))
+        ->assertForbidden();
+});
+
+it('returns the holiday to edit', function () {
+    $this->person->user->assign(Role::PERSON->value);
+    $holiday = Holiday::factory()->for($this->person)->create();
 
     $this->get(route('holiday.edit', ['holiday' => $holiday]))
         ->assertOk()
@@ -157,8 +166,18 @@ it('returns the holiday to edit', function () {
         );
 });
 
+it('returns unauthorized when trying to edit if the person does not have permission to update the holiday', function () {
+    $holiday = Holiday::factory()->create();
+
+    $this->get(route('holiday.edit', ['holiday' => $holiday]))
+        ->assertForbidden();
+});
+
 it('updates the holiday request when the correct data is provided', function () {
-    $holiday = Holiday::factory()->create([
+    $this->person->user->assign(Role::PERSON->value);
+    $holiday = Holiday::factory()
+        ->for($this->person)
+        ->create([
         'status' => HolidayStatus::PENDING
     ]);
 
@@ -171,6 +190,20 @@ it('updates the holiday request when the correct data is provided', function () 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Holiday updated!');
+});
+
+it('returns unauthorized when trying to update if the person does not have permission to update the holiday', function () {
+    $holiday = Holiday::factory()->create([
+            'status' => HolidayStatus::PENDING
+        ]);
+
+    $response = $this->put(route('holiday.update', ['holiday' => $holiday]), [
+        'status' => HolidayStatus::APPROVED->value,
+        'start_at' => now()->toDateString(),
+        'finish_at' => now()->addDays(2)->toDateString()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the holiday with incorrect data', function () {
@@ -190,11 +223,19 @@ it('returns validation errors when updating the holiday with incorrect data', fu
 });
 
 it('deletes the holiday request', function () {
-    $holiday = Holiday::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $holiday = Holiday::factory()->for($this->person)->create();
 
     $response = $this->delete(route('holiday.destroy', ['holiday' => $holiday]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Holiday request cancelled!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the holiday', function () {
+    $holiday = Holiday::factory()->create();
+    $response = $this->delete(route('holiday.destroy', ['holiday' => $holiday]));
+
+    $response->assertForbidden();
 });

@@ -1,6 +1,7 @@
 <?php
 
 use Domain\Absences\Models\Sickness;
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -39,6 +40,8 @@ it('returns the sickness index', function () {
 });
 
 it('logs a sickness when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $response = $this->post(route('sickness.store'), [
         'person_id' => $this->person->id,
         'start_at' => now()->toDateString(),
@@ -48,6 +51,16 @@ it('logs a sickness when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Sick days logged!');
+});
+
+it('returns unauthorized if the person does not have permission to create a sickness', function () {
+    $response = $this->post(route('sickness.store'), [
+        'person_id' => $this->person->id,
+        'start_at' => now()->toDateString(),
+        'finish_at' => now()->addDays(2)->toDateString()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when logging a sickness with incorrect data', function () {
@@ -62,7 +75,8 @@ it('returns validation errors when logging a sickness with incorrect data', func
 });
 
 it('shows the sickness', function () {
-    $sickness = Sickness::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $sickness = Sickness::factory()->for($this->person)->create();
 
     $this->get(route('sickness.show', ['sickness' => $sickness]))
         ->assertOk()
@@ -77,8 +91,16 @@ it('shows the sickness', function () {
         );
 });
 
-it('returns the sickness to edit', function () {
+it('returns unauthorized if the person does not have permission to view the sickness', function () {
     $sickness = Sickness::factory()->create();
+
+    $this->get(route('sickness.show', ['sickness' => $sickness]))
+        ->assertForbidden();
+});
+
+it('returns the sickness to edit', function () {
+    $this->person->user->assign(Role::PERSON->value);
+    $sickness = Sickness::factory()->for($this->person)->create();
 
     $this->get(route('sickness.edit', ['sickness' => $sickness]))
         ->assertOk()
@@ -90,8 +112,15 @@ it('returns the sickness to edit', function () {
         );
 });
 
-it('updates the sickness when the correct data is provided', function () {
+it('returns unauthorized when trying to edit if the person does not have permission to update the sickness', function () {
     $sickness = Sickness::factory()->create();
+    $this->get(route('sickness.edit', ['sickness' => $sickness]))
+        ->assertForbidden();
+});
+
+it('updates the sickness when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+    $sickness = Sickness::factory()->for($this->person)->create();
 
     $response = $this->put(route('sickness.update', ['sickness' => $sickness]), [
         'start_at' => now()->toDateString(),
@@ -101,6 +130,16 @@ it('updates the sickness when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Sickness updated!');
+});
+
+it('returns unauthorized when updating if the person does not have permission to update the sickness', function () {
+    $sickness = Sickness::factory()->create();
+    $response = $this->put(route('sickness.update', ['sickness' => $sickness]), [
+        'start_at' => now()->toDateString(),
+        'finish_at' => now()->addDays(2)->toDateString()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the sickness with incorrect data', function () {
@@ -114,11 +153,23 @@ it('returns validation errors when updating the sickness with incorrect data', f
 });
 
 it('deletes the sickness', function () {
-    $sickness = Sickness::factory()->create();
+    $this->person->user->assign(Role::MANAGER->value);
+    $person = Person::factory()->create([
+        'manager_id' => $this->person->id
+    ]);
+    $sickness = Sickness::factory()->for($person)->create();
 
     $response = $this->delete(route('sickness.destroy', ['sickness' => $sickness]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Sick day cancelled!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the sickness', function () {
+    $sickness = Sickness::factory()->create();
+
+    $response = $this->delete(route('sickness.destroy', ['sickness' => $sickness]));
+
+    $response->assertForbidden();
 });

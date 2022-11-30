@@ -11,11 +11,6 @@ class HolidayPolicy
 {
     use HandlesAuthorization;
 
-    public function __construct()
-    {
-        //
-    }
-
     public function create(User $user): bool
     {
         return $user->can(Ability::CREATE_HOLIDAY->value);
