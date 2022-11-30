@@ -23,6 +23,15 @@ it('syncs the provided roles', function () {
         ->assertSessionHas('flash.success', 'Roles updated!');
 });
 
+it('returns unauthorized if the person does not have permission to sync roles', function () {
+    $this->post(route('roles/sync', [
+        'user' => $this->person->user
+    ]), [
+        'roles' => ['admin']
+    ])
+        ->assertForbidden();
+});
+
 it('returns validation errors if the provided roles are incorrect', function () {
     $this->post(route('roles/sync', [
         'user' => $this->person->user
