@@ -4,12 +4,22 @@ namespace Domain\Absences\Policies;
 
 use Domain\Absences\Models\Sickness;
 use Domain\Auth\Enums\Ability;
+use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SicknessPolicy
 {
     use HandlesAuthorization;
+
+    public function before(User $user): ?bool
+    {
+        if ($user->isAn(Role::ADMIN->value)) {
+            return true;
+        }
+
+        return null;
+    }
 
     public function create(User $user): bool
     {

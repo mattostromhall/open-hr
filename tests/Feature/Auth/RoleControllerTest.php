@@ -1,21 +1,19 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
-use Silber\Bouncer\BouncerFacade as Bouncer;
 
 beforeEach(function () {
     Organisation::factory()->create();
     $this->person = Person::factory()->create();
-    Bouncer::role()->firstOrCreate([
-        'name' => 'admin',
-        'title' => 'Admin',
-    ]);
 
     $this->actingAs($this->person->user);
 });
 
 it('syncs the provided roles', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+
     $this->post(route('roles/sync', [
         'user' => $this->person->user
     ]), [
