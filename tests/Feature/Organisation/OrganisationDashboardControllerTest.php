@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -11,6 +12,7 @@ beforeEach(function () {
 });
 
 it('returns the organisation dashboard', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $this->get(route('dashboard.organisation'))
         ->assertOk()
         ->assertInertia(
@@ -24,4 +26,9 @@ it('returns the organisation dashboard', function () {
                     'organisationNotifications'
                 ])
         );
+});
+
+it('returns unauthorized if the person does not have permission to view the organisation dashboard', function () {
+    $this->get(route('dashboard.organisation'))
+        ->assertForbidden();
 });
