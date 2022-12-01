@@ -58,4 +58,9 @@ class Department extends Model
     {
         return $this->head_of_department_id === $person->id;
     }
+
+    public function hasMember(Person $person): bool
+    {
+        return (bool) $this->members()->firstWhere('id', $person->id);
+    }
 }

@@ -48,10 +48,10 @@ enum Ability: string
     case CREATE_ADDRESS = 'create-address';
     case UPDATE_ADDRESS = 'update-address';
     case DELETE_ADDRESS = 'delete-address';
-    case VIEW_PEOPLE = 'view-people';
-    case CREATE_PEOPLE = 'create-people';
-    case UPDATE_PEOPLE = 'update-people';
-    case DELETE_PEOPLE = 'delete-people';
+    case VIEW_PERSON = 'view-person';
+    case CREATE_PERSON = 'create-person';
+    case UPDATE_PERSON = 'update-person';
+    case DELETE_PERSON = 'delete-person';
     case VIEW_OBJECTIVE = 'view-objective';
     case CREATE_OBJECTIVE = 'create-objective';
     case UPDATE_OBJECTIVE = 'update-objective';

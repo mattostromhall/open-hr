@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Files\Enums\DocumentableType;
 use Domain\Files\Models\Document;
 use Domain\Organisation\Models\Organisation;
@@ -48,6 +49,8 @@ it('returns the documents index for the path', function () {
 });
 
 it('uploads the documents provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $response = $this->post(route('document.store'), [
         'path' => 'test',
         'documents' => [UploadedFile::fake()->create('document.pdf', 10)],
@@ -58,6 +61,17 @@ it('uploads the documents provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Documents successfully uploaded!');
+});
+
+it('returns unauthorized if the person does not have permission to upload documents', function () {
+    $response = $this->post(route('document.store'), [
+        'path' => 'test',
+        'documents' => [UploadedFile::fake()->create('document.pdf', 10)],
+        'documentable_id' => $this->person->id,
+        'documentable_type' => DocumentableType::PERSON->value
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when uploading documents with incorrect data', function () {
@@ -73,10 +87,19 @@ it('returns validation errors when uploading documents with incorrect data', fun
 });
 
 it('deletes the document', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $document = Document::factory()->create();
     $response = $this->delete(route('document.destroy', ['document' => $document]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Document deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the document', function () {
+    $document = Document::factory()->create();
+    $response = $this->delete(route('document.destroy', ['document' => $document]));
+
+    $response->assertForbidden();
 });

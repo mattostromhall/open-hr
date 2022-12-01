@@ -9,6 +9,7 @@ use Domain\Files\Actions\DeleteDocumentAction;
 use Domain\Files\Actions\DocumentableDataFromDocumentPathAction;
 use Domain\Files\Actions\UploadDocumentsAction;
 use Domain\Files\Models\Document;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -27,15 +28,25 @@ class DocumentController extends Controller
         return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath, $documentableData));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(StoreDocumentRequest $request, UploadDocumentsAction $uploadDocuments): RedirectResponse
     {
+        $this->authorize('upload', Document::class);
+
         $uploadDocuments->execute($request->uploadedDocumentDataCollection());
 
         return back()->with('flash.success', 'Documents successfully uploaded!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Document $document, DeleteDocumentAction $deleteDocument): RedirectResponse
     {
+        $this->authorize('delete', $document);
+
         $deleted = $deleteDocument->execute($document);
 
         if (! $deleted) {
