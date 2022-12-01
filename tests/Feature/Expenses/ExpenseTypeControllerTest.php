@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Expenses\Models\ExpenseType;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -12,6 +13,7 @@ beforeEach(function () {
 });
 
 it('returns the expense type index', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     ExpenseType::factory()->count(3)->create();
 
     $this->get(route('expense-type.index'))
@@ -23,7 +25,15 @@ it('returns the expense type index', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view expense types', function () {
+    ExpenseType::factory()->count(3)->create();
+
+    $this->get(route('expense-type.index'))
+        ->assertForbidden();
+});
+
 it('returns the expense type create page', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     ExpenseType::factory()->count(3)->create();
 
     $this->get(route('expense-type.create'))
@@ -33,7 +43,15 @@ it('returns the expense type create page', function () {
         );
 });
 
+it('returns unauthorized when creating if the person does not have permission to create an expense type', function () {
+    ExpenseType::factory()->count(3)->create();
+
+    $this->get(route('expense-type.create'))
+        ->assertForbidden();
+});
+
 it('creates a new expense type when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $response = $this->post(route('expense-type.store'), [
         'type' => 'Misc'
     ]);
@@ -41,6 +59,14 @@ it('creates a new expense type when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense Type created!');
+});
+
+it('returns unauthorized if the person does not have permission to create an expense type', function () {
+    $response = $this->post(route('expense-type.store'), [
+        'type' => 'Misc'
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating an expense type with incorrect data', function () {
@@ -56,6 +82,7 @@ it('returns validation errors when creating an expense type with incorrect data'
 });
 
 it('returns the expense type to edit', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $expenseType = ExpenseType::factory()->create();
 
     $this->get(route('expense-type.edit', ['expense_type' => $expenseType]))
@@ -67,7 +94,15 @@ it('returns the expense type to edit', function () {
         );
 });
 
+it('returns unauthorized when editing if the person does not have permission to create an expense type', function () {
+    $expenseType = ExpenseType::factory()->create();
+
+    $this->get(route('expense-type.edit', ['expense_type' => $expenseType]))
+        ->assertForbidden();
+});
+
 it('updates the expense type when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->put(route('expense-type.update', ['expense_type' => $expenseType]), [
@@ -77,6 +112,16 @@ it('updates the expense type when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense Type updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the expense type', function () {
+    $expenseType = ExpenseType::factory()->create();
+
+    $response = $this->put(route('expense-type.update', ['expense_type' => $expenseType]), [
+        'type' => 'Miscellaneous'
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the expense type with incorrect data', function () {
@@ -92,6 +137,7 @@ it('returns validation errors when updating the expense type with incorrect data
 });
 
 it('deletes the expense type', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->delete(route('expense-type.destroy', ['expense_type' => $expenseType]));
@@ -99,4 +145,12 @@ it('deletes the expense type', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense Type deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the expense type', function () {
+    $expenseType = ExpenseType::factory()->create();
+
+    $response = $this->delete(route('expense-type.destroy', ['expense_type' => $expenseType]));
+
+    $response->assertForbidden();
 });

@@ -13,6 +13,7 @@ use Domain\Expenses\Actions\WithdrawExpenseAction;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,8 +25,13 @@ class ExpenseController extends Controller
         return Inertia::render('Expenses/Index', new ExpensesViewModel());
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(SubmitExpenseRequest $request, SubmitExpenseAction $submitExpense): RedirectResponse
     {
+        $this->authorize('create', Expense::class);
+
         try {
             $submitExpense->execute($request->submittedExpenseData());
         } catch (Exception $e) {
@@ -35,18 +41,33 @@ class ExpenseController extends Controller
         return redirect(route('expense.index'))->with('flash.success', 'Expense submitted!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function show(Expense $expense): Response
     {
+        $this->authorize('view', $expense);
+
         return Inertia::render('Expenses/Show', new ExpenseViewModel($expense));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Expense $expense): Response
     {
+        $this->authorize('update', $expense);
+
         return Inertia::render('Expenses/Edit', new ExpenseViewModel($expense));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateExpenseRequest $request, Expense $expense, AmendExpenseAction $amendExpense): RedirectResponse
     {
+        $this->authorize('update', $expense);
+
         $updated = $amendExpense->execute($expense, $request->submittedExpenseData());
 
         if (! $updated) {
@@ -56,8 +77,13 @@ class ExpenseController extends Controller
         return back()->with('flash.success', 'Expense updated!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Expense $expense, WithdrawExpenseAction $withdrawExpense): RedirectResponse
     {
+        $this->authorize('delete', $expense);
+
         $withdrawn = $withdrawExpense->execute($expense, ExpenseData::from($expense->toArray()));
 
         if (! $withdrawn) {

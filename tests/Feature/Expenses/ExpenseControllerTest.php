@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Expenses\Enums\ExpenseStatus;
 use Domain\Expenses\Models\Expense;
 use Domain\Expenses\Models\ExpenseType;
@@ -57,6 +58,7 @@ it('returns the expense index', function () {
 });
 
 it('submits an expense when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->post(route('expense.store'), [
@@ -72,6 +74,22 @@ it('submits an expense when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense submitted!');
+});
+
+it('returns unauthorized if the person does not have permission to create an expense', function () {
+    $expenseType = ExpenseType::factory()->create();
+
+    $response = $this->post(route('expense.store'), [
+        'person_id' => $this->person->id,
+        'expense_type_id' => $expenseType->id,
+        'status' => ExpenseStatus::PENDING->value,
+        'value' => 10,
+        'value_currency' => Currency::GBP->value,
+        'date' => now()->subDays(3),
+        'documents' => [UploadedFile::fake()->create('document.pdf', 10)]
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when submitting an expense with incorrect data', function () {
@@ -91,7 +109,8 @@ it('returns validation errors when submitting an expense with incorrect data', f
 });
 
 it('shows the expense', function () {
-    $expense = Expense::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $expense = Expense::factory()->for($this->person)->create();
 
     $this->get(route('expense.show', ['expense' => $expense]))
         ->assertOk()
@@ -109,8 +128,16 @@ it('shows the expense', function () {
         );
 });
 
-it('returns the expense to edit', function () {
+it('returns unauthorized if the person does not have permission to view the expense', function () {
     $expense = Expense::factory()->create();
+
+    $this->get(route('expense.show', ['expense' => $expense]))
+        ->assertForbidden();
+});
+
+it('returns the expense to edit', function () {
+    $this->person->user->assign(Role::PERSON->value);
+    $expense = Expense::factory()->for($this->person)->create();
 
     $this->get(route('expense.edit', ['expense' => $expense]))
         ->assertOk()
@@ -128,8 +155,16 @@ it('returns the expense to edit', function () {
         );
 });
 
-it('updates the expense when the correct data is provided', function () {
+it('returns unauthorized when editing if the person does not have permission to update the expense', function () {
     $expense = Expense::factory()->create();
+
+    $this->get(route('expense.edit', ['expense' => $expense]))
+        ->assertForbidden();
+});
+
+it('updates the expense when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+    $expense = Expense::factory()->for($this->person)->create();
 
     $response = $this->put(route('expense.update', ['expense' => $expense]), [
         'expense_type_id' => $expense->type->id,
@@ -142,6 +177,20 @@ it('updates the expense when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the expense', function () {
+    $expense = Expense::factory()->create();
+
+    $response = $this->put(route('expense.update', ['expense' => $expense]), [
+        'expense_type_id' => $expense->type->id,
+        'status' => ExpenseStatus::APPROVED->value,
+        'value' => 15,
+        'value_currency' => Currency::GBP->value,
+        'date' => now()->subDays(3)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the expense with incorrect data', function () {
@@ -161,11 +210,20 @@ it('returns validation errors when updating the expense with incorrect data', fu
 });
 
 it('deletes the expense submission', function () {
-    $expense = Expense::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $expense = Expense::factory()->for($this->person)->create();
 
     $response = $this->delete(route('expense.destroy', ['expense' => $expense]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Expense withdrawn!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the expense', function () {
+    $expense = Expense::factory()->create();
+
+    $response = $this->delete(route('expense.destroy', ['expense' => $expense]));
+
+    $response->assertForbidden();
 });
