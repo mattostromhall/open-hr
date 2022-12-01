@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -11,10 +12,17 @@ beforeEach(function () {
 });
 
 it('returns the management dashboard', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+
     $this->get(route('dashboard.management'))
         ->assertOk()
         ->assertInertia(
             fn (Assert $page) => $page
                 ->component('Dashboard/Management')
         );
+});
+
+it('returns unauthorized if the person does not have permission to view the management dashboard', function () {
+    $this->get(route('dashboard.management'))
+        ->assertForbidden();
 });
