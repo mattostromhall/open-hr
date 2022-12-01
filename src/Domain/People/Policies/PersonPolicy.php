@@ -23,6 +23,7 @@ class PersonPolicy
 
     public function managementDashboard(User $user): bool
     {
-        return $user->isA(Role::MANAGER->value);
+        return $user->isA(Role::MANAGER->value)
+            || $user->isA(Role::HEAD_OF_DEPARTMENT->value);
     }
 }
