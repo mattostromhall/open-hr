@@ -43,6 +43,7 @@ enum Ability: string
     case CREATE_DEPARTMENT = 'create-department';
     case UPDATE_DEPARTMENT = 'update-department';
     case DELETE_DEPARTMENT = 'delete-department';
+    case MANAGE_DEPARTMENT_MEMBERS = 'manage-department-members';
     case VIEW_ADDRESS = 'view-address';
     case CREATE_ADDRESS = 'create-address';
     case UPDATE_ADDRESS = 'update-address';

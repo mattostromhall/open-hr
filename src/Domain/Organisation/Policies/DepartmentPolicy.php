@@ -26,26 +26,36 @@ class DepartmentPolicy
         return $user->can(Ability::CREATE_DEPARTMENT->value);
     }
 
+    public function viewAll(User $user): bool
+    {
+        return $user->can(Ability::VIEW_DEPARTMENT->value);
+    }
+
     public function view(User $user, Department $department): bool
     {
         return $user->can(Ability::VIEW_DEPARTMENT->value)
-            && $user->person->id === $department->head_of_department_id;
+            && $department->isHead($user->person);
     }
 
     public function update(User $user, Department $department): bool
     {
         return $user->can(Ability::UPDATE_DEPARTMENT->value)
-            && $user->person->id === $department->head_of_department_id;
+            && $department->isHead($user->person);
     }
 
-    public function delete(User $user, Department $department): bool
+    public function delete(User $user): bool
     {
-        return $user->can(Ability::DELETE_DEPARTMENT->value)
-            && $user->person->id === $department->head_of_department_id;
+        return $user->can(Ability::DELETE_DEPARTMENT->value);
     }
 
     public function dashboard(User $user): bool
     {
         return $user->isA(Role::HEAD_OF_DEPARTMENT->value);
+    }
+
+    public function manageMembers(User $user, Department $department): bool
+    {
+        return $user->can(Ability::MANAGE_DEPARTMENT_MEMBERS->value)
+            && $department->isHead($user->person);
     }
 }

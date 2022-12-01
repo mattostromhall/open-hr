@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -12,6 +13,7 @@ beforeEach(function () {
 });
 
 it('returns the department index', function () {
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
     Department::factory()->count(3)->create();
 
     $this->get(route('department.index'))
@@ -43,7 +45,33 @@ it('returns the department index', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view the department index', function () {
+    Department::factory()->count(3)->create();
+
+    $this->get(route('department.index'))
+        ->assertForbidden();
+});
+
+it('returns the department create page', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
+    $this->get(route('department.create'))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Departments/Create')
+                ->has('people')
+        );
+});
+
+it('returns unauthorized when creating if the person does not have permission to create a department', function () {
+    $this->get(route('department.create'))
+        ->assertForbidden();
+});
+
 it('creates a new department when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     $response = $this->post(route('department.store'), [
         'name' => 'Development',
         'head_of_department_id' => $this->person->id
@@ -52,6 +80,15 @@ it('creates a new department when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Department created!');
+});
+
+it('returns unauthorized if the person does not have permission to create a department', function () {
+    $response = $this->post(route('department.store'), [
+        'name' => 'Development',
+        'head_of_department_id' => $this->person->id
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating a new department with incorrect data', function () {
@@ -66,7 +103,10 @@ it('returns validation errors when creating a new department with incorrect data
 });
 
 it('shows the department', function () {
-    $department = Department::factory()->create();
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
 
     $this->get(route('department.show', ['department' => $department]))
         ->assertOk()
@@ -81,8 +121,20 @@ it('shows the department', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view the department', function () {
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
+
+    $this->get(route('department.show', ['department' => $department]))
+        ->assertForbidden();
+});
+
 it('returns the department to edit', function () {
-    $department = Department::factory()->create();
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
 
     $this->get(route('department.edit', ['department' => $department]))
         ->assertOk()
@@ -97,8 +149,20 @@ it('returns the department to edit', function () {
         );
 });
 
+it('returns unauthorized when editing if the person does not have permission to update a department', function () {
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
+
+    $this->get(route('department.edit', ['department' => $department]))
+        ->assertForbidden();
+});
+
 it('updates the department when the correct data is provided', function () {
-    $department = Department::factory()->create();
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
 
     $response = $this->put(route('department.update', ['department' => $department]), [
         'name' => 'IT & Development',
@@ -108,6 +172,19 @@ it('updates the department when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Department updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update a department', function () {
+    $department = Department::factory()->create([
+        'head_of_department_id' => $this->person->id
+    ]);
+
+    $response = $this->put(route('department.update', ['department' => $department]), [
+        'name' => 'IT & Development',
+        'head_of_department_id' => $this->person->id
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the department with incorrect data', function () {
@@ -124,6 +201,7 @@ it('returns validation errors when updating the department with incorrect data',
 });
 
 it('deletes the department', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $department = Department::factory()->create();
 
     $response = $this->delete(route('department.destroy', ['department' => $department]));
@@ -131,4 +209,12 @@ it('deletes the department', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Department dissolved!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the department', function () {
+    $department = Department::factory()->create();
+
+    $response = $this->delete(route('department.destroy', ['department' => $department]));
+
+    $response->assertForbidden();
 });
