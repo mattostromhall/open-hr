@@ -89,7 +89,9 @@ it('returns validation errors when uploading documents with incorrect data', fun
 it('deletes the document', function () {
     $this->person->user->assign(Role::PERSON->value);
 
-    $document = Document::factory()->create();
+    $document = Document::factory()->create([
+        'documentable_id' => $this->person->id
+    ]);
     $response = $this->delete(route('document.destroy', ['document' => $document]));
 
     $response
@@ -98,7 +100,9 @@ it('deletes the document', function () {
 });
 
 it('returns unauthorized if the person does not have permission to delete the document', function () {
-    $document = Document::factory()->create();
+    $document = Document::factory()->create([
+        'documentable_id' => $this->person->id
+    ]);
     $response = $this->delete(route('document.destroy', ['document' => $document]));
 
     $response->assertForbidden();

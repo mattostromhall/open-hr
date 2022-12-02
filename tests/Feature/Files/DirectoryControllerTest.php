@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use function Pest\Faker\faker;
@@ -11,6 +12,8 @@ beforeEach(function () {
 });
 
 it('creates a directory for the path provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     $response = $this->post(route('directory.store'), [
         'path' => 'test/' . faker()->text(10)
     ]);
@@ -18,6 +21,14 @@ it('creates a directory for the path provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Folder successfully created!');
+});
+
+it('returns unauthorized if the person does not have permission to create directories', function () {
+    $response = $this->post(route('directory.store'), [
+        'path' => 'test/' . faker()->text(10)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when submitting an expense with incorrect data', function () {
@@ -30,7 +41,9 @@ it('returns validation errors when submitting an expense with incorrect data', f
         ->assertSessionHasErrors(['path']);
 });
 
+
 it('deletes the directory at the path provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     $path = 'test/' . faker()->text(10);
 
     $createResponse = $this->post(route('directory.store'), [
@@ -41,11 +54,34 @@ it('deletes the directory at the path provided', function () {
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Folder successfully created!');
 
-    $createResponse = $this->post(route('directory.destroy'), [
+    $deleteResponse = $this->post(route('directory.destroy'), [
+        'path' => $path
+    ]);
+
+    $deleteResponse
+        ->assertStatus(302)
+        ->assertSessionHas('flash.success', 'Folder deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete directories', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+    $path = 'test/' . faker()->text(10);
+
+    $createResponse = $this->post(route('directory.store'), [
         'path' => $path
     ]);
 
     $createResponse
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Folder deleted!');
+        ->assertSessionHas('flash.success', 'Folder successfully created!');
+
+    $person = Person::factory()->create();
+    $this->actingAs($person->user);
+
+    $deleteResponse = $this->post(route('directory.destroy'), [
+        'path' => $path
+    ]);
+
+
+    $deleteResponse->assertForbidden();
 });

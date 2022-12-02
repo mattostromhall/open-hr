@@ -30,6 +30,8 @@ enum Ability: string
     case CREATE_EXPENSE_TYPE = 'create-expense-type';
     case UPDATE_EXPENSE_TYPE = 'update-expense-type';
     case DELETE_EXPENSE_TYPE = 'delete-expense-type';
+    case CREATE_DIRECTORY = 'create-folder';
+    case DELETE_DIRECTORY = 'delete-folder';
     case UPLOAD_DOCUMENT = 'upload-document';
     case DOWNLOAD_DOCUMENT = 'download-document';
     case DELETE_DOCUMENT = 'delete-document';
