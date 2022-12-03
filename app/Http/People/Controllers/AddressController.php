@@ -8,19 +8,30 @@ use Domain\People\Actions\CreateAddressAction;
 use Domain\People\Actions\DeleteAddressAction;
 use Domain\People\Actions\UpdateAddressAction;
 use Domain\People\Models\Address;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 
 class AddressController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function store(AddressRequest $request, CreateAddressAction $createAddress): RedirectResponse
     {
+        $this->authorize('create', Address::class);
+
         $createAddress->execute($request->addressData());
 
         return back()->with('flash.success', 'Address successfully created!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(AddressRequest $request, Address $address, UpdateAddressAction $updateAddress): RedirectResponse
     {
+        $this->authorize('update', $address);
+
         $updated = $updateAddress->execute($address, $request->addressData());
 
         if (! $updated) {
@@ -30,8 +41,13 @@ class AddressController extends Controller
         return back()->with('flash.success', 'Address successfully updated!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Address $address, DeleteAddressAction $deleteAddress): RedirectResponse
     {
+        $this->authorize('delete', $address);
+
         $deleted = $deleteAddress->execute($address);
 
         if (! $deleted) {
