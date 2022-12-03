@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -27,6 +28,8 @@ it('returns the organisation notifications index', function () {
 });
 
 it('returns the organisation notification create page', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     $this->get(route('organisation.notification.create'))
         ->assertOk()
         ->assertInertia(
@@ -34,7 +37,14 @@ it('returns the organisation notification create page', function () {
         );
 });
 
+it('returns unauthorized when creating if the person does not have permission to create an organisation notification', function () {
+    $this->get(route('organisation.notification.create'))
+        ->assertForbidden();
+});
+
 it('creates a new organisation notification when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     $response = $this->post(route('organisation.notification.store'), [
         'title' => 'Notification title',
         'body' => 'This is a notification for the organisation',
@@ -44,6 +54,16 @@ it('creates a new organisation notification when the correct data is provided', 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Organisation notification successfully created!');
+});
+
+it('returns unauthorized if the person does not have permission to create an organisation notification', function () {
+    $response = $this->post(route('organisation.notification.store'), [
+        'title' => 'Notification title',
+        'body' => 'This is a notification for the organisation',
+        'link' => 'https://open-hr.test'
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating a new organisation notification with incorrect data', function () {

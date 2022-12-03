@@ -3,6 +3,7 @@
 namespace Domain\Organisation\Models;
 
 use Domain\Files\Models\Document;
+use Domain\Notifications\Models\Notification;
 use Domain\Organisation\Events\DepartmentCreated;
 use Domain\Organisation\Events\DepartmentDeleted;
 use Domain\Organisation\Events\DepartmentUpdated;
@@ -52,6 +53,11 @@ class Department extends Model
     public function documents(): MorphMany
     {
         return $this->morphMany(Document::class, 'documentable');
+    }
+
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(Notification::class, 'notifiable')->orderByDesc('created_at');
     }
 
     public function isHead(Person $person): bool
