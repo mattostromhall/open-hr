@@ -51,9 +51,11 @@ enum Ability: string
     case UPDATE_ADDRESS = 'update-address';
     case DELETE_ADDRESS = 'delete-address';
     case VIEW_PERSON = 'view-person';
+    case VIEW_PEOPLE = 'view-people';
     case CREATE_PERSON = 'create-person';
     case UPDATE_PERSON = 'update-person';
     case DELETE_PERSON = 'delete-person';
+    case MANAGE_DIRECT_REPORTS = 'manage-direct-reports';
     case VIEW_OBJECTIVE = 'view-objective';
     case CREATE_OBJECTIVE = 'create-objective';
     case UPDATE_OBJECTIVE = 'update-objective';

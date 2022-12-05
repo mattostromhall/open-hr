@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Enums\RemunerationInterval;
@@ -18,6 +19,7 @@ beforeEach(function () {
 });
 
 it('returns the person index', function () {
+    $this->person->user->assign(Role::ADMIN->value);
     Person::factory()->for($this->department)->count(2)->create();
 
     $this->get(route('person.index'))
@@ -61,7 +63,16 @@ it('returns the person index', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view people', function () {
+    Person::factory()->for($this->department)->count(2)->create();
+
+    $this->get(route('person.index'))
+        ->assertForbidden();
+});
+
 it('returns the person create page', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+
     $this->get(route('person.create'))
         ->assertOk()
         ->assertInertia(
@@ -82,8 +93,15 @@ it('returns the person create page', function () {
         );
 });
 
+it('returns unauthorized when creating if the person does not have permission to create a person', function () {
+    $this->get(route('person.create'))
+        ->assertForbidden();
+});
+
 it('creates a new user and person when the correct data is provided', function () {
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
     $password = faker()->password(8);
+
     $response = $this->post(route('person.store'), [
         // User
         'email' => faker()->companyEmail(),
@@ -107,6 +125,32 @@ it('creates a new user and person when the correct data is provided', function (
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Person successfully created!');
+});
+
+it('returns unauthorized if the person does not have permission to create a person', function () {
+    $password = faker()->password(8);
+
+    $response = $this->post(route('person.store'), [
+        // User
+        'email' => faker()->companyEmail(),
+        'password' => $password,
+        'password_confirmation' => $password,
+        // Person
+        'first_name' => faker()->firstName(),
+        'last_name' => faker()->lastName(),
+        'dob' => now()->subYears(30),
+        'position' => faker()->jobTitle(),
+        'remuneration' => faker()->numberBetween(10000, 100000),
+        'remuneration_interval' => RemunerationInterval::YEARLY->value,
+        'remuneration_currency' => Currency::GBP->value,
+        'base_holiday_allocation' => 25,
+        'sickness_allocation' => 10,
+        'contact_number' => faker()->phoneNumber(),
+        'contact_email' => faker()->email(),
+        'started_on' => now()->subYear()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating a new user and person with incorrect data', function () {
@@ -136,6 +180,8 @@ it('returns validation errors when creating a new user and person with incorrect
 });
 
 it('shows the person', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $this->get(route('person.show', ['person' => $this->person]))
         ->assertOk()
         ->assertInertia(
@@ -154,7 +200,14 @@ it('shows the person', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view the person', function () {
+    $this->get(route('person.show', ['person' => $this->person]))
+        ->assertForbidden();
+});
+
 it('returns the person to edit', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $this->get(route('person.edit', ['person' => $this->person]))
         ->assertOk()
         ->assertInertia(
@@ -173,7 +226,14 @@ it('returns the person to edit', function () {
         );
 });
 
+it('returns unauthorized when editing if the person does not have permission to update the person', function () {
+    $this->get(route('person.edit', ['person' => $this->person]))
+        ->assertForbidden();
+});
+
 it('updates the person when the correct data is provided', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+
     $response = $this->put(route('person.update', ['person' => $this->person]), [
         'user_id' => $this->person->user->id,
         'first_name' => faker()->firstName(),
@@ -194,6 +254,27 @@ it('updates the person when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Person successfully updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the person', function () {
+    $response = $this->put(route('person.update', ['person' => $this->person]), [
+        'user_id' => $this->person->user->id,
+        'first_name' => faker()->firstName(),
+        'last_name' => faker()->lastName(),
+        'dob' => now()->subYears(30),
+        'position' => faker()->jobTitle(),
+        'remuneration' => faker()->numberBetween(10000, 100000),
+        'remuneration_interval' => RemunerationInterval::YEARLY->value,
+        'remuneration_currency' => Currency::GBP->value,
+        'base_holiday_allocation' => 25,
+        'sickness_allocation' => 10,
+        'contact_number' => faker()->phoneNumber(),
+        'contact_email' => faker()->email(),
+        'started_on' => now()->subYear(),
+        'hex_code' => '#000000'
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the person with incorrect data', function () {
@@ -220,9 +301,17 @@ it('returns validation errors when updating the person with incorrect data', fun
 });
 
 it('deletes the person', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
     $response = $this->delete(route('person.destroy', ['person' => $this->person]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Person deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the person', function () {
+    $response = $this->delete(route('person.destroy', ['person' => $this->person]));
+
+    $response->assertForbidden();
 });

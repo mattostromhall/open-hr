@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Address;
 use Domain\People\Models\Person;
@@ -12,6 +13,8 @@ beforeEach(function () {
 });
 
 it('creates a new address when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $response = $this->post(route('address.store', ['person' => $this->person]), [
         'address_line' => faker()->streetAddress(),
         'country' => faker()->country(),
@@ -23,6 +26,18 @@ it('creates a new address when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Address successfully created!');
+});
+
+it('returns unauthorized if the person does not have permission to create an address', function () {
+    $response = $this->post(route('address.store', ['person' => $this->person]), [
+        'address_line' => faker()->streetAddress(),
+        'country' => faker()->country(),
+        'region' => faker()->text(10),
+        'town_city' => faker()->city(),
+        'postal_code' => faker()->postcode()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating a new address with incorrect data', function () {
@@ -40,7 +55,8 @@ it('returns validation errors when creating a new address with incorrect data', 
 });
 
 it('updates the address when the correct data is provided', function () {
-    $address = Address::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $address = Address::factory()->for($this->person)->create();
 
     $response = $this->put(route('address.update', ['address' => $address]), [
         'address_line' => faker()->streetAddress(),
@@ -53,6 +69,20 @@ it('updates the address when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Address successfully updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the address', function () {
+    $address = Address::factory()->create();
+
+    $response = $this->put(route('address.update', ['address' => $address]), [
+        'address_line' => faker()->streetAddress(),
+        'country' => faker()->country(),
+        'region' => faker()->text(10),
+        'town_city' => faker()->city(),
+        'postal_code' => faker()->postcode()
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the address with incorrect data', function () {
@@ -72,11 +102,20 @@ it('returns validation errors when updating the address with incorrect data', fu
 });
 
 it('deletes the address', function () {
-    $address = Address::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $address = Address::factory()->for($this->person)->create();
 
     $response = $this->delete(route('address.destroy', ['address' => $address]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Address deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the address', function () {
+    $address = Address::factory()->create();
+
+    $response = $this->delete(route('address.destroy', ['address' => $address]));
+
+    $response->assertForbidden();
 });
