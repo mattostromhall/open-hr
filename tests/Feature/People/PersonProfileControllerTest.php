@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
@@ -15,6 +16,8 @@ beforeEach(function () {
 });
 
 it('returns the profile to edit', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $this->get(route('person.profile', ['person' => $this->person]))
         ->assertOk()
         ->assertInertia(
@@ -38,7 +41,14 @@ it('returns the profile to edit', function () {
         );
 });
 
+it('returns unauthorized when editing if the person does not have permission to update the person profile', function () {
+    $this->get(route('person.profile', ['person' => $this->person]))
+        ->assertForbidden();
+});
+
 it('updates the profile when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
+
     $response = $this->patch(route('profile.update', ['person' => $this->person]), [
         'first_name' => faker()->firstName(),
         'last_name' => faker()->lastName(),
@@ -50,6 +60,18 @@ it('updates the profile when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Personal Information successfully updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the person profile', function () {
+    $response = $this->patch(route('profile.update', ['person' => $this->person]), [
+        'first_name' => faker()->firstName(),
+        'last_name' => faker()->lastName(),
+        'dob' => now()->subYears(30),
+        'contact_number' => faker()->phoneNumber(),
+        'contact_email' => faker()->email(),
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the profile with incorrect data', function () {
