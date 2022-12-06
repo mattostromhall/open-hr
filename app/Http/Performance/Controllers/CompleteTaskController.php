@@ -7,13 +7,19 @@ use Domain\Performance\Actions\CompleteObjectiveAction;
 use Domain\Performance\Actions\CompleteTaskAction;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CompleteTaskController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function __invoke(Request $request, Task $task, CompleteTaskAction $completeTask): RedirectResponse
     {
+        $this->authorize('complete', $task);
+
         $completed = $completeTask->execute($task);
 
         if (! $completed) {

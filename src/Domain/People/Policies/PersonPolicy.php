@@ -2,7 +2,6 @@
 
 namespace Domain\People\Policies;
 
-use Domain\Absences\Models\Holiday;
 use Domain\Auth\Enums\Ability;
 use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
@@ -59,7 +58,7 @@ class PersonPolicy
     public function delete(User $user, Person $person): bool
     {
         return $user->can(Ability::DELETE_PERSON->value)
-                && $user->can(Ability::DELETE_USER->value)
+            && $user->can(Ability::DELETE_USER->value)
             && (
                 $user->person->owns($person, 'id')
                 || $user->person->isManagerFor($person)

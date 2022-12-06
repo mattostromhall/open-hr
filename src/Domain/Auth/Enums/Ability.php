@@ -66,11 +66,13 @@ enum Ability: string
     case UPDATE_ONE_TO_ONE = 'update-one-to-one';
     case DELETE_ONE_TO_ONE = 'delete-one-to-one';
     case SCHEDULE_ONE_TO_ONE = 'schedule-one-to-one';
+    case COMPLETE_ONE_TO_ONE = 'complete-one-to-one';
     case VIEW_TRAINING = 'view-training';
     case CREATE_TRAINING = 'create-training';
     case UPDATE_TRAINING = 'update-training';
     case DELETE_TRAINING = 'delete-training';
     case REVIEW_TRAINING = 'review-training';
+    case COMPLETE_TRAINING = 'complete-training';
     case VIEW_TASK = 'view-task';
     case CREATE_TASK = 'create-task';
     case UPDATE_TASK = 'update-task';

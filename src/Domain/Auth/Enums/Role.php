@@ -40,6 +40,7 @@ enum Role: string
                 Ability::UPDATE_OBJECTIVE->value,
                 Ability::DELETE_OBJECTIVE->value,
                 Ability::SCHEDULE_ONE_TO_ONE->value,
+                Ability::COMPLETE_ONE_TO_ONE->value,
                 Ability::REVIEW_TRAINING->value,
                 Ability::CREATE_TASK->value,
                 Ability::UPDATE_TASK->value,
@@ -72,6 +73,7 @@ enum Role: string
                 Ability::UPDATE_OBJECTIVE->value,
                 Ability::DELETE_OBJECTIVE->value,
                 Ability::SCHEDULE_ONE_TO_ONE->value,
+                Ability::COMPLETE_ONE_TO_ONE->value,
                 Ability::REVIEW_TRAINING->value,
                 Ability::CREATE_TASK->value,
                 Ability::UPDATE_TASK->value,
@@ -122,6 +124,7 @@ enum Role: string
                 Ability::VIEW_TRAINING->value,
                 Ability::UPDATE_TRAINING->value,
                 Ability::DELETE_TRAINING->value,
+                Ability::COMPLETE_TRAINING->value,
                 Ability::VIEW_TASK->value,
                 Ability::COMPLETE_TASK->value
             ]
