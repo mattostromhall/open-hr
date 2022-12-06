@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Performance\Models\Objective;
@@ -13,6 +14,8 @@ beforeEach(function () {
 });
 
 it('creates an objective when the correct data is provided', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+
     $response = $this->post(route('objective.store'), [
         'person_id' => $this->person->id,
         'title' => faker()->text(100),
@@ -23,6 +26,17 @@ it('creates an objective when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Objective successfully created!');
+});
+
+it('returns unauthorized if the person does not have permission to create an objective', function () {
+    $response = $this->post(route('objective.store'), [
+        'person_id' => $this->person->id,
+        'title' => faker()->text(100),
+        'description' => faker()->randomHtml(),
+        'due_at' => now()->addDays(30)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when creating an objective with incorrect data', function () {
@@ -39,7 +53,8 @@ it('returns validation errors when creating an objective with incorrect data', f
 });
 
 it('shows the objective', function () {
-    $objective = Objective::factory()->create();
+    $this->person->user->assign(Role::PERSON->value);
+    $objective = Objective::factory()->for($this->person)->create();
 
     $this->get(route('objective.show', ['objective' => $objective]))
         ->assertOk()
@@ -54,8 +69,19 @@ it('shows the objective', function () {
         );
 });
 
-it('returns the objective to edit', function () {
+it('returns unauthorized if the person does not have permission to view the objective', function () {
     $objective = Objective::factory()->create();
+
+    $this->get(route('objective.show', ['objective' => $objective]))
+        ->assertForbidden();
+});
+
+it('returns the objective to edit', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+    $person = Person::factory()->create([
+        'manager_id' => $this->person->id
+    ]);
+    $objective = Objective::factory()->for($person)->create();
 
     $this->get(route('objective.edit', ['objective' => $objective]))
         ->assertOk()
@@ -70,8 +96,19 @@ it('returns the objective to edit', function () {
         );
 });
 
-it('updates the objective when the correct data is provided', function () {
+it('returns unauthorized when editing if the person does not have permission to update the objective', function () {
     $objective = Objective::factory()->create();
+
+    $this->get(route('objective.edit', ['objective' => $objective]))
+        ->assertForbidden();
+});
+
+it('updates the objective when the correct data is provided', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+    $person = Person::factory()->create([
+        'manager_id' => $this->person->id
+    ]);
+    $objective = Objective::factory()->for($person)->create();
 
     $response = $this->put(route('objective.update', ['objective' => $objective]), [
         'title' => faker()->text(100),
@@ -83,6 +120,19 @@ it('updates the objective when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Objective updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the objective', function () {
+    $objective = Objective::factory()->create();
+
+    $response = $this->put(route('objective.update', ['objective' => $objective]), [
+        'title' => faker()->text(100),
+        'description' => faker()->randomHtml(),
+        'due_at' => now()->addDays(25),
+        'completed_at' => now()->addDays(30)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the objective with incorrect data', function () {
@@ -101,11 +151,23 @@ it('returns validation errors when updating the objective with incorrect data', 
 });
 
 it('deletes the objective', function () {
-    $objective = Objective::factory()->create();
+    $this->person->user->assign(Role::MANAGER->value);
+    $person = Person::factory()->create([
+        'manager_id' => $this->person->id
+    ]);
+    $objective = Objective::factory()->for($person)->create();
 
     $response = $this->delete(route('objective.destroy', ['objective' => $objective]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Objective unset!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the objective', function () {
+    $objective = Objective::factory()->create();
+
+    $response = $this->delete(route('objective.destroy', ['objective' => $objective]));
+
+    $response->assertForbidden();
 });
