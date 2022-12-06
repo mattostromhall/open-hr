@@ -11,20 +11,31 @@ use Domain\Performance\Actions\UnsetTaskAction;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 
 class ObjectiveTaskController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function store(StoreTaskRequest $request, Objective $objective, SetTaskAction $setTask): RedirectResponse
     {
+        $this->authorize('create', Task::class);
+
         $setTask->execute($request->taskData());
 
         return redirect(route('objective.show', ['objective' => $objective]))
             ->with('flash.success', 'Task successfully created!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateTaskRequest $request, Task $task, AmendTaskAction $amendTask): RedirectResponse
     {
+        $this->authorize('update', $task);
+
         $updated = $amendTask->execute($task, $request->taskData());
 
         if (! $updated) {
@@ -34,8 +45,13 @@ class ObjectiveTaskController extends Controller
         return back()->with('flash.success', 'Task successfully updated!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Task $task, UnsetTaskAction $unsetTask): RedirectResponse
     {
+        $this->authorize('delete', $task);
+
         $deleted = $unsetTask->execute($task, TaskData::from($task->toArray()));
 
         if (! $deleted) {
