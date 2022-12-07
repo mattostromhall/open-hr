@@ -90,6 +90,7 @@ enum Ability: string
     case RETRACT_ROLE = 'retract-role';
     case ASSIGN_ABILITY = 'assign-ability';
     case RETRACT_ABILITY = 'retract-ability';
+    case VIEW_ACTION_LOGS = 'view-action-logs';
 
     public static function values(): Collection
     {

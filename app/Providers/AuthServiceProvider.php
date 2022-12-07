@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Silber\Bouncer\Database\Role;
+use Support\Models\ActionLog;
+use Support\Policies\ActionLogPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-         Role::class => RolePolicy::class,
+        ActionLog::class => ActionLogPolicy::class,
+        Role::class => RolePolicy::class,
     ];
 
     /**
