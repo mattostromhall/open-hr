@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Performance\Enums\OneToOneStatus;
@@ -13,6 +14,7 @@ beforeEach(function () {
 });
 
 it('shows the one-to-one invite', function () {
+    $this->person->user->assign(Role::PERSON->value);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id
@@ -35,7 +37,18 @@ it('shows the one-to-one invite', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view the one-to-one invite', function () {
+    $oneToOne = OneToOne::factory()->create([
+        'person_id' => $this->person->id,
+        'requester_id' => $this->person->id
+    ]);
+
+    $this->get(route('one-to-one.invite.show', ['one_to_one' => $oneToOne]))
+        ->assertForbidden();
+});
+
 it('updates the one-to-one when the correct data is provided', function () {
+    $this->person->user->assign(Role::PERSON->value);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id
@@ -49,6 +62,20 @@ it('updates the one-to-one when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'One-to-one updated!');
+});
+
+it('returns unauthorized if the person does not have permission to respond to the one-to-one invite', function () {
+    $oneToOne = OneToOne::factory()->create([
+        'person_id' => $this->person->id,
+        'requester_id' => $this->person->id
+    ]);
+
+    $response = $this->patch(route('one-to-one.invite.update', ['one_to_one' => $oneToOne]), [
+        'person_status' => OneToOneStatus::ACCEPTED->value,
+        'manager_status' => OneToOneStatus::ACCEPTED->value
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating the one-to-one with incorrect data', function () {

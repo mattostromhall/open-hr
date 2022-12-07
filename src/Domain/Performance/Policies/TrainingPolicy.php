@@ -56,6 +56,15 @@ class TrainingPolicy
             );
     }
 
+    public function review(User $user, Training $training): bool
+    {
+        return $user->can(Ability::REVIEW_TRAINING->value)
+            && (
+                $user->person->isManagerFor($training->person)
+                || $user->person->isHeadOfDepartmentFor($training->person)
+            );
+    }
+
     public function complete(User $user, Training $training): bool
     {
         return $user->can(Ability::COMPLETE_TRAINING->value)

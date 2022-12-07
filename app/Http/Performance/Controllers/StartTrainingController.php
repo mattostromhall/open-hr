@@ -5,13 +5,19 @@ namespace App\Http\Performance\Controllers;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Actions\StartTrainingAction;
 use Domain\Performance\Models\Training;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StartTrainingController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function __invoke(Request $request, Training $training, StartTrainingAction $startTraining): RedirectResponse
     {
+        $this->authorize('update', $training);
+
         $started = $startTraining->execute($training);
 
         if (! $started) {

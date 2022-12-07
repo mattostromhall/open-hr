@@ -12,6 +12,7 @@ use Domain\Performance\Actions\CancelTrainingAction;
 use Domain\Performance\Actions\RequestTrainingAction;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,25 +24,45 @@ class TrainingController extends Controller
         return Inertia::render('Performance/Training/Index', new TrainingIndexViewModel());
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(StoreTrainingRequest $request, RequestTrainingAction $requestTraining): RedirectResponse
     {
+        $this->authorize('create', Training::class);
+
         $requestTraining->execute($request->trainingData());
 
         return back()->with('flash.success', 'Training request submitted!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function show(Training $training): Response
     {
+        $this->authorize('view', $training);
+
         return Inertia::render('Performance/Training/Show', new TrainingViewModel($training));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Training $training): Response
     {
+        $this->authorize('update', $training);
+
         return Inertia::render('Performance/Training/Edit', new TrainingViewModel($training));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateTrainingRequest $request, Training $training, AmendTrainingAction $amendTraining): RedirectResponse
     {
+        $this->authorize('update', $training);
+
         $updated = $amendTraining->execute($training, $request->trainingData());
 
         if (! $updated) {
@@ -51,8 +72,13 @@ class TrainingController extends Controller
         return redirect()->to(route('training.index'))->with('flash.success', 'Training updated!');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Training $training, CancelTrainingAction $cancelTraining): RedirectResponse
     {
+        $this->authorize('delete', $training);
+
         $deleted = $cancelTraining->execute($training, TrainingData::from($training->toArray()));
 
         if (! $deleted) {

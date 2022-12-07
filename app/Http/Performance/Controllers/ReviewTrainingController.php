@@ -10,19 +10,30 @@ use Domain\Performance\Actions\RequestTrainingAction;
 use Domain\Performance\Actions\ReviewTrainingAction;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ReviewTrainingController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
     public function show(Training $training): Response
     {
+        $this->authorize('review', $training);
+
         return Inertia::render('Performance/Training/Review', new ReviewTrainingViewModel($training));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(UpdateTrainingRequest $request, Training $training, ReviewTrainingAction $reviewTraining): RedirectResponse
     {
+        $this->authorize('review', $training);
+
         $trainingData = $request->trainingData();
 
         $reviewed = $reviewTraining->execute($training, $trainingData);
