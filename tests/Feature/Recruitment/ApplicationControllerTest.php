@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ApplicationStatus;
@@ -47,7 +48,13 @@ it('returns validation errors when submitting an application with incorrect data
 });
 
 it('shows the application', function () {
-    $application = Application::factory()->create();
+    $person = Person::factory()->create();
+    $this->actingAs($person->user);
+    $person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $person->id
+    ]);
+    $application = Application::factory()->for($vacancy)->create();
 
     $this->get(route('application.show', ['application' => $application]))
         ->assertOk()
@@ -63,15 +70,37 @@ it('shows the application', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view the application', function () {
+    $person = Person::factory()->create();
+    $this->actingAs($person->user);
+    $application = Application::factory()->create();
+
+    $this->get(route('application.show', ['application' => $application]))
+        ->assertForbidden();
+});
+
 it('deletes the application', function () {
     $person = Person::factory()->create();
     $this->actingAs($person->user);
-
-    $application = Application::factory()->create();
+    $person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $person->id
+    ]);
+    $application = Application::factory()->for($vacancy)->create();
 
     $response = $this->delete(route('application.destroy', ['application' => $application]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Application deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the application', function () {
+    $person = Person::factory()->create();
+    $this->actingAs($person->user);
+    $application = Application::factory()->create();
+
+    $response = $this->delete(route('application.destroy', ['application' => $application]));
+
+    $response->assertForbidden();
 });

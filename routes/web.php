@@ -314,6 +314,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::delete('/vacancies/{vacancy}', [VacancyController::class, 'destroy'])
         ->name('vacancy.destroy');
 
+    Route::get('/applications/{application}', [ApplicationController::class, 'show'])
+        ->name('application.show');
     Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])
         ->name('application.destroy');
     Route::post('/applications/{application}/pending', PendingApplicationController::class)
@@ -336,8 +338,6 @@ Route::middleware(['setup'])->group(function () {
 
     Route::post('/applications', [ApplicationController::class, 'store'])
         ->name('application.store');
-    Route::get('/applications/{application}', [ApplicationController::class, 'show'])
-        ->name('application.show');
 });
 
 require __DIR__ . '/auth.php';

@@ -79,6 +79,7 @@ enum Ability: string
     case DELETE_TASK = 'delete-task';
     case COMPLETE_TASK = 'complete-task';
     case VIEW_VACANCY = 'view-vacancy';
+    case VIEW_VACANCIES = 'view-vacancies';
     case CREATE_VACANCY = 'create-vacancy';
     case UPDATE_VACANCY = 'update-vacancy';
     case DELETE_VACANCY = 'delete-vacancy';

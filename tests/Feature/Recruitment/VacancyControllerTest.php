@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Recruitment\Enums\ContractType;
@@ -18,6 +19,7 @@ beforeEach(function () {
 });
 
 it('returns the vacancies index', function () {
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
     Vacancy::factory()->count(3)->create();
     Vacancy::factory()->count(3)->create([
         'close_at' => now()->subDay()
@@ -38,7 +40,19 @@ it('returns the vacancies index', function () {
         );
 });
 
+it('returns unauthorized if the person does not have permission to view vacancies', function () {
+    Vacancy::factory()->count(3)->create();
+    Vacancy::factory()->count(3)->create([
+        'close_at' => now()->subDay()
+    ]);
+
+    $this->get(route('vacancy.index'))
+        ->assertForbidden();
+});
+
 it('posts a vacancy when the correct data is provided', function () {
+    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+
     $response = $this->post(route('vacancy.store'), [
         'contact_id' => $this->person->id,
         'title' => faker()->text(),
@@ -54,6 +68,22 @@ it('posts a vacancy when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Vacancy posted!');
+});
+
+it('returns unauthorized if the person does not have permission to create a vacancy', function () {
+    $response = $this->post(route('vacancy.store'), [
+        'contact_id' => $this->person->id,
+        'title' => faker()->text(),
+        'description' => faker()->randomHtml(),
+        'location' => 'remote',
+        'contract_type' => ContractType::FULL_TIME->value,
+        'remuneration' => 70000,
+        'remuneration_currency' => Currency::GBP->value,
+        'open_at' => now(),
+        'close_at' => now()->addDays(90)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when posting a vacancy with incorrect data', function () {
