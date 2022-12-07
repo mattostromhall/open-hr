@@ -102,7 +102,10 @@ it('returns validation errors when posting a vacancy with incorrect data', funct
 });
 
 it('shows the vacancy', function () {
-    $vacancy = Vacancy::factory()->create();
+    $this->person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $this->person->id
+    ]);
     Application::factory()->for($vacancy)->count(3)->create();
 
     $this->get(route('vacancy.show', ['vacancy' => $vacancy]))
@@ -131,8 +134,19 @@ it('shows the vacancy', function () {
         );
 });
 
-it('returns the vacancy to edit', function () {
+it('returns unauthorized if the person does not have permission to view the vacancy', function () {
     $vacancy = Vacancy::factory()->create();
+    Application::factory()->for($vacancy)->count(3)->create();
+
+    $this->get(route('vacancy.show', ['vacancy' => $vacancy]))
+        ->assertForbidden();
+});
+
+it('returns the vacancy to edit', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $this->person->id
+    ]);
 
     $this->get(route('vacancy.edit', ['vacancy' => $vacancy]))
         ->assertOk()
@@ -158,8 +172,18 @@ it('returns the vacancy to edit', function () {
         );
 });
 
-it('updates the vacancy when the correct data is provided', function () {
+it('returns unauthorized when editing if the person does not have permission to update the vacancy', function () {
     $vacancy = Vacancy::factory()->create();
+
+    $this->get(route('vacancy.edit', ['vacancy' => $vacancy]))
+        ->assertForbidden();
+});
+
+it('updates the vacancy when the correct data is provided', function () {
+    $this->person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $this->person->id
+    ]);
 
     $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
         'contact_id' => $this->person->id,
@@ -176,6 +200,24 @@ it('updates the vacancy when the correct data is provided', function () {
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Vacancy updated!');
+});
+
+it('returns unauthorized if the person does not have permission to update the vacancy', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
+        'contact_id' => $this->person->id,
+        'title' => faker()->text(),
+        'description' => faker()->randomHtml(),
+        'location' => 'remote',
+        'contract_type' => ContractType::FULL_TIME->value,
+        'remuneration' => 70000,
+        'remuneration_currency' => Currency::GBP->value,
+        'open_at' => now(),
+        'close_at' => now()->addDays(90)
+    ]);
+
+    $response->assertForbidden();
 });
 
 it('returns validation errors when updating a vacancy with incorrect data', function () {
@@ -196,11 +238,22 @@ it('returns validation errors when updating a vacancy with incorrect data', func
 });
 
 it('deletes the vacancy', function () {
-    $vacancy = Vacancy::factory()->create();
+    $this->person->user->assign(Role::MANAGER->value);
+    $vacancy = Vacancy::factory()->create([
+        'contact_id' => $this->person->id
+    ]);
 
     $response = $this->delete(route('vacancy.destroy', ['vacancy' => $vacancy]));
 
     $response
         ->assertStatus(302)
         ->assertSessionHas('flash.success', 'Vacancy deleted!');
+});
+
+it('returns unauthorized if the person does not have permission to delete the vacancy', function () {
+    $vacancy = Vacancy::factory()->create();
+
+    $response = $this->delete(route('vacancy.destroy', ['vacancy' => $vacancy]));
+
+    $response->assertForbidden();
 });
