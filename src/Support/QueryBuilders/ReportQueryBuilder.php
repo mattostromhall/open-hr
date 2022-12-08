@@ -4,7 +4,6 @@ namespace Support\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection as SupportCollection;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionGroupData;
@@ -21,9 +20,9 @@ class ReportQueryBuilder
             ->scaffold($reportData->conditionGroups);
     }
 
-    public function for(Model $model): self
+    public function for(string $model): self
     {
-        $this->builder = $model->query();
+        $this->builder = $model::query();
 
         return $this;
     }
@@ -61,7 +60,7 @@ class ReportQueryBuilder
             fn (Builder $builder) =>
             $conditionGroup->conditions->each(
                 fn (ReportConditionData $condition) =>
-                $this->addWhereClause($builder, $condition)
+                $this->addWhereClause($condition, $builder)
             )
         );
 
@@ -74,22 +73,33 @@ class ReportQueryBuilder
             fn (Builder $builder) =>
             $conditionGroup->conditions->each(
                 fn (ReportConditionData $condition) =>
-                $this->addWhereClause($builder, $condition)
+                $this->addWhereClause($condition, $builder)
             )
         );
 
         return $this;
     }
 
-    public function addWhereClause(Builder $builder, ReportConditionData $condition): self
+    public function addWhereClause(ReportConditionData $condition, ?Builder $builder = null): self
     {
-        $builder->where($condition->column, $condition->operator, $condition->value);
+        if ($builder) {
+            $builder->where($condition->column, $condition->operator, $condition->value);
+
+            return $this;
+        }
+
+        $this->builder->where($condition->column, $condition->operator, $condition->value);
 
         return $this;
     }
 
-    public function run(): Collection | array
+    public function run(): Collection
     {
         return $this->builder->get();
+    }
+
+    public function sql()
+    {
+        return $this->builder->toSql();
     }
 }
