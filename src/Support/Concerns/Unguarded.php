@@ -4,7 +4,7 @@ namespace Support\Concerns;
 
 trait Unguarded
 {
-    public function initializeUnguarded()
+    public function initializeUnguarded(): void
     {
         self::$unguarded = true;
         $this->guarded = [];

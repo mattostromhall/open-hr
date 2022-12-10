@@ -25,7 +25,7 @@ return new class () extends Migration {
             $table->date('dob');
             $table->string('position');
             $table->unsignedMediumInteger('remuneration');
-            $table->enum('remuneration_interval', ['hourly', 'daily', 'weekly', 'monthly', 'yearly']);
+            $table->string('remuneration_interval');
             $table->string('remuneration_currency');
             $table->unsignedMediumInteger('base_holiday_allocation');
             $table->unsignedMediumInteger('holiday_carry_allocation')->default(0);

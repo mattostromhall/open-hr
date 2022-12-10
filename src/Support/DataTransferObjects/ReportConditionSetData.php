@@ -4,7 +4,7 @@ namespace Support\DataTransferObjects;
 
 use Illuminate\Support\Collection;
 
-class ReportConditionGroupData extends DataTransferObject
+class ReportConditionSetData extends DataTransferObject
 {
     /**
      * @param Collection<ReportConditionData> $conditions

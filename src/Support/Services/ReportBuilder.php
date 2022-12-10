@@ -1,15 +1,16 @@
 <?php
 
-namespace Support\QueryBuilders;
+namespace Support\Services;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
+use Support\Contracts\Services\ReportBuilderInterface;
 use Support\DataTransferObjects\ReportConditionData;
-use Support\DataTransferObjects\ReportConditionGroupData;
+use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
 
-class ReportQueryBuilder
+class ReportBuilder implements ReportBuilderInterface
 {
     protected ?Builder $builder;
 
@@ -17,7 +18,7 @@ class ReportQueryBuilder
     {
         return (new self())
             ->for($reportData->model)
-            ->scaffold($reportData->conditionGroups);
+            ->scaffold($reportData->conditionSets);
     }
 
     public function for(string $model): self
@@ -28,37 +29,37 @@ class ReportQueryBuilder
     }
 
     /**
-     * @param SupportCollection<ReportConditionGroupData> $conditionGroups
-     * @return ReportQueryBuilder
+     * @param SupportCollection<ReportConditionSetData> $conditionSets
+     * @return ReportBuilder
      */
-    public function scaffold(SupportCollection $conditionGroups): self
+    public function scaffold(SupportCollection $conditionSets): self
     {
-        $conditionGroups->each(
-            fn (ReportConditionGroupData $conditionGroup) =>
-            $this->addConditionGroup($conditionGroup)
+        $conditionSets->each(
+            fn (ReportConditionSetData $conditionSet) =>
+            $this->addConditionSet($conditionSet)
         );
 
         return $this;
     }
 
-    public function addConditionGroup(ReportConditionGroupData $conditionGroup): self
+    public function addConditionSet(ReportConditionSetData $conditionSet): self
     {
-        if ($conditionGroup->type === 'and') {
-            $this->addWhereConditionGroup($conditionGroup);
+        if ($conditionSet->type === 'and') {
+            $this->addWhereConditionGroup($conditionSet);
         }
 
-        if ($conditionGroup->type === 'or') {
-            $this->addOrWhereConditionGroup($conditionGroup);
+        if ($conditionSet->type === 'or') {
+            $this->addOrWhereConditionGroup($conditionSet);
         }
 
         return $this;
     }
 
-    public function addWhereConditionGroup(ReportConditionGroupData $conditionGroup): self
+    public function addWhereConditionGroup(ReportConditionSetData $conditionSet): self
     {
         $this->builder->where(
             fn (Builder $builder) =>
-            $conditionGroup->conditions->each(
+            $conditionSet->conditions->each(
                 fn (ReportConditionData $condition) =>
                 $this->addWhereClause($condition, $builder)
             )
@@ -67,11 +68,11 @@ class ReportQueryBuilder
         return $this;
     }
 
-    public function addOrWhereConditionGroup(ReportConditionGroupData $conditionGroup): self
+    public function addOrWhereConditionGroup(ReportConditionSetData $conditionSet): self
     {
         $this->builder->orWhere(
             fn (Builder $builder) =>
-            $conditionGroup->conditions->each(
+            $conditionSet->conditions->each(
                 fn (ReportConditionData $condition) =>
                 $this->addWhereClause($condition, $builder)
             )

@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->dateTime('scheduled_at');
             $table->dateTime('completed_at')->nullable();
             $table->boolean('recurring')->default(false);
-            $table->enum('recurrence_interval', ['never', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'biannually'])->default('never');
+            $table->string('recurrence_interval')->default('never');
             $table->text('notes')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('status')->index();
             $table->date('start_at');
             $table->date('finish_at');
-            $table->enum('half_day', ['am', 'pm'])->nullable();
+            $table->string('half_day')->nullable();
             $table->text('notes')->nullable();
             $table->softDeletes();
 

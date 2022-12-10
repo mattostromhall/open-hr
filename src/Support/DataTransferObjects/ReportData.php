@@ -8,11 +8,11 @@ class ReportData extends DataTransferObject
 {
     /**
      * @param string $model
-     * @param Collection<ReportConditionGroupData> $conditionGroups
+     * @param Collection<ReportConditionSetData> $conditionSets
      */
     public function __construct(
         public readonly string $model,
-        public readonly Collection $conditionGroups
+        public readonly Collection $conditionSets
     ) {
         //
     }

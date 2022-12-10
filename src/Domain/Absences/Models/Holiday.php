@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Casts\PeriodCast;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class Holiday extends Model
@@ -23,6 +24,7 @@ class Holiday extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $casts = [
         'status' => HolidayStatus::class,
