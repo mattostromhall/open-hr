@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 use Support\Enums\Currency;
 
@@ -35,6 +36,7 @@ class Person extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $table = 'people';
 

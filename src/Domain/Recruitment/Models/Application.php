@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\Files\Models\Document;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class Application extends Model
@@ -19,6 +20,7 @@ class Application extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $casts = [
         'status' => ApplicationStatus::class

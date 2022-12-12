@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class Task extends Model
@@ -17,6 +18,7 @@ class Task extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $casts = [
         'due_at' => 'date',

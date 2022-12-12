@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class Address extends Model
@@ -16,6 +17,7 @@ class Address extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $dispatchesEvents = [
         'created' => AddressCreated::class,

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class OneToOne extends Model
@@ -22,6 +23,7 @@ class OneToOne extends Model
     use HasFactory;
     use Unguarded;
     use SoftDeletes;
+    use Reporting;
 
     protected $casts = [
         'person_status' => OneToOneStatus::class,

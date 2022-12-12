@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
+use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
 class User extends Authenticatable
@@ -26,6 +27,7 @@ class User extends Authenticatable
     use Unguarded;
     use SoftDeletes;
     use HasRolesAndAbilities;
+    use Reporting;
 
     protected $hidden = [
         'password',

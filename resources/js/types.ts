@@ -326,6 +326,12 @@ export interface ActionLog {
     actionable_type: string
 }
 
+export interface ReportableColumn {
+    display: string,
+    column: string,
+    type: string
+}
+
 export interface TimeStamp {
     created_at: string,
     updated_at: string
