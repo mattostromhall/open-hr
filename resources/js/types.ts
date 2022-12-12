@@ -36,6 +36,8 @@ export type Json =
     | Json[]
     | {[key: string]: Json};
 
+export type Operator = '=' | '!=' | '<' | '>' | '<=' | '>=' | 'like'
+
 export interface PaginatorLink {
     url: string | null,
     label: string,
@@ -324,6 +326,22 @@ export interface ActionLog {
     payload: Json,
     actionable_id: number,
     actionable_type: string
+}
+
+export interface ReportCondition {
+    column: string,
+    operator: Operator,
+    value?: string | number
+}
+
+export interface ReportConditionSet {
+    type: 'and' | 'or',
+    conditions: ReportCondition[]
+}
+
+export interface Report {
+    model: string,
+    conditionSets: ReportConditionSet[]
 }
 
 export interface ReportableColumn {
