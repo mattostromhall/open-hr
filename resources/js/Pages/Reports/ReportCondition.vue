@@ -3,7 +3,7 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
-import SelectInput from '@/Components/Controls/SelectInput.vue'
+import OperatorInput from '@/Components/Controls/OperatorInput.vue'
 import type {ReportableColumn, ReportCondition, SelectOption} from '../../types'
 import FormLabel from '../../Components/Controls/FormLabel.vue'
 import type {ComputedRef} from 'vue'
@@ -27,70 +27,13 @@ const columns: ComputedRef<SelectOption[]> = computed(() => props.reportableColu
     }
 }))
 
-// export default {
-//     props: {
-//         condition: {
-//             type: Object,
-//             required: true
-//         },
-//         models: {
-//             type: Array
-//         },
-//         objectFields: {
-//             type: Object
-//         },
-//         setField: {
-//             type: Function,
-//             required: true
-//         },
-//         object: {
-//             type: String
-//         },
-//         operator: {
-//             type: String
-//         },
-//         value: {}
-//     },
-//     emits: [
-//         'update:column',
-//         'update:operator',
-//         'update:value'
-//     ],
-//     computed: {
-//         showValueInput() {
-//             return this.condition.object
-//                 && this.condition.field.name
-//                 && this.condition.operator !== 'not set'
-//         },
-//         multiSelectValue() {
-//             if (!this.value) {
-//                 return []
-//             }
-//
-//             if (this.value.includes(',')) {
-//                 return this.value.split(',')
-//             }
-//
-//             return [this.value]
-//         }
-//     },
-//     methods: {
-//         mapFieldType(type) {
-//             return mapFieldComponent(type)
-//         },
-//         mapOperators(field) {
-//             const allowedOperators = mapOperators(field.type)
-//
-//             if (this.isLookupField(field)) {
-//                 allowedOperators.push('is one of', '!is one of')
-//             }
-//
-//             return allowedOperators
-//                 ? this.operators.filter(operator => allowedOperators.includes(operator.value))
-//                 : []
-//         }
-//     }
-// }
+const getInputFromType: ComputedRef<string> = computed(() => {
+    if (props.condition.column) {
+        //
+    }
+
+    return 'TextInput'
+})
 </script>
 
 <template>
@@ -100,19 +43,19 @@ const columns: ComputedRef<SelectOption[]> = computed(() => props.reportableColu
                 Column
             </FormLabel>
             <SearchableSelectInput
-                class="w-42 text-xs"
+                class="w-44 text-xs"
                 :options="columns"
                 placeholder-value="Choose column..."
                 :model-value="condition.column"
-                @update:model-value="emit('update:object', $event)"
+                @update:model-value="emit('update:column', $event)"
             />
         </div>
         <div class="text-center">
             <FormLabel class="block mb-1 text-xs">
                 Operator
             </FormLabel>
-            <SelectInput
-                class="w-42 text-xs"
+            <OperatorInput
+                class="w-44 text-xs"
                 :options="[]"
                 placeholder-value="Choose operator..."
                 :model-value="condition.operator"
@@ -123,13 +66,12 @@ const columns: ComputedRef<SelectOption[]> = computed(() => props.reportableColu
             <FormLabel class="block mb-1 text-xs">
                 Value
             </FormLabel>
-            <!--            <Component-->
-            <!--                :is="mapFieldType(condition.field.type)"-->
-            <!--                v-else-->
-            <!--                :class="{'w-42': condition.field.type !== 'checkbox'}"-->
-            <!--                :model-value="value"-->
-            <!--                @update:model-value="$emit('update:value', $event)"-->
-            <!--            />-->
+            <Component
+                :is="getInputFromType"
+                class="w-44"
+                :model-value="condition.value"
+                @update:model-value="$emit('update:value', $event)"
+            />
         </div>
     </div>
 </template>

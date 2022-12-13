@@ -4,15 +4,24 @@ import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 
 const props = defineProps<{
-    modelValue?: string|number,
+    modelValue?: string,
     inputId?: string,
     inputName?: string,
-    options: SelectOption[],
     error?: string,
     placeholder?: string
 }>()
 
 const emit = defineEmits(['update:modelValue', 'reset'])
+
+const options = [
+    {value: '=', display: 'Equal to'},
+    {value: '!=', display: 'Not Equal to'},
+    {value: '<', display: 'Less than'},
+    {value: '>', display: 'Greater than'},
+    {value: '<=', display: 'Less than or Equal to'},
+    {value: '>=', display: 'Greater than or Equal to'},
+    {value: 'like', display: 'Contains'}
+]
 
 const placeholder: ComputedRef<string> = computed(() => props.placeholder ?? 'Please select...')
 
