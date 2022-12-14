@@ -341,7 +341,7 @@ export interface ReportConditionSet {
 
 export interface Report {
     model: string,
-    conditionSets: ReportConditionSet[]
+    condition_sets: ReportConditionSet[]
 }
 
 export interface ReportableColumn {

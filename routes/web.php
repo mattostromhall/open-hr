@@ -331,6 +331,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
 
     Route::get('/reports/create', [ReportController::class, 'create'])
         ->name('report.create');
+    Route::post('/reports', [ReportController::class, 'store'])
+        ->name('report.store');
 });
 
 Route::middleware(['setup'])->group(function () {

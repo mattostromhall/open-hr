@@ -26,7 +26,7 @@ defineProps<{
 
 const form: InertiaForm<Report> = useForm({
     model: '',
-    conditionSets: [
+    condition_sets: [
         {
             type: 'and',
             conditions: [
@@ -41,7 +41,7 @@ const form: InertiaForm<Report> = useForm({
 })
 
 function addConditionSet() {
-    form.conditionSets.push({
+    form.condition_sets.push({
         type: 'or',
         conditions: []
     })
@@ -50,12 +50,12 @@ function addConditionSet() {
 }
 
 function removeConditionSet(index: number) {
-    form.conditionSets.splice(index, 1)
+    form.condition_sets.splice(index, 1)
     modalsOpen.value.splice(index, 1)
 }
 
 function addCondition(index: number) {
-    form.conditionSets[index]?.conditions.push({
+    form.condition_sets[index]?.conditions.push({
         column: '',
         operator: '=',
         value: undefined
@@ -68,7 +68,7 @@ function removeCondition(conditionSet: ReportConditionSet, index: number) {
 
 function reset() {
     form.model = ''
-    form.conditionSets = [
+    form.condition_sets = [
         {
             type: 'and',
             conditions: []
@@ -85,7 +85,7 @@ function conditionButtonDisabled(conditionSet: ReportConditionSet | undefined): 
     return condition?.column === ''
 }
 
-const lastConditionSet: ComputedRef<ReportConditionSet | undefined> = computed(() => form.conditionSets[form.conditionSets.length - 1])
+const lastConditionSet: ComputedRef<ReportConditionSet | undefined> = computed(() => form.condition_sets[form.condition_sets.length - 1])
 const conditionSetButtonDisabled: ComputedRef<boolean> = computed(() => conditionButtonDisabled(lastConditionSet.value))
 
 const modalsOpen: Ref<boolean[]> = ref([false])
@@ -97,6 +97,9 @@ function closeModal(index: number) {
     modalsOpen.value.splice(index, 1, false)
 }
 
+function save() {
+    form.post('/reports')
+}
 </script>
 
 <template>
@@ -117,10 +120,17 @@ function closeModal(index: number) {
         <form @submit.prevent="">
             <div class="shadow sm:rounded-md">
                 <div class="bg-white py-6 px-4 sm:rounded-md sm:p-6">
-                    <div>
+                    <div class="flex justify-between">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             Create a Report
                         </h3>
+                        <IndigoButton
+                            class="!px-2 !py-1 text-xs"
+                            type="button"
+                            @click="reset"
+                        >
+                            Reset
+                        </IndigoButton>
                     </div>
                     <div class="grid grid-cols-6 gap-6 mt-6 mb-12">
                         <div class="col-span-6">
@@ -138,7 +148,7 @@ function closeModal(index: number) {
                         class="mt-6 space-y-6"
                     >
                         <div
-                            v-for="(conditionSet, index) in form.conditionSets"
+                            v-for="(conditionSet, index) in form.condition_sets"
                             :key="conditionSet"
                             class="relative p-3 pt-8 rounded-md border"
                         >
@@ -165,7 +175,7 @@ function closeModal(index: number) {
                                     </button>
                                 </div>
                                 <button
-                                    v-if="form.conditionSets.length > 1"
+                                    v-if="form.condition_sets.length > 1"
                                     class="flex absolute top-0 right-0 justify-center items-center -mt-3 -mr-3 mb-3 w-7 h-6 text-red-50 bg-red-700 hover:bg-red-600 rounded focus:outline-none focus:ring focus:ring-red-300 hover:shadow-lg transition duration-300 ease-in-out"
                                     @click="openModal(index)"
                                 >
@@ -315,9 +325,16 @@ function closeModal(index: number) {
                                 <span class="text-xs">Or</span>
                             </IndigoButton>
                         </div>
-                        <div class="flex justify-end">
+                        <div class="flex space-x-2 justify-end">
+                            <IndigoButton
+                                type="button"
+                                button-classes="text-xs"
+                                @click="save"
+                            >
+                                Save
+                            </IndigoButton>
                             <IndigoButton button-classes="text-xs">
-                                Confirm
+                                Generate
                             </IndigoButton>
                         </div>
                     </div>

@@ -3,10 +3,11 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
+import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import OperatorInput from '@/Components/Controls/OperatorInput.vue'
 import type {ReportableColumn, ReportCondition, SelectOption} from '../../types'
-import FormLabel from '../../Components/Controls/FormLabel.vue'
-import type {ComputedRef} from 'vue'
+import FormLabel from '@/Components/Controls/FormLabel.vue'
+import type {Component, ComputedRef} from 'vue'
 import {computed} from 'vue'
 
 const props = defineProps<{
@@ -20,19 +21,30 @@ const emit = defineEmits([
     'update:value'
 ])
 
-const columns: ComputedRef<SelectOption[]> = computed(() => props.reportableColumns.map((column: ReportableColumn) => {
+const columns: ComputedRef<SelectOption[]> = computed(() => props.reportableColumns.map((reportableColumn: ReportableColumn) => {
     return {
-        value: column.column,
-        display: column.display
+        value: reportableColumn.column,
+        display: reportableColumn.display
     }
 }))
 
-const getInputFromType: ComputedRef<string> = computed(() => {
-    if (props.condition.column) {
-        //
+const inputMap: {[key: string]: Component} = {
+    'Date': DateInput,
+    'Number': NumberInput,
+    'TextArea': TextAreaInput,
+    'Text': TextInput
+}
+
+const selected: ComputedRef<ReportableColumn | undefined> = computed(() => props.reportableColumns.find(
+    reportableColumn => reportableColumn.column === props.condition.column)
+)
+
+const inputFromType: ComputedRef<Component | string> = computed(() => {
+    if (selected.value) {
+        return inputMap[selected.value.type] ?? TextInput
     }
 
-    return 'TextInput'
+    return TextInput
 })
 </script>
 
@@ -43,7 +55,7 @@ const getInputFromType: ComputedRef<string> = computed(() => {
                 Column
             </FormLabel>
             <SearchableSelectInput
-                class="w-44 text-xs"
+                class="w-48 text-xs"
                 :options="columns"
                 placeholder-value="Choose column..."
                 :model-value="condition.column"
@@ -55,7 +67,7 @@ const getInputFromType: ComputedRef<string> = computed(() => {
                 Operator
             </FormLabel>
             <OperatorInput
-                class="w-44 text-xs"
+                class="w-48 text-xs"
                 :options="[]"
                 placeholder-value="Choose operator..."
                 :model-value="condition.operator"
@@ -67,8 +79,8 @@ const getInputFromType: ComputedRef<string> = computed(() => {
                 Value
             </FormLabel>
             <Component
-                :is="getInputFromType"
-                class="w-44"
+                :is="inputFromType"
+                class="w-52"
                 :model-value="condition.value"
                 @update:model-value="$emit('update:value', $event)"
             />

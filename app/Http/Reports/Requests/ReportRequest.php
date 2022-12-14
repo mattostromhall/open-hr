@@ -4,6 +4,8 @@ namespace App\Http\Reports\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Support\DataTransferObjects\ReportConditionData;
+use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
 
 class ReportRequest extends FormRequest
@@ -12,17 +14,37 @@ class ReportRequest extends FormRequest
     {
         return [
             'model' => ['required', 'string', Rule::in(array_keys(config('app.reportable')))],
-            'conditionSets' => ['required', 'array'],
-            'conditionSets.*.conditions' => ['required', 'array'],
-            'conditionSets.*.type' => ['required', 'string'],
-            'conditionSets.*.conditions.*.column' => ['required', 'string'],
-            'conditionSets.*.conditions.*.operator' => ['required', 'string'],
-            'conditionSets.*.conditions.*.value' => ['regex:/^[a-z0-9\s]*$/i', 'nullable']
+            'condition_sets' => ['required', 'array'],
+            'condition_sets.*.conditions' => ['required', 'array'],
+            'condition_sets.*.type' => ['required', 'in:and,or'],
+            'condition_sets.*.conditions.*.column' => ['required', 'string'],
+            'condition_sets.*.conditions.*.operator' => ['required', 'string'],
+            'condition_sets.*.conditions.*.value' => ['string', 'nullable']
         ];
     }
 
     public function reportData(): ReportData
     {
-        return new ReportData();
+        $conditionSets = collect($this->validated('condition_sets'))
+            ->map(
+                fn (array $conditionSet) =>
+                new ReportConditionSetData(
+                    conditions: collect($conditionSet['conditions'])
+                        ->map(
+                            fn (array $condition) =>
+                            new ReportConditionData(
+                                column: $condition['column'],
+                                operator: $condition['operator'],
+                                value: array_key_exists('value', $condition) ? $condition['value'] : null
+                            )
+                        ),
+                    type: $conditionSet['type']
+                )
+            );
+
+        return new ReportData(
+            model: config('app.reportable')[$this->validated('model')],
+            conditionSets: $conditionSets
+        );
     }
 }

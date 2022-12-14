@@ -42,7 +42,7 @@ trait Reporting
     protected static function mapColumnType(string $column, string $databaseType): string
     {
         if ($column === 'person_id') {
-            return 'relationship';
+            return 'Relationship';
         }
 
         return collect([
