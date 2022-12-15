@@ -329,6 +329,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');
 
+    Route::get('/reports', [ReportController::class, 'index'])
+        ->name('report.index');
     Route::get('/reports/create', [ReportController::class, 'create'])
         ->name('report.create');
     Route::post('/reports', [ReportController::class, 'store'])

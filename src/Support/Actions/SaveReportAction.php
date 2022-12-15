@@ -9,6 +9,9 @@ class SaveReportAction
 {
     public function execute(ReportData $data): Report
     {
-        return Report::create();
+        return Report::create([
+            'model' => $data->model,
+            'condition_sets' => $data->condition_sets
+        ]);
     }
 }

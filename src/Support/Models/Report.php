@@ -2,12 +2,10 @@
 
 namespace Support\Models;
 
-use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\ReportConditionSets;
 use Support\Concerns\Unguarded;
 
 class Report extends Model
@@ -17,6 +15,6 @@ class Report extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'condition_sets' => 'array'
+        'condition_sets' => ReportConditionSets::class
     ];
 }

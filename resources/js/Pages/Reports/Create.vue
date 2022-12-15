@@ -43,7 +43,13 @@ const form: InertiaForm<Report> = useForm({
 function addConditionSet() {
     form.condition_sets.push({
         type: 'or',
-        conditions: []
+        conditions: [
+            {
+                column: '',
+                operator: '=',
+                value: undefined
+            }
+        ]
     })
 
     modalsOpen.value.push(false)

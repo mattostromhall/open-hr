@@ -16,4 +16,20 @@ class ReportConditionSetData extends DataTransferObject
     ) {
         //
     }
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            conditions: collect($data['conditions'])
+                ->map(
+                    fn (array $condition) =>
+                    new ReportConditionData(
+                        column: $condition['column'],
+                        operator: $condition['operator'],
+                        value: array_key_exists('value', $condition) ? $condition['value'] : null
+                    )
+                ),
+            type: $data['type']
+        );
+    }
 }

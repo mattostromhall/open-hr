@@ -18,7 +18,7 @@ class ReportBuilder implements ReportBuilderInterface
     {
         return (new self())
             ->for($reportData->model)
-            ->scaffold($reportData->conditionSets);
+            ->scaffold($reportData->condition_sets);
     }
 
     public function for(string $model): self
