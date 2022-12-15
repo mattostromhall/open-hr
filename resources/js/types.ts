@@ -340,6 +340,7 @@ export interface ReportConditionSet {
 }
 
 export interface Report {
+    name?: string,
     model: string,
     condition_sets: ReportConditionSet[]
 }
