@@ -13,6 +13,7 @@ class ReportRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'label' => ['sometimes', 'required', 'string', 'max:255'],
             'model' => ['required', 'string', Rule::in(array_keys(config('app.reportable')))],
             'condition_sets' => ['required', 'array'],
             'condition_sets.*.conditions' => ['required', 'array'],
@@ -31,7 +32,8 @@ class ReportRequest extends FormRequest
                 ->map(
                     fn (array $conditionSet) =>
                     ReportConditionSetData::fromArray($conditionSet)
-                )
+                ),
+            label: $this->validated('label')
         );
     }
 }

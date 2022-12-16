@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {PlusSmallIcon, TrashIcon} from '@heroicons/vue/24/outline'
+import {BookmarkSquareIcon, ExclamationTriangleIcon, PlusSmallIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import Condition from './ReportCondition.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Report, ReportableColumn, ReportCondition, ReportConditionSet} from '../../types'
@@ -13,9 +13,9 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import type {ComputedRef, Ref} from 'vue'
 import {computed, ref} from 'vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
-import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
+import TextInput from '@/Components/Controls/TextInput.vue'
 
 defineProps<{
     models: string[],
@@ -25,7 +25,7 @@ defineProps<{
 }>()
 
 const form: InertiaForm<Report> = useForm({
-    name: undefined,
+    label: undefined,
     model: '',
     condition_sets: [
         {
@@ -103,6 +103,8 @@ function openModal(index: number) {
 function closeModal(index: number) {
     modalsOpen.value.splice(index, 1, false)
 }
+
+const saveModalOpen: Ref<boolean> = ref(false)
 
 function save() {
     form.post('/reports')
@@ -336,7 +338,7 @@ function save() {
                             <IndigoButton
                                 type="button"
                                 button-classes="text-xs"
-                                @click="openSaveModal"
+                                @click="saveModalOpen = true"
                             >
                                 Save
                                 <SimpleModal
@@ -344,20 +346,27 @@ function save() {
                                     modal-classes="px-4 pt-5 pb-4 text-left sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
                                 >
                                     <div class="sm:flex sm:items-start">
-                                        <div class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                            <ExclamationTriangleIcon class="h-6 w-6 text-red-600" />
+                                        <div class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                            <BookmarkSquareIcon class="h-6 w-6 text-green-600" />
                                         </div>
-                                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <div class="my-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                             <h3
                                                 id="modal-title"
-                                                class="text-lg font-medium leading-6 text-gray-900"
+                                                class="text-lg font-medium leading-6 text-gray-900 mb-2"
                                             >
-                                                Report name
+                                                Save Report
                                             </h3>
-                                            <div class="mt-2">
-                                                <p class="text-sm text-gray-500">
-                                                    Are you sure you want to remove this condition set? This action cannot be undone.
-                                                </p>
+                                            <FormLabel class="!text-gray-500">
+                                                Please provide a label for reference in the future <RequiredIcon />
+                                            </FormLabel>
+                                            <div class="mt-1">
+                                                <TextInput
+                                                    v-model="form.label"
+                                                    :error="form.errors.label"
+                                                    input-id="report-label"
+                                                    input-name="report-label"
+                                                    @reset="form.clearErrors('label')"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -371,7 +380,7 @@ function save() {
                                         </IndigoButton>
                                         <GreyOutlineButton
                                             class="w-full sm:w-auto mt-3 sm:mt-0"
-                                            @click="closeSaveModal"
+                                            @click="saveModalOpen = false"
                                         >
                                             Cancel
                                         </GreyOutlineButton>

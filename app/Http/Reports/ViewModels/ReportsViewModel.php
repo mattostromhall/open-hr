@@ -13,7 +13,7 @@ class ReportsViewModel extends ViewModel
     public function reports(): LengthAwarePaginator
     {
         return Report::query()
-            ->select('id', 'name', 'last_ran')
+            ->select('id', 'label', 'last_ran')
             ->paginate();
     }
 
