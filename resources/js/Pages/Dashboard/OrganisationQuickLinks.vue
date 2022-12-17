@@ -138,8 +138,8 @@ import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, Clipboa
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
-                        <a
-                            href="#"
+                        <Link
+                            href="/reports"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -148,10 +148,10 @@ import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, Clipboa
                                 aria-hidden="true"
                             />
                             Reports
-                        </a>
+                        </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.
+                        Generate or Save Reports on system data.
                     </p>
                 </div>
                 <span

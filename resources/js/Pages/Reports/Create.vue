@@ -24,8 +24,10 @@ defineProps<{
     }
 }>()
 
-const form: InertiaForm<Report> = useForm({
-    label: undefined,
+type ReportData = Omit<Report, 'id' | 'last_ran'>
+
+const form: InertiaForm<ReportData> = useForm({
+    label: '',
     model: '',
     condition_sets: [
         {
@@ -119,8 +121,8 @@ function save() {
     <PageHeading>
         Create Report
         <template #link>
-            <LightIndigoLink href="/organisation/dashboard">
-                Dashboard
+            <LightIndigoLink href="/reports">
+                All Reports
             </LightIndigoLink>
         </template>
     </PageHeading>

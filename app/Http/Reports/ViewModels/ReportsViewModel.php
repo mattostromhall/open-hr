@@ -10,10 +10,16 @@ use Support\Models\Report;
 
 class ReportsViewModel extends ViewModel
 {
+    public function search(): ?string
+    {
+        return request()->query('search');
+    }
+
     public function reports(): LengthAwarePaginator
     {
         return Report::query()
             ->select('id', 'label', 'last_ran')
+            ->filter(request()->query('search'))
             ->paginate();
     }
 

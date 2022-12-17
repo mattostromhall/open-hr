@@ -340,9 +340,11 @@ export interface ReportConditionSet {
 }
 
 export interface Report {
-    label?: string,
+    id: number,
+    label: string,
     model: string,
-    condition_sets: ReportConditionSet[]
+    condition_sets: ReportConditionSet[],
+    last_ran?: string
 }
 
 export interface ReportableColumn {
