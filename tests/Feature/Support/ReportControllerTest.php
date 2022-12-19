@@ -3,9 +3,11 @@
 use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
-use Domain\Performance\Models\Objective;
 use Inertia\Testing\AssertableInertia as Assert;
+
 use function Pest\Faker\faker;
+
+use Support\Models\Report;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -13,161 +15,218 @@ beforeEach(function () {
     $this->actingAs($this->person->user);
 });
 
-it('creates an objective when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+it('returns the report index', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+    Report::factory()->count(3)->create();
 
-    $response = $this->post(route('objective.store'), [
-        'person_id' => $this->person->id,
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
-        'due_at' => now()->addDays(30)
+    $this->get(route('report.index'))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Reports/Index')
+                ->has('reports.data', 3)
+                ->hasAll([
+                    'reports.data.0.id',
+                    'reports.data.0.label',
+                    'reports.data.0.last_ran',
+                    'reports.data.1.id',
+                    'reports.data.1.label',
+                    'reports.data.1.last_ran',
+                    'reports.data.2.id',
+                    'reports.data.2.label',
+                    'reports.data.2.last_ran'
+                ])
+        );
+});
+
+it('returns unauthorized if the person does not have permission to view the report index', function () {
+    Report::factory()->count(3)->create();
+
+    $this->get(route('report.index'))
+        ->assertForbidden();
+});
+
+it('returns the report create page', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
+    $this->get(route('report.create'))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page
+                ->component('Reports/Create')
+                ->hasAll([
+                    'report',
+                    'models',
+                    'reportableColumns'
+                ])
+        );
+});
+
+it('returns unauthorized when creating if the person does not have permission to create a report', function () {
+    $this->get(route('report.create'))
+        ->assertForbidden();
+});
+
+it('creates a report when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+
+    $response = $this->post(route('report.store'), [
+        'label' => faker()->word(),
+        'model' => 'objective',
+        'condition_sets' => [
+            [
+                'type' => 'and',
+                'conditions' => [
+                    [
+                    'column' => 'title',
+                    'operator' => '=',
+                    'value' => 'Test'
+                    ]
+                ]
+            ]
+        ]
     ]);
 
     $response
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Objective successfully created!');
+        ->assertSessionHas('flash.success', 'Report successfully saved!');
 });
 
-it('returns unauthorized if the person does not have permission to create an objective', function () {
-    $response = $this->post(route('objective.store'), [
-        'person_id' => $this->person->id,
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
-        'due_at' => now()->addDays(30)
+it('returns unauthorized if the person does not have permission to create a report', function () {
+    $response = $this->post(route('report.store'), [
+        'label' => faker()->word(),
+        'model' => 'objective',
+        'condition_sets' => [
+            [
+                'type' => 'and',
+                'conditions' => [
+                    [
+                        'column' => 'title',
+                        'operator' => '=',
+                        'value' => 'Test'
+                    ]
+                ]
+            ]
+        ]
     ]);
 
     $response->assertForbidden();
 });
 
-it('returns validation errors when creating an objective with incorrect data', function () {
-    $response = $this->post(route('objective.store'), [
-        'person_id' => null,
-        'title' => null,
-        'description' => null,
-        'due_at' => null
+it('returns validation errors when creating a report with incorrect data', function () {
+    $response = $this->post(route('report.store'), [
+        'label' => faker()->word(),
+        'model' => '',
+        'condition_sets' => []
     ]);
 
     $response
         ->assertStatus(302)
-        ->assertSessionHasErrors(['person_id', 'title', 'description', 'due_at']);
+        ->assertSessionHasErrors(['model', 'condition_sets']);
 });
 
-it('shows the objective', function () {
-    $this->person->user->assign(Role::PERSON->value);
-    $objective = Objective::factory()->for($this->person)->create();
+it('returns the report to edit', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+    $report = Report::factory()->create();
 
-    $this->get(route('objective.show', ['objective' => $objective]))
+    $this->get(route('report.edit', ['report' => $report]))
         ->assertOk()
         ->assertInertia(
             fn (Assert $page) => $page
-                ->component('Performance/Objectives/Show')
+                ->component('Reports/Edit')
                 ->hasAll([
-                    'objective',
-                    'tasks',
-                    'person'
+                    'report',
+                    'models',
+                    'reportableColumns'
                 ])
         );
 });
 
-it('returns unauthorized if the person does not have permission to view the objective', function () {
-    $objective = Objective::factory()->create();
+it('returns unauthorized when editing if the person does not have permission to update the report', function () {
+    $report = Report::factory()->create();
 
-    $this->get(route('objective.show', ['objective' => $objective]))
+    $this->get(route('report.edit', ['report' => $report]))
         ->assertForbidden();
 });
 
-it('returns the objective to edit', function () {
-    $this->person->user->assign(Role::MANAGER->value);
-    $person = Person::factory()->create([
-        'manager_id' => $this->person->id
-    ]);
-    $objective = Objective::factory()->for($person)->create();
+it('updates the report when the correct data is provided', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+    $report = Report::factory()->create();
 
-    $this->get(route('objective.edit', ['objective' => $objective]))
-        ->assertOk()
-        ->assertInertia(
-            fn (Assert $page) => $page
-                ->component('Performance/Objectives/Edit')
-                ->hasAll([
-                    'objective',
-                    'tasks',
-                    'person'
-                ])
-        );
-});
-
-it('returns unauthorized when editing if the person does not have permission to update the objective', function () {
-    $objective = Objective::factory()->create();
-
-    $this->get(route('objective.edit', ['objective' => $objective]))
-        ->assertForbidden();
-});
-
-it('updates the objective when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
-    $person = Person::factory()->create([
-        'manager_id' => $this->person->id
-    ]);
-    $objective = Objective::factory()->for($person)->create();
-
-    $response = $this->put(route('objective.update', ['objective' => $objective]), [
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
-        'due_at' => now()->addDays(25),
-        'completed_at' => now()->addDays(30)
+    $response = $this->put(route('report.update', ['report' => $report]), [
+        'label' => faker()->word(),
+        'model' => 'objective',
+        'condition_sets' => [
+            [
+                'type' => 'and',
+                'conditions' => [
+                    [
+                        'column' => 'title',
+                        'operator' => '=',
+                        'value' => 'Test Updated'
+                    ]
+                ]
+            ]
+        ]
     ]);
 
     $response
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Objective updated!');
+        ->assertSessionHas('flash.success', 'Report updated!');
 });
 
-it('returns unauthorized if the person does not have permission to update the objective', function () {
-    $objective = Objective::factory()->create();
+it('returns unauthorized if the person does not have permission to update the report', function () {
+    $report = Report::factory()->create();
 
-    $response = $this->put(route('objective.update', ['objective' => $objective]), [
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
-        'due_at' => now()->addDays(25),
-        'completed_at' => now()->addDays(30)
+    $response = $this->put(route('report.update', ['report' => $report]), [
+        'label' => faker()->word(),
+        'model' => 'objective',
+        'condition_sets' => [
+            [
+                'type' => 'and',
+                'conditions' => [
+                    [
+                        'column' => 'title',
+                        'operator' => '=',
+                        'value' => 'Test Updated'
+                    ]
+                ]
+            ]
+        ]
     ]);
 
     $response->assertForbidden();
 });
 
-it('returns validation errors when updating the objective with incorrect data', function () {
-    $objective = Objective::factory()->create();
+it('returns validation errors when updating the report with incorrect data', function () {
+    $report = Report::factory()->create();
 
-    $response = $this->put(route('objective.update', ['objective' => $objective]), [
-        'title' => 'a',
-        'description' => 1,
-        'due_at' => 'a date',
-        'completed_at' => 'another date'
+    $response = $this->put(route('report.update', ['report' => $report]), [
+        'label' => faker()->word(),
+        'model' => '',
+        'condition_sets' => []
     ]);
 
     $response
         ->assertStatus(302)
-        ->assertSessionHasErrors(['title', 'description', 'due_at', 'completed_at']);
+        ->assertSessionHasErrors(['model', 'condition_sets']);
 });
 
-it('deletes the objective', function () {
-    $this->person->user->assign(Role::MANAGER->value);
-    $person = Person::factory()->create([
-        'manager_id' => $this->person->id
-    ]);
-    $objective = Objective::factory()->for($person)->create();
+it('deletes the report', function () {
+    $this->person->user->assign(Role::ADMIN->value);
+    $report = Report::factory()->create();
 
-    $response = $this->delete(route('objective.destroy', ['objective' => $objective]));
+    $response = $this->delete(route('report.destroy', ['report' => $report]));
 
     $response
         ->assertStatus(302)
-        ->assertSessionHas('flash.success', 'Objective unset!');
+        ->assertSessionHas('flash.success', 'Report deleted!');
 });
 
-it('returns unauthorized if the person does not have permission to delete the objective', function () {
-    $objective = Objective::factory()->create();
+it('returns unauthorized if the person does not have permission to delete the report', function () {
+    $report = Report::factory()->create();
 
-    $response = $this->delete(route('objective.destroy', ['objective' => $objective]));
+    $response = $this->delete(route('report.destroy', ['report' => $report]));
 
     $response->assertForbidden();
 });
