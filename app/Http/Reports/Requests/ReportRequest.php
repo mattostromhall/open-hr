@@ -4,7 +4,6 @@ namespace App\Http\Reports\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
 
@@ -24,10 +23,19 @@ class ReportRequest extends FormRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'condition_sets.*.conditions.*.column' => 'column',
+            'condition_sets.*.conditions.*.operator' => 'operator',
+            'condition_sets.*.conditions.*.value' => 'value',
+        ];
+    }
+
     public function reportData(): ReportData
     {
         return new ReportData(
-            model: config('app.reportable')[$this->validated('model')],
+            model: $this->validated('model'),
             condition_sets: collect($this->validated('condition_sets'))
                 ->map(
                     fn (array $conditionSet) =>

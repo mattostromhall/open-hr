@@ -5,9 +5,20 @@ namespace App\Http\Reports\ViewModels;
 use App\Http\Support\ViewModels\ViewModel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Support\Models\Report;
 
-class CreateReportViewModel extends ViewModel
+class ReportViewModel extends ViewModel
 {
+    public function __construct(protected ?Report $report = null)
+    {
+        //
+    }
+
+    public function report(): ?Report
+    {
+        return $this->report;
+    }
+
     public function models(): Collection
     {
         return collect(array_keys(config('app.reportable')))

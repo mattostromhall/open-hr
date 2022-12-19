@@ -14,7 +14,7 @@ return new class () extends Migration {
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('label');
             $table->string('model');
             $table->text('condition_sets');
             $table->timestamp('last_ran')->nullable();

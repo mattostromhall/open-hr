@@ -64,7 +64,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
     </Head>
 
     <PageHeading>
-        Departments
+        Expense Types
         <template #link>
             <IndigoLink href="/expense-types/create">
                 Add Expense Type

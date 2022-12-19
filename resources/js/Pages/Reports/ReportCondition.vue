@@ -12,7 +12,10 @@ import {computed} from 'vue'
 
 const props = defineProps<{
     condition: ReportCondition,
-    reportableColumns: ReportableColumn[]
+    reportableColumns: ReportableColumn[],
+    columnError?: string,
+    operatorError?: string,
+    valueError?: string
 }>()
 
 const emit = defineEmits([
@@ -59,6 +62,7 @@ const inputFromType: ComputedRef<Component | string> = computed(() => {
                 :options="columns"
                 placeholder-value="Choose column..."
                 :model-value="condition.column"
+                :error="columnError"
                 @update:model-value="emit('update:column', $event)"
             />
         </div>

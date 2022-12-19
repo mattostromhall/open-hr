@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Domain\Files\Enums\DocumentableType;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Support\Models\ActionLog;

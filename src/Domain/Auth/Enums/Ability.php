@@ -86,6 +86,10 @@ enum Ability: string
     case VIEW_APPLICATION = 'view-application';
     case UPDATE_APPLICATION = 'update-application';
     case DELETE_APPLICATION = 'delete-application';
+    case VIEW_REPORT = 'view-report';
+    case CREATE_REPORT = 'create-report';
+    case UPDATE_REPORT = 'update-report';
+    case DELETE_REPORT = 'delete-report';
     case ASSIGN_ROLE = 'assign-role';
     case RETRACT_ROLE = 'retract-role';
     case ASSIGN_ABILITY = 'assign-ability';

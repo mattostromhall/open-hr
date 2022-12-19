@@ -9,6 +9,7 @@ use Support\Contracts\Services\ReportBuilderInterface;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
+use UnexpectedValueException;
 
 class ReportBuilder implements ReportBuilderInterface
 {
@@ -23,7 +24,7 @@ class ReportBuilder implements ReportBuilderInterface
 
     public function for(string $model): self
     {
-        $this->builder = $model::query();
+        $this->builder = $this->FQCN($model)::query();
 
         return $this;
     }
@@ -99,8 +100,14 @@ class ReportBuilder implements ReportBuilderInterface
         return $this->builder->get();
     }
 
-    public function sql()
+    protected function FQCN(string $model): string
     {
-        return $this->builder->toSql();
+        $FQCN = config('app.reportable')[$model];
+
+        if (! $FQCN) {
+            throw new UnexpectedValueException("No Matching Fully Qualified Class Name found for {$model}");
+        }
+
+        return $FQCN;
     }
 }

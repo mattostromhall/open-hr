@@ -17,7 +17,8 @@ import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 
-defineProps<{
+const props = defineProps<{
+    report: Report,
     models: string[],
     reportableColumns: {
         [model: string]: ReportableColumn[]
@@ -27,20 +28,9 @@ defineProps<{
 type ReportData = Omit<Report, 'id' | 'last_ran'>
 
 const form: InertiaForm<ReportData> = useForm({
-    label: '',
-    model: '',
-    condition_sets: [
-        {
-            type: 'and',
-            conditions: [
-                {
-                    column: '',
-                    operator: '=',
-                    value: undefined
-                }
-            ]
-        }
-    ]
+    label: props.report.label,
+    model: props.report.model,
+    condition_sets: props.report.condition_sets
 })
 
 function addConditionSet() {
@@ -109,7 +99,7 @@ function closeModal(index: number) {
 const saveModalOpen: Ref<boolean> = ref(false)
 
 function save() {
-    form.post('/reports')
+    form.put(`/reports/${props.report.id}`)
 }
 </script>
 
@@ -119,7 +109,7 @@ function save() {
     </Head>
 
     <PageHeading>
-        Create Report
+        Editing Report - {{ report.label }}
         <template #link>
             <LightIndigoLink href="/reports">
                 All Reports
@@ -133,7 +123,7 @@ function save() {
                 <div class="bg-white py-6 px-4 sm:rounded-md sm:p-6">
                     <div class="flex justify-between">
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Create a Report
+                            Edit Report
                         </h3>
                         <IndigoButton
                             class="!px-2 !py-1 text-xs"

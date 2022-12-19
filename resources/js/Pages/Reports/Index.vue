@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import {Head, Link} from '@inertiajs/inertia-vue3'
-import {computed, ref, watch} from 'vue'
+import {computed, reactive, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import type {Report, Paginated, Paginator} from '../../types'
 import {Inertia} from '@inertiajs/inertia'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
-import {EyeIcon, PencilIcon, PlusIcon, UserIcon} from '@heroicons/vue/24/outline'
+import {PencilIcon, PlusIcon, UserIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
+import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {debounce, omit} from 'lodash'
 
 const props = defineProps<{
@@ -52,6 +53,10 @@ function toggleSelected(select: boolean) {
 function isSelected(id: number) {
     return selected.value.includes(id)
 }
+
+const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
+    props.reports.data.map((report) => [report.id, false])
+))
 </script>
 
 <template>
@@ -176,20 +181,36 @@ function isSelected(id: number) {
                                         {{ report.last_ran }}
                                     </td>
                                     <td class="flex justify-end whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6">
-                                        <div class="flex items-center space-x-3">
-                                            <Link
-                                                :href="`/reports/${report.id}`"
-                                                class="text-indigo-600 hover:text-indigo-900"
-                                            >
-                                                <EyeIcon class="h-4 w-4" /><span class="sr-only">, {{ report.label }}</span>
-                                            </Link>
-                                            <Link
-                                                :href="`/reports/${report.id}/edit`"
-                                                class="text-indigo-600 hover:text-indigo-900"
-                                            >
-                                                <PencilIcon class="h-4 w-4" /><span class="sr-only">, {{ report.label }}</span>
-                                            </Link>
-                                        </div>
+                                        <Link
+                                            :href="`/reports/${report.id}/edit`"
+                                            class="text-indigo-600 hover:text-indigo-900"
+                                        >
+                                            <PencilIcon class="h-4 w-4" /><span class="sr-only">, {{ report.label }}</span>
+                                        </Link>
+                                        <SimpleDropdown
+                                            v-model="showDeleteDropdown[report.id]"
+                                            position="above-right"
+                                        >
+                                            <template #button="{toggleDropdown}">
+                                                <button
+                                                    type="button"
+                                                    @click="toggleDropdown"
+                                                >
+                                                    <TrashIcon class="h-4 w-4 ml-2 text-red-600 hover:text-red-900" /><span class="sr-only">, {{ report.label }}</span>
+                                                </button>
+                                            </template>
+                                            <template #default="{hideDropdown}">
+                                                <Link
+                                                    as="button"
+                                                    method="delete"
+                                                    :href="`/reports/${report.id}`"
+                                                    class="flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:bg-red-400"
+                                                    @click="hideDropdown"
+                                                >
+                                                    Confirm
+                                                </Link>
+                                            </template>
+                                        </SimpleDropdown>
                                     </td>
                                 </tr>
                             </tbody>

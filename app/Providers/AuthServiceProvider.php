@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Silber\Bouncer\Database\Role;
 use Support\Models\ActionLog;
+use Support\Models\Report;
 use Support\Policies\ActionLogPolicy;
+use Support\Policies\ReportPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         ActionLog::class => ActionLogPolicy::class,
+        Report::class => ReportPolicy::class,
         Role::class => RolePolicy::class,
     ];
 
