@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use Support\Contracts\Services\ReportBuilderInterface;
+use Support\DataTransferObjects\ReportableColumnData;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
+use Support\Models\Report;
 use UnexpectedValueException;
 
 class ReportBuilder implements ReportBuilderInterface
@@ -17,14 +19,21 @@ class ReportBuilder implements ReportBuilderInterface
 
     public static function build(ReportData $reportData): self
     {
+        $FQCN = Report::FQCN($reportData->model);
+
         return (new self())
-            ->for($reportData->model)
+            ->for($FQCN)
+            ->addSelect(
+                $FQCN::reportableColumns()
+                    ->map(fn (ReportableColumnData $data) => $data->column)
+                    ->toArray()
+            )
             ->scaffold($reportData->condition_sets);
     }
 
     public function for(string $model): self
     {
-        $this->builder = $this->FQCN($model)::query();
+        $this->builder = $model::query();
 
         return $this;
     }
@@ -39,6 +48,13 @@ class ReportBuilder implements ReportBuilderInterface
             fn (ReportConditionSetData $conditionSet) =>
             $this->addConditionSet($conditionSet)
         );
+
+        return $this;
+    }
+
+    public function addSelect(array $columns): self
+    {
+        $this->builder->addSelect($columns);
 
         return $this;
     }
@@ -98,16 +114,5 @@ class ReportBuilder implements ReportBuilderInterface
     public function run(): Collection
     {
         return $this->builder->get();
-    }
-
-    protected function FQCN(string $model): string
-    {
-        $FQCN = config('app.reportable')[$model];
-
-        if (! $FQCN) {
-            throw new UnexpectedValueException("No Matching Fully Qualified Class Name found for {$model}");
-        }
-
-        return $FQCN;
     }
 }

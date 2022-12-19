@@ -33,4 +33,9 @@ class ReportViewModel extends ViewModel
         return collect(config('app.reportable'))
             ->map(fn (string $model) => $model::reportableColumns());
     }
+
+    public function downloadPath()
+    {
+        return session('csv.path');
+    }
 }

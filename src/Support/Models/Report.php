@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\Casts\ReportConditionSets;
 use Support\Concerns\Unguarded;
 use Support\QueryBuilders\ReportQueryBuilder;
+use UnexpectedValueException;
 
 class Report extends Model
 {
@@ -28,5 +29,20 @@ class Report extends Model
     public function newEloquentBuilder($query): ReportQueryBuilder
     {
         return new ReportQueryBuilder($query);
+    }
+
+    public static function FQCN(string $model): string
+    {
+        if (is_a($model, Model::class, true)) {
+            return $model;
+        }
+
+        $FQCN = config('app.reportable')[$model];
+
+        if (! $FQCN) {
+            throw new UnexpectedValueException("No Matching Fully Qualified Class Name found for {$model}");
+        }
+
+        return $FQCN;
     }
 }

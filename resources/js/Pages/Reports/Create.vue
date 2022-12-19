@@ -21,13 +21,14 @@ defineProps<{
     models: string[],
     reportableColumns: {
         [model: string]: ReportableColumn[]
-    }
+    },
+    downloadPath?: string
 }>()
 
-type ReportData = Omit<Report, 'id' | 'last_ran'>
+type ReportData = Omit<Report, 'id' | 'label' | 'last_ran'> & {label?: string}
 
 const form: InertiaForm<ReportData> = useForm({
-    label: '',
+    label: undefined,
     model: '',
     condition_sets: [
         {
@@ -76,6 +77,7 @@ function removeCondition(conditionSet: ReportConditionSet, index: number) {
 }
 
 function reset() {
+    form.label = undefined
     form.model = ''
     form.condition_sets = [
         {
@@ -109,7 +111,19 @@ function closeModal(index: number) {
 const saveModalOpen: Ref<boolean> = ref(false)
 
 function save() {
+    if (form.label === undefined) {
+        form.label = ''
+    }
+
     form.post('/reports')
+}
+
+function generate() {
+    if (form.label === '') {
+        form.label = undefined
+    }
+
+    form.post('/reports/generate')
 }
 </script>
 
@@ -128,7 +142,7 @@ function save() {
     </PageHeading>
 
     <section class="p-8 space-y-6 sm:w-full sm:max-w-4xl sm:px-6">
-        <form @submit.prevent="">
+        <form @submit.prevent="generate">
             <div class="shadow sm:rounded-md">
                 <div class="bg-white py-6 px-4 sm:rounded-md sm:p-6">
                     <div class="flex justify-between">

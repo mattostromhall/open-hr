@@ -46,6 +46,7 @@ use App\Http\Recruitment\Controllers\SuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\UnsuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\VacancyApplicationController;
 use App\Http\Recruitment\Controllers\VacancyController;
+use App\Http\Reports\Controllers\GenerateReportController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
@@ -341,6 +342,12 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('report.update');
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])
         ->name('report.destroy');
+
+    Route::post('/reports/generate', [GenerateReportController::class, 'store'])
+        ->name('report.generate.store');
+    Route::get('/reports/download/{path}', [GenerateReportController::class, 'show'])
+        ->where('path', '.*')
+        ->name('report.generate.show');
 });
 
 Route::middleware(['setup'])->group(function () {

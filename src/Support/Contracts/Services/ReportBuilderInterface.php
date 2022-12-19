@@ -22,6 +22,8 @@ interface ReportBuilderInterface
      */
     public function scaffold(SupportCollection $conditionSets): self;
 
+    public function addSelect(array $columns);
+
     public function addConditionSet(ReportConditionSetData $conditionSet): self;
 
     public function addWhereConditionGroup(ReportConditionSetData $conditionSet): self;
