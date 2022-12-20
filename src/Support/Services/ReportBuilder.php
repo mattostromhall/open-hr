@@ -100,13 +100,15 @@ class ReportBuilder implements ReportBuilderInterface
 
     public function addWhereClause(ReportConditionData $condition, ?Builder $builder = null): self
     {
+        $value = $condition->operator === 'like' ? '%' . $condition->value . '%' : $condition->value;
+
         if ($builder) {
-            $builder->where($condition->column, $condition->operator, $condition->value);
+            $builder->where($condition->column, $condition->operator, $value);
 
             return $this;
         }
 
-        $this->builder->where($condition->column, $condition->operator, $condition->value);
+        $this->builder->where($condition->column, $condition->operator, $value);
 
         return $this;
     }

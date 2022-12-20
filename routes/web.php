@@ -47,6 +47,7 @@ use App\Http\Recruitment\Controllers\UnsuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\VacancyApplicationController;
 use App\Http\Recruitment\Controllers\VacancyController;
 use App\Http\Reports\Controllers\GenerateReportController;
+use App\Http\Reports\Controllers\RelationshipOptionsController;
 use App\Http\Setup\Controllers\SetupController;
 use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
@@ -359,6 +360,9 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/reports/download/{path}', [GenerateReportController::class, 'show'])
         ->where('path', '.*')
         ->name('report.generate.show');
+
+    Route::get('/relationship-options/{model}', RelationshipOptionsController::class)
+        ->name('relationship.options');
 });
 
 require __DIR__ . '/auth.php';

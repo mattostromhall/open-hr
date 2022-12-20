@@ -44,6 +44,14 @@ const form: InertiaForm<ReportData> = useForm({
     ]
 })
 
+function selectModel(model: string) {
+    if (form.model) {
+        resetConditionSets()
+    }
+
+    form.model = model
+}
+
 function addConditionSet() {
     form.condition_sets.push({
         type: 'or',
@@ -83,6 +91,21 @@ function reset() {
         {
             type: 'and',
             conditions: []
+        }
+    ]
+}
+
+function resetConditionSets() {
+    form.condition_sets = [
+        {
+            type: 'and',
+            conditions: [
+                {
+                    column: '',
+                    operator: '=',
+                    value: undefined
+                }
+            ]
         }
     ]
 }
@@ -164,8 +187,9 @@ function generate() {
                             <FormLabel>Report on <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <SearchableSelectInput
-                                    v-model="form.model"
+                                    :model-value="form.model"
                                     :options="models"
+                                    @update:model-value="selectModel"
                                 />
                             </div>
                         </div>

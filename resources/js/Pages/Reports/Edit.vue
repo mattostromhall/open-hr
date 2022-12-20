@@ -76,6 +76,21 @@ function reset() {
     ]
 }
 
+function resetConditionSets() {
+    form.condition_sets = [
+        {
+            type: 'and',
+            conditions: [
+                {
+                    column: '',
+                    operator: '=',
+                    value: undefined
+                }
+            ]
+        }
+    ]
+}
+
 function lastConditionInSet(set: ReportConditionSet | undefined): ReportCondition | undefined {
     return set?.conditions[set.conditions.length - 1]
 }
@@ -147,6 +162,7 @@ function generate() {
                                 <SearchableSelectInput
                                     v-model="form.model"
                                     :options="models"
+                                    @update:model-value="resetConditionSets"
                                 />
                             </div>
                         </div>

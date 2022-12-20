@@ -19,7 +19,11 @@ class ReportRequest extends FormRequest
             'condition_sets.*.type' => ['required', 'in:and,or'],
             'condition_sets.*.conditions.*.column' => ['required', 'string'],
             'condition_sets.*.conditions.*.operator' => ['required', 'string'],
-            'condition_sets.*.conditions.*.value' => ['string', 'nullable']
+            'condition_sets.*.conditions.*.value' => ['nullable', function ($attribute, $value, $fail) {
+                if (! is_string($value) && ! is_numeric($value)) {
+                    $fail('The '.$attribute.' must be a string or a number.');
+                }
+            }]
         ];
     }
 

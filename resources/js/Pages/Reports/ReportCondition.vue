@@ -9,6 +9,7 @@ import type {ReportableColumn, ReportCondition, SelectOption} from '../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import type {Component, ComputedRef} from 'vue'
 import {computed} from 'vue'
+import RelationshipInput from '@/Components/Controls/RelationshipInput.vue'
 
 const props = defineProps<{
     condition: ReportCondition,
@@ -82,8 +83,18 @@ const inputFromType: ComputedRef<Component | string> = computed(() => {
             <FormLabel class="block mb-1 text-xs">
                 Value
             </FormLabel>
+            <RelationshipInput
+                v-if="selected?.type === 'Relationship'"
+                class="w-52"
+                model="person"
+                value="id"
+                display="full_name"
+                :model-value="condition.value"
+                @update:model-value="$emit('update:value', $event)"
+            />
             <Component
                 :is="inputFromType"
+                v-else
                 class="w-52"
                 :model-value="condition.value"
                 @update:model-value="$emit('update:value', $event)"
