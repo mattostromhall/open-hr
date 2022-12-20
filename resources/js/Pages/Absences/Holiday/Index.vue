@@ -6,8 +6,9 @@ import Approved from './Approved.vue'
 import Pending from './Pending.vue'
 import Rejected from './Rejected.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {Holiday, TabbedContentItem} from '../../../types'
+import type {Breadcrumb, Holiday, TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
@@ -15,6 +16,11 @@ defineProps<{
     pending: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
     rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
 }>()
+
+const breadcrumbs: Breadcrumb[] = [{
+    link: '/holidays',
+    display: 'Holidays'
+}]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -53,6 +59,10 @@ const tabs: TabbedContentItem[] = [
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{setActive, isActive}"
         :tabs="tabs"

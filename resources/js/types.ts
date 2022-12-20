@@ -353,6 +353,11 @@ export interface ReportableColumn {
     type: string
 }
 
+export interface Breadcrumb {
+    link: string,
+    display: string
+}
+
 export interface TimeStamp {
     created_at: string,
     updated_at: string
