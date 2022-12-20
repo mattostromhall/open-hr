@@ -4,6 +4,7 @@ namespace Support\Actions;
 
 use Illuminate\Support\Str;
 use League\Csv\CannotInsertRecord;
+use Support\DataTransferObjects\CsvData;
 use Support\DataTransferObjects\ReportableColumnData;
 use Support\DataTransferObjects\ReportData;
 use Support\Models\Report;
@@ -27,9 +28,13 @@ class GenerateReportAction
             ->map(fn (ReportableColumnData $data) => $data->display)
             ->toArray();
 
-        $path = 'reports/' . $data->label ?? Str::random();
+        $path = 'reports/' . ($data->label ?? Str::random());
 
-        $this->createCsv->execute($path, $headers, $reportData->toArray());
+        $this->createCsv->execute(new CsvData(
+            path: $path,
+            headers: $headers,
+            records: $reportData->toArray()
+        ));
 
         return  $path . '.csv';
     }

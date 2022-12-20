@@ -74,6 +74,17 @@ Route::middleware('auth')->group(function () {
         ->name('setup.person');
 });
 
+Route::middleware(['setup'])->group(function () {
+    Route::get('/vacancies/{vacancy:public_id}/apply', VacancyApplicationController::class)
+        ->name('vacancy.application');
+
+    Route::get('/applications/thanks', ApplicationThanksController::class)
+        ->name('application.thanks');
+
+    Route::post('/applications', [ApplicationController::class, 'store'])
+        ->name('application.store');
+});
+
 Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/dashboard', DashboardController::class)
         ->name('dashboard');
@@ -348,17 +359,6 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/reports/download/{path}', [GenerateReportController::class, 'show'])
         ->where('path', '.*')
         ->name('report.generate.show');
-});
-
-Route::middleware(['setup'])->group(function () {
-    Route::get('/vacancies/{vacancy:public_id}/apply', VacancyApplicationController::class)
-        ->name('vacancy.application');
-
-    Route::get('/applications/thanks', ApplicationThanksController::class)
-        ->name('application.thanks');
-
-    Route::post('/applications', [ApplicationController::class, 'store'])
-        ->name('application.store');
 });
 
 require __DIR__ . '/auth.php';

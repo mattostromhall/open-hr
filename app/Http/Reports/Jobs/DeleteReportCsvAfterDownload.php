@@ -11,8 +11,13 @@ class DeleteReportCsvAfterDownload
     use Dispatchable;
     use SerializesModels;
 
-    public function handle(string $csv): void
+    public function __construct(protected string $path)
     {
-        Storage::delete($csv);
+        //
+    }
+
+    public function handle(): void
+    {
+        Storage::delete($this->path);
     }
 }

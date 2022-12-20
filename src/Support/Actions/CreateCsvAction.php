@@ -3,25 +3,25 @@
 namespace Support\Actions;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use League\Csv\CannotInsertRecord;
 use League\Csv\Writer;
+use Support\DataTransferObjects\CsvData;
 
 class CreateCsvAction
 {
     /**
      * @throws CannotInsertRecord
      */
-    public function execute(string $path, array $headers, array $records): Writer
+    public function execute(CsvData $data): Writer
     {
-        $file = $path . '.csv';
+        $file = $data->path . '.csv';
 
         Storage::put($file, '');
 
         $csv = Writer::createFromPath(storage_path('app/') . $file);
 
-        $csv->insertOne($headers);
-        $csv->insertAll($records);
+        $csv->insertOne($data->headers);
+        $csv->insertAll($data->records);
 
         return $csv;
     }

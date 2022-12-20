@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {BookmarkSquareIcon, ExclamationTriangleIcon, PlusSmallIcon, TrashIcon} from '@heroicons/vue/24/outline'
+import {ArrowDownTrayIcon, BookmarkSquareIcon, ExclamationTriangleIcon, PlusSmallIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import Condition from './ReportCondition.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Report, ReportableColumn, ReportCondition, ReportConditionSet} from '../../types'
@@ -17,7 +17,7 @@ import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 
-defineProps<{
+const props = defineProps<{
     models: string[],
     reportableColumns: {
         [model: string]: ReportableColumn[]
@@ -117,6 +117,8 @@ function save() {
 
     form.post('/reports')
 }
+
+const showGenerateOption: ComputedRef<boolean> = computed(() => ! props.downloadPath || form.isDirty)
 
 function generate() {
     if (form.label === '') {
@@ -357,6 +359,14 @@ function generate() {
                             </IndigoButton>
                         </div>
                         <div class="flex space-x-2 justify-end">
+                            <a
+                                v-if="downloadPath"
+                                :href="`/reports/download/${downloadPath}`"
+                                class="flex justify-center rounded-md border border-transparent bg-indigo-100 py-2 px-4 text-sm font-medium text-indigo-700 shadow-sm hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-indigo-50"
+                            >
+                                <ArrowDownTrayIcon class="w-4 h-4 mr-1" />
+                                Download
+                            </a>
                             <IndigoButton
                                 type="button"
                                 button-classes="text-xs"
@@ -409,7 +419,10 @@ function generate() {
                                     </div>
                                 </SimpleModal>
                             </IndigoButton>
-                            <IndigoButton button-classes="text-xs">
+                            <IndigoButton
+                                v-if="showGenerateOption"
+                                button-classes="text-xs"
+                            >
                                 Generate
                             </IndigoButton>
                         </div>
