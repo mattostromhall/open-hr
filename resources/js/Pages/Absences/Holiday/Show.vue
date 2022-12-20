@@ -12,11 +12,23 @@ import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import type {Breadcrumb} from '../../../types'
 
 const props = defineProps<{
     holiday: Holiday,
     requester: string
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/holidays',
+        display: 'Holidays'
+    },
+    {
+        display: 'Holiday Request'
+    }
+]
 
 const statusMap = {
     1: 'pending',
@@ -46,6 +58,10 @@ function deleteHoliday() {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">

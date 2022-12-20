@@ -9,6 +9,8 @@ import CalendarEvent from '@/Components/CalendarEvent.vue'
 import useCalendarSlideOver from '../../../Composables/useCalendarSlideOver'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import type {Breadcrumb} from '../../../types'
 
 const props = defineProps({
     holidayEvents: {
@@ -16,6 +18,16 @@ const props = defineProps({
         default: () => []
     }
 })
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/holidays',
+        display: 'Holidays'
+    },
+    {
+        display: 'Calendar'
+    }
+]
 
 const {showCalendarEvent} = useCalendarSlideOver()
 
@@ -29,14 +41,15 @@ const calendarOptions = {
     },
     events: props.holidayEvents,
     displayEventTime: false,
-    // nextDayThreshold: '12:00:00',
     weekends: false,
     eventClick: ({event}: EventClickArg) => showCalendarEvent(event._def.extendedProps)
 }
 </script>
 
 <template>
-    <Head title="Holiday Calendar" />
+    <Head>
+        <title>Holiday Calendar</title>
+    </Head>
 
     <PageHeading>
         Holiday Calendar
@@ -46,7 +59,10 @@ const calendarOptions = {
             </LightIndigoLink>
         </template>
     </PageHeading>
-
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="p-8">
         <FullCalendar :options="calendarOptions" />
     </section>

@@ -18,7 +18,6 @@ defineProps<{
 }>()
 
 const breadcrumbs: Breadcrumb[] = [{
-    link: '/holidays',
     display: 'Holidays'
 }]
 

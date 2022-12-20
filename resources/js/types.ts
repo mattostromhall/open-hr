@@ -354,7 +354,7 @@ export interface ReportableColumn {
 }
 
 export interface Breadcrumb {
-    link: string,
+    link?: string,
     display: string
 }
 
