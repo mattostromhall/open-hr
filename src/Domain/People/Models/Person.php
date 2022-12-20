@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\Money;
 use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 use Support\Enums\Currency;
@@ -42,6 +43,7 @@ class Person extends Model
 
     protected $casts = [
         'dob' => 'date',
+        'remuneration' => Money::class,
         'remuneration_interval' => RemunerationInterval::class,
         'remuneration_currency' => Currency::class,
         'started_on' => 'date',

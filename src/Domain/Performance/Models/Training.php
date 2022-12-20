@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\Money;
 use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 use Support\Enums\Currency;
@@ -30,6 +31,7 @@ class Training extends Model
     protected $casts = [
         'status' => TrainingStatus::class,
         'state' => TrainingState::class,
+        'cost' => Money::class,
         'cost_currency' => Currency::class
     ];
 
