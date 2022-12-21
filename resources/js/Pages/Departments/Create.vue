@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Department, SelectOption} from '../../types'
+import type {Breadcrumb, Department, SelectOption} from '../../types'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -9,10 +9,21 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     people: SelectOption[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/departments',
+        display: 'Departments'
+    },
+    {
+        display: 'Create'
+    }
+]
 
 type DepartmentData = Pick<Department, 'name'> & {head_of_department_id?: number}
 
@@ -35,6 +46,10 @@ const form: InertiaForm<DepartmentData> = useForm({
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
             <form @submit.prevent="form.post('/departments')">

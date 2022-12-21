@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Holiday} from '../../../types'
+import type {Breadcrumb, Holiday} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -11,11 +11,23 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     holiday: Holiday,
     requester: string
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/holidays',
+        display: 'Holidays'
+    },
+    {
+        link: `/holidays/${props.holiday.id}`,
+        display: 'Holiday Request'
+    }
+]
 
 type UpdateHolidayData = Omit<Holiday, 'id'>
 
@@ -55,6 +67,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

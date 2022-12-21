@@ -1,22 +1,32 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
-import type {Department, SelectOption} from '../../types'
+import type {Breadcrumb, Department, SelectOption, TabbedContentItem} from '../../types'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Members from './Members.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {InformationCircleIcon, UserGroupIcon} from '@heroicons/vue/24/outline'
 import Information from './Information.vue'
-import type {TabbedContentItem} from '../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
-defineProps<{
+const props = defineProps<{
     department: Department,
     members: number[],
     people: SelectOption[],
     headOptions: SelectOption[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/departments',
+        display: 'Departments'
+    },
+    {
+        link: `/departments/${props.department.id}`,
+        display: 'Department'
+    }
+]
 
 type ActiveTab = 'information' | 'members'
 
@@ -49,6 +59,10 @@ const tabs: TabbedContentItem[] = [
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{isActive}"
         :tabs="tabs"

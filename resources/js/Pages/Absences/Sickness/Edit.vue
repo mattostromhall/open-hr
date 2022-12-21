@@ -8,18 +8,29 @@ import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import usePerson from '../../../Hooks/usePerson'
-import type {Document, Sickness} from '../../../types'
+import type {Breadcrumb, Sickness} from '../../../types'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     sickness: Sickness,
     logger: string
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/sicknesses',
+        display: 'Sick Days'
+    },
+    {
+        link: `/sicknesses/${props.sickness.id}`,
+        display: 'Sick Day'
+    }
+]
 
 type LogSicknessData = Omit<Sickness, 'id' | 'person_id'> & {documents?: File | File[]}
 
@@ -64,6 +75,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

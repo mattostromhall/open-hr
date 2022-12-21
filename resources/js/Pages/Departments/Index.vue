@@ -2,7 +2,7 @@
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import {computed, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
-import type {Department, Person, Paginated, Paginator} from '../../types'
+import type {Breadcrumb, Department, Person, Paginated, Paginator} from '../../types'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
@@ -11,6 +11,7 @@ import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
 import {Inertia} from '@inertiajs/inertia'
 import {debounce, omit} from 'lodash'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     search?: string,
@@ -23,6 +24,12 @@ const props = defineProps<{
         }
     )>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Departments'
+    }
+]
 
 let search: Ref<string | undefined> = ref(props.search)
 
@@ -74,6 +81,10 @@ function isSelected(id: number) {
             </IndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="p-8">
         <SearchInput v-model="search" />
         <div

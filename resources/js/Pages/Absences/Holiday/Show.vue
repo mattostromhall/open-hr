@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Holiday} from '../../../types'
+import type {Breadcrumb, Holiday} from '../../../types'
 import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -13,7 +13,6 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
-import type {Breadcrumb} from '../../../types'
 
 const props = defineProps<{
     holiday: Holiday,

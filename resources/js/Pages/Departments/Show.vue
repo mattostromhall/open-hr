@@ -2,7 +2,7 @@
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
-import type {Department, Person} from '../../types'
+import type {Breadcrumb, Department, Person} from '../../types'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
 import {Inertia} from '@inertiajs/inertia'
@@ -12,12 +12,23 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     department: Department,
     head: Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>,
     members: (Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>)[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/departments',
+        display: 'Departments'
+    },
+    {
+        display: 'Department'
+    }
+]
 
 const size: ComputedRef<number> = computed(() => props.members.length)
 
@@ -43,6 +54,10 @@ function deleteDepartment() {
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">
