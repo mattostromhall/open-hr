@@ -7,7 +7,8 @@ import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
 import PersonAddress from './Address.vue'
 import PageHeading from '@/Components/PageHeading.vue'
-import type {Address, Person, User} from '../../../types'
+import type {Address, Breadcrumb, Person, User} from '../../../types'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     active: string,
@@ -15,6 +16,15 @@ const props = defineProps<{
     person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>,
     address: Address
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Profile'
+    },
+    {
+        display: props.person.full_name
+    }
+]
 
 const activeTab: Ref<string> = ref(props.active)
 
@@ -33,6 +43,10 @@ function isActive(tab: string): boolean {
     </Head>
 
     <PageHeading>Profile</PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">

@@ -4,7 +4,8 @@ import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {Address, Department, Person, Role, User} from '../../../types'
+import type {Address, Breadcrumb, Department, Person, Role, User} from '../../../types'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -16,6 +17,16 @@ const props = defineProps<{
     roles: Role[],
     allRoles: Role[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/people',
+        display: 'People'
+    },
+    {
+        display: props.person.full_name
+    }
+]
 
 const department = computed(() =>
     props.departments.find(department => department.id === props.person.department_id)
@@ -37,7 +48,9 @@ const fullAddress = computed(() =>
 </script>
 
 <template>
-    <Head :title="`Person - ${person.full_name}`" />
+    <Head>
+        <title>Person - {{ person.full_name }}</title>
+    </Head>
 
     <PageHeading>
         <span class="font-normal">Viewing - </span>{{ person.full_name }}
@@ -47,6 +60,10 @@ const fullAddress = computed(() =>
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="p-8 w-full sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="py-5 px-4 sm:px-6">

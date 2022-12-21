@@ -7,7 +7,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {ComplexSelectOption, ConfirmablePassword, Currency, Department, Person, User} from '../../../types'
+import type {Breadcrumb, ComplexSelectOption, ConfirmablePassword, Currency, Department, Person, User} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
@@ -18,11 +18,22 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     people: (Pick<Person, 'id'|'full_name'>)[],
     departments: Department[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/people',
+        display: 'People'
+    },
+    {
+        display: 'Create'
+    }
+]
 
 type PersonUserData = Omit<Person, 'id'|'user_id'|'full_name'|'finished_on'|'hex_code'>
     & Omit<User, 'id'|'active'>
@@ -102,6 +113,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
             <form @submit.prevent="submit">

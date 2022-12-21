@@ -9,9 +9,9 @@ import Information from './Information.vue'
 import PersonAddress from '../Profile/Address.vue'
 import Access from './Access.vue'
 import DirectReports from './DirectReports.vue'
-import type {Address, Role, User} from '../../../types'
-import type {TabbedContentItem} from '../../../types'
+import type {Address, Breadcrumb, Role, TabbedContentItem, User} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     active: ActiveTab,
@@ -24,6 +24,17 @@ const props = defineProps<{
     roles: Role[],
     allRoles: Role[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/people',
+        display: 'People'
+    },
+    {
+        link: `/people/${props.person.id}`,
+        display: props.person.full_name
+    }
+]
 
 type ActiveTab = 'information' | 'address' | 'reports' | 'access'
 
@@ -66,6 +77,10 @@ const tabs: TabbedContentItem[] = [
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{isActive}"
         :tabs="tabs"

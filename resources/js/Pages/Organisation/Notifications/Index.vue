@@ -1,13 +1,20 @@
 <script setup lang="ts">
-import type {Notification} from '../../../types'
+import type {Breadcrumb, Notification} from '../../../types'
 import {useTimeAgo} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
-const props = defineProps<{
+defineProps<{
     organisationNotifications: (Notification & {created_at: string})[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Notifications'
+    }
+]
 </script>
 
 <template>
@@ -23,7 +30,11 @@ const props = defineProps<{
             </LightIndigoLink>
         </template>
     </PageHeading>
-
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <section class="p-8">
         <ul
             role="list"

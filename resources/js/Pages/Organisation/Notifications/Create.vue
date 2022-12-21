@@ -4,11 +4,12 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Notification} from '../../../types'
+import type {Breadcrumb, Notification} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import EditorInput from '@/Components/Controls/EditorInput.vue'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 type NotificationData = Pick<Notification, 'title'|'body'|'link'>
 
@@ -17,6 +18,16 @@ const form: InertiaForm<NotificationData> = useForm({
     body: '',
     link: undefined
 })
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/organisation/notifications',
+        display: 'Notifications'
+    },
+    {
+        display: 'Create'
+    }
+]
 </script>
 
 <template>
@@ -32,7 +43,11 @@ const form: InertiaForm<NotificationData> = useForm({
             </LightIndigoLink>
         </template>
     </PageHeading>
-
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <section class="p-8">
         <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
             <form @submit.prevent="form.post('/organisation/notifications')">
