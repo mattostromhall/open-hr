@@ -56,6 +56,7 @@ function deleteDepartment() {
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
         class="pt-8 px-8"
     />
     <section class="w-full p-8 sm:max-w-6xl">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {ExpenseType, Paginated, Paginator} from '../../../types'
+import type {Breadcrumb, ExpenseType, Paginated, Paginator} from '../../../types'
 import type {ComputedRef, Ref} from 'vue'
 import {computed, reactive, ref, watch} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
@@ -12,11 +12,18 @@ import SearchInput from '@/Components/Controls/SearchInput.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {Inertia} from '@inertiajs/inertia'
 import {debounce, omit} from 'lodash'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     search?: string,
     expenseTypes: Paginated<ExpenseType>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Expense Types'
+    }
+]
 
 let search: Ref<string | undefined> = ref(props.search)
 
@@ -71,6 +78,11 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
             </IndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <div class="p-8">
         <SearchInput v-model="search" />
         <div

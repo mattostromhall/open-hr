@@ -2,12 +2,13 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {ExpenseWithType, SelectOption, TabbedContentItem} from '../../types'
+import type {Breadcrumb, ExpenseWithType, SelectOption, TabbedContentItem} from '../../types'
 import Submit from './Submit.vue'
 import Approved from './Approved.vue'
 import Pending from './Pending.vue'
 import Rejected from './Rejected.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
@@ -16,6 +17,12 @@ defineProps<{
     pending: ExpenseWithType[],
     rejected: ExpenseWithType[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Expenses'
+    }
+]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -54,6 +61,10 @@ const tabs: TabbedContentItem[] = [
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{isActive}"
         :tabs="tabs"

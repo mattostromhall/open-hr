@@ -48,6 +48,7 @@ const form: InertiaForm<DepartmentData> = useForm({
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
         class="pt-8 px-8"
     />
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">

@@ -83,6 +83,7 @@ function isSelected(id: number) {
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
         class="pt-8 px-8"
     />
     <div class="p-8">

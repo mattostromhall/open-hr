@@ -4,7 +4,8 @@ import type {Breadcrumb} from '../types'
 import {HomeIcon} from '@heroicons/vue/20/solid'
 
 defineProps<{
-    breadcrumbs: Breadcrumb[]
+    breadcrumbs: Breadcrumb[],
+    dashboard?: string
 }>()
 </script>
 
@@ -20,7 +21,7 @@ defineProps<{
             <li>
                 <div>
                     <Link
-                        href="/dashboard"
+                        :href="dashboard ?? '/dashboard'"
                         class="text-gray-400 hover:text-gray-500"
                     >
                         <HomeIcon class="h-5 w-5 shrink-0" />

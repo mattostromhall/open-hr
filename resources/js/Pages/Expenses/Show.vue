@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {DocumentListItem, Expense} from '../../types'
+import type {Breadcrumb, DocumentListItem, Expense} from '../../types'
 import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -12,6 +12,7 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     expense: Expense,
@@ -19,6 +20,16 @@ const props = defineProps<{
     status: string,
     documents: DocumentListItem[]
 }>()
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/expenses',
+        display: 'Expenses'
+    },
+    {
+        display: 'Expense'
+    }
+]
+
 
 const showDeleteModal: Ref<boolean> = ref(false)
 
@@ -45,6 +56,10 @@ function deleteExpense() {
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">
