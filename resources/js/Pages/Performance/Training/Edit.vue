@@ -6,17 +6,29 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Training} from '../../../types'
+import type {Breadcrumb, Training} from '../../../types'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import currencies from '../../../Shared/currencies'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     training: Training
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/training',
+        display: 'Training'
+    },
+    {
+        link: `/training/${props.training.id}`,
+        display: props.training.description
+    }
+]
 
 type TrainingData = Omit<Training, 'id'>
 
@@ -51,6 +63,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

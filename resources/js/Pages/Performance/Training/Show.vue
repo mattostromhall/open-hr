@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {Training} from '../../../types'
+import type {Breadcrumb, Person, Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Person} from '../../../types'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import {Inertia} from '@inertiajs/inertia'
 import SimpleModal from '@/Components/SimpleModal.vue'
@@ -13,6 +12,7 @@ import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     training: Training,
@@ -20,6 +20,16 @@ const props = defineProps<{
     state: string,
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/training',
+        display: 'Training'
+    },
+    {
+        display: props.training.description
+    }
+]
 
 type TrainingStateData = Pick<Training, 'status' | 'state'>
 
@@ -65,6 +75,10 @@ function deleteTraining() {
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">

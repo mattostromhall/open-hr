@@ -3,7 +3,7 @@ import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {OneToOne} from '../../../types'
+import type {Breadcrumb, OneToOne} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
 import SimpleModal from '@/Components/SimpleModal.vue'
@@ -12,6 +12,7 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     oneToOne: OneToOne,
@@ -21,6 +22,16 @@ const props = defineProps<{
     personStatus: string,
     managerStatus: string
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/performance?active=upcoming',
+        display: 'Performance'
+    },
+    {
+        display: useDateFormat(props.oneToOne.scheduled_at, 'DD/MM/YYYY HH:MM').value
+    }
+]
 
 function complete() {
     return Inertia.post(`/one-to-ones/${props.oneToOne.id}/complete`)
@@ -51,6 +62,10 @@ function deleteOneToOne() {
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">

@@ -12,10 +12,11 @@ import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
-import type {OneToOne, RecurrenceInterval} from '../../../types'
+import type {Breadcrumb, OneToOne, RecurrenceInterval} from '../../../types'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     oneToOne: OneToOne,
@@ -26,6 +27,17 @@ const props = defineProps<{
     managerStatus: string,
     recurrenceIntervals: RecurrenceInterval[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/performance?active=upcoming',
+        display: 'Performance'
+    },
+    {
+        link: `/one-to-ones/${props.oneToOne.id}`,
+        display: useDateFormat(props.oneToOne.scheduled_at, 'DD/MM/YYYY HH:MM').value
+    }
+]
 
 type UpdateOneToOneData = Pick<OneToOne, 'scheduled_at' | 'completed_at' | 'recurring' | 'recurrence_interval' | 'notes'>
 
@@ -59,6 +71,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

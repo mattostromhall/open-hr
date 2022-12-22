@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {TabbedContentItem, Training} from '../../../types'
+import type {Breadcrumb, TabbedContentItem, Training} from '../../../types'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import RequestTraining from './RequestTraining.vue'
@@ -8,6 +8,7 @@ import NotStarted from './NotStarted.vue'
 import Completed from './Completed.vue'
 import AwaitingApproval from './AwaitingApproval.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
@@ -16,6 +17,12 @@ defineProps<{
     completed: Training[],
     awaitingApproval: Training[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Training'
+    }
+]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -54,6 +61,10 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         Training
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{setActive, isActive}"
         :tabs="tabs"
