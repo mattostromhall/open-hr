@@ -10,12 +10,24 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import {useForm} from '@inertiajs/inertia-vue3'
-import type {Objective, Person} from '../../../types'
+import type {Breadcrumb, Objective, Person} from '../../../types'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     objective: Objective,
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/performance?active=current',
+        display: 'Performance'
+    },
+    {
+        link: `/objectives/${props.objective.id}`,
+        display: props.objective.title
+    }
+]
 
 type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'days_remaining' | 'completed_at'>
 
@@ -43,6 +55,10 @@ function submit(): void {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

@@ -2,7 +2,7 @@
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {useDateFormat} from '@vueuse/core'
-import type {Objective, Task} from '../../../types'
+import type {Breadcrumb, Objective, Task} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
 import {Head} from '@inertiajs/inertia-vue3'
@@ -13,11 +13,22 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     objective: Objective,
     tasks: Task[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/performance?active=current',
+        display: 'Performance'
+    },
+    {
+        display: props.objective.title
+    }
+]
 
 function status(objective: Objective): string {
     if (objective.completed_at) {
@@ -60,6 +71,10 @@ function deleteObjective() {
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="w-full p-8 sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">

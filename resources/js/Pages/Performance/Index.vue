@@ -7,9 +7,10 @@ import Upcoming from './OneToOnes/Upcoming.vue'
 import Previous from './OneToOnes/Previous.vue'
 import Current from './Objectives/Current.vue'
 import Create from './Objectives/Create.vue'
-import type {Objective, OneToOne, Person, SelectOption} from '../../types'
+import type {Breadcrumb, Objective, OneToOne, Person, SelectOption} from '../../types'
 import type {TabbedContentItem} from '../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
@@ -20,6 +21,12 @@ defineProps<{
     previousOneToOnes: OneToOne[],
     objectives: Objective[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Performance'
+    }
+]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -63,6 +70,10 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         Performance
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{setActive, isActive}"
         :tabs="tabs"
