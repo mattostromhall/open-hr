@@ -3,13 +3,14 @@ import {ref} from 'vue'
 import type {Ref} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import type {Documentable, DocumentListItem} from '../../../types'
+import type {Breadcrumb, Documentable, DocumentListItem} from '../../../types'
 import {FolderIcon} from '@heroicons/vue/24/outline'
 import usePerson from '../../../Hooks/usePerson'
 import DocumentList from './DocumentList.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import UploadDocuments from './UploadDocuments.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     path: string,
@@ -20,6 +21,25 @@ const props = defineProps<{
     documentList: DocumentListItem[],
     backPath?: string
 }>()
+
+const breadcrumbParts = props.path
+    .substring(11)
+    .split('/')
+    .map((part: string) => {
+        return {
+            link: props.path.substring(0, props.path.indexOf(part)) + part,
+            display: part
+        }
+    })
+    .filter((breadcrumb: Breadcrumb) => breadcrumb.display)
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/documents',
+        display: 'Documents'
+    },
+    ...breadcrumbParts
+]
 
 const person = usePerson()
 
@@ -64,6 +84,10 @@ function hideDocumentsModal() {
             </IndigoButton>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <div class="p-8 lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:p-0">
             <nav class="space-y-1">
