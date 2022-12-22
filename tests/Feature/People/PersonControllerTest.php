@@ -19,7 +19,7 @@ beforeEach(function () {
 });
 
 it('returns the person index', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     Person::factory()->for($this->department)->count(2)->create();
 
     $this->get(route('person.index'))
@@ -71,7 +71,7 @@ it('returns unauthorized if the person does not have permission to view people',
 });
 
 it('returns the person create page', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
 
     $this->get(route('person.create'))
         ->assertOk()
@@ -99,7 +99,7 @@ it('returns unauthorized when creating if the person does not have permission to
 });
 
 it('creates a new user and person when the correct data is provided', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     $password = faker()->password(8);
 
     $response = $this->post(route('person.store'), [
@@ -180,7 +180,7 @@ it('returns validation errors when creating a new user and person with incorrect
 });
 
 it('shows the person', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $this->get(route('person.show', ['person' => $this->person]))
         ->assertOk()
@@ -206,7 +206,7 @@ it('returns unauthorized if the person does not have permission to view the pers
 });
 
 it('returns the person to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $this->get(route('person.edit', ['person' => $this->person]))
         ->assertOk()
@@ -232,7 +232,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the person when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
 
     $response = $this->put(route('person.update', ['person' => $this->person]), [
         'user_id' => $this->person->user->id,
@@ -301,7 +301,7 @@ it('returns validation errors when updating the person with incorrect data', fun
 });
 
 it('deletes the person', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->delete(route('person.destroy', ['person' => $this->person]));
 

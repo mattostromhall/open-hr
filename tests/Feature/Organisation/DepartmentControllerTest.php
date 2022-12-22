@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('returns the department index', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     Department::factory()->count(3)->create();
 
     $this->get(route('department.index'))
@@ -53,7 +53,7 @@ it('returns unauthorized if the person does not have permission to view the depa
 });
 
 it('returns the department create page', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $this->get(route('department.create'))
         ->assertOk()
@@ -70,7 +70,7 @@ it('returns unauthorized when creating if the person does not have permission to
 });
 
 it('creates a new department when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('department.store'), [
         'name' => 'Development',
@@ -103,7 +103,7 @@ it('returns validation errors when creating a new department with incorrect data
 });
 
 it('shows the department', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     $department = Department::factory()->create([
         'head_of_department_id' => $this->person->id
     ]);
@@ -131,7 +131,7 @@ it('returns unauthorized if the person does not have permission to view the depa
 });
 
 it('returns the department to edit', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     $department = Department::factory()->create([
         'head_of_department_id' => $this->person->id
     ]);
@@ -159,7 +159,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the department when the correct data is provided', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     $department = Department::factory()->create([
         'head_of_department_id' => $this->person->id
     ]);
@@ -201,7 +201,7 @@ it('returns validation errors when updating the department with incorrect data',
 });
 
 it('deletes the department', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $department = Department::factory()->create();
 
     $response = $this->delete(route('department.destroy', ['department' => $department]));

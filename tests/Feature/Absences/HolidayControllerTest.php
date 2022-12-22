@@ -93,7 +93,7 @@ it('returns the holiday index', function () {
 });
 
 it('stores a holiday request when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $response = $this->post(route('holiday.store'), [
         'person_id' => $this->person->id,
@@ -132,7 +132,7 @@ it('returns validation errors when storing a holiday request with incorrect data
 });
 
 it('shows the holiday', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $holiday = Holiday::factory()->for($this->person)->create();
 
     $this->get(route('holiday.show', ['holiday' => $holiday]))
@@ -153,7 +153,7 @@ it('returns unauthorized if the person does not have permission to view the holi
 });
 
 it('returns the holiday to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $holiday = Holiday::factory()->for($this->person)->create();
 
     $this->get(route('holiday.edit', ['holiday' => $holiday]))
@@ -174,7 +174,7 @@ it('returns unauthorized when trying to edit if the person does not have permiss
 });
 
 it('updates the holiday request when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $holiday = Holiday::factory()
         ->for($this->person)
         ->create([
@@ -223,7 +223,7 @@ it('returns validation errors when updating the holiday with incorrect data', fu
 });
 
 it('deletes the holiday request', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $holiday = Holiday::factory()->for($this->person)->create();
 
     $response = $this->delete(route('holiday.destroy', ['holiday' => $holiday]));

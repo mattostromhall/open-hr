@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('completes the one-to-one', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

@@ -49,7 +49,7 @@ it('returns the documents index for the path', function () {
 });
 
 it('uploads the documents provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $response = $this->post(route('document.store'), [
         'path' => 'test',
@@ -87,7 +87,7 @@ it('returns validation errors when uploading documents with incorrect data', fun
 });
 
 it('deletes the document', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $document = Document::factory()->create([
         'documentable_id' => $this->person->id

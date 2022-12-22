@@ -16,7 +16,7 @@ beforeEach(function () {
 });
 
 it('returns the report index', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     Report::factory()->count(3)->create();
 
     $this->get(route('report.index'))
@@ -47,7 +47,7 @@ it('returns unauthorized if the person does not have permission to view the repo
 });
 
 it('returns the report create page', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $this->get(route('report.create'))
         ->assertOk()
@@ -68,7 +68,7 @@ it('returns unauthorized when creating if the person does not have permission to
 });
 
 it('creates a report when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('report.store'), [
         'label' => faker()->word(),
@@ -126,7 +126,7 @@ it('returns validation errors when creating a report with incorrect data', funct
 });
 
 it('returns the report to edit', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $report = Report::factory()->create();
 
     $this->get(route('report.edit', ['report' => $report]))
@@ -150,7 +150,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the report when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $report = Report::factory()->create();
 
     $response = $this->put(route('report.update', ['report' => $report]), [
@@ -213,7 +213,7 @@ it('returns validation errors when updating the report with incorrect data', fun
 });
 
 it('deletes the report', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $report = Report::factory()->create();
 
     $response = $this->delete(route('report.destroy', ['report' => $report]));

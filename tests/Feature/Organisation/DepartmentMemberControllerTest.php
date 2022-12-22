@@ -15,7 +15,7 @@ beforeEach(function () {
 });
 
 it('synchronises the department members with the member data provided', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     $department = Department::factory()->create([
         'head_of_department_id' => $this->person->id
     ]);

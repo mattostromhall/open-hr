@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('creates a directory for the path provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('directory.store'), [
         'path' => 'test/' . faker()->text(10)
@@ -43,7 +43,7 @@ it('returns validation errors when submitting an expense with incorrect data', f
 
 
 it('deletes the directory at the path provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $path = 'test/' . faker()->text(10);
 
     $createResponse = $this->post(route('directory.store'), [
@@ -64,7 +64,7 @@ it('deletes the directory at the path provided', function () {
 });
 
 it('returns unauthorized if the person does not have permission to delete directories', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $path = 'test/' . faker()->text(10);
 
     $createResponse = $this->post(route('directory.store'), [

@@ -28,7 +28,7 @@ it('returns the organisation notifications index', function () {
 });
 
 it('returns the organisation notification create page', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $this->get(route('organisation.notification.create'))
         ->assertOk()
@@ -43,7 +43,7 @@ it('returns unauthorized when creating if the person does not have permission to
 });
 
 it('creates a new organisation notification when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('organisation.notification.store'), [
         'title' => 'Notification title',

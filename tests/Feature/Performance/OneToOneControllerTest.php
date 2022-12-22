@@ -15,7 +15,7 @@ beforeEach(function () {
 });
 
 it('creates a one-to-one when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -73,7 +73,7 @@ it('returns validation errors when creating an one-to-one with incorrect data', 
 });
 
 it('shows the one-to-one', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id
@@ -107,7 +107,7 @@ it('returns unauthorized if the person does not have permission to view the one-
 });
 
 it('returns the one-to-one to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id
@@ -141,7 +141,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the one-to-one when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id
@@ -193,7 +193,7 @@ it('returns validation errors when updating the one-to-one with incorrect data',
 });
 
 it('deletes the one-to-one', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $oneToOne = OneToOne::factory()->create([
         'person_id' => $this->person->id,
         'requester_id' => $this->person->id

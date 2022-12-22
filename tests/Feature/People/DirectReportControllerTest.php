@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 it('manages the direct reports for the person', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $people = Person::factory()->count(3)->create();
 
     $response = $this->post(route('person.direct-reports', ['person' => $this->person]), [

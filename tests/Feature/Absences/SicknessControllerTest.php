@@ -40,7 +40,7 @@ it('returns the sickness index', function () {
 });
 
 it('logs a sickness when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $response = $this->post(route('sickness.store'), [
         'person_id' => $this->person->id,
@@ -75,7 +75,7 @@ it('returns validation errors when logging a sickness with incorrect data', func
 });
 
 it('shows the sickness', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $sickness = Sickness::factory()->for($this->person)->create();
 
     $this->get(route('sickness.show', ['sickness' => $sickness]))
@@ -99,7 +99,7 @@ it('returns unauthorized if the person does not have permission to view the sick
 });
 
 it('returns the sickness to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $sickness = Sickness::factory()->for($this->person)->create();
 
     $this->get(route('sickness.edit', ['sickness' => $sickness]))
@@ -119,7 +119,7 @@ it('returns unauthorized when trying to edit if the person does not have permiss
 });
 
 it('updates the sickness when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $sickness = Sickness::factory()->for($this->person)->create();
 
     $response = $this->put(route('sickness.update', ['sickness' => $sickness]), [
@@ -153,7 +153,7 @@ it('returns validation errors when updating the sickness with incorrect data', f
 });
 
 it('deletes the sickness', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

@@ -15,7 +15,7 @@ beforeEach(function () {
 });
 
 it('creates a task for the objective when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -56,7 +56,7 @@ it('returns validation errors when creating a task with incorrect data', functio
 });
 
 it('updates the task when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -101,7 +101,7 @@ it('returns validation errors when updating the task with incorrect data', funct
 });
 
 it('deletes the task', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

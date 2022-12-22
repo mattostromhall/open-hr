@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('syncs the provided roles', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
 
     $this->post(route('roles/sync', [
         'user' => $this->person->user

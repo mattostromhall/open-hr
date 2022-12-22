@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('completes the objective', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

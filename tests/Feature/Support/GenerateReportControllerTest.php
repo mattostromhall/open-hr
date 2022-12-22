@@ -17,7 +17,7 @@ beforeEach(function () {
 });
 
 it('generates a report when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('report.generate.store'), [
         'label' => faker()->word(),
@@ -76,7 +76,7 @@ it('returns validation errors when generating a report with incorrect data', fun
 });
 
 it('downloads the report', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     $this->post(route('report.generate.store'), [
         'label' => 'test-report',

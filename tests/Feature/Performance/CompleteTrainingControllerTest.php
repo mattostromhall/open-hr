@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('completes the training', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $training = Training::factory()->for($this->person)->create();
 
     $response = $this->post(route('training.complete', ['training' => $training]));

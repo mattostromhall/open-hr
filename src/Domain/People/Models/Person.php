@@ -4,6 +4,7 @@ namespace Domain\People\Models;
 
 use Domain\Absences\Models\Holiday;
 use Domain\Absences\Models\Sickness;
+use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Models\Document;
@@ -141,6 +142,11 @@ class Person extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function assign(Role $role)
+    {
+        $this->user->assign($role->value);
     }
 
     public function owns(Model $model, string $ownerKey = 'person_id'): bool

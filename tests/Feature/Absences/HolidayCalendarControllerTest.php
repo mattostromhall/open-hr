@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('returns the holiday calendar page and data', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
 
     Holiday::factory()->count(3)->create();
 

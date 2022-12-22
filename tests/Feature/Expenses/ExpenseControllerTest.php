@@ -58,7 +58,7 @@ it('returns the expense index', function () {
 });
 
 it('submits an expense when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->post(route('expense.store'), [
@@ -109,7 +109,7 @@ it('returns validation errors when submitting an expense with incorrect data', f
 });
 
 it('shows the expense', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $expense = Expense::factory()->for($this->person)->create();
 
     $this->get(route('expense.show', ['expense' => $expense]))
@@ -136,7 +136,7 @@ it('returns unauthorized if the person does not have permission to view the expe
 });
 
 it('returns the expense to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $expense = Expense::factory()->for($this->person)->create();
 
     $this->get(route('expense.edit', ['expense' => $expense]))
@@ -163,7 +163,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the expense when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $expense = Expense::factory()->for($this->person)->create();
 
     $response = $this->put(route('expense.update', ['expense' => $expense]), [
@@ -210,7 +210,7 @@ it('returns validation errors when updating the expense with incorrect data', fu
 });
 
 it('deletes the expense submission', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $expense = Expense::factory()->for($this->person)->create();
 
     $response = $this->delete(route('expense.destroy', ['expense' => $expense]));

@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 it('updates the users password', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $this->patch(route('user.update.password', [
         'user' => $this->person->user
     ]), [

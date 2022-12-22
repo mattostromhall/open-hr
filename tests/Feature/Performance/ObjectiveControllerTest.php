@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 it('creates an objective when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
 
     $response = $this->post(route('objective.store'), [
         'person_id' => $this->person->id,
@@ -53,7 +53,7 @@ it('returns validation errors when creating an objective with incorrect data', f
 });
 
 it('shows the objective', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $objective = Objective::factory()->for($this->person)->create();
 
     $this->get(route('objective.show', ['objective' => $objective]))
@@ -77,7 +77,7 @@ it('returns unauthorized if the person does not have permission to view the obje
 });
 
 it('returns the objective to edit', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -104,7 +104,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the objective when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -151,7 +151,7 @@ it('returns validation errors when updating the objective with incorrect data', 
 });
 
 it('deletes the objective', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

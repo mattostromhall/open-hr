@@ -19,7 +19,7 @@ beforeEach(function () {
 });
 
 it('returns the vacancies index', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
     Vacancy::factory()->count(3)->create();
     Vacancy::factory()->count(3)->create([
         'close_at' => now()->subDay()
@@ -51,7 +51,7 @@ it('returns unauthorized if the person does not have permission to view vacancie
 });
 
 it('posts a vacancy when the correct data is provided', function () {
-    $this->person->user->assign(Role::HEAD_OF_DEPARTMENT->value);
+    $this->person->assign(Role::HEAD_OF_DEPARTMENT);
 
     $response = $this->post(route('vacancy.store'), [
         'contact_id' => $this->person->id,
@@ -102,7 +102,7 @@ it('returns validation errors when posting a vacancy with incorrect data', funct
 });
 
 it('shows the vacancy', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $this->person->id
     ]);
@@ -143,7 +143,7 @@ it('returns unauthorized if the person does not have permission to view the vaca
 });
 
 it('returns the vacancy to edit', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $this->person->id
     ]);
@@ -180,7 +180,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the vacancy when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $this->person->id
     ]);
@@ -238,7 +238,7 @@ it('returns validation errors when updating a vacancy with incorrect data', func
 });
 
 it('deletes the vacancy', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $this->person->id
     ]);

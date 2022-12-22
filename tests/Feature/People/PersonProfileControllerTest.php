@@ -16,7 +16,7 @@ beforeEach(function () {
 });
 
 it('returns the profile to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $this->get(route('person.profile', ['person' => $this->person]))
         ->assertOk()
@@ -47,7 +47,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the profile when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $response = $this->patch(route('profile.update', ['person' => $this->person]), [
         'first_name' => faker()->firstName(),

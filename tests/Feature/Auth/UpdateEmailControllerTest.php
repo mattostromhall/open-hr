@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('updates the users email', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $this->patch(route('user.update.email', [
         'user' => $this->person->user
     ]), [
@@ -24,7 +24,7 @@ it('updates the users email', function () {
 });
 
 it('allows the update if the same email as the users email is used', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $this->patch(route('user.update.email', [
         'user' => $this->person->user
     ]), [

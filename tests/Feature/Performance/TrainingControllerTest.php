@@ -48,7 +48,7 @@ it('returns the training index', function () {
 });
 
 it('creates a training request when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $response = $this->post(route('training.store'), [
         'person_id' => $this->person->id,
         'status' => TrainingStatus::PENDING->value,
@@ -94,7 +94,7 @@ it('returns validation errors when creating an training with incorrect data', fu
 });
 
 it('shows the training', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $training = Training::factory()->for($this->person)->create();
 
     $this->get(route('training.show', ['training' => $training]))
@@ -119,7 +119,7 @@ it('returns unauthorized if the person does not have permission to view the trai
 });
 
 it('returns the training to edit', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $training = Training::factory()->for($this->person)->create();
 
     $this->get(route('training.edit', ['training' => $training]))
@@ -144,7 +144,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the training when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $training = Training::factory()->for($this->person)->create();
 
     $response = $this->put(route('training.update', ['training' => $training]), [
@@ -193,7 +193,7 @@ it('returns validation errors when updating the training with incorrect data', f
 });
 
 it('deletes the training request', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $training = Training::factory()->for($this->person)->create();
 
     $response = $this->delete(route('training.destroy', ['training' => $training]));

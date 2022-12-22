@@ -50,7 +50,7 @@ it('returns validation errors when submitting an application with incorrect data
 it('shows the application', function () {
     $person = Person::factory()->create();
     $this->actingAs($person->user);
-    $person->user->assign(Role::MANAGER->value);
+    $person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $person->id
     ]);
@@ -82,7 +82,7 @@ it('returns unauthorized if the person does not have permission to view the appl
 it('deletes the application', function () {
     $person = Person::factory()->create();
     $this->actingAs($person->user);
-    $person->user->assign(Role::MANAGER->value);
+    $person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $person->id
     ]);

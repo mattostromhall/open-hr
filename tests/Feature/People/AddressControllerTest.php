@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('creates a new address when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $response = $this->post(route('address.store', ['person' => $this->person]), [
         'address_line' => faker()->streetAddress(),
@@ -55,7 +55,7 @@ it('returns validation errors when creating a new address with incorrect data', 
 });
 
 it('updates the address when the correct data is provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $address = Address::factory()->for($this->person)->create();
 
     $response = $this->put(route('address.update', ['address' => $address]), [
@@ -102,7 +102,7 @@ it('returns validation errors when updating the address with incorrect data', fu
 });
 
 it('deletes the address', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $address = Address::factory()->for($this->person)->create();
 
     $response = $this->delete(route('address.destroy', ['address' => $address]));

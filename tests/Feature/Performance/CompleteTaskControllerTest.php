@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('completes the task', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
     $objective = Objective::factory()->for($this->person)->create();
     $task = Task::factory()->for($objective)->create();
 

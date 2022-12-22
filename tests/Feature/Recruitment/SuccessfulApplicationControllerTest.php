@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('marks an application as successful', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $vacancy = Vacancy::factory()->create([
         'contact_id' => $this->person->id
     ]);

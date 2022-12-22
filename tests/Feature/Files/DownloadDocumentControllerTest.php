@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('downloads the document for the path provided', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $this->post(route('document.store'), [
         'path' => '/documents/test',
@@ -30,7 +30,7 @@ it('downloads the document for the path provided', function () {
 });
 
 it('returns unauthorized if the person does not have permission to download the document', function () {
-    $this->person->user->assign(Role::PERSON->value);
+    $this->person->assign(Role::PERSON);
 
     $this->post(route('document.store'), [
         'path' => '/documents/test',

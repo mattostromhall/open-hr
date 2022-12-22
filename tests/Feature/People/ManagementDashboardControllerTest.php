@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('returns the management dashboard', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
 
     $this->get(route('dashboard.management'))
         ->assertOk()

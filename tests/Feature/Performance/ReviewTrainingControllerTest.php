@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 it('shows the training request to review', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);
@@ -41,7 +41,7 @@ it('returns unauthorized when viewing if the person does not have permission to 
 });
 
 it('updates the training when the correct data is provided', function () {
-    $this->person->user->assign(Role::MANAGER->value);
+    $this->person->assign(Role::MANAGER);
     $person = Person::factory()->create([
         'manager_id' => $this->person->id
     ]);

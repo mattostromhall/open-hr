@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 it('returns the expense type index', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     ExpenseType::factory()->count(3)->create();
 
     $this->get(route('expense-type.index'))
@@ -33,7 +33,7 @@ it('returns unauthorized if the person does not have permission to view expense 
 });
 
 it('returns the expense type create page', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     ExpenseType::factory()->count(3)->create();
 
     $this->get(route('expense-type.create'))
@@ -51,7 +51,7 @@ it('returns unauthorized when creating if the person does not have permission to
 });
 
 it('creates a new expense type when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $response = $this->post(route('expense-type.store'), [
         'type' => 'Misc'
     ]);
@@ -82,7 +82,7 @@ it('returns validation errors when creating an expense type with incorrect data'
 });
 
 it('returns the expense type to edit', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $expenseType = ExpenseType::factory()->create();
 
     $this->get(route('expense-type.edit', ['expense_type' => $expenseType]))
@@ -102,7 +102,7 @@ it('returns unauthorized when editing if the person does not have permission to 
 });
 
 it('updates the expense type when the correct data is provided', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->put(route('expense-type.update', ['expense_type' => $expenseType]), [
@@ -137,7 +137,7 @@ it('returns validation errors when updating the expense type with incorrect data
 });
 
 it('deletes the expense type', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $expenseType = ExpenseType::factory()->create();
 
     $response = $this->delete(route('expense-type.destroy', ['expense_type' => $expenseType]));

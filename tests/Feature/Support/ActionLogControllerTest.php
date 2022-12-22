@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 it('shows the action log for the resource', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $objective = Objective::factory()->create();
     ActionLog::factory()->create([
         'payload' => json_encode($objective->getAttributes()),

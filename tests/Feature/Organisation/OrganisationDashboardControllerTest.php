@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 it('returns the organisation dashboard', function () {
-    $this->person->user->assign(Role::ADMIN->value);
+    $this->person->assign(Role::ADMIN);
     $this->get(route('dashboard.organisation'))
         ->assertOk()
         ->assertInertia(
