@@ -50,7 +50,7 @@ it('creates a person and a user', function () {
         'pronouns' => $personUserData->pronouns,
         'dob' => $personUserData->dob->toDateString(),
         'position' => $personUserData->position,
-        'remuneration' => $personUserData->remuneration,
+        'remuneration' => $personUserData->remuneration * 100,
         'remuneration_interval' => $personUserData->remuneration_interval,
         'remuneration_currency' => $personUserData->remuneration_currency,
         'base_holiday_allocation' => $personUserData->base_holiday_allocation,

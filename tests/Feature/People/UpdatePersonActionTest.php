@@ -46,7 +46,7 @@ it('updates a person', function () {
         'pronouns' => $personData->pronouns,
         'dob' => $personData->dob->toDateString(),
         'position' => $personData->position,
-        'remuneration' => $personData->remuneration,
+        'remuneration' => $personData->remuneration * 100,
         'remuneration_interval' => $personData->remuneration_interval,
         'remuneration_currency' => $personData->remuneration_currency,
         'base_holiday_allocation' => $personData->base_holiday_allocation,

@@ -35,7 +35,7 @@ it('updates a vacancy', function () {
         'description' => $vacancyData->description,
         'location' => $vacancyData->location,
         'contract_type' => $vacancyData->contract_type,
-        'remuneration' => $vacancyData->remuneration,
+        'remuneration' => $vacancyData->remuneration * 100,
         'remuneration_currency' => $vacancyData->remuneration_currency,
         'open_at' => $vacancyData->open_at
     ]);

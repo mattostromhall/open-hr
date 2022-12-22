@@ -27,7 +27,7 @@ it('creates an expense', function () {
         'person_id' => $expenseData->person->id,
         'expense_type_id' => $expenseData->expense_type->id,
         'status' => $expenseData->status,
-        'value' => $expenseData->value,
+        'value' => $expenseData->value * 100,
         'value_currency' => Currency::GBP,
         'date' => $expenseData->date->toDateString()
     ]);
