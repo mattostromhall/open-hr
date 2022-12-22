@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {ContractType, SelectOption, Vacancy} from '../../../types'
+import type {Breadcrumb, ContractType, SelectOption, Vacancy} from '../../../types'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import {useForm} from '@inertiajs/inertia-vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
@@ -14,12 +14,24 @@ import currencies from '../../../Shared/currencies'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     vacancy: Vacancy,
     contacts: SelectOption[],
     contractTypes: ContractType[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/vacancies?active=open',
+        display: 'Vacancies'
+    },
+    {
+        link: `/vacancies/${props.vacancy.id}`,
+        display: props.vacancy.title
+    }
+]
 
 type VacancyData = Omit<Vacancy, 'id' | 'public_id'>
 
@@ -54,6 +66,11 @@ function submit() {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <div class="space-y-6 p-8 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9">
         <form @submit.prevent="submit">
             <div class="shadow sm:rounded-md">

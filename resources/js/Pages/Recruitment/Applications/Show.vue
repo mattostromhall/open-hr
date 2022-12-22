@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import type {Application, Document, TimeStamp, Vacancy} from '../../../types'
+import type {Application, Breadcrumb, Document, TimeStamp, Vacancy} from '../../../types'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import {PaperClipIcon} from '@heroicons/vue/24/outline'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
 import DocumentDownloadList from '../../../Components/DocumentDownloadList.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     vacancy: Pick<Vacancy, 'id' | 'title'>,
@@ -15,6 +15,20 @@ const props = defineProps<{
     application: Application & TimeStamp,
     cv: Document
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/vacancies?active=open',
+        display: 'Vacancies'
+    },
+    {
+        link: `/vacancies/${props.vacancy.id}?active=applications`,
+        display: props.vacancy.title
+    },
+    {
+        display: props.application.name
+    }
+]
 
 function pending() {
     Inertia.post(`/applications/${props.application.id}/pending`)
@@ -42,6 +56,10 @@ function unsuccessful() {
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        class="pt-8 px-8"
+    />
     <section class="p-8">
         <div class="bg-white shadow sm:w-full sm:max-w-4xl sm:rounded-md">
             <div class="flex items-center justify-between py-5 px-4 sm:px-6">

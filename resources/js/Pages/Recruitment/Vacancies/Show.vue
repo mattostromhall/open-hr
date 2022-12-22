@@ -6,14 +6,25 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Overview from './Overview.vue'
 import Applications from './Applications.vue'
-import type {Person} from '../../../types'
+import type {Breadcrumb, Person} from '../../../types'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
-defineProps<{
+const props = defineProps<{
     active: TabbedContentItem['identifier'],
     vacancy: Vacancy,
     contact: Pick<Person, 'id' | 'full_name'>,
     applications: Paginated<Omit<Application, 'cover_letter'>>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/vacancies?active=open',
+        display: 'Vacancies'
+    },
+    {
+        display: props.vacancy.title
+    }
+]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -47,6 +58,11 @@ const tabs: TabbedContentItem[] = [
             </div>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{isActive}"
         :active="active"
