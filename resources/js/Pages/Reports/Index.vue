@@ -2,7 +2,7 @@
 import {Head, Link} from '@inertiajs/inertia-vue3'
 import {computed, reactive, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
-import type {Report, Paginated, Paginator} from '../../types'
+import type {Breadcrumb, Report, Paginated, Paginator} from '../../types'
 import {Inertia} from '@inertiajs/inertia'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -12,11 +12,18 @@ import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {debounce, omit} from 'lodash'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     search?: string,
     reports: Paginated<Pick<Report, 'id' | 'label' | 'last_ran'>>
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Reports'
+    }
+]
 
 let search: Ref<string | undefined> = ref(props.search)
 
@@ -72,6 +79,11 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
             </IndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <div class="p-8">
         <SearchInput v-model="search" />
         <div

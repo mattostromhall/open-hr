@@ -161,8 +161,8 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                 Documents
                             </Link>
 
-                            <a
-                                href="#"
+                            <Link
+                                href="/reports"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <ChartBarIcon
@@ -170,7 +170,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                                     aria-hidden="true"
                                 />
                                 Reports
-                            </a>
+                            </Link>
                             <div>
                                 <div class="my-6 border-t border-indigo-800" />
                             </div>
@@ -301,8 +301,8 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                         Documents
                     </Link>
 
-                    <a
-                        href="#"
+                    <Link
+                        href="/reports"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <ChartBarIcon
@@ -310,7 +310,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             aria-hidden="true"
                         />
                         Reports
-                    </a>
+                    </Link>
                     <div>
                         <div class="my-6 border-t border-indigo-800" />
                     </div>

@@ -2,7 +2,7 @@
 import {ArrowDownTrayIcon, BookmarkSquareIcon, ExclamationTriangleIcon, PlusSmallIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import Condition from './ReportCondition.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {Report, ReportableColumn, ReportCondition, ReportConditionSet} from '../../types'
+import type {Breadcrumb, Report, ReportableColumn, ReportCondition, ReportConditionSet} from '../../types'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -16,6 +16,7 @@ import SimpleModal from '@/Components/SimpleModal.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 const props = defineProps<{
     models: string[],
@@ -24,6 +25,16 @@ const props = defineProps<{
     },
     downloadPath?: string
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/reports',
+        display: 'Reports'
+    },
+    {
+        display: 'Create'
+    }
+]
 
 type ReportData = Omit<Report, 'id' | 'label' | 'last_ran'> & {label?: string}
 
@@ -165,7 +176,11 @@ function generate() {
             </LightIndigoLink>
         </template>
     </PageHeading>
-
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <section class="p-8 space-y-6 sm:w-full sm:max-w-4xl sm:px-6">
         <form @submit.prevent="generate">
             <div class="shadow sm:rounded-md">
