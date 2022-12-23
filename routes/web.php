@@ -339,6 +339,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::post('/applications/{application}/unsuccessful', UnsuccessfulApplicationController::class)
         ->name('application.unsuccessful');
 
+    Route::get('/logs', [ActionLogController::class, 'index'])
+        ->name('logs.index');
     Route::get('/logs/{type}/{id}', [ActionLogController::class, 'show'])
         ->name('logs.show');
 

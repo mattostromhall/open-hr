@@ -2,6 +2,7 @@
 
 namespace App\Http\Support\Controllers;
 
+use App\Http\Support\ViewModels\ActionLogsViewModel;
 use App\Http\Support\ViewModels\ActionLogViewModel;
 use Illuminate\Auth\Access\AuthorizationException;
 use Inertia\Inertia;
@@ -10,6 +11,16 @@ use Support\Models\ActionLog;
 
 class ActionLogController extends Controller
 {
+    /**
+     * @throws AuthorizationException
+     */
+    public function index(): Response
+    {
+        $this->authorize('view', ActionLog::class);
+
+        return Inertia::render('ActionLogs/Index', new ActionLogsViewModel());
+    }
+
     /**
      * @throws AuthorizationException
      */
