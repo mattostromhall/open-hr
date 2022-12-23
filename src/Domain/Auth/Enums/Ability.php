@@ -22,6 +22,7 @@ enum Ability: string
     case CREATE_USER = 'create-user';
     case UPDATE_USER = 'update-user';
     case DELETE_USER = 'delete-user';
+    case IMPERSONATE_USERS = 'impersonate-users';
     case VIEW_EXPENSE = 'view-expense';
     case CREATE_EXPENSE = 'create-expense';
     case UPDATE_EXPENSE = 'update-expense';

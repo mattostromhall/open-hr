@@ -35,4 +35,9 @@ class UserPolicy
         return $authenticatedUser->can(Ability::UPDATE_USER->value)
             && $authenticatedUser->id === $user->id;
     }
+
+    public function impersonate(User $user): bool
+    {
+        return $user->can(Ability::IMPERSONATE_USERS->value);
+    }
 }

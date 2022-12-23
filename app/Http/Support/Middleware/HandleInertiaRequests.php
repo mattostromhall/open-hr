@@ -47,7 +47,8 @@ class HandleInertiaRequests extends Middleware
                 'roles' => $request->user()?->assignedRoles(),
                 'abilities' => $request->user()?->assignedAbilities()
             ],
-            'notifications' => person()?->notifications
+            'notifications' => person()?->notifications,
+            'impersonating' => $request->session()->has('impersonator')
         ]);
     }
 }

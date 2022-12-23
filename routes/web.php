@@ -4,6 +4,7 @@ use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
 use App\Http\Absences\Controllers\SicknessController;
+use App\Http\Auth\Controllers\ImpersonationController;
 use App\Http\Auth\Controllers\RoleController;
 use App\Http\Auth\Controllers\UpdateActiveController;
 use App\Http\Auth\Controllers\UpdateEmailController;
@@ -119,6 +120,10 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('user.update.password');
     Route::patch('/users/{user}/update-active', UpdateActiveController::class)
         ->name('user.update.active');
+    Route::post('/users/impersonate', [ImpersonationController::class, 'store'])
+        ->name('user.impersonate.store');
+    Route::delete('/users/impersonate', [ImpersonationController::class, 'destroy'])
+        ->name('user.impersonate.destroy');
 
     Route::post('/users/{user}/roles', RoleController::class)
         ->name('roles/sync');

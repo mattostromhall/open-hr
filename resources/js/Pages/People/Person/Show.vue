@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import {useDateFormat} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head, InertiaForm, useForm} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Address, Breadcrumb, Department, Person, Role, User} from '../../../types'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -28,6 +29,10 @@ const breadcrumbs: Breadcrumb[] = [
     }
 ]
 
+const form: InertiaForm<{id: number}> = useForm({
+    id: props.person.id
+})
+
 const department = computed(() =>
     props.departments.find(department => department.id === props.person.department_id)
 )
@@ -45,6 +50,10 @@ const fullAddress = computed(() =>
         ? `${props.address.address_line}, ${props.address.town_city}, ${props.address.region}, ${props.address.country}, ${props.address.postal_code}`
         : '-'
 )
+
+function impersonate() {
+    form.post('/users/impersonate')
+}
 </script>
 
 <template>
@@ -66,13 +75,18 @@ const fullAddress = computed(() =>
     />
     <section class="p-8 w-full sm:max-w-6xl">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div class="py-5 px-4 sm:px-6">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    Person Information
-                </h3>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                    View {{ person.full_name }}'s details below.
-                </p>
+            <div class="flex items-center justify-between py-5 px-4 sm:px-6">
+                <div>
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        Person Information
+                    </h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        View {{ person.full_name }}'s details below.
+                    </p>
+                </div>
+                <form @submit.prevent="impersonate">
+                    <IndigoButton>Impersonate</IndigoButton>
+                </form>
             </div>
             <div class="py-5 px-4 border-t border-gray-200 sm:p-0">
                 <dl class="sm:divide-y sm:divide-gray-200">
