@@ -13,6 +13,21 @@ beforeEach(function () {
     $this->actingAs($this->person->user);
 });
 
+it('returns the action log index', function () {
+    $this->person->assign(Role::ADMIN);
+
+    $this->get(route('logs.index'))
+        ->assertOk()
+        ->assertInertia(
+            fn (Assert $page) => $page->component('ActionLogs/Index')
+        );
+});
+
+it('returns unauthorized if the person does not have permission view the action log index', function () {
+    $this->get(route('logs.index'))
+        ->assertForbidden();
+});
+
 it('shows the action log for the resource', function () {
     $this->person->assign(Role::ADMIN);
     $objective = Objective::factory()->create();
