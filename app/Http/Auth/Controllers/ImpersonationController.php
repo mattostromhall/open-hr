@@ -3,10 +3,10 @@
 namespace App\Http\Auth\Controllers;
 
 use App\Http\Auth\Requests\ImpersonationRequest;
+use App\Http\Support\Controllers\Controller;
 use Domain\Auth\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Support\Controllers\Controller;
 
 class ImpersonationController extends Controller
 {
@@ -22,9 +22,6 @@ class ImpersonationController extends Controller
         return redirect()->to(route('dashboard'));
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function destroy(ImpersonationRequest $request): RedirectResponse
     {
         $request->cancel();

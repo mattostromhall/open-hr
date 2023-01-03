@@ -5,11 +5,9 @@ import FlashMessages from '@/Components/FlashMessages.vue'
 import Notifications from '@/Components/Notifications.vue'
 import SecondaryIndigoButton from '../Components/Controls/SecondaryIndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
-import {usePage} from '@inertiajs/inertia-vue3'
-import type {ComputedRef} from 'vue'
-import {computed} from 'vue'
+import useImpersonation from '../Hooks/useImpersonation'
 
-const impersonating: ComputedRef<boolean> = computed(() => usePage().props.value.impersonating)
+const impersonating = useImpersonation()
 
 function cancelImpersonation() {
     Inertia.delete('/users/impersonate')
@@ -18,19 +16,19 @@ function cancelImpersonation() {
 
 <template>
     <section class="min-h-screen">
-        <div
-            v-if="impersonating"
-            class="px-6 py-3 bg-blue-500 flex justify-end"
-        >
-            <SecondaryIndigoButton @click="cancelImpersonation">
-                Cancel Impersonation
-            </SecondaryIndigoButton>
-        </div>
         <FlashMessages />
         <div>
             <Sidebar />
             <div class="flex flex-col flex-1 md:pl-64">
                 <ShowSidebarButton />
+                <div
+                    v-if="impersonating"
+                    class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 flex justify-end"
+                >
+                    <SecondaryIndigoButton @click="cancelImpersonation">
+                        Cancel Impersonation
+                    </SecondaryIndigoButton>
+                </div>
                 <main class="flex-1 min-h-screen bg-gray-100">
                     <slot />
                 </main>

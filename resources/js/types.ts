@@ -378,7 +378,8 @@ export interface OpenHRPageProps extends PageProps {
         roles?: Role[],
         abilities?: Ability[]
     },
-    notifications?: Notification[]
+    notifications?: Notification[],
+    impersonating: boolean
 }
 
 export function isUserPageProp(user: unknown): user is UserPageProp {
