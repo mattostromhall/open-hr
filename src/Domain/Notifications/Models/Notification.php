@@ -2,6 +2,7 @@
 
 namespace Domain\Notifications\Models;
 
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Notifications\Events\NotificationCreated;
 use Domain\Notifications\Events\NotificationUpdated;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,7 +21,8 @@ class Notification extends Model
 
     protected $casts = [
         'body' => HTML::class,
-        'read' => 'boolean'
+        'read' => 'boolean',
+        'notifiable_type' => NotifiableType::class
     ];
 
     protected $dispatchesEvents = [

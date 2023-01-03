@@ -4,6 +4,7 @@ use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Enums\ContractType;
 use Domain\Recruitment\Models\Vacancy;
+use Support\Actions\StripScriptTagsAction;
 use Support\Enums\Currency;
 use function Pest\Faker\faker;
 
@@ -32,7 +33,7 @@ it('updates a vacancy', function () {
         'contact_id' => $vacancyData->contact->id,
         'public_id' => $vacancyData->public_id,
         'title' => $vacancyData->title,
-        'description' => $vacancyData->description,
+        'description' => app(StripScriptTagsAction::class)->execute($vacancyData->description),
         'location' => $vacancyData->location,
         'contract_type' => $vacancyData->contract_type,
         'remuneration' => $vacancyData->remuneration * 100,
