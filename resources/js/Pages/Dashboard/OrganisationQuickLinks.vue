@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
-import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
+import {BackwardIcon, BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -55,13 +55,13 @@ import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, Clipboa
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-lg">
                 <div>
                     <span class="inline-flex rounded-lg bg-purple-50 p-3 text-purple-700 ring-4 ring-white">
-                        <DocumentTextIcon class="h-6 w-6" />
+                        <BackwardIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/documents/organisation"
+                            href="/logs"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -69,11 +69,11 @@ import {BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, DocumentTextIcon, Clipboa
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Documents
+                            Action Logs
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        View your Organisation documents.
+                        View the history of an entity by searching the Action Logs.
                     </p>
                 </div>
                 <span

@@ -151,7 +151,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </Link>
 
                             <Link
-                                href="/documents"
+                                href="/documents/organisation"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                                 <FolderIcon
@@ -291,7 +291,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </Link>
 
                     <Link
-                        href="/documents"
+                        href="/documents/organisation"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >
                         <FolderIcon
