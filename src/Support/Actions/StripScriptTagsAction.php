@@ -4,12 +4,15 @@ namespace Support\Actions;
 
 use DOMDocument;
 use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 
 class StripScriptTagsAction
 {
-    public function execute(string $html): Stringable
+    public function execute(?string $html): string
     {
+        if (! $html) {
+            return '';
+        }
+
         $innerHTML = Str::of($html)
             ->after('</head>')
             ->before('</html>');
@@ -24,6 +27,7 @@ class StripScriptTagsAction
         return Str::of($dom->saveHTML())
             ->after('<html>')
             ->before('</html>')
-            ->trim();
+            ->trim()
+            ->toString();
     }
 }
