@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Domain\Files\Models\Document;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\HTML;
 use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
@@ -23,7 +24,8 @@ class Application extends Model
     use Reporting;
 
     protected $casts = [
-        'status' => ApplicationStatus::class
+        'status' => ApplicationStatus::class,
+        'cover_letter' => HTML::class
     ];
 
     protected $dispatchesEvents = [

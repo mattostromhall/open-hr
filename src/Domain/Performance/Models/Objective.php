@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Domain\People\Models\Person;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\HTML;
 use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
 
@@ -25,6 +26,7 @@ class Objective extends Model
     use Reporting;
 
     protected $casts = [
+        'description' => HTML::class,
         'due_at' => 'date',
         'completed_at' => 'date',
     ];

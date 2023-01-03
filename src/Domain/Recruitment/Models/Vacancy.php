@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Domain\Files\Models\Document;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Support\Casts\HTML;
 use Support\Casts\Money;
 use Support\Concerns\Reporting;
 use Support\Concerns\Unguarded;
@@ -29,6 +30,7 @@ class Vacancy extends Model
     use Reporting;
 
     protected $casts = [
+        'description' => HTML::class,
         'contract_type' => ContractType::class,
         'remuneration' => Money::class,
         'remuneration_currency' => Currency::class,

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Support\Casts\HTML;
 use Support\Concerns\Unguarded;
 
 class Notification extends Model
@@ -18,6 +19,7 @@ class Notification extends Model
     use Prunable;
 
     protected $casts = [
+        'body' => HTML::class,
         'read' => 'boolean'
     ];
 
