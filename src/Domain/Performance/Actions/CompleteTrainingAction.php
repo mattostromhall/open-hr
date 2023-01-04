@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Models\Training;
 
@@ -31,7 +32,7 @@ class CompleteTrainingAction
                 new NotificationData(
                     body: "Training - {$training->description} completed by {$training->person->fullName}",
                     notifiable_id: $manager->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Training completed',
                     link: route('training.show', [
                         'training' => $training

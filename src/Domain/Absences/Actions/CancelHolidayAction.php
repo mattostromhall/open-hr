@@ -8,6 +8,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 
 class CancelHolidayAction
 {
@@ -29,7 +30,7 @@ class CancelHolidayAction
                 new NotificationData(
                     body: "Holiday Request for {$data->person->full_name}, starting at {$data->start_at->toDateString()} has been cancelled.",
                     notifiable_id: $manager->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Holiday Request Cancelled'
                 )
             );

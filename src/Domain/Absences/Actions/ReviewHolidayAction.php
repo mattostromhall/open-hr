@@ -6,6 +6,7 @@ use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 
 class ReviewHolidayAction
 {
@@ -25,7 +26,7 @@ class ReviewHolidayAction
                 new NotificationData(
                     body: "Your holiday request has been updated to {$data->status->statusDisplay()}",
                     notifiable_id: $data->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Holiday request reviewed',
                     link: route('holiday.show', [
                         'holiday' => $holiday

@@ -3,6 +3,8 @@
 namespace Support\Actions;
 
 use DOMDocument;
+use DOMElement;
+use DOMText;
 use Illuminate\Support\Str;
 
 class StripScriptTagsAction
@@ -18,16 +20,16 @@ class StripScriptTagsAction
             ->before('</html>');
 
         $dom = new DOMDocument();
-        $dom->loadHTML('<html>' . $innerHTML . '</html>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML('<div>' . $innerHTML . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $scripts = $dom->getElementsByTagName('script');
         foreach ($scripts as $script) {
             $script->parentNode->removeChild($script);
         }
 
-        return Str::of($dom->saveHTML())
-            ->after('<html>')
-            ->before('</html>')
-            ->trim()
-            ->toString();
+        return collect($dom->documentElement->childNodes)
+            ->map(
+                fn (DomElement | DomText $element) =>
+                $dom->saveHTML($element)
+            )->join('');
     }
 }

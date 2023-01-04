@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
@@ -28,7 +29,7 @@ class UnsetObjectiveAction
                 new NotificationData(
                     body: "An Objective has been unset - {$data->title}. Deadline - {$data->due_at->toDateString()}",
                     notifiable_id: $data->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'An Objective has been unset',
                 )
             );

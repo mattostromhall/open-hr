@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 
@@ -28,7 +29,7 @@ class CancelOneToOneAction
                 new NotificationData(
                     body: "One-to-one scheduled at {$data->scheduled_at->toDateString()} has been cancelled.",
                     notifiable_id: $data->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'One-to-one cancelled',
                 )
             );
@@ -37,7 +38,7 @@ class CancelOneToOneAction
                 new NotificationData(
                     body: "One-to-one scheduled at {$data->scheduled_at->toDateString()} has been cancelled.",
                     notifiable_id: $data->manager->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'One-to-one cancelled',
                 )
             );

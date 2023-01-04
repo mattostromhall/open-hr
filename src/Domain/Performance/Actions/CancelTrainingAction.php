@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
@@ -33,7 +34,7 @@ class CancelTrainingAction
             new NotificationData(
                 body: "Training request for {$data->person->fullName} - {$data->description} has been cancelled.",
                 notifiable_id: $manager->id,
-                notifiable_type: 'person',
+                notifiable_type: NotifiableType::PERSON,
                 title: 'Training request cancelled'
             )
         );

@@ -7,6 +7,7 @@ use Domain\Absences\Mail\ReviewHolidayRequest;
 use Domain\Absences\Models\Holiday;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Illuminate\Support\Facades\Mail;
 
 class RequestHolidayReviewAction
@@ -28,7 +29,7 @@ class RequestHolidayReviewAction
             new NotificationData(
                 body: "Holiday requested by {$data->person->fullName}, click here to review.",
                 notifiable_id: $manager->id,
-                notifiable_type: 'person',
+                notifiable_type: NotifiableType::PERSON,
                 title: 'New holiday request',
                 link: route('holiday.review.show', [
                     'holiday' => $holiday

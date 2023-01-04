@@ -3,6 +3,7 @@
 use Domain\Auth\Models\User;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\People\Models\Person;
 
 it('creates a notification', function () {
@@ -14,7 +15,7 @@ it('creates a notification', function () {
     $notificationData = new NotificationData(
         body: 'New body',
         notifiable_id: $person->id,
-        notifiable_type: 'person',
+        notifiable_type: NotifiableType::PERSON,
         title: 'New title',
         link: null
     );

@@ -3,6 +3,7 @@
 namespace App\Http\Notifications\Requests;
 
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreNotificationRequest extends FormRequest
@@ -20,7 +21,7 @@ class StoreNotificationRequest extends FormRequest
     {
         return NotificationData::from([
             'notifiable_id' => organisation()->id,
-            'notifiable_type' => 'organisation',
+            'notifiable_type' => NotifiableType::ORGANISATION,
             ...$this->safe()->all()
         ]);
     }

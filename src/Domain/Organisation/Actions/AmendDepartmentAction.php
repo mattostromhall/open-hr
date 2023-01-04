@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 
@@ -29,7 +30,7 @@ class AmendDepartmentAction
                 new NotificationData(
                     body: "You have been made the Head of Department for {$data->name}",
                     notifiable_id: $data->head_of_department->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Assigned as Head of Department',
                     link: route('department.show', [
                         'department' => $department

@@ -6,6 +6,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Task;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class UnsetTaskAction
                 new NotificationData(
                     body: 'A Task has been unset - ' . Str::substr($data->description, 0, 75) . "... Deadline - {$data->due_at->toDateString()}",
                     notifiable_id: $data->objective->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'A Task has been unset',
                 )
             );

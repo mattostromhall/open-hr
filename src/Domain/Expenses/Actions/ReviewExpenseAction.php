@@ -8,6 +8,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 
 class ReviewExpenseAction
 {
@@ -28,7 +29,7 @@ class ReviewExpenseAction
                 new NotificationData(
                     body: "Your submitted Expense has been updated to {$data->status->statusDisplay()}",
                     notifiable_id: $data->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Submitted Expense reviewed',
                     link: route('expense.show', [
                         'expense' => $expense

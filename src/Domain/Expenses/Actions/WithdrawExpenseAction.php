@@ -9,6 +9,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 
 class WithdrawExpenseAction
 {
@@ -33,7 +34,7 @@ class WithdrawExpenseAction
                 new NotificationData(
                     body: "Expense for {$data->date->toDateString()} has withdrawn by {$data->person->full_name}.",
                     notifiable_id: $manager->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Expense Withdrawn'
                 )
             );

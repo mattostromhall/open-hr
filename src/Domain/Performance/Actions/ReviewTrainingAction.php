@@ -8,6 +8,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
@@ -30,7 +31,7 @@ class ReviewTrainingAction
                 new NotificationData(
                     body: "Your Training request has been updated to {$data->status->statusDisplay()}",
                     notifiable_id: $data->person->id,
-                    notifiable_type: 'person',
+                    notifiable_type: NotifiableType::PERSON,
                     title: 'Training request reviewed',
                     link: route('training.show', [
                         'training' => $training

@@ -12,6 +12,7 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Enums\NotifiableType;
 use Domain\Recruitment\DataTransferObjects\SubmittedApplicationData;
 use Domain\Recruitment\Models\Application;
 use Illuminate\Http\UploadedFile;
@@ -39,7 +40,7 @@ class SubmitApplicationAction
             new NotificationData(
                 body: "A new Application has been submitted for - {$data->application_data->vacancy->title}.",
                 notifiable_id: $data->application_data->vacancy->contact->id,
-                notifiable_type: 'person',
+                notifiable_type: NotifiableType::PERSON,
                 title: 'New Application',
                 link: route('vacancy.show', [
                     'vacancy' => $data->application_data->vacancy
