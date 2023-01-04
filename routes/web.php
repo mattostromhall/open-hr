@@ -2,6 +2,7 @@
 
 use App\Http\Absences\Controllers\HolidayCalendarController;
 use App\Http\Absences\Controllers\HolidayController;
+use App\Http\Absences\Controllers\ManageHolidayController;
 use App\Http\Absences\Controllers\ReviewHolidayController;
 use App\Http\Absences\Controllers\SicknessController;
 use App\Http\Auth\Controllers\ImpersonationController;
@@ -163,6 +164,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('holiday.index');
     Route::post('/holidays', [HolidayController::class, 'store'])
         ->name('holiday.store');
+    Route::get('/holidays/manage', ManageHolidayController::class)
+        ->name('holiday.manage');
     Route::get('/holidays/calendar', HolidayCalendarController::class)
         ->name('holiday.calendar');
     Route::get('/holidays/{holiday}', [HolidayController::class, 'show'])

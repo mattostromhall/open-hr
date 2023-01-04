@@ -22,7 +22,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/holidays"
+                            href="/holidays/manage"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -34,7 +34,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Submit a holiday request for approval by your manager or view your already requested holidays.
+                        Manage holiday requests submitted by your direct reports.
                     </p>
                 </div>
                 <span
