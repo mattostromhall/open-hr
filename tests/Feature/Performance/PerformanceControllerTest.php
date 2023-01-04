@@ -21,8 +21,6 @@ it('returns the performance index', function () {
                 ->component('Performance/Index')
                 ->where('active', 'request')
                 ->hasAll([
-                    'directReports',
-                    'recurrenceIntervals',
                     'manager',
                     'manager.id',
                     'manager.full_name',

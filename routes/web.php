@@ -212,7 +212,7 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::get('/performance', PerformanceController::class)
         ->name('performance.index');
     Route::get('/performance/manage', ManagePerformanceController::class)
-        ->name('performance.index');
+        ->name('performance.manage');
 
     Route::post('/one-to-ones', [OneToOneController::class, 'store'])
         ->name('one-to-one.store');

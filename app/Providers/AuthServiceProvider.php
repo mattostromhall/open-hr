@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Domain\Auth\Policies\RolePolicy;
 use Domain\Files\Policies\DirectoryPolicy;
+use Domain\Performance\Policies\PerformancePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -37,6 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('create-directory', [DirectoryPolicy::class, 'create']);
         Gate::define('delete-directory', [DirectoryPolicy::class, 'delete']);
+        Gate::define('manage-performance', [PerformancePolicy::class, 'manage']);
 
         Gate::guessPolicyNamesUsing(function ($modelClass) {
             $module = Str::betweenFirst($modelClass, 'Domain\\', '\\');
