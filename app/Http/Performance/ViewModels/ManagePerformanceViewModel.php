@@ -6,23 +6,29 @@ use App\Http\Support\ViewModels\ViewModel;
 use Domain\Performance\Enums\RecurrenceInterval;
 use Illuminate\Support\Collection;
 
-class PerformanceViewModel extends ViewModel
+class ManagePerformanceViewModel extends ViewModel
 {
     public function active(): string
     {
-        return request()->query('active', 'request');
+        return request()->query('active', 'schedule');
     }
 
-    public function manager()
+    public function directReports()
     {
-        return person()->manager?->only('id', 'full_name')
-            ?? person()->department->head->only('id', 'full_name');
+        return person()->directReports->map(
+            fn ($directReport) => $directReport->only('id', 'full_name')
+        );
+    }
+
+    public function recurrenceIntervals(): Collection
+    {
+        return RecurrenceInterval::all();
     }
 
     public function upcomingOneToOnes()
     {
         return person()
-            ->oneToOnes()
+            ->managerOneToOnes()
             ->upcoming()
             ->get();
     }
@@ -30,16 +36,8 @@ class PerformanceViewModel extends ViewModel
     public function previousOneToOnes()
     {
         return person()
-            ->oneToOnes()
+            ->managerOneToOnes()
             ->previous()
-            ->get();
-    }
-
-    public function objectives()
-    {
-        return person()
-            ->objectives()
-            ->current()
             ->get();
     }
 }

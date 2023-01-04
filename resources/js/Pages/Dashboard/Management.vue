@@ -3,7 +3,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import Navigation from './Navigation.vue'
 import OrganisationNotifications from './OrganisationNotifications.vue'
 import Objectives from './Objectives.vue'
-import QuickLinks from './QuickLinks.vue'
+import ManagementQuickLinks from './ManagementQuickLinks.vue'
 import ProfileOverview from './ProfileOverview.vue'
 import type {Notification, Objective, Person} from '../../types'
 
@@ -34,7 +34,7 @@ defineProps<{
                         :holiday-remaining="holidayRemaining"
                         :sick-days-remaining="sickDaysRemaining"
                     />
-                    <QuickLinks />
+                    <ManagementQuickLinks />
                 </div>
                 <div class="grid grid-cols-1 gap-4">
                     <OrganisationNotifications :notifications="organisationNotifications" />

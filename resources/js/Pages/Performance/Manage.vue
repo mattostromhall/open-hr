@@ -1,49 +1,44 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import RequestOneToOne from './OneToOnes/RequestOneToOne.vue'
+import ScheduleOneToOne from './OneToOnes/ScheduleOneToOne.vue'
 import Upcoming from './OneToOnes/Upcoming.vue'
 import Previous from './OneToOnes/Previous.vue'
-import Current from './Objectives/Current.vue'
-import type {Breadcrumb, Objective, OneToOne, Person} from '../../types'
+import Create from './Objectives/Create.vue'
+import type {Breadcrumb, OneToOne, Person, SelectOption} from '../../types'
 import type {TabbedContentItem} from '../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
-    manager: Pick<Person, 'id'|'full_name'>,
+    directReports: (Pick<Person, 'id'|'full_name'>)[],
+    recurrenceIntervals: SelectOption[],
     upcomingOneToOnes: OneToOne[],
-    previousOneToOnes: OneToOne[],
-    objectives: Objective[]
+    previousOneToOnes: OneToOne[]
 }>()
 
 const breadcrumbs: Breadcrumb[] = [
     {
-        display: 'Performance'
+        display: 'Manage Performance'
     }
 ]
 
 const tabs: TabbedContentItem[] = [
     {
-        identifier: 'request',
-        icon: 'UsersIcon',
-        display: 'Request a One-to-one'
+        identifier: 'schedule',
+        icon: 'InboxIcon',
+        display: 'Schedule One-to-ones'
     },
     {
         identifier: 'upcoming',
         icon: 'ChatBubbleOvalLeftIcon',
-        display: 'Upcoming One-to-ones'
+        display: 'Upcoming Direct Report One-to-ones'
     },
     {
         identifier: 'previous',
         icon: 'ChatBubbleOvalLeftEllipsisIcon',
-        display: 'Previous One-to-ones'
-    },
-    {
-        identifier: 'current',
-        icon: 'CheckCircleIcon',
-        display: 'Current Objectives'
+        display: 'Previous Direct Report One-to-ones'
     },
     {
         identifier: 'create',
@@ -55,14 +50,15 @@ const tabs: TabbedContentItem[] = [
 
 <template>
     <Head>
-        <title>Performance</title>
+        <title>Manage Performance</title>
     </Head>
 
     <PageHeading>
-        Performance
+        Manage Performance
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/management"
         class="pt-8 px-8"
     />
     <TabbedContent
@@ -70,9 +66,10 @@ const tabs: TabbedContentItem[] = [
         :tabs="tabs"
         :active="active"
     >
-        <RequestOneToOne
-            v-if="isActive('request')"
-            :manager="manager"
+        <ScheduleOneToOne
+            v-if="isActive('schedule')"
+            :direct-reports="directReports"
+            :recurrence-intervals="recurrenceIntervals"
             @set-active="setActive"
         />
         <Upcoming
@@ -85,9 +82,9 @@ const tabs: TabbedContentItem[] = [
             :one-to-ones="previousOneToOnes"
             @set-active="setActive"
         />
-        <Current
-            v-if="isActive('current')"
-            :objectives="objectives"
+        <Create
+            v-if="isActive('create')"
+            :direct-reports="directReports"
             @set-active="setActive"
         />
     </TabbedContent>

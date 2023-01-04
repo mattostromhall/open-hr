@@ -32,6 +32,7 @@ use App\Http\Performance\Controllers\CompleteObjectiveController;
 use App\Http\Performance\Controllers\CompleteOneToOneController;
 use App\Http\Performance\Controllers\CompleteTaskController;
 use App\Http\Performance\Controllers\CompleteTrainingController;
+use App\Http\Performance\Controllers\ManagePerformanceController;
 use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
@@ -209,6 +210,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('directory.destroy');
 
     Route::get('/performance', PerformanceController::class)
+        ->name('performance.index');
+    Route::get('/performance/manage', ManagePerformanceController::class)
         ->name('performance.index');
 
     Route::post('/one-to-ones', [OneToOneController::class, 'store'])
