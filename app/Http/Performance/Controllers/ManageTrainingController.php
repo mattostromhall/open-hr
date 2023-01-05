@@ -2,7 +2,7 @@
 
 namespace App\Http\Performance\Controllers;
 
-use App\Http\Performance\ViewModels\TrainingIndexViewModel;
+use App\Http\Performance\ViewModels\ManageTrainingViewModel;
 use App\Http\Support\Controllers\Controller;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -18,6 +18,6 @@ class ManageTrainingController extends Controller
     {
         $this->authorize('manage', Training::class);
 
-        return Inertia::render('Performance/Training/Manage', new TrainingIndexViewModel());
+        return Inertia::render('Performance/Training/Manage', new ManageTrainingViewModel());
     }
 }

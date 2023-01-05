@@ -2,9 +2,11 @@
 
 namespace Domain\Performance\QueryBuilders;
 
+use Domain\People\Models\Person;
 use Domain\Performance\Enums\TrainingState;
 use Domain\Performance\Enums\TrainingStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class TrainingQueryBuilder extends Builder
 {
@@ -31,5 +33,14 @@ class TrainingQueryBuilder extends Builder
     public function completed(): self
     {
         return $this->where('state', TrainingState::COMPLETED);
+    }
+
+    /**
+     * @param Collection<Person> $people
+     * @return self
+     */
+    public function forPeople(Collection $people): self
+    {
+        return $this->whereIn('person_id', $people->pluck('id'));
     }
 }

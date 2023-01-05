@@ -35,4 +35,11 @@ class StoreTrainingRequest extends FormRequest
     {
         return TrainingData::from($this->safe()->all());
     }
+
+    public function flashMessage(): string
+    {
+        return $this->validated('person_id') === person()->id
+            ? 'Training request submitted!'
+            : 'Training assigned!';
+    }
 }

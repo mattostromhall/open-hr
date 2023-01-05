@@ -3,47 +3,54 @@
 namespace App\Http\Performance\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
-use Domain\Performance\Enums\RecurrenceInterval;
-use Illuminate\Support\Collection;
+use Domain\Performance\Models\Training;
+use Illuminate\Database\Eloquent\Collection;
 
 class ManageTrainingViewModel extends ViewModel
 {
     public function active(): string
     {
-        return request()->query('active', 'request');
+        return request()->query('active', 'assign');
     }
 
-    public function started()
+    public function directReports()
     {
-        return person()
-            ->training()
+        return person()->directReports->map(
+            fn ($directReport) => $directReport->only('id', 'full_name')
+        );
+    }
+
+    public function started(): Collection
+    {
+        return Training::query()
+            ->forPeople(person()->directReports)
             ->approved()
             ->started()
             ->get();
     }
 
-    public function notStarted()
+    public function notStarted(): Collection
     {
-        return person()
-            ->training()
+        return Training::query()
+            ->forPeople(person()->directReports)
             ->approved()
             ->notStarted()
             ->get();
     }
 
-    public function completed()
+    public function completed(): Collection
     {
-        return person()
-            ->training()
+        return Training::query()
+            ->forPeople(person()->directReports)
             ->approved()
             ->completed()
             ->get();
     }
 
-    public function awaitingApproval()
+    public function awaitingApproval(): Collection
     {
-        return person()
-            ->training()
+        return Training::query()
+            ->forPeople(person()->directReports)
             ->awaitingApproval()
             ->get();
     }

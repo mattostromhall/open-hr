@@ -33,7 +33,7 @@ class TrainingController extends Controller
 
         $requestTraining->execute($request->trainingData());
 
-        return back()->with('flash.success', 'Training request submitted!');
+        return back()->with('flash.success', $request->flashMessage());
     }
 
     /**

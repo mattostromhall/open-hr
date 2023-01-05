@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type {Breadcrumb, TabbedContentItem, Training} from '../../../types'
+import type {Breadcrumb, Person, TabbedContentItem, Training} from '../../../types'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
-import RequestTraining from './RequestTraining.vue'
+import AssignTraining from './AssignTraining.vue'
 import Started from './Started.vue'
 import NotStarted from './NotStarted.vue'
 import Completed from './Completed.vue'
@@ -12,6 +12,7 @@ import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
+    directReports: (Pick<Person, 'id'|'full_name'>)[],
     started: Training[],
     notStarted: Training[],
     completed: Training[],
@@ -26,9 +27,9 @@ const breadcrumbs: Breadcrumb[] = [
 
 const tabs: TabbedContentItem[] = [
     {
-        identifier: 'request',
+        identifier: 'assign',
         icon: 'AcademicCapIcon',
-        display: 'Request Training'
+        display: 'Assign Training'
     },
     {
         identifier: 'not-started',
@@ -55,11 +56,11 @@ const tabs: TabbedContentItem[] = [
 
 <template>
     <Head>
-        <title>Training</title>
+        <title>Manage Training</title>
     </Head>
 
     <PageHeading>
-        Training
+        Manage Training
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
@@ -71,8 +72,9 @@ const tabs: TabbedContentItem[] = [
         :tabs="tabs"
         :active="active"
     >
-        <RequestTraining
-            v-if="isActive('request')"
+        <AssignTraining
+            v-if="isActive('assign')"
+            :direct-reports="directReports"
             @set-active="setActive"
         />
         <NotStarted
