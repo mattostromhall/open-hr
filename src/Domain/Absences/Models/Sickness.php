@@ -8,6 +8,7 @@ use Domain\Absences\Events\SicknessDeleted;
 use Domain\Absences\Events\SicknessUpdated;
 use Domain\Absences\QueryBuilders\SicknessQueryBuilder;
 use Domain\Files\Models\Document;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +37,11 @@ class Sickness extends Model
         'updated' => SicknessUpdated::class,
         'deleted' => SicknessDeleted::class
     ];
+
+    public static function query(): Builder|SicknessQueryBuilder
+    {
+        return parent::query();
+    }
 
     public function newEloquentBuilder($query): SicknessQueryBuilder
     {

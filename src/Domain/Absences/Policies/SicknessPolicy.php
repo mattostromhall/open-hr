@@ -54,4 +54,9 @@ class SicknessPolicy
                 || $user->person->isHeadOfDepartmentFor($sickness->person)
             );
     }
+
+    public function manage(User $user): bool
+    {
+        return $user->isA(Role::MANAGER->value);
+    }
 }

@@ -139,7 +139,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/sicknesses"
+                            href="/sicknesses/manage"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -151,7 +151,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Log sick days or view all sick days for the current year.
+                        Log sick days or view all sick days for the current year for your Direct Reports.
                     </p>
                 </div>
                 <span
