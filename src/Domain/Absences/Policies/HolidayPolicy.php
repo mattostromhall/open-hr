@@ -61,4 +61,9 @@ class HolidayPolicy
     {
         return $user->can(Ability::VIEW_HOLIDAY_CALENDAR->value);
     }
+
+    public function manage(User $user): bool
+    {
+        return $user->isA(Role::MANAGER->value);
+    }
 }

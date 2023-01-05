@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head} from '@inertiajs/inertia-vue3'
-import RequestHoliday from './RequestHoliday.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import Approved from './Approved.vue'
 import Pending from './Pending.vue'
@@ -23,19 +22,14 @@ const breadcrumbs: Breadcrumb[] = [{
 
 const tabs: TabbedContentItem[] = [
     {
-        identifier: 'request',
-        icon: 'ClockIcon',
-        display: 'Request Holiday'
+        identifier: 'pending',
+        icon: 'QuestionMarkCircleIcon',
+        display: 'Pending'
     },
     {
         identifier: 'approved',
         icon: 'CheckCircleIcon',
         display: 'Approved'
-    },
-    {
-        identifier: 'pending',
-        icon: 'QuestionMarkCircleIcon',
-        display: 'Pending'
     },
     {
         identifier: 'rejected',
@@ -63,25 +57,24 @@ const tabs: TabbedContentItem[] = [
         class="pt-8 px-8"
     />
     <TabbedContent
-        v-slot="{setActive, isActive}"
+        v-slot="{isActive}"
         :tabs="tabs"
         :active="active"
     >
-        <RequestHoliday
-            v-if="isActive('request')"
-            @set-active="setActive"
+        <Pending
+            v-if="isActive('pending')"
+            :pending="pending"
+            :managing="true"
         />
         <Approved
             v-if="isActive('approved')"
             :approved="approved"
-        />
-        <Pending
-            v-if="isActive('pending')"
-            :pending="pending"
+            :managing="true"
         />
         <Rejected
             v-if="isActive('rejected')"
             :rejected="rejected"
+            :managing="true"
         />
     </TabbedContent>
 </template>

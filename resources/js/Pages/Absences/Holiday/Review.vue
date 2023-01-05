@@ -2,9 +2,12 @@
 import {useDateFormat} from '@vueuse/core'
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {HolidayStatus} from '../../../types'
+import type {Breadcrumb, HolidayStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
+import PageHeading from '@/Components/PageHeading.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 
 const props = defineProps({
     requester: {
@@ -24,6 +27,16 @@ const props = defineProps({
         default: 1
     }
 })
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        link: '/holidays/manage',
+        display: 'Manage Holidays'
+    },
+    {
+        display: 'Review Holiday Request'
+    },
+]
 
 interface ReviewHolidayData {
     notes?: string,
@@ -56,8 +69,23 @@ function reject(): void {
 </script>
 
 <template>
-    <Head title="Review Holiday Request" />
+    <Head>
+        <title>Review Holiday Request</title>
+    </Head>
 
+    <PageHeading>
+        Review Holiday Request
+        <template #link>
+            <LightIndigoLink href="/holidays/calendar">
+                View calendar
+            </LightIndigoLink>
+        </template>
+    </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/management"
+        class="pt-8 px-8"
+    />
     <section class="p-8">
         <div class="bg-white shadow sm:rounded-lg">
             <div class="py-5 px-4 sm:p-6">

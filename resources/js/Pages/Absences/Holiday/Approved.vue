@@ -4,14 +4,19 @@ import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Holiday} from '../../../types'
 
-defineProps<{
-    approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
+const props = defineProps<{
+    approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
+    managing?: boolean
 }>()
 
 function formatDate(date: string): string {
     const formatted = useDateFormat(date, 'DD/MM/YYYY')
 
     return formatted.value
+}
+
+function linkTarget(holidayId: number): string {
+    return `/holidays/${holidayId}${props.managing ? '/review' : ''}`
 }
 </script>
 
@@ -27,7 +32,7 @@ function formatDate(date: string): string {
                     :key="index"
                 >
                     <Link
-                        :href="`/holidays/${holiday.id}`"
+                        :href="linkTarget(holiday.id)"
                         class="block hover:bg-gray-50"
                     >
                         <div class="flex items-center p-4 sm:px-6">
