@@ -73,7 +73,7 @@ function submit(): void {
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
-                            Log a Sick Day/Days
+                            Log a Sick Day/Days for one of your Direct Reports
                         </h3>
                         <p class="mt-1 text-sm text-gray-500">
                             Log a Sick Day/Days and provide any information as required.
@@ -81,7 +81,7 @@ function submit(): void {
                     </div>
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
-                            <FormLabel>Report for <RequiredIcon /></FormLabel>
+                            <FormLabel>Report Sick Day for <RequiredIcon /></FormLabel>
                             <div class="mt-1">
                                 <SearchableSelectInput
                                     v-model="form.person_id"
