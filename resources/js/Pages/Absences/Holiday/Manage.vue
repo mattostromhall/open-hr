@@ -54,6 +54,7 @@ const tabs: TabbedContentItem[] = [
     </PageHeading>
     <Breadcrumbs
         :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/management"
         class="pt-8 px-8"
     />
     <TabbedContent

@@ -54,84 +54,6 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
 
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-lg">
                 <div>
-                    <span class="inline-flex rounded-lg bg-purple-50 p-3 text-purple-700 ring-4 ring-white">
-                        <DocumentTextIcon class="h-6 w-6" />
-                    </span>
-                </div>
-                <div class="mt-8">
-                    <h3 class="text-lg font-medium">
-                        <Link
-                            href="/documents"
-                            class="focus:outline-none"
-                        >
-                            <!-- Extend touch target to entire panel -->
-                            <span
-                                class="absolute inset-0"
-                                aria-hidden="true"
-                            />
-                            Documents
-                        </Link>
-                    </h3>
-                    <p class="mt-2 text-sm text-gray-500">
-                        View your organisation, department and personal documents.
-                    </p>
-                </div>
-                <span
-                    class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
-                    aria-hidden="true"
-                >
-                    <svg
-                        class="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-                    </svg>
-                </span>
-            </div>
-
-            <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div>
-                    <span class="inline-flex rounded-lg bg-sky-50 p-3 text-sky-700 ring-4 ring-white">
-                        <UsersIcon class="h-6 w-6" />
-                    </span>
-                </div>
-                <div class="mt-8">
-                    <h3 class="text-lg font-medium">
-                        <Link
-                            href="/performance/manage"
-                            class="focus:outline-none"
-                        >
-                            <!-- Extend touch target to entire panel -->
-                            <span
-                                class="absolute inset-0"
-                                aria-hidden="true"
-                            />
-                            Performance
-                        </Link>
-                    </h3>
-                    <p class="mt-2 text-sm text-gray-500">
-                        Schedule one-to-ones or create objectives for your Direct Reports.
-                    </p>
-                </div>
-                <span
-                    class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"
-                    aria-hidden="true"
-                >
-                    <svg
-                        class="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-                    </svg>
-                </span>
-            </div>
-
-            <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div>
                     <span class="inline-flex rounded-lg bg-yellow-50 p-3 text-yellow-700 ring-4 ring-white">
                         <FaceFrownIcon class="h-6 w-6" />
                     </span>
@@ -171,14 +93,14 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
 
             <div class="group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-bl-lg">
                 <div>
-                    <span class="inline-flex rounded-lg bg-rose-50 p-3 text-rose-700 ring-4 ring-white">
-                        <ReceiptRefundIcon class="h-6 w-6" />
+                    <span class="inline-flex rounded-lg bg-sky-50 p-3 text-sky-700 ring-4 ring-white">
+                        <UsersIcon class="h-6 w-6" />
                     </span>
                 </div>
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/expenses"
+                            href="/performance/manage"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -186,11 +108,11 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Submit an expense
+                            Performance
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Submit an expense and track the status of your submitted expenses.
+                        Schedule one-to-ones or create objectives for your Direct Reports.
                     </p>
                 </div>
                 <span
@@ -234,7 +156,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                 <div class="mt-8">
                     <h3 class="text-lg font-medium">
                         <Link
-                            href="/training"
+                            href="/training/manage"
                             class="focus:outline-none"
                         >
                             <!-- Extend touch target to entire panel -->
@@ -246,7 +168,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">
-                        Submit a training request for approval by your manager or view your already requested training.
+                        Manage training requests submitted by your direct reports.
                     </p>
                 </div>
                 <span

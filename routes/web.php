@@ -35,6 +35,7 @@ use App\Http\Performance\Controllers\CompleteOneToOneController;
 use App\Http\Performance\Controllers\CompleteTaskController;
 use App\Http\Performance\Controllers\CompleteTrainingController;
 use App\Http\Performance\Controllers\ManagePerformanceController;
+use App\Http\Performance\Controllers\ManageTrainingController;
 use App\Http\Performance\Controllers\ObjectiveController;
 use App\Http\Performance\Controllers\ObjectiveTaskController;
 use App\Http\Performance\Controllers\OneToOneController;
@@ -263,6 +264,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('training.index');
     Route::post('/training', [TrainingController::class, 'store'])
         ->name('training.store');
+    Route::get('/training/manage', ManageTrainingController::class)
+        ->name('training.manage');
     Route::get('/training/{training}', [TrainingController::class, 'show'])
         ->name('training.show');
     Route::get('/training/{training}/edit', [TrainingController::class, 'edit'])

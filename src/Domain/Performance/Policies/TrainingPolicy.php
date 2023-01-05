@@ -74,4 +74,9 @@ class TrainingPolicy
                 || $user->person->isHeadOfDepartmentFor($training->person)
             );
     }
+
+    public function manage(User $user): bool
+    {
+        return $user->isA(Role::MANAGER->value);
+    }
 }
