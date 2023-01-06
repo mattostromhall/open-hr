@@ -186,7 +186,7 @@ import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon
                                 class="absolute inset-0"
                                 aria-hidden="true"
                             />
-                            Submit an expense
+                            Submit an Expense
                         </Link>
                     </h3>
                     <p class="mt-2 text-sm text-gray-500">

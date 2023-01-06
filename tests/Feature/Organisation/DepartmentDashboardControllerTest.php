@@ -1,13 +1,17 @@
 <?php
 
 use Domain\Auth\Enums\Role;
+use Domain\Organisation\Models\Department;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
 beforeEach(function () {
     Organisation::factory()->create();
-    $this->person = Person::factory()->create();
+    $department = Department::factory()->create();
+    $this->person = Person::factory()->create([
+        'department_id' => $department->id
+    ]);
     $this->actingAs($this->person->user);
 });
 

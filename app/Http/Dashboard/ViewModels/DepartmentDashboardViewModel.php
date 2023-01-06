@@ -3,53 +3,37 @@
 namespace App\Http\Dashboard\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Organisation\Models\Department;
+use Illuminate\Support\Collection;
 
 class DepartmentDashboardViewModel extends ViewModel
 {
-    public function person()
+    public function __construct(protected Department $department)
     {
-        return person()->only('id', 'full_name', 'initials', 'position');
+        //
     }
 
-    public function holidayRemaining(): int|float
+    public function department(): Department
     {
-        $allotted = person()->base_holiday_allocation + person()->holiday_carried;
-
-        $taken = person()
-            ->holidayThisYear()
-            ->get()
-            ->numberTaken();
-
-        return $allotted - $taken;
+        return $this->department;
     }
 
-    public function sickDaysRemaining(): int|float
+    public function head()
     {
-        $allotted = person()->sickness_allocation;
-
-        $taken = person()
-            ->sicknessThisYear()
-            ->get()
-            ->numberTaken();
-
-        return $allotted - $taken;
+        return $this->department->head->full_name;
     }
 
-    public function organisationNotifications()
+    public function memberCount(): int
+    {
+        return $this->department->members()->count();
+    }
+
+    public function organisationNotifications(): Collection
     {
         return organisation()
             ->notifications()
-            ->limit(3)
+            ->limit(10)
             ->get()
             ->map(fn ($notification) => $notification->body);
-    }
-
-    public function objectives()
-    {
-        return person()
-            ->objectives()
-            ->select('id', 'title', 'description')
-            ->current()
-            ->get();
     }
 }

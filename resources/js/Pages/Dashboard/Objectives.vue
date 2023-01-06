@@ -14,7 +14,9 @@ defineProps<{
                     id="objectives-title"
                     class="text-base font-medium text-gray-900"
                 >
-                    Objectives
+                    <slot>
+                        Objectives
+                    </slot>
                 </h2>
                 <div class="mt-6 flow-root">
                     <h3

@@ -18,6 +18,6 @@ class DepartmentDashboardController extends Controller
     {
         $this->authorize('dashboard', Department::class);
 
-        return Inertia::render('Dashboard/Department', new DepartmentDashboardViewModel());
+        return Inertia::render('Dashboard/Department', new DepartmentDashboardViewModel(person()->department));
     }
 }

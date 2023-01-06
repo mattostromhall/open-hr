@@ -38,7 +38,9 @@ defineProps<{
                 </div>
                 <div class="grid grid-cols-1 gap-4">
                     <OrganisationNotifications :notifications="organisationNotifications" />
-                    <Objectives :objectives="objectives" />
+                    <Objectives :objectives="objectives">
+                        Direct Report Objectives
+                    </Objectives>
                 </div>
             </div>
         </div>

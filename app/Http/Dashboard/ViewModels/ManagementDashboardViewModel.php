@@ -3,6 +3,8 @@
 namespace App\Http\Dashboard\ViewModels;
 
 use App\Http\Support\ViewModels\ViewModel;
+use Domain\Performance\Models\Objective;
+use Illuminate\Database\Eloquent\Collection;
 
 class ManagementDashboardViewModel extends ViewModel
 {
@@ -44,11 +46,11 @@ class ManagementDashboardViewModel extends ViewModel
             ->map(fn ($notification) => $notification->body);
     }
 
-    public function objectives()
+    public function objectives(): Collection
     {
-        return person()
-            ->objectives()
+        return Objective::query()
             ->select('id', 'title', 'description')
+            ->forPeople(person()->directReports)
             ->current()
             ->get();
     }

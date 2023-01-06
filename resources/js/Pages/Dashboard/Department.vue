@@ -2,23 +2,21 @@
 import {Head} from '@inertiajs/inertia-vue3'
 import Navigation from './Navigation.vue'
 import OrganisationNotifications from './OrganisationNotifications.vue'
-import Objectives from './Objectives.vue'
-import QuickLinks from './QuickLinks.vue'
-import ProfileOverview from './ProfileOverview.vue'
-import type {Notification, Objective, Person} from '../../types'
+import DepartmentQuickLinks from './DepartmentQuickLinks.vue'
+import type {Department, Notification} from '../../types'
+import DepartmentOverview from './DepartmentOverview.vue'
 
 defineProps<{
-    person: Pick<Person, 'id' | 'full_name' | 'initials' | 'position'>,
-    holidayRemaining: number,
-    sickDaysRemaining: number,
-    organisationNotifications: (Pick<Notification, 'body'>)[],
-    objectives: (Pick<Objective, 'id' | 'title' | 'description'>)[]
+    department: Department,
+    memberCount: number,
+    head: string,
+    organisationNotifications: (Pick<Notification, 'body'>)[]
 }>()
 </script>
 
 <template>
     <Head>
-        <title>Dashboard</title>
+        <title>Department Dashboard</title>
     </Head>
 
     <section class="p-8">
@@ -29,16 +27,15 @@ defineProps<{
             </h1>
             <div class="mt-6 grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
                 <div class="grid grid-cols-1 gap-4 lg:col-span-2">
-                    <ProfileOverview
-                        :person="person"
-                        :holiday-remaining="holidayRemaining"
-                        :sick-days-remaining="sickDaysRemaining"
+                    <DepartmentOverview
+                        :department="department"
+                        :member-count="memberCount"
+                        :head="head"
                     />
-                    <QuickLinks />
+                    <DepartmentQuickLinks :name="department.name" />
                 </div>
                 <div class="grid grid-cols-1 gap-4">
                     <OrganisationNotifications :notifications="organisationNotifications" />
-                    <Objectives :objectives="objectives" />
                 </div>
             </div>
         </div>
