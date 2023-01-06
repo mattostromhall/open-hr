@@ -2,11 +2,7 @@
 
 use Illuminate\Support\Facades\Storage;
 use Support\Actions\CreateCsvAction;
-use Support\Actions\GenerateReportAction;
 use Support\DataTransferObjects\CsvData;
-use Support\DataTransferObjects\ReportConditionData;
-use Support\DataTransferObjects\ReportConditionSetData;
-use Support\DataTransferObjects\ReportData;
 
 it('creates a csv', function () {
     $action = app(CreateCsvAction::class);

@@ -44,11 +44,6 @@ const tabs: TabbedContentItem[] = [
         identifier: 'current',
         icon: 'CheckCircleIcon',
         display: 'Current Objectives'
-    },
-    {
-        identifier: 'create',
-        icon: 'SparklesIcon',
-        display: 'Create an Objective'
     }
 ]
 </script>
