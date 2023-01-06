@@ -14,8 +14,8 @@ class SicknessFactory extends Factory
     {
         return [
             'person_id' => Person::factory(),
-            'start_at' => now(),
-            'finish_at' => now()->addDay()
+            'start_at' => now()->startOfWeek(),
+            'finish_at' => now()->startOfWeek()->addDay()
         ];
     }
 }
