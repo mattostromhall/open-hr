@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {CalendarIcon, ChevronRightIcon} from '@heroicons/vue/24/outline'
+import {CalendarIcon, ChevronRightIcon, XCircleIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Holiday} from '../../../types'
 
 const props = defineProps<{
-    rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
+    rejected: (Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number})[],
     managing?: boolean
 }>()
 
@@ -22,7 +22,19 @@ function linkTarget(holidayId: number): string {
 
 <template>
     <div class="sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-        <div class="bg-white shadow sm:rounded-md">
+        <div
+            v-if="rejected.length === 0"
+            class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"
+        >
+            <XCircleIcon class="mx-auto h-12 w-12 text-gray-400" />
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+                No rejected Holidays!
+            </h3>
+        </div>
+        <div
+            v-else
+            class="bg-white shadow sm:rounded-md"
+        >
             <ul
                 role="list"
                 class="divide-y divide-gray-200"
