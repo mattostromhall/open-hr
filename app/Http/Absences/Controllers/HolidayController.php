@@ -16,6 +16,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Support\Services\Transaction;
+use Throwable;
 
 class HolidayController extends Controller
 {
@@ -26,12 +28,15 @@ class HolidayController extends Controller
 
     /**
      * @throws AuthorizationException
+     * @throws Throwable
      */
-    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
+    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday, Transaction $transaction): RedirectResponse
     {
         $this->authorize('create', Holiday::class);
 
-        $requestHoliday->execute($request->holidayData());
+        $transaction->around(
+            fn () => $requestHoliday->execute($request->holidayData())
+        );
 
         return back()->with('flash.success', 'Holiday request submitted!');
     }

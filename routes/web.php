@@ -58,6 +58,7 @@ use App\Http\Setup\Controllers\SetupOrganisationController;
 use App\Http\Setup\Controllers\SetupPersonController;
 use App\Http\Support\Controllers\ActionLogController;
 use App\Http\Reports\Controllers\ReportController;
+use App\Http\Support\Controllers\CapturedExceptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -382,6 +383,9 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
 
     Route::get('/relationship-options/{model}', RelationshipOptionsController::class)
         ->name('relationship.options');
+
+    Route::get('/error/{hash}', CapturedExceptionController::class)
+        ->name('error.captured-exception');
 });
 
 require __DIR__ . '/auth.php';
