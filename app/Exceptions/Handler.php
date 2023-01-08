@@ -3,6 +3,11 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Inertia\Inertia;
+use Psr\Log\LogLevel;
+use Support\Actions\CaptureExceptionAction;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -10,7 +15,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of exception types with their corresponding custom log levels.
      *
-     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     * @var array<class-string<Throwable>, LogLevel::*>
      */
     protected $levels = [
         //
@@ -19,7 +24,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<\Throwable>>
+     * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
         //
@@ -36,15 +41,56 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    protected string $hash = '';
+
     /**
      * Register the exception handling callbacks for the application.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $e)
+    {
+        if (app()->environment('production') && $this->shouldReport($e)) {
+            $exceptionLog = app(CaptureExceptionAction::class)->execute($e);
+
+            $this->hash = $exceptionLog->hash;
+        }
+
+        parent::report($e);
+    }
+
+    /**
+     * Prepare exception for rendering.
+     *
+     * @param $request
+     * @param Throwable $e
+     * @return JsonResponse|\Illuminate\Http\Response|Response
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e): JsonResponse|\Illuminate\Http\Response|Response
+    {
+        $response = parent::render($request, $e);
+
+        if (! app()->environment(['local', 'testing']) && in_array($response->status(), [500, 503, 404, 403])) {
+            return Inertia::render('Errors/Index', [
+                'status' => $response->status(),
+                'hash' => $this->hash
+            ])
+                ->toResponse($request)
+                ->setStatusCode($response->status());
+        } elseif ($response->status() === 419) {
+            return back()->with([
+                'message' => 'The page expired, please try again.',
+            ]);
+        }
+
+        return $response;
     }
 }

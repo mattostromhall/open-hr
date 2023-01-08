@@ -38,6 +38,8 @@ export type Json =
 
 export type Operator = '=' | '!=' | '<' | '>' | '<=' | '>=' | 'like'
 
+export type StatusCode = 500 | 503 | 404 | 403
+
 export interface PaginatorLink {
     url: string | null,
     label: string,

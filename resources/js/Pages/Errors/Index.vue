@@ -1,12 +1,43 @@
-<script setup lang="ts">
-
-</script>
-
 <script lang="ts">
-import Basic from '@/Layouts/Basic.vue'
+import type {StatusCode} from '../../types'
+import type {ComputedRef} from 'vue'
+import {computed} from 'vue'
 
+defineProps<{
+    status: StatusCode,
+    hash: string
+}>()
+
+const title: ComputedRef<string> = computed(() => {
+    const statuses: {[K in StatusCode]: string} = {
+        503: 'Service Unavailable',
+        500: 'Server Error',
+        404: 'Page Not Found',
+        403: 'Forbidden',
+    }[this.status]
+})
 export default {
-    layout: Basic
+    props: {
+        status: Number,
+    },
+    computed: {
+        title() {
+            return {
+                503: 'Service Unavailable',
+                500: 'Server Error',
+                404: 'Page Not Found',
+                403: 'Forbidden',
+            }[this.status]
+        },
+        description() {
+            return {
+                503: 'Sorry, we are doing some maintenance. Please check back soon.',
+                500: 'Whoops, something went wrong on our servers.',
+                404: 'Sorry, the page you are looking for could not be found.',
+                403: 'Sorry, you are forbidden from accessing this page.',
+            }[this.status]
+        },
+    },
 }
 </script>
 
@@ -29,7 +60,7 @@ export default {
             <div class="py-16">
                 <div class="text-center">
                     <p class="text-base font-semibold text-indigo-600">
-                        404
+                        {{ status }}
                     </p>
                     <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
                         Page not found.

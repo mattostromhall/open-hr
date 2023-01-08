@@ -18,10 +18,6 @@ class CaptureExceptionAction
      */
     public function execute(Exception $e): ExceptionLog
     {
-//        if (! app()->environment('production')) {
-//            throw $e;
-//        }
-
         return $this->createExceptionLog->execute(ExceptionLogData::fromException($e));
     }
 }

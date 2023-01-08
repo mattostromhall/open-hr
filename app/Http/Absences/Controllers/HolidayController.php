@@ -14,9 +14,9 @@ use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use Support\Services\Transaction;
 use Throwable;
 
 class HolidayController extends Controller
@@ -30,11 +30,11 @@ class HolidayController extends Controller
      * @throws AuthorizationException
      * @throws Throwable
      */
-    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday, Transaction $transaction): RedirectResponse
+    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
     {
         $this->authorize('create', Holiday::class);
 
-        $transaction->around(
+        DB::transaction(
             fn () => $requestHoliday->execute($request->holidayData())
         );
 
