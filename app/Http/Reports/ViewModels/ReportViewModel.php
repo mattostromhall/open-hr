@@ -21,7 +21,7 @@ class ReportViewModel extends ViewModel
 
     public function models(): Collection
     {
-        return collect(array_keys(config('app.reportable')))
+        return collect(array_keys(config('hr.reportable')))
             ->map(fn (string $model) => [
                 'display' => Str::ucfirst($model),
                 'value' => $model
@@ -30,7 +30,7 @@ class ReportViewModel extends ViewModel
 
     public function reportableColumns(): Collection
     {
-        return collect(config('app.reportable'))
+        return collect(config('hr.reportable'))
             ->map(fn (string $model) => $model::reportableColumns());
     }
 

@@ -13,7 +13,7 @@ class ReportRequest extends FormRequest
     {
         return [
             'label' => ['sometimes', 'required', 'string', 'max:255'],
-            'model' => ['required', 'string', Rule::in(array_keys(config('app.reportable')))],
+            'model' => ['required', 'string', Rule::in(array_keys(config('hr.reportable')))],
             'condition_sets' => ['required', 'array'],
             'condition_sets.*.conditions' => ['required', 'array'],
             'condition_sets.*.type' => ['required', 'in:and,or'],

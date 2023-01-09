@@ -37,7 +37,7 @@ class Report extends Model
             return $model;
         }
 
-        $FQCN = config('app.reportable')[$model];
+        $FQCN = config('hr.reportable')[$model];
 
         if (! $FQCN) {
             throw new UnexpectedValueException("No Matching Fully Qualified Class Name found for {$model}");
