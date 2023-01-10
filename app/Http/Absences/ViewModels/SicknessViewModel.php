@@ -5,6 +5,7 @@ namespace App\Http\Absences\ViewModels;
 use App\Http\Support\ViewModels\ViewModel;
 use Domain\Absences\Models\Holiday;
 use Domain\Absences\Models\Sickness;
+use Illuminate\Support\Collection;
 
 class SicknessViewModel extends ViewModel
 {
@@ -23,8 +24,10 @@ class SicknessViewModel extends ViewModel
         return $this->sickness->person->full_name;
     }
 
-    public function documents()
+    public function documents(): Collection
     {
-        return $this->sickness->documents;
+        return $this->sickness
+            ->documents
+            ->toList();
     }
 }

@@ -40,12 +40,12 @@ class LogSicknessAction
         return $documents->map(
             fn (UploadedFile $document) =>
             UploadedDocumentData::from([
-                new UploadedFileData(
+                'fileData' => new UploadedFileData(
                     file: $document,
                     path: "/documents/sicknesses/{$sickness->id}",
                     name: Str::beforeLast($document->getClientOriginalName(), '.')
                 ),
-                new DocumentData(
+                'documentData' => new DocumentData(
                     name: Str::beforeLast($document->getClientOriginalName(), '.'),
                     directory: "/documents/sicknesses/{$sickness->id}",
                     size: $document->getSize(),

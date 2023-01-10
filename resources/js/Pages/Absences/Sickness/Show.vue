@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Breadcrumb, Document, Sickness} from '../../../types'
+import type {Breadcrumb, DocumentListItem, Sickness} from '../../../types'
 import {useDateFormat} from '@vueuse/core'
 import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -13,11 +13,12 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import DocumentList from '../../Files/Documents/DocumentList.vue'
 
 const props = defineProps<{
     sickness: Sickness,
     logger: string,
-    documents?: Document[]
+    documents: DocumentListItem[]
 }>()
 
 const breadcrumbs: Breadcrumb[] = [
@@ -157,5 +158,10 @@ function deleteSickness() {
                 </dl>
             </div>
         </div>
+        <DocumentList
+            v-if="documents.length > 0"
+            class="mt-6"
+            :items="documents"
+        />
     </section>
 </template>
