@@ -13,6 +13,7 @@ use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -25,7 +26,9 @@ class ObjectiveController extends Controller
     {
         $this->authorize('create', Objective::class);
 
-        $objective = $setObjective->execute($request->objectiveData());
+        $objective = DB::transaction(
+            fn () => $setObjective->execute($request->objectiveData())
+        );
 
         return redirect(route('objective.edit', ['objective' => $objective]))
             ->with('flash.success', 'Objective successfully created!');
@@ -58,7 +61,9 @@ class ObjectiveController extends Controller
     {
         $this->authorize('update', $objective);
 
-        $updated = $amendObjective->execute($objective, $request->objectiveData());
+        $updated = DB::transaction(
+            fn () => $amendObjective->execute($objective, $request->objectiveData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Objective, please try again.');
@@ -76,7 +81,9 @@ class ObjectiveController extends Controller
     {
         $this->authorize('delete', $objective);
 
-        $deleted = $unsetObjective->execute($objective, ObjectiveData::from($objective->toArray()));
+        $deleted = DB::transaction(
+            fn () => $unsetObjective->execute($objective, ObjectiveData::from($objective->toArray()))
+        );
 
         if (! $deleted) {
             return back()->with('flash.error', 'There was a problem with unsetting the Objective, please try again.');

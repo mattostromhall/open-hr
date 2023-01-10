@@ -9,6 +9,7 @@ use Domain\Auth\Enums\Role;
 use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
 use Domain\Organisation\Actions\CreateOrganisationAction;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class SetupOrganisationController extends Controller
 {
@@ -18,11 +19,15 @@ class SetupOrganisationController extends Controller
         CreateOrganisationAction $createOrganisation,
         AssignRoleAction $assignRole
     ): RedirectResponse {
-        $createDefaultDocumentDirectories->execute();
+        DB::transaction(
+            function () use ($createDefaultDocumentDirectories, $createOrganisation, $assignRole, $request) {
+                $createDefaultDocumentDirectories->execute();
 
-        $createOrganisation->execute($request->organisationData());
+                $createOrganisation->execute($request->organisationData());
 
-        $assignRole->execute($request->user(), Role::ADMIN);
+                $assignRole->execute($request->user(), Role::ADMIN);
+            }
+        );
 
         return back();
     }

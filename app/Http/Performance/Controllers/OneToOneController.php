@@ -13,6 +13,7 @@ use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -25,7 +26,9 @@ class OneToOneController extends Controller
     {
         $this->authorize('create', OneToOne::class);
 
-        $scheduleOneToOne->execute($request->oneToOneData());
+        DB::transaction(
+            fn () => $scheduleOneToOne->execute($request->oneToOneData())
+        );
 
         return back()->with('flash.success', 'One-to-one requested!');
     }
@@ -57,7 +60,9 @@ class OneToOneController extends Controller
     {
         $this->authorize('update', $oneToOne);
 
-        $updated = $amendOneToOne->execute($oneToOne, $request->oneToOneData());
+        $updated = DB::transaction(
+            fn () => $amendOneToOne->execute($oneToOne, $request->oneToOneData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the One-to-one, please try again.');
@@ -73,7 +78,9 @@ class OneToOneController extends Controller
     {
         $this->authorize('delete', $oneToOne);
 
-        $deleted = $cancelOneToOne->execute($oneToOne, OneToOneData::from($oneToOne->toArray()));
+        $deleted = DB::transaction(
+            fn () => $cancelOneToOne->execute($oneToOne, OneToOneData::from($oneToOne->toArray()))
+        );
 
         if (! $deleted) {
             return back()->with('flash.error', 'There was a problem with cancelling the One-to-one, please try again.');

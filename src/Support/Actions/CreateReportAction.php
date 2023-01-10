@@ -5,7 +5,7 @@ namespace Support\Actions;
 use Support\DataTransferObjects\ReportData;
 use Support\Models\Report;
 
-class SaveReportAction
+class CreateReportAction
 {
     public function execute(ReportData $data): Report
     {

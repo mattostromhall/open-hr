@@ -8,6 +8,7 @@ use Domain\Auth\Actions\SyncRolesAction;
 use Domain\Auth\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\Database\Role;
 
 class RoleController extends Controller
@@ -19,7 +20,9 @@ class RoleController extends Controller
     {
         $this->authorize('sync', Role::class);
 
-        $syncRoles->execute($user, $request->validated('roles'));
+        DB::transaction(
+            fn () => $syncRoles->execute($user, $request->validated('roles'))
+        );
 
         return back()->with('flash.success', 'Roles updated!');
     }

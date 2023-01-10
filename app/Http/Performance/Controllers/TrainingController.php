@@ -14,6 +14,7 @@ use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,7 +32,9 @@ class TrainingController extends Controller
     {
         $this->authorize('create', Training::class);
 
-        $requestTraining->execute($request->trainingData());
+        DB::transaction(
+            fn () => $requestTraining->execute($request->trainingData())
+        );
 
         return back()->with('flash.success', $request->flashMessage());
     }
@@ -63,7 +66,9 @@ class TrainingController extends Controller
     {
         $this->authorize('update', $training);
 
-        $updated = $amendTraining->execute($training, $request->trainingData());
+        $updated = DB::transaction(
+            fn () => $amendTraining->execute($training, $request->trainingData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Training request, please try again.');
@@ -79,7 +84,9 @@ class TrainingController extends Controller
     {
         $this->authorize('delete', $training);
 
-        $deleted = $cancelTraining->execute($training, TrainingData::from($training->toArray()));
+        $deleted = DB::transaction(
+            fn () => $cancelTraining->execute($training, TrainingData::from($training->toArray()))
+        );
 
         if (! $deleted) {
             return back()->with('flash.error', 'There was a problem with cancelling the Training request, please try again.');

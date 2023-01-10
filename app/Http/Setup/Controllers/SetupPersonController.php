@@ -8,14 +8,19 @@ use Domain\Organisation\Actions\CompleteSetupAction;
 use Domain\People\Actions\CreatePersonAction;
 use Domain\People\DataTransferObjects\PersonData;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class SetupPersonController extends Controller
 {
     public function __invoke(StorePersonRequest $request, CreatePersonAction $createPerson, CompleteSetupAction $completeSetup): RedirectResponse
     {
-        $createPerson->execute($request->personData());
+        DB::transaction(
+            function () use ($createPerson, $completeSetup, $request) {
+                $createPerson->execute($request->personData());
 
-        $completeSetup->execute();
+                $completeSetup->execute();
+            }
+        );
 
         return redirect()->route('dashboard');
     }

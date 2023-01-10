@@ -68,7 +68,9 @@ class HolidayController extends Controller
     {
         $this->authorize('update', $holiday);
 
-        $updated = $amendHoliday->execute($holiday, $request->holidayData());
+        $updated = DB::transaction(
+            fn () => $amendHoliday->execute($holiday, $request->holidayData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Holiday request, please try again.');
@@ -84,7 +86,9 @@ class HolidayController extends Controller
     {
         $this->authorize('delete', $holiday);
 
-        $cancelled = $cancelHoliday->execute($holiday, HolidayData::from($holiday->toArray()));
+        $cancelled = DB::transaction(
+            fn () => $cancelHoliday->execute($holiday, HolidayData::from($holiday->toArray()))
+        );
 
         if (! $cancelled) {
             return back()->with('flash.error', 'There was a problem with cancelling the Holiday request, please try again.');

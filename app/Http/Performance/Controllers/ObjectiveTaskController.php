@@ -13,6 +13,7 @@ use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class ObjectiveTaskController extends Controller
 {
@@ -23,7 +24,9 @@ class ObjectiveTaskController extends Controller
     {
         $this->authorize('create', Task::class);
 
-        $setTask->execute($request->taskData());
+        DB::transaction(
+            fn () => $setTask->execute($request->taskData())
+        );
 
         return redirect(route('objective.show', ['objective' => $objective]))
             ->with('flash.success', 'Task successfully created!');
@@ -36,7 +39,9 @@ class ObjectiveTaskController extends Controller
     {
         $this->authorize('update', $task);
 
-        $updated = $amendTask->execute($task, $request->taskData());
+        $updated = DB::transaction(
+            fn () => $amendTask->execute($task, $request->taskData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Task, please try again.');
@@ -52,7 +57,9 @@ class ObjectiveTaskController extends Controller
     {
         $this->authorize('delete', $task);
 
-        $deleted = $unsetTask->execute($task, TaskData::from($task->toArray()));
+        $deleted = DB::transaction(
+            fn () => $unsetTask->execute($task, TaskData::from($task->toArray()))
+        );
 
         if (! $deleted) {
             return back()->with('flash.error', 'There was a problem with unsetting the Task, please try again.');

@@ -3,7 +3,6 @@
 namespace App\Http\Auth\Controllers;
 
 use Domain\Auth\Actions\CreateUserAction;
-use Domain\Auth\DataTransferObjects\UserData;
 use Domain\Auth\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;

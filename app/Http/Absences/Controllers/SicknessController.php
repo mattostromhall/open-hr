@@ -14,6 +14,7 @@ use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,7 +32,9 @@ class SicknessController extends Controller
     {
         $this->authorize('create', Sickness::class);
 
-        $logSickness->execute($request->loggedSicknessData());
+        DB::transaction(
+            fn () => $logSickness->execute($request->loggedSicknessData())
+        );
 
         return back()->with('flash.success', 'Sick days logged!');
     }
@@ -63,7 +66,9 @@ class SicknessController extends Controller
     {
         $this->authorize('update', $sickness);
 
-        $updated = $amendSickness->execute($sickness, $request->loggedSicknessData());
+        $updated = DB::transaction(
+            fn () => $amendSickness->execute($sickness, $request->loggedSicknessData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Sickness, please try again.');
@@ -79,7 +84,9 @@ class SicknessController extends Controller
     {
         $this->authorize('delete', $sickness);
 
-        $cancelled = $cancelSickness->execute($sickness, SicknessData::from($sickness->toArray()));
+        $cancelled = DB::transaction(
+            fn () => $cancelSickness->execute($sickness, SicknessData::from($sickness->toArray()))
+        );
 
         if (! $cancelled) {
             return back()->with('flash.error', 'There was a problem with cancelling the Sick day, please try again.');

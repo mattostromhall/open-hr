@@ -8,6 +8,7 @@ use Domain\People\Actions\ManageDirectReportsAction;
 use Domain\People\Models\Person;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class DirectReportController extends Controller
 {
@@ -18,7 +19,9 @@ class DirectReportController extends Controller
     {
         $this->authorize('manageDirectReports', $person);
 
-        $manageDirectReports->execute($person, $request->validated('direct_reports'));
+        DB::transaction(
+            fn () => $manageDirectReports->execute($person, $request->validated('direct_reports'))
+        );
 
         return back()->with('flash.success', 'Direct reports updated!');
     }

@@ -17,9 +17,6 @@ class CaptureExceptionAction
         //
     }
 
-    /**
-     * @throws Exception
-     */
     public function execute(Exception $e): ExceptionLog
     {
         $exceptionLog = $this->createExceptionLog->execute(ExceptionLogData::fromException($e));

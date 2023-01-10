@@ -10,6 +10,7 @@ use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,7 +33,9 @@ class OneToOneInviteController extends Controller
     {
         $this->authorize('update', $oneToOne);
 
-        $inviteResponse->execute($oneToOne, $request->oneToOneData());
+        DB::transaction(
+            fn () => $inviteResponse->execute($oneToOne, $request->oneToOneData())
+        );
 
         return redirect(route('performance.index'))->with('flash.success', 'One-to-one updated!');
     }

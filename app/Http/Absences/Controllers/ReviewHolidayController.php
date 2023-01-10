@@ -10,6 +10,7 @@ use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,7 +35,9 @@ class ReviewHolidayController extends Controller
 
         $holidayData = $request->holidayData();
 
-        $reviewed = $reviewHoliday->execute($holiday, $holidayData);
+        $reviewed = DB::transaction(
+            fn () => $reviewHoliday->execute($holiday, $holidayData)
+        );
 
         if (! $reviewed) {
             return back()->with('flash.error', 'There was a problem when reviewing the Holiday request, please try again.');

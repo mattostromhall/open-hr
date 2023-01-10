@@ -15,8 +15,10 @@ use Domain\Expenses\Models\Expense;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use Support\Actions\CaptureExceptionAction;
 
 class ExpenseController extends Controller
 {
@@ -28,13 +30,17 @@ class ExpenseController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(SubmitExpenseRequest $request, SubmitExpenseAction $submitExpense): RedirectResponse
+    public function store(SubmitExpenseRequest $request, SubmitExpenseAction $submitExpense, CaptureExceptionAction $captureException): RedirectResponse
     {
         $this->authorize('create', Expense::class);
 
         try {
-            $submitExpense->execute($request->submittedExpenseData());
+            DB::transaction(
+                fn () => $submitExpense->execute($request->submittedExpenseData())
+            );
         } catch (Exception $e) {
+            $captureException->execute($e);
+
             return redirect(route('expense.index'))->with('flash.error', 'Part of your Expense submission failed, please review for any missing information or documents.');
         }
 
@@ -68,7 +74,9 @@ class ExpenseController extends Controller
     {
         $this->authorize('update', $expense);
 
-        $updated = $amendExpense->execute($expense, $request->submittedExpenseData());
+        $updated = DB::transaction(
+            fn () => $amendExpense->execute($expense, $request->submittedExpenseData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Expense, please try again.');
@@ -84,7 +92,9 @@ class ExpenseController extends Controller
     {
         $this->authorize('delete', $expense);
 
-        $withdrawn = $withdrawExpense->execute($expense, ExpenseData::from($expense->toArray()));
+        $withdrawn = DB::transaction(
+            fn () => $withdrawExpense->execute($expense, ExpenseData::from($expense->toArray()))
+        );
 
         if (! $withdrawn) {
             return back()->with('flash.error', 'There was a problem with withdrawing the Expense, please try again.');

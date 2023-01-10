@@ -9,6 +9,7 @@ use Domain\Expenses\Actions\ReviewExpenseAction;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,7 +24,9 @@ class ReviewExpenseController extends Controller
     {
         $expenseData = $request->expenseData();
 
-        $reviewed = $reviewExpense->execute($expense, $expenseData);
+        $reviewed = DB::transaction(
+            fn () => $reviewExpense->execute($expense, $expenseData)
+        );
 
         if (! $reviewed) {
             return back()->with('flash.error', 'There was a problem when reviewing the Expense, please try again.');

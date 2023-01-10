@@ -12,6 +12,7 @@ use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -36,7 +37,9 @@ class ReviewTrainingController extends Controller
 
         $trainingData = $request->trainingData();
 
-        $reviewed = $reviewTraining->execute($training, $trainingData);
+        $reviewed = DB::transaction(
+            fn () => $reviewTraining->execute($training, $trainingData)
+        );
 
         if (! $reviewed) {
             return back()->with('flash.error', 'There was a problem when reviewing the Training request, please try again.');

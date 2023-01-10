@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
+use Support\Actions\CaptureExceptionAction;
 use Support\Actions\GenerateReportAction;
 use Support\Models\Report;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -19,7 +20,7 @@ class GenerateReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(ReportRequest $request, GenerateReportAction $generateReport): Response | RedirectResponse
+    public function store(ReportRequest $request, GenerateReportAction $generateReport, CaptureExceptionAction $captureException): Response | RedirectResponse
     {
         $this->authorize('create', Report::class);
 
@@ -31,6 +32,8 @@ class GenerateReportController extends Controller
                 'csv.path' => $csvPath
             ]);
         } catch (CannotInsertRecord $e) {
+            $captureException->execute($e);
+
             return back()->with('flash.error', 'There was a problem with generating the Report, please try again.');
         }
     }

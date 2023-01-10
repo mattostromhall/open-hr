@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use Support\Actions\DeleteReportAction;
-use Support\Actions\SaveReportAction;
+use Support\Actions\CreateReportAction;
 use Support\Actions\UpdateReportAction;
 use Support\Models\Report;
 
@@ -40,7 +40,7 @@ class ReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(ReportRequest $request, SaveReportAction $saveReport): RedirectResponse
+    public function store(ReportRequest $request, CreateReportAction $saveReport): RedirectResponse
     {
         $this->authorize('create', Report::class);
 

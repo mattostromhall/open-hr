@@ -14,6 +14,7 @@ use Domain\Organisation\Actions\SetupDepartmentAction;
 use Domain\Organisation\Models\Department;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -46,7 +47,9 @@ class DepartmentController extends Controller
     {
         $this->authorize('create', Department::class);
 
-        $department = $setupDepartment->execute($request->departmentData());
+        $department = DB::transaction(
+            fn () => $setupDepartment->execute($request->departmentData())
+        );
 
         return redirect(
             route('department.show', [
@@ -82,7 +85,9 @@ class DepartmentController extends Controller
     {
         $this->authorize('update', $department);
 
-        $updated = $amendDepartment->execute($department, $request->departmentData());
+        $updated = DB::transaction(
+            fn () => $amendDepartment->execute($department, $request->departmentData())
+        );
 
         if (! $updated) {
             return back()->with('flash.error', 'There was a problem with updating the Department, please try again.');

@@ -14,6 +14,7 @@ use Domain\People\Actions\UpdatePersonAction;
 use Domain\People\Models\Person;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -46,7 +47,9 @@ class PersonController extends Controller
     {
         $this->authorize('create', Person::class);
 
-        $createPerson->execute($request->personUserData());
+        DB::transaction(
+            fn () => $createPerson->execute($request->personUserData())
+        );
 
         return redirect(route('person.index'))
             ->with('flash.success', 'Person successfully created!');
@@ -95,7 +98,9 @@ class PersonController extends Controller
     {
         $this->authorize('delete', $person);
 
-        $deleted = $deletePerson->execute($person, $person->user);
+        $deleted = DB::transaction(
+            fn () => $deletePerson->execute($person, $person->user)
+        );
 
         if (! $deleted) {
             return back()->with('flash.error', 'There was a problem deleting the Person, please try again.');

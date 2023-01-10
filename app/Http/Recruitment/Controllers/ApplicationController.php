@@ -10,6 +10,7 @@ use Domain\Recruitment\Actions\SubmitApplicationAction;
 use Domain\Recruitment\Models\Application;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -17,7 +18,9 @@ class ApplicationController extends Controller
 {
     public function store(SubmitApplicationRequest $request, SubmitApplicationAction $submitApplication): RedirectResponse
     {
-        $submitApplication->execute($request->submittedApplicationData());
+        DB::transaction(
+            fn () => $submitApplication->execute($request->submittedApplicationData())
+        );
 
         return redirect(route('application.thanks'));
     }

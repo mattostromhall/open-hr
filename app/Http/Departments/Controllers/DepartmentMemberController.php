@@ -8,6 +8,7 @@ use Domain\Organisation\Actions\ManageDepartmentMembersAction;
 use Domain\Organisation\Models\Department;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentMemberController extends Controller
 {
@@ -18,7 +19,9 @@ class DepartmentMemberController extends Controller
     {
         $this->authorize('manageMembers', $department);
 
-        $manageDepartmentMembers->execute($department, $request->validated('members'));
+        DB::transaction(
+            fn () => $manageDepartmentMembers->execute($department, $request->validated('members'))
+        );
 
         return back()->with('flash.success', 'Department Members updated!');
     }

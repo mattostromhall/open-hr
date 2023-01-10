@@ -16,7 +16,7 @@ class UploadDocumentsAction
 
     public function execute(Collection $uploadedDocuments): void
     {
-        // need to add an action in here to determine whether all documents uploaded, and if not return a message saying which ones failed to upload, needs to be a batch of jobs as potentially time-consuming operation
+        // need to add an action in here to determine whether all documents uploaded, and if not return a message saying which ones failed to upload
         $uploadedDocuments->each(function (UploadedDocumentData $data) {
             $stored = $this->storeFile->execute($data->fileData);
 

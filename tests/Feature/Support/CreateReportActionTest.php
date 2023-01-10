@@ -1,13 +1,13 @@
 <?php
 
-use Support\Actions\SaveReportAction;
+use Support\Actions\CreateReportAction;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 
 use Support\DataTransferObjects\ReportData;
 
 it('saves a report', function () {
-    $action = app(SaveReportAction::class);
+    $action = app(CreateReportAction::class);
     $reportData = new ReportData(
         model: 'objective',
         condition_sets: collect([new ReportConditionSetData(
