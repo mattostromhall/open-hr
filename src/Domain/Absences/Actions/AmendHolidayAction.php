@@ -2,14 +2,17 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\AmendHolidayActionInterface;
+use Domain\Absences\Actions\Contracts\RequestHolidayReviewActionInterface;
+use Domain\Absences\Actions\Contracts\UpdateHolidayActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 
-class AmendHolidayAction
+class AmendHolidayAction implements AmendHolidayActionInterface
 {
     public function __construct(
-        protected UpdateHolidayAction $updateHoliday,
-        protected RequestHolidayReviewAction $requestReview
+        protected UpdateHolidayActionInterface $updateHoliday,
+        protected RequestHolidayReviewActionInterface $requestReview
     ) {
         //
     }

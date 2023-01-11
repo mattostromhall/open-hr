@@ -2,10 +2,11 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\CreateHolidayActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 
-class CreateHolidayAction
+class CreateHolidayAction implements CreateHolidayActionInterface
 {
     public function execute(HolidayData $data): Holiday
     {

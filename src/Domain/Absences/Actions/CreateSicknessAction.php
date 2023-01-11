@@ -2,10 +2,11 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\CreateSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
 
-class CreateSicknessAction
+class CreateSicknessAction implements CreateSicknessActionInterface
 {
     public function execute(SicknessData $data): Sickness
     {

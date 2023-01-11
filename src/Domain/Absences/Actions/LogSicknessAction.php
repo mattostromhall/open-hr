@@ -2,6 +2,8 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\CreateSicknessActionInterface;
+use Domain\Absences\Actions\Contracts\LogSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\Models\Sickness;
 use Domain\Files\Actions\UploadDocumentsAction;
@@ -13,10 +15,10 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class LogSicknessAction
+class LogSicknessAction implements LogSicknessActionInterface
 {
     public function __construct(
-        protected CreateSicknessAction $createSickness,
+        protected CreateSicknessActionInterface $createSickness,
         protected UploadDocumentsAction $uploadDocuments
     ) {
         //

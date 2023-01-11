@@ -7,9 +7,9 @@ use App\Http\Absences\Requests\UpdateSicknessRequest;
 use App\Http\Absences\ViewModels\SicknessesViewModel;
 use App\Http\Absences\ViewModels\SicknessViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Absences\Actions\AmendSicknessAction;
-use Domain\Absences\Actions\CancelSicknessAction;
-use Domain\Absences\Actions\LogSicknessAction;
+use Domain\Absences\Actions\Contracts\AmendSicknessActionInterface;
+use Domain\Absences\Actions\Contracts\CancelSicknessActionInterface;
+use Domain\Absences\Actions\Contracts\LogSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -28,7 +28,7 @@ class SicknessController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(LogSicknessRequest $request, LogSicknessAction $logSickness): RedirectResponse
+    public function store(LogSicknessRequest $request, LogSicknessActionInterface $logSickness): RedirectResponse
     {
         $this->authorize('create', Sickness::class);
 
@@ -62,7 +62,7 @@ class SicknessController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateSicknessRequest $request, Sickness $sickness, AmendSicknessAction $amendSickness): RedirectResponse
+    public function update(UpdateSicknessRequest $request, Sickness $sickness, AmendSicknessActionInterface $amendSickness): RedirectResponse
     {
         $this->authorize('update', $sickness);
 
@@ -80,7 +80,7 @@ class SicknessController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Sickness $sickness, CancelSicknessAction $cancelSickness): RedirectResponse
+    public function destroy(Sickness $sickness, CancelSicknessActionInterface $cancelSickness): RedirectResponse
     {
         $this->authorize('delete', $sickness);
 

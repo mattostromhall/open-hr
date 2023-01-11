@@ -5,8 +5,7 @@ namespace App\Http\Absences\Controllers;
 use App\Http\Absences\Requests\UpdateHolidayRequest;
 use App\Http\Absences\ViewModels\ReviewHolidayViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Absences\Actions\ReviewHolidayAction;
-use Domain\Absences\DataTransferObjects\HolidayData;
+use Domain\Absences\Actions\Contracts\ReviewHolidayActionInterface;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +28,7 @@ class ReviewHolidayController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateHolidayRequest $request, Holiday $holiday, ReviewHolidayAction $reviewHoliday): RedirectResponse
+    public function update(UpdateHolidayRequest $request, Holiday $holiday, ReviewHolidayActionInterface $reviewHoliday): RedirectResponse
     {
         $this->authorize('review', $holiday);
 

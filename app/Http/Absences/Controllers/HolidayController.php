@@ -7,9 +7,9 @@ use App\Http\Absences\Requests\UpdateHolidayRequest;
 use App\Http\Absences\ViewModels\HolidaysViewModel;
 use App\Http\Absences\ViewModels\HolidayViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Absences\Actions\AmendHolidayAction;
-use Domain\Absences\Actions\CancelHolidayAction;
-use Domain\Absences\Actions\RequestHolidayAction;
+use Domain\Absences\Actions\Contracts\AmendHolidayActionInterface;
+use Domain\Absences\Actions\Contracts\CancelHolidayActionInterface;
+use Domain\Absences\Actions\Contracts\RequestHolidayActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -30,7 +30,7 @@ class HolidayController extends Controller
      * @throws AuthorizationException
      * @throws Throwable
      */
-    public function store(StoreHolidayRequest $request, RequestHolidayAction $requestHoliday): RedirectResponse
+    public function store(StoreHolidayRequest $request, RequestHolidayActionInterface $requestHoliday): RedirectResponse
     {
         $this->authorize('create', Holiday::class);
 
@@ -64,7 +64,7 @@ class HolidayController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayAction $amendHoliday): RedirectResponse
+    public function update(UpdateHolidayRequest $request, Holiday $holiday, AmendHolidayActionInterface $amendHoliday): RedirectResponse
     {
         $this->authorize('update', $holiday);
 
@@ -82,7 +82,7 @@ class HolidayController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Holiday $holiday, CancelHolidayAction $cancelHoliday): RedirectResponse
+    public function destroy(Holiday $holiday, CancelHolidayActionInterface $cancelHoliday): RedirectResponse
     {
         $this->authorize('delete', $holiday);
 

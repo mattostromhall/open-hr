@@ -2,9 +2,10 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\DeleteSicknessActionInterface;
 use Domain\Absences\Models\Sickness;
 
-class DeleteSicknessAction
+class DeleteSicknessAction implements DeleteSicknessActionInterface
 {
     public function execute(Sickness $sickness): bool
     {

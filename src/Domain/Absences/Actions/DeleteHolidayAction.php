@@ -2,10 +2,10 @@
 
 namespace Domain\Absences\Actions;
 
-use Domain\Absences\DataTransferObjects\HolidayData;
+use Domain\Absences\Actions\Contracts\DeleteHolidayActionInterface;
 use Domain\Absences\Models\Holiday;
 
-class DeleteHolidayAction
+class DeleteHolidayAction implements DeleteHolidayActionInterface
 {
     public function execute(Holiday $holiday): bool
     {

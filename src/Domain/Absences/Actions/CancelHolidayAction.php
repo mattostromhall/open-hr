@@ -2,6 +2,8 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\CancelHolidayActionInterface;
+use Domain\Absences\Actions\Contracts\DeleteHolidayActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
 use Domain\Notifications\Actions\CreateNotificationAction;
@@ -10,10 +12,10 @@ use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 
-class CancelHolidayAction
+class CancelHolidayAction implements CancelHolidayActionInterface
 {
     public function __construct(
-        protected DeleteHolidayAction $deleteHoliday,
+        protected DeleteHolidayActionInterface $deleteHoliday,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {

@@ -2,10 +2,11 @@
 
 namespace Domain\Absences\Actions;
 
+use Domain\Absences\Actions\Contracts\UpdateSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
 
-class UpdateSicknessAction
+class UpdateSicknessAction implements UpdateSicknessActionInterface
 {
     public function execute(Sickness $sickness, SicknessData $data): bool
     {
