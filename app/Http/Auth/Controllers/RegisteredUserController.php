@@ -2,7 +2,7 @@
 
 namespace App\Http\Auth\Controllers;
 
-use Domain\Auth\Actions\CreateUserAction;
+use Domain\Auth\Actions\Contracts\CreateUserActionInterface;
 use Domain\Auth\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
-    public function store(StoreUserRequest $request, CreateUserAction $createUser): RedirectResponse
+    public function store(StoreUserRequest $request, CreateUserActionInterface $createUser): RedirectResponse
     {
         $user = $createUser->execute($request->userData());
 

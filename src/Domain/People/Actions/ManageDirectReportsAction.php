@@ -2,16 +2,16 @@
 
 namespace Domain\People\Actions;
 
-use Domain\Auth\Actions\AssignRoleAction;
-use Domain\Auth\Actions\RetractRoleAction;
+use Domain\Auth\Actions\Contracts\AssignRoleActionInterface;
+use Domain\Auth\Actions\Contracts\RetractRoleActionInterface;
 use Domain\Auth\Enums\Role;
 use Domain\People\Models\Person;
 
 class ManageDirectReportsAction
 {
     public function __construct(
-        protected AssignRoleAction $assignRole,
-        protected RetractRoleAction $retractRole
+        protected AssignRoleActionInterface $assignRole,
+        protected RetractRoleActionInterface $retractRole
     ) {
         //
     }

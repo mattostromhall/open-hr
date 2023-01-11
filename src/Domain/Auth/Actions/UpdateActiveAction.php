@@ -2,10 +2,10 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\UpdateActiveActionInterface;
 use Domain\Auth\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 
-class UpdateActiveAction
+class UpdateActiveAction implements UpdateActiveActionInterface
 {
     public function execute(User $user, bool $active): bool
     {

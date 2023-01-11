@@ -2,10 +2,11 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\CreateUserActionInterface;
 use Domain\Auth\DataTransferObjects\UserData;
 use Domain\Auth\Models\User;
 
-class CreateUserAction
+class CreateUserAction implements CreateUserActionInterface
 {
     public function execute(UserData $data): User
     {

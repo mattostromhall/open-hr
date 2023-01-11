@@ -30,6 +30,30 @@ use Domain\Absences\Actions\RequestHolidayReviewAction;
 use Domain\Absences\Actions\ReviewHolidayAction;
 use Domain\Absences\Actions\UpdateHolidayAction;
 use Domain\Absences\Actions\UpdateSicknessAction;
+use Domain\Auth\Actions\AssignRoleAction;
+use Domain\Auth\Actions\Contracts\AssignRoleActionInterface;
+use Domain\Auth\Actions\Contracts\CreateAbilitiesActionInterface;
+use Domain\Auth\Actions\Contracts\CreateRolesActionInterface;
+use Domain\Auth\Actions\Contracts\CreateUserActionInterface;
+use Domain\Auth\Actions\Contracts\DeleteUserActionInterface;
+use Domain\Auth\Actions\Contracts\GiveAbilitiesToRolesActionInterface;
+use Domain\Auth\Actions\Contracts\ResetPasswordActionInterface;
+use Domain\Auth\Actions\Contracts\RetractRoleActionInterface;
+use Domain\Auth\Actions\Contracts\SyncRolesActionInterface;
+use Domain\Auth\Actions\Contracts\UpdateActiveActionInterface;
+use Domain\Auth\Actions\Contracts\UpdateEmailActionInterface;
+use Domain\Auth\Actions\Contracts\UpdatePasswordActionInterface;
+use Domain\Auth\Actions\CreateAbilitiesAction;
+use Domain\Auth\Actions\CreateRolesAction;
+use Domain\Auth\Actions\CreateUserAction;
+use Domain\Auth\Actions\DeleteUserAction;
+use Domain\Auth\Actions\GiveAbilitiesToRolesAction;
+use Domain\Auth\Actions\ResetPasswordAction;
+use Domain\Auth\Actions\RetractRoleAction;
+use Domain\Auth\Actions\SyncRolesAction;
+use Domain\Auth\Actions\UpdateActiveAction;
+use Domain\Auth\Actions\UpdateEmailAction;
+use Domain\Auth\Actions\UpdatePasswordAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -59,6 +83,19 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(ReviewHolidayActionInterface::class, ReviewHolidayAction::class);
         $this->app->bind(UpdateHolidayActionInterface::class, UpdateHolidayAction::class);
         $this->app->bind(UpdateSicknessActionInterface::class, UpdateSicknessAction::class);
+        // Auth Contracts
+        $this->app->bind(AssignRoleActionInterface::class, AssignRoleAction::class);
+        $this->app->bind(CreateAbilitiesActionInterface::class, CreateAbilitiesAction::class);
+        $this->app->bind(CreateRolesActionInterface::class, CreateRolesAction::class);
+        $this->app->bind(CreateUserActionInterface::class, CreateUserAction::class);
+        $this->app->bind(DeleteUserActionInterface::class, DeleteUserAction::class);
+        $this->app->bind(GiveAbilitiesToRolesActionInterface::class, GiveAbilitiesToRolesAction::class);
+        $this->app->bind(ResetPasswordActionInterface::class, ResetPasswordAction::class);
+        $this->app->bind(RetractRoleActionInterface::class, RetractRoleAction::class);
+        $this->app->bind(SyncRolesActionInterface::class, SyncRolesAction::class);
+        $this->app->bind(UpdateActiveActionInterface::class, UpdateActiveAction::class);
+        $this->app->bind(UpdateEmailActionInterface::class, UpdateEmailAction::class);
+        $this->app->bind(UpdatePasswordActionInterface::class, UpdatePasswordAction::class);
     }
 
     /**

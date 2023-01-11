@@ -2,9 +2,9 @@
 
 namespace Domain\Files\Commands;
 
-use Domain\Auth\Actions\CreateAbilitiesAction;
-use Domain\Auth\Actions\CreateRolesAction;
-use Domain\Auth\Actions\GiveAbilitiesToRolesAction;
+use Domain\Auth\Actions\Contracts\CreateAbilitiesActionInterface;
+use Domain\Auth\Actions\Contracts\CreateRolesActionInterface;
+use Domain\Auth\Actions\Contracts\GiveAbilitiesToRolesActionInterface;
 use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
 use Exception;
 use Illuminate\Console\Command;
@@ -27,9 +27,9 @@ class ScaffoldDefaults extends Command
 
     public function handle(
         CreateDefaultDocumentDirectoriesAction $createDefaultDocumentDirectories,
-        CreateRolesAction $createRoles,
-        CreateAbilitiesAction $createAbilities,
-        GiveAbilitiesToRolesAction $giveAbilitiesToRoles
+        CreateRolesActionInterface $createRoles,
+        CreateAbilitiesActionInterface $createAbilities,
+        GiveAbilitiesToRolesActionInterface $giveAbilitiesToRoles
     ): int {
         try {
             $createDefaultDocumentDirectories->execute();

@@ -2,13 +2,13 @@
 
 namespace Domain\People\Actions;
 
-use Domain\Auth\Actions\CreateUserAction;
+use Domain\Auth\Actions\Contracts\CreateUserActionInterface;
 use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\DataTransferObjects\PersonUserData;
 
 class CreatePersonUserAction
 {
-    public function __construct(protected CreateUserAction $createUser, protected CreatePersonAction $createPerson)
+    public function __construct(protected CreateUserActionInterface $createUser, protected CreatePersonAction $createPerson)
     {
         //
     }

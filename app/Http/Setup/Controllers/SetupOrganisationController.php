@@ -4,7 +4,7 @@ namespace App\Http\Setup\Controllers;
 
 use App\Http\Setup\Requests\StoreOrganisationRequest;
 use App\Http\Support\Controllers\Controller;
-use Domain\Auth\Actions\AssignRoleAction;
+use Domain\Auth\Actions\Contracts\AssignRoleActionInterface;
 use Domain\Auth\Enums\Role;
 use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
 use Domain\Organisation\Actions\CreateOrganisationAction;
@@ -17,7 +17,7 @@ class SetupOrganisationController extends Controller
         CreateDefaultDocumentDirectoriesAction $createDefaultDocumentDirectories,
         StoreOrganisationRequest $request,
         CreateOrganisationAction $createOrganisation,
-        AssignRoleAction $assignRole
+        AssignRoleActionInterface $assignRole
     ): RedirectResponse {
         DB::transaction(
             function () use ($createDefaultDocumentDirectories, $createOrganisation, $assignRole, $request) {

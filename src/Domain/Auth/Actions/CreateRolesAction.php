@@ -2,13 +2,14 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\CreateRolesActionInterface;
 use Domain\Auth\DataTransferObjects\RoleData;
 use Domain\Auth\Enums\Role;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 
-class CreateRolesAction
+class CreateRolesAction implements CreateRolesActionInterface
 {
     public function execute(): Collection
     {

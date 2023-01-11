@@ -2,10 +2,11 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\GiveAbilitiesToRolesActionInterface;
 use Domain\Auth\Enums\Role;
 use Silber\Bouncer\Bouncer;
 
-class GiveAbilitiesToRolesAction
+class GiveAbilitiesToRolesAction implements GiveAbilitiesToRolesActionInterface
 {
     public function __construct(protected Bouncer $bouncer)
     {

@@ -2,13 +2,14 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\CreateAbilitiesActionInterface;
 use Domain\Auth\DataTransferObjects\AbilityData;
 use Domain\Auth\Enums\Ability;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 
-class CreateAbilitiesAction
+class CreateAbilitiesAction implements CreateAbilitiesActionInterface
 {
     public function execute(): Collection
     {

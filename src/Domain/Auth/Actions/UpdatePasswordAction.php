@@ -2,10 +2,10 @@
 
 namespace Domain\Auth\Actions;
 
+use Domain\Auth\Actions\Contracts\UpdatePasswordActionInterface;
 use Domain\Auth\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 
-class UpdatePasswordAction
+class UpdatePasswordAction implements UpdatePasswordActionInterface
 {
     public function execute(User $user, string $password): bool
     {
