@@ -76,6 +76,30 @@ use Domain\Expenses\Actions\SubmitExpenseAction;
 use Domain\Expenses\Actions\UpdateExpenseAction;
 use Domain\Expenses\Actions\UpdateExpenseTypeAction;
 use Domain\Expenses\Actions\WithdrawExpenseAction;
+use Domain\Files\Actions\Contracts\CreateDefaultDocumentDirectoriesActionInterface;
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
+use Domain\Files\Actions\Contracts\DeleteDirectoryActionInterface;
+use Domain\Files\Actions\Contracts\DeleteDocumentActionInterface;
+use Domain\Files\Actions\Contracts\DeleteDocumentsActionInterface;
+use Domain\Files\Actions\Contracts\DeleteFileActionInterface;
+use Domain\Files\Actions\Contracts\DocumentableDataFromDocumentPathActionInterface;
+use Domain\Files\Actions\Contracts\DownloadDocumentActionInterface;
+use Domain\Files\Actions\Contracts\StoreDocumentActionInterface;
+use Domain\Files\Actions\Contracts\StoreFileActionInterface;
+use Domain\Files\Actions\Contracts\UploadDocumentActionInterface;
+use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
+use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
+use Domain\Files\Actions\CreateDirectoryAction;
+use Domain\Files\Actions\DeleteDirectoryAction;
+use Domain\Files\Actions\DeleteDocumentAction;
+use Domain\Files\Actions\DeleteDocumentsAction;
+use Domain\Files\Actions\DeleteFileAction;
+use Domain\Files\Actions\DocumentableDataFromDocumentPathAction;
+use Domain\Files\Actions\DownloadDocumentAction;
+use Domain\Files\Actions\StoreDocumentAction;
+use Domain\Files\Actions\StoreFileAction;
+use Domain\Files\Actions\UploadDocumentAction;
+use Domain\Files\Actions\UploadDocumentsAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -133,6 +157,20 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(UpdateExpenseActionInterface::class, UpdateExpenseAction::class);
         $this->app->bind(UpdateExpenseTypeActionInterface::class, UpdateExpenseTypeAction::class);
         $this->app->bind(WithdrawExpenseActionInterface::class, WithdrawExpenseAction::class);
+
+        // File Contracts
+        $this->app->bind(CreateDefaultDocumentDirectoriesActionInterface::class, CreateDefaultDocumentDirectoriesAction::class);
+        $this->app->bind(CreateDirectoryActionInterface::class, CreateDirectoryAction::class);
+        $this->app->bind(DeleteDirectoryActionInterface::class, DeleteDirectoryAction::class);
+        $this->app->bind(DeleteDocumentActionInterface::class, DeleteDocumentAction::class);
+        $this->app->bind(DeleteDocumentsActionInterface::class, DeleteDocumentsAction::class);
+        $this->app->bind(DeleteFileActionInterface::class, DeleteFileAction::class);
+        $this->app->bind(DocumentableDataFromDocumentPathActionInterface::class, DocumentableDataFromDocumentPathAction::class);
+        $this->app->bind(DownloadDocumentActionInterface::class, DownloadDocumentAction::class);
+        $this->app->bind(StoreDocumentActionInterface::class, StoreDocumentAction::class);
+        $this->app->bind(StoreFileActionInterface::class, StoreFileAction::class);
+        $this->app->bind(UploadDocumentActionInterface::class, UploadDocumentAction::class);
+        $this->app->bind(UploadDocumentsActionInterface::class, UploadDocumentsAction::class);
     }
 
     /**
