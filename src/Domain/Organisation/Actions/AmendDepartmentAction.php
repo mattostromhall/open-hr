@@ -7,13 +7,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Organisation\Actions\Contracts\AmendDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\UpdateDepartmentActionInterface;
 use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 
-class AmendDepartmentAction
+class AmendDepartmentAction implements AmendDepartmentActionInterface
 {
     public function __construct(
-        protected UpdateDepartmentAction $updateDepartment,
+        protected UpdateDepartmentActionInterface $updateDepartment,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {

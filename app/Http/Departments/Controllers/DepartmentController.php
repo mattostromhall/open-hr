@@ -8,9 +8,9 @@ use App\Http\Departments\ViewModels\DepartmentsViewModel;
 use App\Http\Departments\ViewModels\DepartmentViewModel;
 use App\Http\Departments\ViewModels\EditDepartmentViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Organisation\Actions\AmendDepartmentAction;
-use Domain\Organisation\Actions\DissolveDepartmentAction;
-use Domain\Organisation\Actions\SetupDepartmentAction;
+use Domain\Organisation\Actions\Contracts\AmendDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\DissolveDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\SetupDepartmentActionInterface;
 use Domain\Organisation\Models\Department;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +43,7 @@ class DepartmentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(DepartmentRequest $request, SetupDepartmentAction $setupDepartment): RedirectResponse
+    public function store(DepartmentRequest $request, SetupDepartmentActionInterface $setupDepartment): RedirectResponse
     {
         $this->authorize('create', Department::class);
 
@@ -81,7 +81,7 @@ class DepartmentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(DepartmentRequest $request, Department $department, AmendDepartmentAction $amendDepartment): RedirectResponse
+    public function update(DepartmentRequest $request, Department $department, AmendDepartmentActionInterface $amendDepartment): RedirectResponse
     {
         $this->authorize('update', $department);
 
@@ -99,7 +99,7 @@ class DepartmentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Department $department, DissolveDepartmentAction $dissolveDepartment): RedirectResponse
+    public function destroy(Department $department, DissolveDepartmentActionInterface $dissolveDepartment): RedirectResponse
     {
         $this->authorize('delete', Department::class);
 

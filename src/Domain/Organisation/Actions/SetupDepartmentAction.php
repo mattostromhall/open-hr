@@ -8,13 +8,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Organisation\Actions\Contracts\CreateDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\SetupDepartmentActionInterface;
 use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 
-class SetupDepartmentAction
+class SetupDepartmentAction implements SetupDepartmentActionInterface
 {
     public function __construct(
-        protected CreateDepartmentAction $createDepartment,
+        protected CreateDepartmentActionInterface $createDepartment,
         protected CreateDirectoryActionInterface $createDirectory,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail

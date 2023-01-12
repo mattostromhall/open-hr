@@ -2,12 +2,13 @@
 
 namespace Domain\Organisation\Actions;
 
-use Domain\Organisation\DataTransferObjects\DepartmentData;
+use Domain\Organisation\Actions\Contracts\DeleteDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\DissolveDepartmentActionInterface;
 use Domain\Organisation\Models\Department;
 
-class DissolveDepartmentAction
+class DissolveDepartmentAction implements DissolveDepartmentActionInterface
 {
-    public function __construct(protected DeleteDepartmentAction $deleteDepartment)
+    public function __construct(protected DeleteDepartmentActionInterface $deleteDepartment)
     {
         //
     }

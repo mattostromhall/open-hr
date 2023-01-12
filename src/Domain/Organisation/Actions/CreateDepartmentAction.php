@@ -2,10 +2,11 @@
 
 namespace Domain\Organisation\Actions;
 
+use Domain\Organisation\Actions\Contracts\CreateDepartmentActionInterface;
 use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 
-class CreateDepartmentAction
+class CreateDepartmentAction implements CreateDepartmentActionInterface
 {
     public function execute(DepartmentData $data): Department
     {

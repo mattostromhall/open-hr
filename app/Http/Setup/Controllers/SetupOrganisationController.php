@@ -7,7 +7,7 @@ use App\Http\Support\Controllers\Controller;
 use Domain\Auth\Actions\Contracts\AssignRoleActionInterface;
 use Domain\Auth\Enums\Role;
 use Domain\Files\Actions\Contracts\CreateDefaultDocumentDirectoriesActionInterface;
-use Domain\Organisation\Actions\CreateOrganisationAction;
+use Domain\Organisation\Actions\Contracts\CreateOrganisationActionInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +16,7 @@ class SetupOrganisationController extends Controller
     public function __invoke(
         CreateDefaultDocumentDirectoriesActionInterface $createDefaultDocumentDirectories,
         StoreOrganisationRequest $request,
-        CreateOrganisationAction $createOrganisation,
+        CreateOrganisationActionInterface $createOrganisation,
         AssignRoleActionInterface $assignRole
     ): RedirectResponse {
         DB::transaction(

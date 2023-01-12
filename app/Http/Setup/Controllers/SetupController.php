@@ -3,10 +3,10 @@
 namespace App\Http\Setup\Controllers;
 
 use App\Http\People\ViewModels\SetupViewModel;
+use Domain\Organisation\Actions\Contracts\CompleteSetupActionInterface;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
-use Domain\Organisation\Actions\CompleteSetupAction;
 use App\Http\Support\Controllers\Controller;
 
 class SetupController extends Controller
@@ -16,7 +16,7 @@ class SetupController extends Controller
         return Inertia::render('Setup/Index', new SetupViewModel());
     }
 
-    public function store(CompleteSetupAction $completeSetup): RedirectResponse
+    public function store(CompleteSetupActionInterface $completeSetup): RedirectResponse
     {
         $completeSetup->execute();
 

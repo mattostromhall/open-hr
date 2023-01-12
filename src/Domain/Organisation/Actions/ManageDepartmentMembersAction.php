@@ -2,10 +2,11 @@
 
 namespace Domain\Organisation\Actions;
 
+use Domain\Organisation\Actions\Contracts\ManageDepartmentMembersActionInterface;
 use Domain\Organisation\Models\Department;
 use Domain\People\Models\Person;
 
-class ManageDepartmentMembersAction
+class ManageDepartmentMembersAction implements ManageDepartmentMembersActionInterface
 {
     public function execute(Department $department, array $people): void
     {

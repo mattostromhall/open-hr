@@ -2,10 +2,11 @@
 
 namespace Domain\Organisation\Actions;
 
+use Domain\Organisation\Actions\Contracts\UpdateDepartmentActionInterface;
 use Domain\Organisation\DataTransferObjects\DepartmentData;
 use Domain\Organisation\Models\Department;
 
-class UpdateDepartmentAction
+class UpdateDepartmentAction implements UpdateDepartmentActionInterface
 {
     public function execute(Department $department, DepartmentData $data): bool
     {

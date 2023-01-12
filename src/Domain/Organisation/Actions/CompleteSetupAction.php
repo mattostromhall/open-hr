@@ -2,9 +2,10 @@
 
 namespace Domain\Organisation\Actions;
 
+use Domain\Organisation\Actions\Contracts\CompleteSetupActionInterface;
 use Domain\Organisation\Models\Organisation;
 
-class CompleteSetupAction
+class CompleteSetupAction implements CompleteSetupActionInterface
 {
     public function execute()
     {

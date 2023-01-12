@@ -4,11 +4,12 @@ namespace Domain\Organisation\Actions;
 
 use Domain\Files\Actions\Contracts\StoreFileActionInterface;
 use Domain\Files\DataTransferObjects\UploadedFileData;
+use Domain\Organisation\Actions\Contracts\CreateOrganisationActionInterface;
 use Domain\Organisation\DataTransferObjects\OrganisationData;
 use Domain\Organisation\Models\Organisation;
 use Illuminate\Http\UploadedFile;
 
-class CreateOrganisationAction
+class CreateOrganisationAction implements CreateOrganisationActionInterface
 {
     public function __construct(protected StoreFileActionInterface $storeFile)
     {

@@ -108,6 +108,24 @@ use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\DeleteNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\Actions\UpdateNotificationAction;
+use Domain\Organisation\Actions\AmendDepartmentAction;
+use Domain\Organisation\Actions\CompleteSetupAction;
+use Domain\Organisation\Actions\Contracts\AmendDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\CompleteSetupActionInterface;
+use Domain\Organisation\Actions\Contracts\CreateDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\CreateOrganisationActionInterface;
+use Domain\Organisation\Actions\Contracts\DeleteDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\DissolveDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\ManageDepartmentMembersActionInterface;
+use Domain\Organisation\Actions\Contracts\SetupDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\UpdateDepartmentActionInterface;
+use Domain\Organisation\Actions\CreateDepartmentAction;
+use Domain\Organisation\Actions\CreateOrganisationAction;
+use Domain\Organisation\Actions\DeleteDepartmentAction;
+use Domain\Organisation\Actions\DissolveDepartmentAction;
+use Domain\Organisation\Actions\ManageDepartmentMembersAction;
+use Domain\Organisation\Actions\SetupDepartmentAction;
+use Domain\Organisation\Actions\UpdateDepartmentAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -185,6 +203,17 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(DeleteNotificationActionInterface::class, DeleteNotificationAction::class);
         $this->app->bind(SendEmailNotificationActionInterface::class, SendEmailNotificationAction::class);
         $this->app->bind(UpdateNotificationActionInterface::class, UpdateNotificationAction::class);
+
+        // Organisation Contracts
+        $this->app->bind(AmendDepartmentActionInterface::class, AmendDepartmentAction::class);
+        $this->app->bind(CompleteSetupActionInterface::class, CompleteSetupAction::class);
+        $this->app->bind(CreateDepartmentActionInterface::class, CreateDepartmentAction::class);
+        $this->app->bind(CreateOrganisationActionInterface::class, CreateOrganisationAction::class);
+        $this->app->bind(DeleteDepartmentActionInterface::class, DeleteDepartmentAction::class);
+        $this->app->bind(DissolveDepartmentActionInterface::class, DissolveDepartmentAction::class);
+        $this->app->bind(ManageDepartmentMembersActionInterface::class, ManageDepartmentMembersAction::class);
+        $this->app->bind(SetupDepartmentActionInterface::class, SetupDepartmentAction::class);
+        $this->app->bind(UpdateDepartmentActionInterface::class, UpdateDepartmentAction::class);
     }
 
     /**
