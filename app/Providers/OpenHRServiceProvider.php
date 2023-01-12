@@ -54,6 +54,28 @@ use Domain\Auth\Actions\SyncRolesAction;
 use Domain\Auth\Actions\UpdateActiveAction;
 use Domain\Auth\Actions\UpdateEmailAction;
 use Domain\Auth\Actions\UpdatePasswordAction;
+use Domain\Expenses\Actions\AmendExpenseAction;
+use Domain\Expenses\Actions\Contracts\AmendExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\CreateExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\CreateExpenseTypeActionInterface;
+use Domain\Expenses\Actions\Contracts\DeleteExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\DeleteExpenseTypeActionInterface;
+use Domain\Expenses\Actions\Contracts\RequestExpenseReviewActionInterface;
+use Domain\Expenses\Actions\Contracts\ReviewExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\SubmitExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\UpdateExpenseTypeActionInterface;
+use Domain\Expenses\Actions\Contracts\WithdrawExpenseActionInterface;
+use Domain\Expenses\Actions\CreateExpenseAction;
+use Domain\Expenses\Actions\CreateExpenseTypeAction;
+use Domain\Expenses\Actions\DeleteExpenseAction;
+use Domain\Expenses\Actions\DeleteExpenseTypeAction;
+use Domain\Expenses\Actions\RequestExpenseReviewAction;
+use Domain\Expenses\Actions\ReviewExpenseAction;
+use Domain\Expenses\Actions\SubmitExpenseAction;
+use Domain\Expenses\Actions\UpdateExpenseAction;
+use Domain\Expenses\Actions\UpdateExpenseTypeAction;
+use Domain\Expenses\Actions\WithdrawExpenseAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -68,6 +90,7 @@ class OpenHRServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ReportBuilderInterface::class, ReportBuilder::class);
+
         // Absence Contracts
         $this->app->bind(AmendHolidayActionInterface::class, AmendHolidayAction::class);
         $this->app->bind(AmendSicknessActionInterface::class, AmendSicknessAction::class);
@@ -83,6 +106,7 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(ReviewHolidayActionInterface::class, ReviewHolidayAction::class);
         $this->app->bind(UpdateHolidayActionInterface::class, UpdateHolidayAction::class);
         $this->app->bind(UpdateSicknessActionInterface::class, UpdateSicknessAction::class);
+
         // Auth Contracts
         $this->app->bind(AssignRoleActionInterface::class, AssignRoleAction::class);
         $this->app->bind(CreateAbilitiesActionInterface::class, CreateAbilitiesAction::class);
@@ -96,6 +120,19 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(UpdateActiveActionInterface::class, UpdateActiveAction::class);
         $this->app->bind(UpdateEmailActionInterface::class, UpdateEmailAction::class);
         $this->app->bind(UpdatePasswordActionInterface::class, UpdatePasswordAction::class);
+
+        // Expense Contracts
+        $this->app->bind(AmendExpenseActionInterface::class, AmendExpenseAction::class);
+        $this->app->bind(CreateExpenseActionInterface::class, CreateExpenseAction::class);
+        $this->app->bind(CreateExpenseTypeActionInterface::class, CreateExpenseTypeAction::class);
+        $this->app->bind(DeleteExpenseActionInterface::class, DeleteExpenseAction::class);
+        $this->app->bind(DeleteExpenseTypeActionInterface::class, DeleteExpenseTypeAction::class);
+        $this->app->bind(RequestExpenseReviewActionInterface::class, RequestExpenseReviewAction::class);
+        $this->app->bind(ReviewExpenseActionInterface::class, ReviewExpenseAction::class);
+        $this->app->bind(SubmitExpenseActionInterface::class, SubmitExpenseAction::class);
+        $this->app->bind(UpdateExpenseActionInterface::class, UpdateExpenseAction::class);
+        $this->app->bind(UpdateExpenseTypeActionInterface::class, UpdateExpenseTypeAction::class);
+        $this->app->bind(WithdrawExpenseActionInterface::class, WithdrawExpenseAction::class);
     }
 
     /**

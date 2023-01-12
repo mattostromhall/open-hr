@@ -2,6 +2,8 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\RequestExpenseReviewActionInterface;
+use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Actions\UploadDocumentsAction;
@@ -16,9 +18,9 @@ use Illuminate\Support\Str;
 class AmendExpenseAction
 {
     public function __construct(
-        protected UpdateExpenseAction $updateExpense,
+        protected UpdateExpenseActionInterface $updateExpense,
         protected UploadDocumentsAction $uploadDocuments,
-        protected RequestExpenseReviewAction $requestReview
+        protected RequestExpenseReviewActionInterface $requestReview
     ) {
         //
     }

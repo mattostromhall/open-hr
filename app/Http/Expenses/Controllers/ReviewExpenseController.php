@@ -5,8 +5,7 @@ namespace App\Http\Expenses\Controllers;
 use App\Http\Expenses\Requests\ReviewExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Expenses\Actions\ReviewExpenseAction;
-use Domain\Expenses\DataTransferObjects\ExpenseData;
+use Domain\Expenses\Actions\Contracts\ReviewExpenseActionInterface;
 use Domain\Expenses\Models\Expense;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +19,7 @@ class ReviewExpenseController extends Controller
         return Inertia::render('Expenses/Review', new ExpenseViewModel($expense));
     }
 
-    public function update(ReviewExpenseRequest $request, Expense $expense, ReviewExpenseAction $reviewExpense): RedirectResponse
+    public function update(ReviewExpenseRequest $request, Expense $expense, ReviewExpenseActionInterface $reviewExpense): RedirectResponse
     {
         $expenseData = $request->expenseData();
 

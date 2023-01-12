@@ -7,9 +7,9 @@ use App\Http\Expenses\Requests\UpdateExpenseRequest;
 use App\Http\Expenses\ViewModels\ExpensesViewModel;
 use App\Http\Expenses\ViewModels\ExpenseViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Expenses\Actions\AmendExpenseAction;
-use Domain\Expenses\Actions\SubmitExpenseAction;
-use Domain\Expenses\Actions\WithdrawExpenseAction;
+use Domain\Expenses\Actions\Contracts\AmendExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\SubmitExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\WithdrawExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Exception;
@@ -30,7 +30,7 @@ class ExpenseController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(SubmitExpenseRequest $request, SubmitExpenseAction $submitExpense, CaptureExceptionAction $captureException): RedirectResponse
+    public function store(SubmitExpenseRequest $request, SubmitExpenseActionInterface $submitExpense, CaptureExceptionAction $captureException): RedirectResponse
     {
         $this->authorize('create', Expense::class);
 
@@ -70,7 +70,7 @@ class ExpenseController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateExpenseRequest $request, Expense $expense, AmendExpenseAction $amendExpense): RedirectResponse
+    public function update(UpdateExpenseRequest $request, Expense $expense, AmendExpenseActionInterface $amendExpense): RedirectResponse
     {
         $this->authorize('update', $expense);
 
@@ -88,7 +88,7 @@ class ExpenseController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Expense $expense, WithdrawExpenseAction $withdrawExpense): RedirectResponse
+    public function destroy(Expense $expense, WithdrawExpenseActionInterface $withdrawExpense): RedirectResponse
     {
         $this->authorize('delete', $expense);
 

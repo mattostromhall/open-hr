@@ -2,6 +2,7 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\DeleteExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Actions\DeleteDocumentsAction;
@@ -14,7 +15,7 @@ use Domain\Notifications\Enums\NotifiableType;
 class WithdrawExpenseAction
 {
     public function __construct(
-        protected DeleteExpenseAction $deleteExpense,
+        protected DeleteExpenseActionInterface $deleteExpense,
         protected DeleteDocumentsAction $deleteDocuments,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail

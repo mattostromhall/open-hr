@@ -6,9 +6,9 @@ use App\Http\Expenses\Requests\ExpenseTypeRequest;
 use App\Http\Expenses\ViewModels\ExpenseTypesViewModel;
 use App\Http\Expenses\ViewModels\ExpenseTypeViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Expenses\Actions\CreateExpenseTypeAction;
-use Domain\Expenses\Actions\DeleteExpenseTypeAction;
-use Domain\Expenses\Actions\UpdateExpenseTypeAction;
+use Domain\Expenses\Actions\Contracts\CreateExpenseTypeActionInterface;
+use Domain\Expenses\Actions\Contracts\DeleteExpenseTypeActionInterface;
+use Domain\Expenses\Actions\Contracts\UpdateExpenseTypeActionInterface;
 use Domain\Expenses\Models\ExpenseType;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -40,7 +40,7 @@ class ExpenseTypeController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(ExpenseTypeRequest $request, CreateExpenseTypeAction $createExpense): RedirectResponse
+    public function store(ExpenseTypeRequest $request, CreateExpenseTypeActionInterface $createExpense): RedirectResponse
     {
         $this->authorize('create', ExpenseType::class);
 
@@ -62,7 +62,7 @@ class ExpenseTypeController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeAction $updateExpense): RedirectResponse
+    public function update(ExpenseTypeRequest $request, ExpenseType $expenseType, UpdateExpenseTypeActionInterface $updateExpense): RedirectResponse
     {
         $this->authorize('update', ExpenseType::class);
 
@@ -78,7 +78,7 @@ class ExpenseTypeController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(ExpenseType $expenseType, DeleteExpenseTypeAction $deleteExpenseType): RedirectResponse
+    public function destroy(ExpenseType $expenseType, DeleteExpenseTypeActionInterface $deleteExpenseType): RedirectResponse
     {
         $this->authorize('delete', ExpenseType::class);
 

@@ -2,6 +2,7 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Notifications\Actions\CreateNotificationAction;
@@ -13,7 +14,7 @@ use Domain\Notifications\Enums\NotifiableType;
 class ReviewExpenseAction
 {
     public function __construct(
-        protected UpdateExpenseAction $updateExpense,
+        protected UpdateExpenseActionInterface $updateExpense,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {
