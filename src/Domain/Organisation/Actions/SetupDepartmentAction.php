@@ -2,7 +2,7 @@
 
 namespace Domain\Organisation\Actions;
 
-use Domain\Files\Actions\CreateDirectoryAction;
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
@@ -15,7 +15,7 @@ class SetupDepartmentAction
 {
     public function __construct(
         protected CreateDepartmentAction $createDepartment,
-        protected CreateDirectoryAction $createDirectory,
+        protected CreateDirectoryActionInterface $createDirectory,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {

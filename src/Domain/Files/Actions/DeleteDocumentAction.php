@@ -2,11 +2,12 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\DeleteFileActionInterface;
 use Domain\Files\Models\Document;
 
 class DeleteDocumentAction
 {
-    public function __construct(protected DeleteFileAction $deleteFile)
+    public function __construct(protected DeleteFileActionInterface $deleteFile)
     {
         //
     }

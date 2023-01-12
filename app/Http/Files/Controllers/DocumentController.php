@@ -5,9 +5,9 @@ namespace App\Http\Files\Controllers;
 use App\Http\Files\Requests\StoreDocumentRequest;
 use App\Http\Files\ViewModels\DocumentsViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Files\Actions\DeleteDocumentAction;
-use Domain\Files\Actions\DocumentableDataFromDocumentPathAction;
-use Domain\Files\Actions\UploadDocumentsAction;
+use Domain\Files\Actions\Contracts\DeleteDocumentActionInterface;
+use Domain\Files\Actions\Contracts\DocumentableDataFromDocumentPathActionInterface;
+use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
 use Domain\Files\Models\Document;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +23,7 @@ class DocumentController extends Controller
 
         abort_unless(Storage::exists($prefixedPath), 404);
 
-        $documentableData = app(DocumentableDataFromDocumentPathAction::class)->execute($prefixedPath);
+        $documentableData = app(DocumentableDataFromDocumentPathActionInterface::class)->execute($prefixedPath);
 
         return Inertia::render('Files/Documents/Index', new DocumentsViewModel($prefixedPath, $documentableData));
     }
@@ -31,7 +31,7 @@ class DocumentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreDocumentRequest $request, UploadDocumentsAction $uploadDocuments): RedirectResponse
+    public function store(StoreDocumentRequest $request, UploadDocumentsActionInterface $uploadDocuments): RedirectResponse
     {
         $this->authorize('upload', Document::class);
 
@@ -43,7 +43,7 @@ class DocumentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Document $document, DeleteDocumentAction $deleteDocument): RedirectResponse
+    public function destroy(Document $document, DeleteDocumentActionInterface $deleteDocument): RedirectResponse
     {
         $this->authorize('delete', $document);
 

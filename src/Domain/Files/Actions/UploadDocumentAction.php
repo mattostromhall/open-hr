@@ -2,13 +2,15 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\StoreDocumentActionInterface;
+use Domain\Files\Actions\Contracts\StoreFileActionInterface;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 
 class UploadDocumentAction
 {
     public function __construct(
-        protected StoreFileAction $storeFile,
-        protected StoreDocumentAction $storeDocument
+        protected StoreFileActionInterface $storeFile,
+        protected StoreDocumentActionInterface $storeDocument
     ) {
         //
     }

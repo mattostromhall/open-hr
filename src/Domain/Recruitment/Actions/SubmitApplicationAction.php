@@ -2,8 +2,7 @@
 
 namespace Domain\Recruitment\Actions;
 
-use Domain\Expenses\Models\Expense;
-use Domain\Files\Actions\UploadDocumentAction;
+use Domain\Files\Actions\Contracts\UploadDocumentActionInterface;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
@@ -23,7 +22,7 @@ class SubmitApplicationAction
 {
     public function __construct(
         protected CreateApplicationAction $createApplication,
-        protected UploadDocumentAction $uploadCV,
+        protected UploadDocumentActionInterface $uploadCV,
         protected CreateNotificationAction $createNotification,
         protected SendEmailNotificationAction $sendEmail
     ) {

@@ -6,7 +6,7 @@ use Domain\Absences\Actions\Contracts\CreateSicknessActionInterface;
 use Domain\Absences\Actions\Contracts\LogSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\Models\Sickness;
-use Domain\Files\Actions\UploadDocumentsAction;
+use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
@@ -19,7 +19,7 @@ class LogSicknessAction implements LogSicknessActionInterface
 {
     public function __construct(
         protected CreateSicknessActionInterface $createSickness,
-        protected UploadDocumentsAction $uploadDocuments
+        protected UploadDocumentsActionInterface $uploadDocuments
     ) {
         //
     }

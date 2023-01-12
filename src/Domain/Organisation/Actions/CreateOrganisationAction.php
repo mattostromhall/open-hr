@@ -2,7 +2,7 @@
 
 namespace Domain\Organisation\Actions;
 
-use Domain\Files\Actions\StoreFileAction;
+use Domain\Files\Actions\Contracts\StoreFileActionInterface;
 use Domain\Files\DataTransferObjects\UploadedFileData;
 use Domain\Organisation\DataTransferObjects\OrganisationData;
 use Domain\Organisation\Models\Organisation;
@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 
 class CreateOrganisationAction
 {
-    public function __construct(protected StoreFileAction $storeFile)
+    public function __construct(protected StoreFileActionInterface $storeFile)
     {
         //
     }

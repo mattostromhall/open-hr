@@ -6,7 +6,7 @@ use Domain\Absences\Actions\Contracts\AmendSicknessActionInterface;
 use Domain\Absences\Actions\Contracts\UpdateSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\LoggedSicknessData;
 use Domain\Absences\Models\Sickness;
-use Domain\Files\Actions\UploadDocumentsAction;
+use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
@@ -19,7 +19,7 @@ class AmendSicknessAction implements AmendSicknessActionInterface
 {
     public function __construct(
         protected UpdateSicknessActionInterface $updateSickness,
-        protected UploadDocumentsAction $uploadDocuments
+        protected UploadDocumentsActionInterface $uploadDocuments
     ) {
         //
     }

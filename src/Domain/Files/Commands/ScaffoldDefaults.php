@@ -5,7 +5,7 @@ namespace Domain\Files\Commands;
 use Domain\Auth\Actions\Contracts\CreateAbilitiesActionInterface;
 use Domain\Auth\Actions\Contracts\CreateRolesActionInterface;
 use Domain\Auth\Actions\Contracts\GiveAbilitiesToRolesActionInterface;
-use Domain\Files\Actions\CreateDefaultDocumentDirectoriesAction;
+use Domain\Files\Actions\Contracts\CreateDefaultDocumentDirectoriesActionInterface;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -26,7 +26,7 @@ class ScaffoldDefaults extends Command
     protected $description = 'Scaffold the defaults required for the application to run.';
 
     public function handle(
-        CreateDefaultDocumentDirectoriesAction $createDefaultDocumentDirectories,
+        CreateDefaultDocumentDirectoriesActionInterface $createDefaultDocumentDirectories,
         CreateRolesActionInterface $createRoles,
         CreateAbilitiesActionInterface $createAbilities,
         GiveAbilitiesToRolesActionInterface $giveAbilitiesToRoles

@@ -6,7 +6,7 @@ use Domain\Expenses\Actions\Contracts\RequestExpenseReviewActionInterface;
 use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Models\Expense;
-use Domain\Files\Actions\UploadDocumentsAction;
+use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
@@ -19,7 +19,7 @@ class AmendExpenseAction
 {
     public function __construct(
         protected UpdateExpenseActionInterface $updateExpense,
-        protected UploadDocumentsAction $uploadDocuments,
+        protected UploadDocumentsActionInterface $uploadDocuments,
         protected RequestExpenseReviewActionInterface $requestReview
     ) {
         //

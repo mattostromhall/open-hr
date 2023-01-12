@@ -4,14 +4,14 @@ namespace App\Http\Files\Controllers;
 
 use App\Http\Files\Requests\DirectoryRequest;
 use App\Http\Support\Controllers\Controller;
-use Domain\Files\Actions\CreateDirectoryAction;
-use Domain\Files\Actions\DeleteDirectoryAction;
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
+use Domain\Files\Actions\Contracts\DeleteDirectoryActionInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 
 class DirectoryController extends Controller
 {
-    public function store(DirectoryRequest $request, CreateDirectoryAction $createDirectory): RedirectResponse
+    public function store(DirectoryRequest $request, CreateDirectoryActionInterface $createDirectory): RedirectResponse
     {
         if (! Gate::allows('create-directory')) {
             abort(403);
@@ -22,7 +22,7 @@ class DirectoryController extends Controller
         return back()->with('flash.success', 'Folder successfully created!');
     }
 
-    public function destroy(DirectoryRequest $request, DeleteDirectoryAction $deleteDirectory): RedirectResponse
+    public function destroy(DirectoryRequest $request, DeleteDirectoryActionInterface $deleteDirectory): RedirectResponse
     {
         if (! Gate::allows('delete-directory')) {
             abort(403);

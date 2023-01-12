@@ -2,12 +2,12 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
 use Domain\Files\Enums\DocumentableType;
-use Illuminate\Support\Collection;
 
 class CreateDefaultDocumentDirectoriesAction
 {
-    public function __construct(protected CreateDirectoryAction $createDirectory)
+    public function __construct(protected CreateDirectoryActionInterface $createDirectory)
     {
         //
     }
