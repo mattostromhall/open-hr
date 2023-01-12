@@ -4,6 +4,7 @@ namespace Domain\Expenses\Actions;
 
 use Domain\Expenses\Actions\Contracts\CreateExpenseActionInterface;
 use Domain\Expenses\Actions\Contracts\RequestExpenseReviewActionInterface;
+use Domain\Expenses\Actions\Contracts\SubmitExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\SubmittedExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Actions\Contracts\UploadDocumentsActionInterface;
@@ -15,7 +16,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class SubmitExpenseAction
+class SubmitExpenseAction implements SubmitExpenseActionInterface
 {
     public function __construct(
         protected CreateExpenseActionInterface $createExpense,

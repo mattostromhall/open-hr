@@ -2,7 +2,7 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
@@ -12,7 +12,7 @@ class AmendObjectiveAction
 {
     public function __construct(
         protected UpdateObjectiveAction $updateObjective,
-        protected CreateNotificationAction $createNotification
+        protected CreateNotificationActionInterface $createNotification
     ) {
         //
     }

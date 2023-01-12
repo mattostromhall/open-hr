@@ -2,10 +2,11 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\StoreDocumentActionInterface;
 use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\Models\Document;
 
-class StoreDocumentAction
+class StoreDocumentAction implements StoreDocumentActionInterface
 {
     public function execute(DocumentData $data): Document
     {

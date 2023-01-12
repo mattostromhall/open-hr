@@ -2,10 +2,11 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 
-class UpdateExpenseAction
+class UpdateExpenseAction implements UpdateExpenseActionInterface
 {
     public function execute(Expense $expense, ExpenseData $data): bool
     {

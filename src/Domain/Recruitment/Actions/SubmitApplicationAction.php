@@ -7,8 +7,8 @@ use Domain\Files\DataTransferObjects\DocumentData;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 use Domain\Files\DataTransferObjects\UploadedFileData;
 use Domain\Files\Enums\DocumentableType;
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
@@ -23,8 +23,8 @@ class SubmitApplicationAction
     public function __construct(
         protected CreateApplicationAction $createApplication,
         protected UploadDocumentActionInterface $uploadCV,
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }

@@ -4,9 +4,10 @@ namespace Domain\Files\Actions;
 
 use Domain\Files\Actions\Contracts\StoreDocumentActionInterface;
 use Domain\Files\Actions\Contracts\StoreFileActionInterface;
+use Domain\Files\Actions\Contracts\UploadDocumentActionInterface;
 use Domain\Files\DataTransferObjects\UploadedDocumentData;
 
-class UploadDocumentAction
+class UploadDocumentAction implements UploadDocumentActionInterface
 {
     public function __construct(
         protected StoreFileActionInterface $storeFile,

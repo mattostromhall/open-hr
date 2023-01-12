@@ -2,10 +2,11 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\CreateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 
-class CreateExpenseAction
+class CreateExpenseAction implements CreateExpenseActionInterface
 {
     public function execute(ExpenseData $data): Expense
     {

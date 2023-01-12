@@ -2,7 +2,7 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\OneToOneData;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 
 class OneToOneInviteAction
 {
-    public function __construct(protected CreateNotificationAction $createNotification)
+    public function __construct(protected CreateNotificationActionInterface $createNotification)
     {
         //
     }

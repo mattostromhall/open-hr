@@ -6,7 +6,7 @@ use Domain\Absences\Actions\Contracts\ReviewHolidayActionInterface;
 use Domain\Absences\Actions\Contracts\UpdateHolidayActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Models\Holiday;
-use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 
@@ -14,7 +14,7 @@ class ReviewHolidayAction implements ReviewHolidayActionInterface
 {
     public function __construct(
         protected UpdateHolidayActionInterface $updateHoliday,
-        protected CreateNotificationAction $createNotification
+        protected CreateNotificationActionInterface $createNotification
     ) {
         //
     }

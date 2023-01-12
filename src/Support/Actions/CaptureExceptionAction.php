@@ -2,7 +2,7 @@
 
 namespace Support\Actions;
 
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Exception;
 use Support\DataTransferObjects\ExceptionLogData;
@@ -11,7 +11,7 @@ use Support\Models\ExceptionLog;
 class CaptureExceptionAction
 {
     public function __construct(
-        protected SendEmailNotificationAction $sendEmail,
+        protected SendEmailNotificationActionInterface $sendEmail,
         protected CreateExceptionLogAction $createExceptionLog
     ) {
         //

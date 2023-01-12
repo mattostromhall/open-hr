@@ -2,7 +2,7 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\DataTransferObjects\TaskData;
@@ -12,7 +12,7 @@ class AmendTaskAction
 {
     public function __construct(
         protected UpdateTaskAction $updateTask,
-        protected CreateNotificationAction $createNotification
+        protected CreateNotificationActionInterface $createNotification
     ) {
         //
     }

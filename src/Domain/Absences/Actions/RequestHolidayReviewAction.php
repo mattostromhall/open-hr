@@ -6,14 +6,14 @@ use Domain\Absences\Actions\Contracts\RequestHolidayReviewActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
 use Domain\Absences\Mail\ReviewHolidayRequest;
 use Domain\Absences\Models\Holiday;
-use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 use Illuminate\Support\Facades\Mail;
 
 class RequestHolidayReviewAction implements RequestHolidayReviewActionInterface
 {
-    public function __construct(protected CreateNotificationAction $createNotification)
+    public function __construct(protected CreateNotificationActionInterface $createNotification)
     {
         //
     }

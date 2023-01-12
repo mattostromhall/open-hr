@@ -3,22 +3,23 @@
 namespace Domain\Expenses\Actions;
 
 use Domain\Expenses\Actions\Contracts\DeleteExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\WithdrawExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
 use Domain\Files\Actions\Contracts\DeleteDocumentsActionInterface;
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 
-class WithdrawExpenseAction
+class WithdrawExpenseAction implements WithdrawExpenseActionInterface
 {
     public function __construct(
         protected DeleteExpenseActionInterface $deleteExpense,
         protected DeleteDocumentsActionInterface $deleteDocuments,
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }

@@ -2,10 +2,11 @@
 
 namespace Domain\Notifications\Actions;
 
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Models\Notification;
 
-class CreateNotificationAction
+class CreateNotificationAction implements CreateNotificationActionInterface
 {
     public function execute(NotificationData $data): Notification
     {

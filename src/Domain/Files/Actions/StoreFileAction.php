@@ -2,10 +2,11 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\StoreFileActionInterface;
 use Domain\Files\DataTransferObjects\UploadedFileData;
 use Illuminate\Support\Str;
 
-class StoreFileAction
+class StoreFileAction implements StoreFileActionInterface
 {
     public function execute(UploadedFileData $data): bool|string
     {

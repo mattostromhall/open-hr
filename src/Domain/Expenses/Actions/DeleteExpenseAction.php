@@ -2,9 +2,10 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\DeleteExpenseActionInterface;
 use Domain\Expenses\Models\Expense;
 
-class DeleteExpenseAction
+class DeleteExpenseAction implements DeleteExpenseActionInterface
 {
     public function execute(Expense $expense): bool
     {

@@ -2,12 +2,13 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\DocumentableDataFromDocumentPathActionInterface;
 use Domain\Files\DataTransferObjects\DocumentableData;
 use Domain\Files\Enums\DocumentableType;
 use Domain\People\Models\Person;
 use Illuminate\Support\Str;
 
-class DocumentableDataFromDocumentPathAction
+class DocumentableDataFromDocumentPathAction implements DocumentableDataFromDocumentPathActionInterface
 {
     public function execute(string $path): DocumentableData
     {

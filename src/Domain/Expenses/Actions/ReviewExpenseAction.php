@@ -2,21 +2,22 @@
 
 namespace Domain\Expenses\Actions;
 
+use Domain\Expenses\Actions\Contracts\ReviewExpenseActionInterface;
 use Domain\Expenses\Actions\Contracts\UpdateExpenseActionInterface;
 use Domain\Expenses\DataTransferObjects\ExpenseData;
 use Domain\Expenses\Models\Expense;
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 
-class ReviewExpenseAction
+class ReviewExpenseAction implements ReviewExpenseActionInterface
 {
     public function __construct(
         protected UpdateExpenseActionInterface $updateExpense,
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }

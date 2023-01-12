@@ -2,10 +2,8 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Absences\DataTransferObjects\HolidayData;
-use Domain\Absences\Models\Holiday;
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
@@ -16,8 +14,8 @@ class ReviewTrainingAction
 {
     public function __construct(
         protected UpdateTrainingAction $updateTraining,
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }

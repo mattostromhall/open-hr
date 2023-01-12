@@ -2,9 +2,10 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
 use Illuminate\Support\Facades\Storage;
 
-class CreateDirectoryAction
+class CreateDirectoryAction implements CreateDirectoryActionInterface
 {
     public function execute(string $path): bool
     {

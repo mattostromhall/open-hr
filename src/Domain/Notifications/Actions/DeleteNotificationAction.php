@@ -2,10 +2,10 @@
 
 namespace Domain\Notifications\Actions;
 
-use Domain\Notifications\DataTransferObjects\NotificationData;
+use Domain\Notifications\Actions\Contracts\DeleteNotificationActionInterface;
 use Domain\Notifications\Models\Notification;
 
-class DeleteNotificationAction
+class DeleteNotificationAction implements DeleteNotificationActionInterface
 {
     public function execute(Notification $notification): bool
     {

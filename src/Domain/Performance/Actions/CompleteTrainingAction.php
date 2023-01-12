@@ -2,8 +2,8 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
@@ -13,8 +13,8 @@ use Domain\Performance\Models\Training;
 class CompleteTrainingAction
 {
     public function __construct(
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }

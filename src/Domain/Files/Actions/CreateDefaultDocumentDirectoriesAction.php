@@ -2,10 +2,11 @@
 
 namespace Domain\Files\Actions;
 
+use Domain\Files\Actions\Contracts\CreateDefaultDocumentDirectoriesActionInterface;
 use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
 use Domain\Files\Enums\DocumentableType;
 
-class CreateDefaultDocumentDirectoriesAction
+class CreateDefaultDocumentDirectoriesAction implements CreateDefaultDocumentDirectoriesActionInterface
 {
     public function __construct(protected CreateDirectoryActionInterface $createDirectory)
     {

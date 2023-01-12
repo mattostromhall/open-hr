@@ -100,6 +100,14 @@ use Domain\Files\Actions\StoreDocumentAction;
 use Domain\Files\Actions\StoreFileAction;
 use Domain\Files\Actions\UploadDocumentAction;
 use Domain\Files\Actions\UploadDocumentsAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\DeleteNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\UpdateNotificationActionInterface;
+use Domain\Notifications\Actions\CreateNotificationAction;
+use Domain\Notifications\Actions\DeleteNotificationAction;
+use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\UpdateNotificationAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -171,6 +179,12 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(StoreFileActionInterface::class, StoreFileAction::class);
         $this->app->bind(UploadDocumentActionInterface::class, UploadDocumentAction::class);
         $this->app->bind(UploadDocumentsActionInterface::class, UploadDocumentsAction::class);
+
+        // Notification Contracts
+        $this->app->bind(CreateNotificationActionInterface::class, CreateNotificationAction::class);
+        $this->app->bind(DeleteNotificationActionInterface::class, DeleteNotificationAction::class);
+        $this->app->bind(SendEmailNotificationActionInterface::class, SendEmailNotificationAction::class);
+        $this->app->bind(UpdateNotificationActionInterface::class, UpdateNotificationAction::class);
     }
 
     /**

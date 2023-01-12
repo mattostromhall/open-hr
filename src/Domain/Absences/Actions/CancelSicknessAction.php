@@ -6,8 +6,8 @@ use Domain\Absences\Actions\Contracts\CancelSicknessActionInterface;
 use Domain\Absences\Actions\Contracts\DeleteSicknessActionInterface;
 use Domain\Absences\DataTransferObjects\SicknessData;
 use Domain\Absences\Models\Sickness;
-use Domain\Notifications\Actions\CreateNotificationAction;
-use Domain\Notifications\Actions\SendEmailNotificationAction;
+use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
@@ -16,8 +16,8 @@ class CancelSicknessAction implements CancelSicknessActionInterface
 {
     public function __construct(
         protected DeleteSicknessActionInterface $deleteSickness,
-        protected CreateNotificationAction $createNotification,
-        protected SendEmailNotificationAction $sendEmail
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
     ) {
         //
     }
