@@ -1,6 +1,6 @@
 <?php
 
-namespace Support\Contracts\Services;
+namespace Support\Services\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -8,7 +8,6 @@ use Illuminate\Support\Collection as SupportCollection;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
-use Support\Services\ReportBuilder;
 
 interface ReportBuilderInterface
 {
@@ -18,7 +17,7 @@ interface ReportBuilderInterface
 
     /**
      * @param SupportCollection<ReportConditionSetData> $conditionSets
-     * @return ReportBuilder
+     * @return ReportBuilderInterface
      */
     public function scaffold(SupportCollection $conditionSets): self;
 

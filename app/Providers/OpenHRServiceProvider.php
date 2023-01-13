@@ -247,7 +247,7 @@ use Support\Actions\DeleteReportAction;
 use Support\Actions\GenerateReportAction;
 use Support\Actions\StripScriptTagsAction;
 use Support\Actions\UpdateReportAction;
-use Support\Contracts\Services\ReportBuilderInterface;
+use Support\Services\Contracts\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
 
 class OpenHRServiceProvider extends ServiceProvider

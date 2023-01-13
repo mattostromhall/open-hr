@@ -5,13 +5,12 @@ namespace Support\Services;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
-use Support\Contracts\Services\ReportBuilderInterface;
 use Support\DataTransferObjects\ReportableColumnData;
 use Support\DataTransferObjects\ReportConditionData;
 use Support\DataTransferObjects\ReportConditionSetData;
 use Support\DataTransferObjects\ReportData;
 use Support\Models\Report;
-use UnexpectedValueException;
+use Support\Services\Contracts\ReportBuilderInterface;
 
 class ReportBuilder implements ReportBuilderInterface
 {
