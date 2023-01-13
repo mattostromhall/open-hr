@@ -5,9 +5,10 @@ namespace Support\Actions;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
 use League\Csv\Writer;
+use Support\Actions\Contracts\CreateCsvActionInterface;
 use Support\DataTransferObjects\CsvData;
 
-class CreateCsvAction
+class CreateCsvAction implements CreateCsvActionInterface
 {
     /**
      * @throws CannotInsertRecord

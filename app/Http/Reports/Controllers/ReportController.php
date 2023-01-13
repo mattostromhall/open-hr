@@ -10,9 +10,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
-use Support\Actions\DeleteReportAction;
-use Support\Actions\CreateReportAction;
-use Support\Actions\UpdateReportAction;
+use Support\Actions\Contracts\CreateReportActionInterface;
+use Support\Actions\Contracts\DeleteReportActionInterface;
+use Support\Actions\Contracts\UpdateReportActionInterface;
 use Support\Models\Report;
 
 class ReportController extends Controller
@@ -40,7 +40,7 @@ class ReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(ReportRequest $request, CreateReportAction $saveReport): RedirectResponse
+    public function store(ReportRequest $request, CreateReportActionInterface $saveReport): RedirectResponse
     {
         $this->authorize('create', Report::class);
 
@@ -62,7 +62,7 @@ class ReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(ReportRequest $request, Report $report, UpdateReportAction $updateReport): RedirectResponse
+    public function update(ReportRequest $request, Report $report, UpdateReportActionInterface $updateReport): RedirectResponse
     {
         $this->authorize('update', $report);
 
@@ -78,7 +78,7 @@ class ReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Report $report, DeleteReportAction $deleteReport): RedirectResponse
+    public function destroy(Report $report, DeleteReportActionInterface $deleteReport): RedirectResponse
     {
         $this->authorize('delete', $report);
 

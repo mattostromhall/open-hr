@@ -18,7 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use Support\Actions\CaptureExceptionAction;
+use Support\Actions\Contracts\CaptureExceptionActionInterface;
 
 class ExpenseController extends Controller
 {
@@ -30,7 +30,7 @@ class ExpenseController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(SubmitExpenseRequest $request, SubmitExpenseActionInterface $submitExpense, CaptureExceptionAction $captureException): RedirectResponse
+    public function store(SubmitExpenseRequest $request, SubmitExpenseActionInterface $submitExpense, CaptureExceptionActionInterface $captureException): RedirectResponse
     {
         $this->authorize('create', Expense::class);
 

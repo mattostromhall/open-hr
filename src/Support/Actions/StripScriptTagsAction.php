@@ -6,8 +6,9 @@ use DOMDocument;
 use DOMElement;
 use DOMText;
 use Illuminate\Support\Str;
+use Support\Actions\Contracts\StripScriptTagsActionInterface;
 
-class StripScriptTagsAction
+class StripScriptTagsAction implements StripScriptTagsActionInterface
 {
     public function execute(?string $html): string
     {

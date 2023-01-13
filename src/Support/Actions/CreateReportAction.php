@@ -2,10 +2,11 @@
 
 namespace Support\Actions;
 
+use Support\Actions\Contracts\CreateReportActionInterface;
 use Support\DataTransferObjects\ReportData;
 use Support\Models\Report;
 
-class CreateReportAction
+class CreateReportAction implements CreateReportActionInterface
 {
     public function execute(ReportData $data): Report
     {

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Inertia\Inertia;
 use Psr\Log\LogLevel;
-use Support\Actions\CaptureExceptionAction;
+use Support\Actions\Contracts\CaptureExceptionActionInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -58,7 +58,7 @@ class Handler extends ExceptionHandler
     public function report(Throwable $e)
     {
         if (app()->environment('production') && $this->shouldReport($e)) {
-            $exceptionLog = app(CaptureExceptionAction::class)->execute($e);
+            $exceptionLog = app(CaptureExceptionActionInterface::class)->execute($e);
 
             $this->hash = $exceptionLog->hash;
         }

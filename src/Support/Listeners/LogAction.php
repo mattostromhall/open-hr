@@ -3,7 +3,7 @@
 namespace Support\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Support\Actions\CreateActionLogAction;
+use Support\Actions\Contracts\CreateActionLogActionInterface;
 use Support\Contracts\ActionableEvent;
 use Support\DataTransferObjects\ActionLogData;
 
@@ -14,7 +14,7 @@ class LogAction implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(protected CreateActionLogAction $createActionLog)
+    public function __construct(protected CreateActionLogActionInterface $createActionLog)
     {
         //
     }

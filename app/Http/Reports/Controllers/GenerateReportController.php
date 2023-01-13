@@ -10,8 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\CannotInsertRecord;
-use Support\Actions\CaptureExceptionAction;
-use Support\Actions\GenerateReportAction;
+use Support\Actions\Contracts\CaptureExceptionActionInterface;
+use Support\Actions\Contracts\GenerateReportActionInterface;
 use Support\Models\Report;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -20,7 +20,7 @@ class GenerateReportController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(ReportRequest $request, GenerateReportAction $generateReport, CaptureExceptionAction $captureException): Response | RedirectResponse
+    public function store(ReportRequest $request, GenerateReportActionInterface $generateReport, CaptureExceptionActionInterface $captureException): Response | RedirectResponse
     {
         $this->authorize('create', Report::class);
 

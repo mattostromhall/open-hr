@@ -2,10 +2,11 @@
 
 namespace Support\Actions;
 
+use Support\Actions\Contracts\CreateActionLogActionInterface;
 use Support\DataTransferObjects\ActionLogData;
 use Support\Models\ActionLog;
 
-class CreateActionLogAction
+class CreateActionLogAction implements CreateActionLogActionInterface
 {
     public function execute(ActionLogData $data): ActionLog
     {

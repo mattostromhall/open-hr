@@ -229,6 +229,24 @@ use Domain\Recruitment\Actions\SubmitApplicationAction;
 use Domain\Recruitment\Actions\UpdateApplicationStatusAction;
 use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Illuminate\Support\ServiceProvider;
+use Support\Actions\CaptureExceptionAction;
+use Support\Actions\Contracts\CaptureExceptionActionInterface;
+use Support\Actions\Contracts\CreateActionLogActionInterface;
+use Support\Actions\Contracts\CreateCsvActionInterface;
+use Support\Actions\Contracts\CreateExceptionLogActionInterface;
+use Support\Actions\Contracts\CreateReportActionInterface;
+use Support\Actions\Contracts\DeleteReportActionInterface;
+use Support\Actions\Contracts\GenerateReportActionInterface;
+use Support\Actions\Contracts\StripScriptTagsActionInterface;
+use Support\Actions\Contracts\UpdateReportActionInterface;
+use Support\Actions\CreateActionLogAction;
+use Support\Actions\CreateCsvAction;
+use Support\Actions\CreateExceptionLogAction;
+use Support\Actions\CreateReportAction;
+use Support\Actions\DeleteReportAction;
+use Support\Actions\GenerateReportAction;
+use Support\Actions\StripScriptTagsAction;
+use Support\Actions\UpdateReportAction;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
 
@@ -241,7 +259,17 @@ class OpenHRServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Support Contracts
         $this->app->bind(ReportBuilderInterface::class, ReportBuilder::class);
+        $this->app->bind(CaptureExceptionActionInterface::class, CaptureExceptionAction::class);
+        $this->app->bind(CreateActionLogActionInterface::class, CreateActionLogAction::class);
+        $this->app->bind(CreateCsvActionInterface::class, CreateCsvAction::class);
+        $this->app->bind(CreateExceptionLogActionInterface::class, CreateExceptionLogAction::class);
+        $this->app->bind(CreateReportActionInterface::class, CreateReportAction::class);
+        $this->app->bind(DeleteReportActionInterface::class, DeleteReportAction::class);
+        $this->app->bind(GenerateReportActionInterface::class, GenerateReportAction::class);
+        $this->app->bind(StripScriptTagsActionInterface::class, StripScriptTagsAction::class);
+        $this->app->bind(UpdateReportActionInterface::class, UpdateReportAction::class);
 
         // Absence Contracts
         $this->app->bind(AmendHolidayActionInterface::class, AmendHolidayAction::class);

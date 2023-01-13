@@ -4,15 +4,17 @@ namespace Support\Actions;
 
 use Illuminate\Support\Str;
 use League\Csv\CannotInsertRecord;
+use Support\Actions\Contracts\CreateCsvActionInterface;
+use Support\Actions\Contracts\GenerateReportActionInterface;
 use Support\DataTransferObjects\CsvData;
 use Support\DataTransferObjects\ReportableColumnData;
 use Support\DataTransferObjects\ReportData;
 use Support\Models\Report;
 use Support\Services\ReportBuilder;
 
-class GenerateReportAction
+class GenerateReportAction implements GenerateReportActionInterface
 {
-    public function __construct(protected CreateCsvAction $createCsv)
+    public function __construct(protected CreateCsvActionInterface $createCsv)
     {
         //
     }
