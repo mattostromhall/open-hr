@@ -5,16 +5,18 @@ namespace Domain\Performance\Actions;
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\OneToOneInviteResponseActionInterface;
+use Domain\Performance\Actions\Contracts\UpdateOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Mail\OneToOneInviteResponse;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Support\Facades\Mail;
 
-class OneToOneInviteResponseAction
+class OneToOneInviteResponseAction implements OneToOneInviteResponseActionInterface
 {
     public function __construct(
-        protected UpdateOneToOneAction $updateOneToOne,
+        protected UpdateOneToOneActionInterface $updateOneToOne,
         protected CreateNotificationActionInterface $createNotification
     ) {
         //

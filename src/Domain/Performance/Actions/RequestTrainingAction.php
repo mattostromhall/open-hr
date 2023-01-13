@@ -2,14 +2,17 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\RequestTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\RequestTrainingReviewActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class RequestTrainingAction
+class RequestTrainingAction implements RequestTrainingActionInterface
 {
     public function __construct(
-        protected CreateTrainingAction $createTraining,
-        protected RequestTrainingReviewAction $requestReview
+        protected CreateTrainingActionInterface $createTraining,
+        protected RequestTrainingReviewActionInterface $requestReview
     ) {
         //
     }

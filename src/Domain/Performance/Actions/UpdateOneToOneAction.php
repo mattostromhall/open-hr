@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\UpdateOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 
-class UpdateOneToOneAction
+class UpdateOneToOneAction implements UpdateOneToOneActionInterface
 {
     public function execute(OneToOne $oneToOne, OneToOneData $data): bool
     {

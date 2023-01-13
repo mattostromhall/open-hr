@@ -2,13 +2,10 @@
 
 namespace App\Http\Performance\Controllers;
 
-use App\Http\Performance\Requests\StoreTrainingRequest;
 use App\Http\Performance\Requests\UpdateTrainingRequest;
 use App\Http\Performance\ViewModels\ReviewTrainingViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\RequestTrainingAction;
-use Domain\Performance\Actions\ReviewTrainingAction;
-use Domain\Performance\DataTransferObjects\TrainingData;
+use Domain\Performance\Actions\Contracts\ReviewTrainingActionInterface;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +28,7 @@ class ReviewTrainingController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateTrainingRequest $request, Training $training, ReviewTrainingAction $reviewTraining): RedirectResponse
+    public function update(UpdateTrainingRequest $request, Training $training, ReviewTrainingActionInterface $reviewTraining): RedirectResponse
     {
         $this->authorize('review', $training);
 

@@ -2,6 +2,8 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateOneToOneRecurrenceActionInterface;
+use Domain\Performance\Actions\Contracts\ScheduleOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Enums\RecurrenceInterval;
@@ -9,9 +11,9 @@ use Domain\Performance\Models\OneToOne;
 use Exception;
 use Illuminate\Support\Carbon;
 
-class CreateOneToOneRecurrenceAction
+class CreateOneToOneRecurrenceAction implements CreateOneToOneRecurrenceActionInterface
 {
-    public function __construct(protected ScheduleOneToOneAction $scheduleOneToOne)
+    public function __construct(protected ScheduleOneToOneActionInterface $scheduleOneToOne)
     {
         //
     }

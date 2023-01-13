@@ -2,12 +2,10 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Performance\DataTransferObjects\ObjectiveData;
-use Domain\Performance\DataTransferObjects\TaskData;
-use Domain\Performance\Models\Objective;
+use Domain\Performance\Actions\Contracts\DeleteTaskActionInterface;
 use Domain\Performance\Models\Task;
 
-class DeleteTaskAction
+class DeleteTaskAction implements DeleteTaskActionInterface
 {
     public function execute(Task $task): bool
     {

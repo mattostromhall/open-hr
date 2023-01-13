@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\UpdateTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class UpdateTrainingAction
+class UpdateTrainingAction implements UpdateTrainingActionInterface
 {
     public function execute(Training $training, TrainingData $data): bool
     {

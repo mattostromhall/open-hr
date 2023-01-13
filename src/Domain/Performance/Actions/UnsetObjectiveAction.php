@@ -7,13 +7,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\DeleteObjectiveActionInterface;
+use Domain\Performance\Actions\Contracts\UnsetObjectiveActionInterface;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
-class UnsetObjectiveAction
+class UnsetObjectiveAction implements UnsetObjectiveActionInterface
 {
     public function __construct(
-        protected DeleteObjectiveAction $deleteObjective,
+        protected DeleteObjectiveActionInterface $deleteObjective,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {

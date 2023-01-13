@@ -6,9 +6,9 @@ use App\Http\Performance\Requests\StoreOneToOneRequest;
 use App\Http\Performance\Requests\UpdateOneToOneRequest;
 use App\Http\Performance\ViewModels\OneToOneViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\AmendOneToOneAction;
-use Domain\Performance\Actions\CancelOneToOneAction;
-use Domain\Performance\Actions\ScheduleOneToOneAction;
+use Domain\Performance\Actions\Contracts\AmendOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\CancelOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\ScheduleOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,7 +22,7 @@ class OneToOneController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreOneToOneRequest $request, ScheduleOneToOneAction $scheduleOneToOne): RedirectResponse
+    public function store(StoreOneToOneRequest $request, ScheduleOneToOneActionInterface $scheduleOneToOne): RedirectResponse
     {
         $this->authorize('create', OneToOne::class);
 
@@ -56,7 +56,7 @@ class OneToOneController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, AmendOneToOneAction $amendOneToOne): RedirectResponse
+    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, AmendOneToOneActionInterface $amendOneToOne): RedirectResponse
     {
         $this->authorize('update', $oneToOne);
 
@@ -74,7 +74,7 @@ class OneToOneController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(OneToOne $oneToOne, CancelOneToOneAction $cancelOneToOne): RedirectResponse
+    public function destroy(OneToOne $oneToOne, CancelOneToOneActionInterface $cancelOneToOne): RedirectResponse
     {
         $this->authorize('delete', $oneToOne);
 

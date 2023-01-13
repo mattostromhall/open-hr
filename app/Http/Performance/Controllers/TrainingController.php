@@ -7,9 +7,9 @@ use App\Http\Performance\Requests\UpdateTrainingRequest;
 use App\Http\Performance\ViewModels\TrainingIndexViewModel;
 use App\Http\Performance\ViewModels\TrainingViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\AmendTrainingAction;
-use Domain\Performance\Actions\CancelTrainingAction;
-use Domain\Performance\Actions\RequestTrainingAction;
+use Domain\Performance\Actions\Contracts\AmendTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\CancelTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\RequestTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -28,7 +28,7 @@ class TrainingController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreTrainingRequest $request, RequestTrainingAction $requestTraining): RedirectResponse
+    public function store(StoreTrainingRequest $request, RequestTrainingActionInterface $requestTraining): RedirectResponse
     {
         $this->authorize('create', Training::class);
 
@@ -62,7 +62,7 @@ class TrainingController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateTrainingRequest $request, Training $training, AmendTrainingAction $amendTraining): RedirectResponse
+    public function update(UpdateTrainingRequest $request, Training $training, AmendTrainingActionInterface $amendTraining): RedirectResponse
     {
         $this->authorize('update', $training);
 
@@ -80,7 +80,7 @@ class TrainingController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Training $training, CancelTrainingAction $cancelTraining): RedirectResponse
+    public function destroy(Training $training, CancelTrainingActionInterface $cancelTraining): RedirectResponse
     {
         $this->authorize('delete', $training);
 

@@ -2,14 +2,17 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\OneToOneInviteActionInterface;
+use Domain\Performance\Actions\Contracts\ScheduleOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 
-class ScheduleOneToOneAction
+class ScheduleOneToOneAction implements ScheduleOneToOneActionInterface
 {
     public function __construct(
-        protected CreateOneToOneAction $createOneToOne,
-        protected OneToOneInviteAction $oneToOneInvite
+        protected CreateOneToOneActionInterface $createOneToOne,
+        protected OneToOneInviteActionInterface $oneToOneInvite
     ) {
         //
     }

@@ -5,13 +5,15 @@ namespace Domain\Performance\Actions;
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\CreateObjectiveActionInterface;
+use Domain\Performance\Actions\Contracts\SetObjectiveActionInterface;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
-class SetObjectiveAction
+class SetObjectiveAction implements SetObjectiveActionInterface
 {
     public function __construct(
-        protected CreateObjectiveAction $createObjective,
+        protected CreateObjectiveActionInterface $createObjective,
         protected CreateNotificationActionInterface $createNotification
     ) {
         //

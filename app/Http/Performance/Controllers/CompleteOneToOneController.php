@@ -3,7 +3,7 @@
 namespace App\Http\Performance\Controllers;
 
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\CompleteOneToOneAction;
+use Domain\Performance\Actions\Contracts\CompleteOneToOneActionInterface;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -14,11 +14,8 @@ class CompleteOneToOneController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function __invoke(
-        Request $request,
-        OneToOne $oneToOne,
-        CompleteOneToOneAction $completeOneToOne
-    ): RedirectResponse {
+    public function __invoke(Request $request, OneToOne $oneToOne, CompleteOneToOneActionInterface $completeOneToOne): RedirectResponse
+    {
         $this->authorize('complete', $oneToOne);
 
         $completed = $completeOneToOne->execute($oneToOne);

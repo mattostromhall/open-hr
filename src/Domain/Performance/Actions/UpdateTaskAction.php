@@ -2,12 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
-use Domain\Performance\DataTransferObjects\ObjectiveData;
+use Domain\Performance\Actions\Contracts\UpdateTaskActionInterface;
 use Domain\Performance\DataTransferObjects\TaskData;
-use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
 
-class UpdateTaskAction
+class UpdateTaskAction implements UpdateTaskActionInterface
 {
     public function execute(Task $task, TaskData $data): bool
     {

@@ -2,14 +2,17 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\AmendTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\RequestTrainingReviewActionInterface;
+use Domain\Performance\Actions\Contracts\UpdateTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class AmendTrainingAction
+class AmendTrainingAction implements AmendTrainingActionInterface
 {
     public function __construct(
-        protected UpdateTrainingAction $updateTraining,
-        protected RequestTrainingReviewAction $requestReview
+        protected UpdateTrainingActionInterface $updateTraining,
+        protected RequestTrainingReviewActionInterface $requestReview
     ) {
         //
     }

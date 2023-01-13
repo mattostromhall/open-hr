@@ -2,14 +2,16 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CompleteOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\CreateOneToOneRecurrenceActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Enums\OneToOneStatus;
 use Domain\Performance\Models\OneToOne;
 use Exception;
 
-class CompleteOneToOneAction
+class CompleteOneToOneAction implements CompleteOneToOneActionInterface
 {
-    public function __construct(protected CreateOneToOneRecurrenceAction $createRecurrence)
+    public function __construct(protected CreateOneToOneRecurrenceActionInterface $createRecurrence)
     {
         //
     }

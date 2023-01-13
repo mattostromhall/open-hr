@@ -5,13 +5,15 @@ namespace Domain\Performance\Actions;
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\CreateTaskActionInterface;
+use Domain\Performance\Actions\Contracts\SetTaskActionInterface;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Task;
 
-class SetTaskAction
+class SetTaskAction implements SetTaskActionInterface
 {
     public function __construct(
-        protected CreateTaskAction $createTask,
+        protected CreateTaskActionInterface $createTask,
         protected CreateNotificationActionInterface $createNotification
     ) {
         //

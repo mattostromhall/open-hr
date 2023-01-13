@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class CreateTrainingAction
+class CreateTrainingAction implements CreateTrainingActionInterface
 {
     public function execute(TrainingData $data): Training
     {

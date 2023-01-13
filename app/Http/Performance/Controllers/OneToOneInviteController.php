@@ -5,8 +5,7 @@ namespace App\Http\Performance\Controllers;
 use App\Http\Performance\Requests\UpdateOneToOneRequest;
 use App\Http\Performance\ViewModels\OneToOneViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\OneToOneInviteResponseAction;
-use Domain\Performance\DataTransferObjects\OneToOneData;
+use Domain\Performance\Actions\Contracts\OneToOneInviteResponseActionInterface;
 use Domain\Performance\Models\OneToOne;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -29,7 +28,7 @@ class OneToOneInviteController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseAction $inviteResponse): RedirectResponse
+    public function update(UpdateOneToOneRequest $request, OneToOne $oneToOne, OneToOneInviteResponseActionInterface $inviteResponse): RedirectResponse
     {
         $this->authorize('update', $oneToOne);
 

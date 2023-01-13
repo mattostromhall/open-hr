@@ -7,10 +7,11 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\RequestTrainingReviewActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class RequestTrainingReviewAction
+class RequestTrainingReviewAction implements RequestTrainingReviewActionInterface
 {
     public function __construct(
         protected CreateNotificationActionInterface $createNotification,

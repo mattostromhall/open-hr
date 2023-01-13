@@ -3,7 +3,7 @@
 namespace App\Http\Performance\Controllers;
 
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\CompleteObjectiveAction;
+use Domain\Performance\Actions\Contracts\CompleteObjectiveActionInterface;
 use Domain\Performance\Models\Objective;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +14,7 @@ class CompleteObjectiveController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function __invoke(Request $request, Objective $objective, CompleteObjectiveAction $completeObjective): RedirectResponse
+    public function __invoke(Request $request, Objective $objective, CompleteObjectiveActionInterface $completeObjective): RedirectResponse
     {
         $this->authorize('complete', $objective);
 

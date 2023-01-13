@@ -3,7 +3,7 @@
 namespace App\Http\Performance\Controllers;
 
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\CompleteTrainingAction;
+use Domain\Performance\Actions\Contracts\CompleteTrainingActionInterface;
 use Domain\Performance\Models\Training;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +14,7 @@ class CompleteTrainingController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function __invoke(Request $request, Training $training, CompleteTrainingAction $completeTraining): RedirectResponse
+    public function __invoke(Request $request, Training $training, CompleteTrainingActionInterface $completeTraining): RedirectResponse
     {
         $this->authorize('complete', $training);
 

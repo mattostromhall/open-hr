@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateTaskActionInterface;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Task;
 
-class CreateTaskAction
+class CreateTaskAction implements CreateTaskActionInterface
 {
     public function execute(TaskData $data): Task
     {

@@ -7,13 +7,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\ReviewTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\UpdateTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class ReviewTrainingAction
+class ReviewTrainingAction implements ReviewTrainingActionInterface
 {
     public function __construct(
-        protected UpdateTrainingAction $updateTraining,
+        protected UpdateTrainingActionInterface $updateTraining,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {

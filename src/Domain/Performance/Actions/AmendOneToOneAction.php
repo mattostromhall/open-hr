@@ -2,16 +2,20 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\AmendOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\CreateOneToOneRecurrenceActionInterface;
+use Domain\Performance\Actions\Contracts\OneToOneInviteActionInterface;
+use Domain\Performance\Actions\Contracts\UpdateOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 use Exception;
 
-class AmendOneToOneAction
+class AmendOneToOneAction implements AmendOneToOneActionInterface
 {
     public function __construct(
-        protected UpdateOneToOneAction $updateOneToOne,
-        protected CreateOneToOneRecurrenceAction $createRecurrence,
-        protected OneToOneInviteAction $oneToOneInvite
+        protected UpdateOneToOneActionInterface $updateOneToOne,
+        protected CreateOneToOneRecurrenceActionInterface $createRecurrence,
+        protected OneToOneInviteActionInterface $oneToOneInvite
     ) {
         //
     }

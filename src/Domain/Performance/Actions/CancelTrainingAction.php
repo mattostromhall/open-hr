@@ -7,13 +7,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\CancelTrainingActionInterface;
+use Domain\Performance\Actions\Contracts\DeleteTrainingActionInterface;
 use Domain\Performance\DataTransferObjects\TrainingData;
 use Domain\Performance\Models\Training;
 
-class CancelTrainingAction
+class CancelTrainingAction implements CancelTrainingActionInterface
 {
     public function __construct(
-        protected DeleteTrainingAction $deleteTraining,
+        protected DeleteTrainingActionInterface $deleteTraining,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {

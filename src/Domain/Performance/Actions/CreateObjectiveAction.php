@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateObjectiveActionInterface;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
-class CreateObjectiveAction
+class CreateObjectiveAction implements CreateObjectiveActionInterface
 {
     public function execute(ObjectiveData $data): Objective
     {

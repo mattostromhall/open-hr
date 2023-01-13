@@ -7,13 +7,15 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\CancelOneToOneActionInterface;
+use Domain\Performance\Actions\Contracts\DeleteOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 
-class CancelOneToOneAction
+class CancelOneToOneAction implements CancelOneToOneActionInterface
 {
     public function __construct(
-        protected DeleteOneToOneAction $deleteOneToOne,
+        protected DeleteOneToOneActionInterface $deleteOneToOne,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {

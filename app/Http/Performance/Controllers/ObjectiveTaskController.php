@@ -5,9 +5,9 @@ namespace App\Http\Performance\Controllers;
 use App\Http\Performance\Requests\StoreTaskRequest;
 use App\Http\Performance\Requests\UpdateTaskRequest;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\AmendTaskAction;
-use Domain\Performance\Actions\SetTaskAction;
-use Domain\Performance\Actions\UnsetTaskAction;
+use Domain\Performance\Actions\Contracts\AmendTaskActionInterface;
+use Domain\Performance\Actions\Contracts\SetTaskActionInterface;
+use Domain\Performance\Actions\Contracts\UnsetTaskActionInterface;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
@@ -20,7 +20,7 @@ class ObjectiveTaskController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreTaskRequest $request, Objective $objective, SetTaskAction $setTask): RedirectResponse
+    public function store(StoreTaskRequest $request, Objective $objective, SetTaskActionInterface $setTask): RedirectResponse
     {
         $this->authorize('create', Task::class);
 
@@ -35,7 +35,7 @@ class ObjectiveTaskController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateTaskRequest $request, Task $task, AmendTaskAction $amendTask): RedirectResponse
+    public function update(UpdateTaskRequest $request, Task $task, AmendTaskActionInterface $amendTask): RedirectResponse
     {
         $this->authorize('update', $task);
 
@@ -53,7 +53,7 @@ class ObjectiveTaskController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Task $task, UnsetTaskAction $unsetTask): RedirectResponse
+    public function destroy(Task $task, UnsetTaskActionInterface $unsetTask): RedirectResponse
     {
         $this->authorize('delete', $task);
 

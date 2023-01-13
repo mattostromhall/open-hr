@@ -6,9 +6,9 @@ use App\Http\Performance\Requests\StoreObjectiveRequest;
 use App\Http\Performance\Requests\UpdateObjectiveRequest;
 use App\Http\Performance\ViewModels\ObjectiveViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\AmendObjectiveAction;
-use Domain\Performance\Actions\SetObjectiveAction;
-use Domain\Performance\Actions\UnsetObjectiveAction;
+use Domain\Performance\Actions\Contracts\AmendObjectiveActionInterface;
+use Domain\Performance\Actions\Contracts\SetObjectiveActionInterface;
+use Domain\Performance\Actions\Contracts\UnsetObjectiveActionInterface;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,7 +22,7 @@ class ObjectiveController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreObjectiveRequest $request, SetObjectiveAction $setObjective): RedirectResponse
+    public function store(StoreObjectiveRequest $request, SetObjectiveActionInterface $setObjective): RedirectResponse
     {
         $this->authorize('create', Objective::class);
 
@@ -57,7 +57,7 @@ class ObjectiveController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateObjectiveRequest $request, Objective $objective, AmendObjectiveAction $amendObjective): RedirectResponse
+    public function update(UpdateObjectiveRequest $request, Objective $objective, AmendObjectiveActionInterface $amendObjective): RedirectResponse
     {
         $this->authorize('update', $objective);
 
@@ -77,7 +77,7 @@ class ObjectiveController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Objective $objective, UnsetObjectiveAction $unsetObjective): RedirectResponse
+    public function destroy(Objective $objective, UnsetObjectiveActionInterface $unsetObjective): RedirectResponse
     {
         $this->authorize('delete', $objective);
 

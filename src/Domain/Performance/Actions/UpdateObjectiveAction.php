@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\UpdateObjectiveActionInterface;
 use Domain\Performance\DataTransferObjects\ObjectiveData;
 use Domain\Performance\Models\Objective;
 
-class UpdateObjectiveAction
+class UpdateObjectiveAction implements UpdateObjectiveActionInterface
 {
     public function execute(Objective $objective, ObjectiveData $data): bool
     {

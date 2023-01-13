@@ -3,9 +3,7 @@
 namespace App\Http\Performance\Controllers;
 
 use App\Http\Support\Controllers\Controller;
-use Domain\Performance\Actions\CompleteObjectiveAction;
-use Domain\Performance\Actions\CompleteTaskAction;
-use Domain\Performance\Models\Objective;
+use Domain\Performance\Actions\Contracts\CompleteTaskActionInterface;
 use Domain\Performance\Models\Task;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +14,7 @@ class CompleteTaskController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function __invoke(Request $request, Task $task, CompleteTaskAction $completeTask): RedirectResponse
+    public function __invoke(Request $request, Task $task, CompleteTaskActionInterface $completeTask): RedirectResponse
     {
         $this->authorize('complete', $task);
 

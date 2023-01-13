@@ -2,10 +2,11 @@
 
 namespace Domain\Performance\Actions;
 
+use Domain\Performance\Actions\Contracts\CreateOneToOneActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
 use Domain\Performance\Models\OneToOne;
 
-class CreateOneToOneAction
+class CreateOneToOneAction implements CreateOneToOneActionInterface
 {
     public function execute(OneToOneData $data): OneToOne
     {

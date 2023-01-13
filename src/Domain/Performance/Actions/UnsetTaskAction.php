@@ -7,14 +7,16 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Performance\Actions\Contracts\DeleteTaskActionInterface;
+use Domain\Performance\Actions\Contracts\UnsetTaskActionInterface;
 use Domain\Performance\DataTransferObjects\TaskData;
 use Domain\Performance\Models\Task;
 use Illuminate\Support\Str;
 
-class UnsetTaskAction
+class UnsetTaskAction implements UnsetTaskActionInterface
 {
     public function __construct(
-        protected DeleteTaskAction $deleteTask,
+        protected DeleteTaskActionInterface $deleteTask,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail
     ) {
