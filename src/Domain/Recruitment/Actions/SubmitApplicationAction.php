@@ -12,16 +12,17 @@ use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
+use Domain\Recruitment\Actions\Contracts\CreateApplicationActionInterface;
+use Domain\Recruitment\Actions\Contracts\SubmitApplicationActionInterface;
 use Domain\Recruitment\DataTransferObjects\SubmittedApplicationData;
 use Domain\Recruitment\Models\Application;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class SubmitApplicationAction
+class SubmitApplicationAction implements SubmitApplicationActionInterface
 {
     public function __construct(
-        protected CreateApplicationAction $createApplication,
+        protected CreateApplicationActionInterface $createApplication,
         protected UploadDocumentActionInterface $uploadCV,
         protected CreateNotificationActionInterface $createNotification,
         protected SendEmailNotificationActionInterface $sendEmail

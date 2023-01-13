@@ -214,6 +214,20 @@ use Domain\Performance\Actions\UpdateObjectiveAction;
 use Domain\Performance\Actions\UpdateOneToOneAction;
 use Domain\Performance\Actions\UpdateTaskAction;
 use Domain\Performance\Actions\UpdateTrainingAction;
+use Domain\Recruitment\Actions\Contracts\CreateApplicationActionInterface;
+use Domain\Recruitment\Actions\Contracts\CreateVacancyActionInterface;
+use Domain\Recruitment\Actions\Contracts\DeleteApplicationActionInterface;
+use Domain\Recruitment\Actions\Contracts\DeleteVacancyActionInterface;
+use Domain\Recruitment\Actions\Contracts\SubmitApplicationActionInterface;
+use Domain\Recruitment\Actions\Contracts\UpdateApplicationStatusActionInterface;
+use Domain\Recruitment\Actions\Contracts\UpdateVacancyActionInterface;
+use Domain\Recruitment\Actions\CreateApplicationAction;
+use Domain\Recruitment\Actions\CreateVacancyAction;
+use Domain\Recruitment\Actions\DeleteApplicationAction;
+use Domain\Recruitment\Actions\DeleteVacancyAction;
+use Domain\Recruitment\Actions\SubmitApplicationAction;
+use Domain\Recruitment\Actions\UpdateApplicationStatusAction;
+use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -350,6 +364,15 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(UpdateOneToOneActionInterface::class, UpdateOneToOneAction::class);
         $this->app->bind(UpdateTaskActionInterface::class, UpdateTaskAction::class);
         $this->app->bind(UpdateTrainingActionInterface::class, UpdateTrainingAction::class);
+
+        // Recruitment Contracts
+        $this->app->bind(CreateApplicationActionInterface::class, CreateApplicationAction::class);
+        $this->app->bind(CreateVacancyActionInterface::class, CreateVacancyAction::class);
+        $this->app->bind(DeleteApplicationActionInterface::class, DeleteApplicationAction::class);
+        $this->app->bind(DeleteVacancyActionInterface::class, DeleteVacancyAction::class);
+        $this->app->bind(SubmitApplicationActionInterface::class, SubmitApplicationAction::class);
+        $this->app->bind(UpdateApplicationStatusActionInterface::class, UpdateApplicationStatusAction::class);
+        $this->app->bind(UpdateVacancyActionInterface::class, UpdateVacancyAction::class);
     }
 
     /**

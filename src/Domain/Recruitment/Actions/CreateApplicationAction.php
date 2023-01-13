@@ -2,10 +2,11 @@
 
 namespace Domain\Recruitment\Actions;
 
+use Domain\Recruitment\Actions\Contracts\CreateApplicationActionInterface;
 use Domain\Recruitment\DataTransferObjects\ApplicationData;
 use Domain\Recruitment\Models\Application;
 
-class CreateApplicationAction
+class CreateApplicationAction implements CreateApplicationActionInterface
 {
     public function execute(ApplicationData $data): Application
     {

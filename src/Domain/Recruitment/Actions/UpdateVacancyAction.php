@@ -2,10 +2,11 @@
 
 namespace Domain\Recruitment\Actions;
 
+use Domain\Recruitment\Actions\Contracts\UpdateVacancyActionInterface;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Models\Vacancy;
 
-class UpdateVacancyAction
+class UpdateVacancyAction implements UpdateVacancyActionInterface
 {
     public function execute(Vacancy $vacancy, VacancyData $data): bool
     {

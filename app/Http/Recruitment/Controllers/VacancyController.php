@@ -7,9 +7,9 @@ use App\Http\Recruitment\Requests\UpdateVacancyRequest;
 use App\Http\Recruitment\ViewModels\VacanciesViewModel;
 use App\Http\Recruitment\ViewModels\VacancyViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Recruitment\Actions\CreateVacancyAction;
-use Domain\Recruitment\Actions\DeleteVacancyAction;
-use Domain\Recruitment\Actions\UpdateVacancyAction;
+use Domain\Recruitment\Actions\Contracts\CreateVacancyActionInterface;
+use Domain\Recruitment\Actions\Contracts\DeleteVacancyActionInterface;
+use Domain\Recruitment\Actions\Contracts\UpdateVacancyActionInterface;
 use Domain\Recruitment\Models\Vacancy;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +31,7 @@ class VacancyController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StoreVacancyRequest $request, CreateVacancyAction $createVacancy): RedirectResponse
+    public function store(StoreVacancyRequest $request, CreateVacancyActionInterface $createVacancy): RedirectResponse
     {
         $this->authorize('create', Vacancy::class);
 
@@ -63,7 +63,7 @@ class VacancyController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdateVacancyRequest $request, Vacancy $vacancy, UpdateVacancyAction $updateVacancy): RedirectResponse
+    public function update(UpdateVacancyRequest $request, Vacancy $vacancy, UpdateVacancyActionInterface $updateVacancy): RedirectResponse
     {
         $this->authorize('update', $vacancy);
 
@@ -79,7 +79,7 @@ class VacancyController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Vacancy $vacancy, DeleteVacancyAction $deleteVacancy): RedirectResponse
+    public function destroy(Vacancy $vacancy, DeleteVacancyActionInterface $deleteVacancy): RedirectResponse
     {
         $this->authorize('delete', $vacancy);
 

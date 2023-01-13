@@ -5,8 +5,8 @@ namespace App\Http\Recruitment\Controllers;
 use App\Http\Recruitment\Requests\SubmitApplicationRequest;
 use App\Http\Recruitment\ViewModels\ApplicationViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\Recruitment\Actions\DeleteApplicationAction;
-use Domain\Recruitment\Actions\SubmitApplicationAction;
+use Domain\Recruitment\Actions\Contracts\DeleteApplicationActionInterface;
+use Domain\Recruitment\Actions\Contracts\SubmitApplicationActionInterface;
 use Domain\Recruitment\Models\Application;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +16,7 @@ use Inertia\Response;
 
 class ApplicationController extends Controller
 {
-    public function store(SubmitApplicationRequest $request, SubmitApplicationAction $submitApplication): RedirectResponse
+    public function store(SubmitApplicationRequest $request, SubmitApplicationActionInterface $submitApplication): RedirectResponse
     {
         DB::transaction(
             fn () => $submitApplication->execute($request->submittedApplicationData())
@@ -38,7 +38,7 @@ class ApplicationController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Application $application, DeleteApplicationAction $deleteApplication): RedirectResponse
+    public function destroy(Application $application, DeleteApplicationActionInterface $deleteApplication): RedirectResponse
     {
         $this->authorize('delete', $application);
 

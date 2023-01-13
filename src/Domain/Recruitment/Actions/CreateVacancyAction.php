@@ -2,10 +2,11 @@
 
 namespace Domain\Recruitment\Actions;
 
+use Domain\Recruitment\Actions\Contracts\CreateVacancyActionInterface;
 use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Models\Vacancy;
 
-class CreateVacancyAction
+class CreateVacancyAction implements CreateVacancyActionInterface
 {
     public function execute(VacancyData $data): Vacancy
     {

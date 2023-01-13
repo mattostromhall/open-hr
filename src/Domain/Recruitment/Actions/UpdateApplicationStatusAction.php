@@ -2,11 +2,11 @@
 
 namespace Domain\Recruitment\Actions;
 
-use Domain\Recruitment\DataTransferObjects\ApplicationData;
+use Domain\Recruitment\Actions\Contracts\UpdateApplicationStatusActionInterface;
 use Domain\Recruitment\Enums\ApplicationStatus;
 use Domain\Recruitment\Models\Application;
 
-class UpdateApplicationStatusAction
+class UpdateApplicationStatusAction implements UpdateApplicationStatusActionInterface
 {
     public function execute(Application $application, ApplicationStatus $status): bool
     {
