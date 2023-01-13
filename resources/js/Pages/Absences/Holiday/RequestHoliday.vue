@@ -9,6 +9,8 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
 import type {Holiday} from '../../../types'
+import type {ComputedRef} from 'vue'
+import {computed} from 'vue'
 
 type HolidayRequestData = Omit<Holiday, 'id'>
 
@@ -29,6 +31,15 @@ const form: InertiaForm<HolidayRequestData> = useForm({
     half_day: undefined,
     notes: undefined
 })
+
+const sameDay: ComputedRef<boolean> = computed(() => {
+    const start = new Date(form.start_at)
+    const finish = new Date(form.finish_at)
+
+    return start.getFullYear() === finish.getFullYear()
+        && start.getMonth() === finish.getMonth()
+        && start.getDate() === finish.getDate()
+} )
 
 function submit(): void {
     if (form.half_day) {
@@ -86,7 +97,10 @@ function submit(): void {
                                 />
                             </div>
                         </div>
-                        <div class="col-span-6 sm:col-span-3">
+                        <div
+                            v-if="sameDay"
+                            class="col-span-6 sm:col-span-3"
+                        >
                             <FormLabel>Half day</FormLabel>
                             <div class="mt-1">
                                 <SelectInput
