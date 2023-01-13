@@ -25,6 +25,7 @@ use App\Http\Files\Controllers\DocumentController;
 use App\Http\Files\Controllers\DownloadDocumentController;
 use App\Http\Notifications\Controllers\NotificationController;
 use App\Http\Notifications\Controllers\OrganisationNotificationController;
+use App\Http\Notifications\Controllers\ReadAllNotificationsController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
 use App\Http\People\Controllers\DirectReportController;
@@ -112,8 +113,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::post('/organisation/notifications', [OrganisationNotificationController::class, 'store'])
         ->name('organisation.notification.store');
 
-    Route::post('/notifications/read', ReadNotificationController::class)
-        ->name('notifications.read');
+    Route::post('/notifications/read', ReadAllNotificationsController::class)
+        ->name('notifications.all.read');
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
         ->name('notifications.read');
 

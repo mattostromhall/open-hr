@@ -102,10 +102,12 @@ use Domain\Files\Actions\UploadDocumentAction;
 use Domain\Files\Actions\UploadDocumentsAction;
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
 use Domain\Notifications\Actions\Contracts\DeleteNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\ReadAllNotificationsActionInterface;
 use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
 use Domain\Notifications\Actions\Contracts\UpdateNotificationActionInterface;
 use Domain\Notifications\Actions\CreateNotificationAction;
 use Domain\Notifications\Actions\DeleteNotificationAction;
+use Domain\Notifications\Actions\ReadAllNotificationsAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\Actions\UpdateNotificationAction;
 use Domain\Organisation\Actions\AmendDepartmentAction;
@@ -331,6 +333,7 @@ class OpenHRServiceProvider extends ServiceProvider
         // Notification Contracts
         $this->app->bind(CreateNotificationActionInterface::class, CreateNotificationAction::class);
         $this->app->bind(DeleteNotificationActionInterface::class, DeleteNotificationAction::class);
+        $this->app->bind(ReadAllNotificationsActionInterface::class, ReadAllNotificationsAction::class);
         $this->app->bind(SendEmailNotificationActionInterface::class, SendEmailNotificationAction::class);
         $this->app->bind(UpdateNotificationActionInterface::class, UpdateNotificationAction::class);
 
