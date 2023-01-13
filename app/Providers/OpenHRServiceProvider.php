@@ -126,6 +126,26 @@ use Domain\Organisation\Actions\DissolveDepartmentAction;
 use Domain\Organisation\Actions\ManageDepartmentMembersAction;
 use Domain\Organisation\Actions\SetupDepartmentAction;
 use Domain\Organisation\Actions\UpdateDepartmentAction;
+use Domain\People\Actions\Contracts\CreateAddressActionInterface;
+use Domain\People\Actions\Contracts\CreatePersonActionInterface;
+use Domain\People\Actions\Contracts\CreatePersonUserActionInterface;
+use Domain\People\Actions\Contracts\DeleteAddressActionInterface;
+use Domain\People\Actions\Contracts\DeletePersonActionInterface;
+use Domain\People\Actions\Contracts\DeletePersonUserActionInterface;
+use Domain\People\Actions\Contracts\ManageDirectReportsActionInterface;
+use Domain\People\Actions\Contracts\UpdateAddressActionInterface;
+use Domain\People\Actions\Contracts\UpdatePersonActionInterface;
+use Domain\People\Actions\Contracts\UpdatePersonProfileActionInterface;
+use Domain\People\Actions\CreateAddressAction;
+use Domain\People\Actions\CreatePersonAction;
+use Domain\People\Actions\CreatePersonUserAction;
+use Domain\People\Actions\DeleteAddressAction;
+use Domain\People\Actions\DeletePersonAction;
+use Domain\People\Actions\DeletePersonUserAction;
+use Domain\People\Actions\ManageDirectReportsAction;
+use Domain\People\Actions\UpdateAddressAction;
+use Domain\People\Actions\UpdatePersonAction;
+use Domain\People\Actions\UpdatePersonProfileAction;
 use Illuminate\Support\ServiceProvider;
 use Support\Contracts\Services\ReportBuilderInterface;
 use Support\Services\ReportBuilder;
@@ -214,6 +234,18 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(ManageDepartmentMembersActionInterface::class, ManageDepartmentMembersAction::class);
         $this->app->bind(SetupDepartmentActionInterface::class, SetupDepartmentAction::class);
         $this->app->bind(UpdateDepartmentActionInterface::class, UpdateDepartmentAction::class);
+
+        // People Contracts
+        $this->app->bind(CreateAddressActionInterface::class, CreateAddressAction::class);
+        $this->app->bind(CreatePersonActionInterface::class, CreatePersonAction::class);
+        $this->app->bind(CreatePersonUserActionInterface::class, CreatePersonUserAction::class);
+        $this->app->bind(DeleteAddressActionInterface::class, DeleteAddressAction::class);
+        $this->app->bind(DeletePersonActionInterface::class, DeletePersonAction::class);
+        $this->app->bind(DeletePersonUserActionInterface::class, DeletePersonUserAction::class);
+        $this->app->bind(ManageDirectReportsActionInterface::class, ManageDirectReportsAction::class);
+        $this->app->bind(UpdateAddressActionInterface::class, UpdateAddressAction::class);
+        $this->app->bind(UpdatePersonActionInterface::class, UpdatePersonAction::class);
+        $this->app->bind(UpdatePersonProfileActionInterface::class, UpdatePersonProfileAction::class);
     }
 
     /**

@@ -2,10 +2,11 @@
 
 namespace Domain\People\Actions;
 
+use Domain\People\Actions\Contracts\CreateAddressActionInterface;
 use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Address;
 
-class CreateAddressAction
+class CreateAddressAction implements CreateAddressActionInterface
 {
     public function execute(AddressData $data): Address
     {

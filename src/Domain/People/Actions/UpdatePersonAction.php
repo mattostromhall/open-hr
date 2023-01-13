@@ -2,10 +2,11 @@
 
 namespace Domain\People\Actions;
 
+use Domain\People\Actions\Contracts\UpdatePersonActionInterface;
 use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\Models\Person;
 
-class UpdatePersonAction
+class UpdatePersonAction implements UpdatePersonActionInterface
 {
     public function execute(Person $person, PersonData $data): bool
     {

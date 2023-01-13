@@ -4,9 +4,9 @@ namespace App\Http\People\Controllers;
 
 use App\Http\People\Requests\AddressRequest;
 use App\Http\Support\Controllers\Controller;
-use Domain\People\Actions\CreateAddressAction;
-use Domain\People\Actions\DeleteAddressAction;
-use Domain\People\Actions\UpdateAddressAction;
+use Domain\People\Actions\Contracts\CreateAddressActionInterface;
+use Domain\People\Actions\Contracts\DeleteAddressActionInterface;
+use Domain\People\Actions\Contracts\UpdateAddressActionInterface;
 use Domain\People\Models\Address;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +16,7 @@ class AddressController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(AddressRequest $request, CreateAddressAction $createAddress): RedirectResponse
+    public function store(AddressRequest $request, CreateAddressActionInterface $createAddress): RedirectResponse
     {
         $this->authorize('create', Address::class);
 
@@ -28,7 +28,7 @@ class AddressController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(AddressRequest $request, Address $address, UpdateAddressAction $updateAddress): RedirectResponse
+    public function update(AddressRequest $request, Address $address, UpdateAddressActionInterface $updateAddress): RedirectResponse
     {
         $this->authorize('update', $address);
 
@@ -44,7 +44,7 @@ class AddressController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Address $address, DeleteAddressAction $deleteAddress): RedirectResponse
+    public function destroy(Address $address, DeleteAddressActionInterface $deleteAddress): RedirectResponse
     {
         $this->authorize('delete', $address);
 

@@ -2,10 +2,11 @@
 
 namespace Domain\People\Actions;
 
+use Domain\People\Actions\Contracts\CreatePersonActionInterface;
 use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\Models\Person;
 
-class CreatePersonAction
+class CreatePersonAction implements CreatePersonActionInterface
 {
     public function execute(PersonData $data): Person
     {

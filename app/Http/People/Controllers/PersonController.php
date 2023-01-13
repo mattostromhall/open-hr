@@ -8,9 +8,9 @@ use App\Http\People\ViewModels\CreatePersonViewModel;
 use App\Http\People\ViewModels\PeopleViewModel;
 use App\Http\People\ViewModels\PersonViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\People\Actions\CreatePersonUserAction;
-use Domain\People\Actions\DeletePersonUserAction;
-use Domain\People\Actions\UpdatePersonAction;
+use Domain\People\Actions\Contracts\CreatePersonUserActionInterface;
+use Domain\People\Actions\Contracts\DeletePersonUserActionInterface;
+use Domain\People\Actions\Contracts\UpdatePersonActionInterface;
 use Domain\People\Models\Person;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +43,7 @@ class PersonController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(StorePersonUserRequest $request, CreatePersonUserAction $createPerson): RedirectResponse
+    public function store(StorePersonUserRequest $request, CreatePersonUserActionInterface $createPerson): RedirectResponse
     {
         $this->authorize('create', Person::class);
 
@@ -78,7 +78,7 @@ class PersonController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdatePersonRequest $request, Person $person, UpdatePersonAction $updatePerson): RedirectResponse
+    public function update(UpdatePersonRequest $request, Person $person, UpdatePersonActionInterface $updatePerson): RedirectResponse
     {
         $this->authorize('update', $person);
 
@@ -94,7 +94,7 @@ class PersonController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Person $person, DeletePersonUserAction $deletePerson): RedirectResponse
+    public function destroy(Person $person, DeletePersonUserActionInterface $deletePerson): RedirectResponse
     {
         $this->authorize('delete', $person);
 

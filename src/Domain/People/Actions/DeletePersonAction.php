@@ -2,9 +2,10 @@
 
 namespace Domain\People\Actions;
 
+use Domain\People\Actions\Contracts\DeletePersonActionInterface;
 use Domain\People\Models\Person;
 
-class DeletePersonAction
+class DeletePersonAction implements DeletePersonActionInterface
 {
     public function execute(Person $person): bool
     {

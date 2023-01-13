@@ -5,7 +5,7 @@ namespace App\Http\People\Controllers;
 use App\Http\People\Requests\UpdatePersonProfileRequest;
 use App\Http\People\ViewModels\PersonProfileViewModel;
 use App\Http\Support\Controllers\Controller;
-use Domain\People\Actions\UpdatePersonProfileAction;
+use Domain\People\Actions\Contracts\UpdatePersonProfileActionInterface;
 use Domain\People\Models\Person;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
@@ -27,7 +27,7 @@ class PersonProfileController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function update(UpdatePersonProfileRequest $request, Person $person, UpdatePersonProfileAction $updateProfile): RedirectResponse
+    public function update(UpdatePersonProfileRequest $request, Person $person, UpdatePersonProfileActionInterface $updateProfile): RedirectResponse
     {
         $this->authorize('update', $person);
 

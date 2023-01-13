@@ -2,10 +2,11 @@
 
 namespace Domain\People\Actions;
 
+use Domain\People\Actions\Contracts\UpdateAddressActionInterface;
 use Domain\People\DataTransferObjects\AddressData;
 use Domain\People\Models\Address;
 
-class UpdateAddressAction
+class UpdateAddressAction implements UpdateAddressActionInterface
 {
     public function execute(Address $address, AddressData $data): bool
     {
