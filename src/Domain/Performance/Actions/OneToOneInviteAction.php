@@ -3,18 +3,20 @@
 namespace Domain\Performance\Actions;
 
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
+use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
 use Domain\Performance\Actions\Contracts\OneToOneInviteActionInterface;
 use Domain\Performance\DataTransferObjects\OneToOneData;
-use Domain\Performance\Mail\OneToOneInvite;
 use Domain\Performance\Models\OneToOne;
-use Illuminate\Support\Facades\Mail;
 
 class OneToOneInviteAction implements OneToOneInviteActionInterface
 {
-    public function __construct(protected CreateNotificationActionInterface $createNotification)
-    {
+    public function __construct(
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
+    ) {
         //
     }
 
@@ -35,7 +37,15 @@ class OneToOneInviteAction implements OneToOneInviteActionInterface
             )
         );
 
-        Mail::to($requested->user->email)
-            ->send(new OneToOneInvite($oneToOne, $data));
+        $this->sendEmail->execute(
+            new EmailNotificationData(
+                recipients: [$requested->user->email],
+                subject: 'A One-to-one has been requested',
+                body: "A One-to-one has been requested by {$requester->full_name} at {$data->scheduled_at->toDateTimeString()}",
+                link: route('one-to-one.invite.show', [
+                    'one_to_one' => $oneToOne
+                ])
+            )
+        );
     }
 }

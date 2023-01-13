@@ -4,17 +4,19 @@ namespace Domain\Absences\Actions;
 
 use Domain\Absences\Actions\Contracts\RequestHolidayReviewActionInterface;
 use Domain\Absences\DataTransferObjects\HolidayData;
-use Domain\Absences\Mail\ReviewHolidayRequest;
 use Domain\Absences\Models\Holiday;
 use Domain\Notifications\Actions\Contracts\CreateNotificationActionInterface;
+use Domain\Notifications\Actions\Contracts\SendEmailNotificationActionInterface;
+use Domain\Notifications\DataTransferObjects\EmailNotificationData;
 use Domain\Notifications\DataTransferObjects\NotificationData;
 use Domain\Notifications\Enums\NotifiableType;
-use Illuminate\Support\Facades\Mail;
 
 class RequestHolidayReviewAction implements RequestHolidayReviewActionInterface
 {
-    public function __construct(protected CreateNotificationActionInterface $createNotification)
-    {
+    public function __construct(
+        protected CreateNotificationActionInterface $createNotification,
+        protected SendEmailNotificationActionInterface $sendEmail
+    ) {
         //
     }
 
@@ -38,7 +40,15 @@ class RequestHolidayReviewAction implements RequestHolidayReviewActionInterface
             )
         );
 
-        Mail::to($manager->user->email)
-            ->send(new ReviewHolidayRequest($holiday, $data));
+        $this->sendEmail->execute(
+            new EmailNotificationData(
+                recipients: [$manager->user->email],
+                subject: 'New holiday request',
+                body: "Holiday requested by {$data->person->fullName}, click here to review.",
+                link: route('holiday.review.show', [
+                    'holiday' => $holiday
+                ])
+            )
+        );
     }
 }
