@@ -7,11 +7,14 @@ import useNotifications from '../Hooks/useNotifications'
 import type {Notification} from '../types'
 import NotificationList from '@/Components/NotificationList.vue'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
+import usePerson from '../Hooks/usePerson'
+import {Link} from '@inertiajs/inertia-vue3'
 
 type ActiveTab = 'unread'|'read'
 
 const activeTab: Ref<ActiveTab> = ref('unread')
 
+const person = usePerson()
 const slideOver = useNotificationsSlideOver()
 const notifications = useNotifications()
 const unreadNotifications: ComputedRef<Notification[]> = computed(() => notifications.value.filter(notification => ! notification.read))
@@ -51,7 +54,7 @@ function isActive(tab: string): boolean {
                         >
                             <div class="pointer-events-auto w-screen max-w-md">
                                 <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                                    <div class="p-6">
+                                    <div class="px-6 pt-6 pb-3">
                                         <div class="flex items-start justify-between">
                                             <h2
                                                 id="slide-over-title"
@@ -72,6 +75,23 @@ function isActive(tab: string): boolean {
                                                 </button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="px-6 pb-6">
+                                        <Link
+                                            :href="`/notifications/read`"
+                                            :data="{
+                                                notifiable_id: person.id,
+                                                notifiable_type: 'person'
+                                            }"
+                                            method="post"
+                                            as="button"
+                                            type="button"
+                                            class="mt-1 block text-sm text-indigo-500"
+                                            preserve-scroll
+                                            preserve-state
+                                        >
+                                            Mark all as read
+                                        </Link>
                                     </div>
                                     <div class="border-b border-gray-200">
                                         <div class="px-6">

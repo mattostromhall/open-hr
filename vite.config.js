@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: 'resources/js/app.ts',
+            valetTls: 'open-hr.test'
         }),
         vue({
             template: {

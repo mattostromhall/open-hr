@@ -2,13 +2,11 @@
 import {Link} from '@inertiajs/inertia-vue3'
 import {ChevronRightIcon} from '@heroicons/vue/24/solid'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
+import type {Notification} from '../types'
 
-defineProps({
-    notifications: {
-        type: Array,
-        default: () => []
-    }
-})
+defineProps<{
+    notifications: Notification[]
+}>()
 
 const {hideNotifications} = useNotificationsSlideOver()
 </script>

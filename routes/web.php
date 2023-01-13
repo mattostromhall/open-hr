@@ -112,6 +112,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
     Route::post('/organisation/notifications', [OrganisationNotificationController::class, 'store'])
         ->name('organisation.notification.store');
 
+    Route::post('/notifications/read', ReadNotificationController::class)
+        ->name('notifications.read');
     Route::post('/notifications/{notification}/read', ReadNotificationController::class)
         ->name('notifications.read');
 
