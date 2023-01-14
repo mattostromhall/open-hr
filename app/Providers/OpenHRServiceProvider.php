@@ -128,6 +128,8 @@ use Domain\Organisation\Actions\DissolveDepartmentAction;
 use Domain\Organisation\Actions\ManageDepartmentMembersAction;
 use Domain\Organisation\Actions\SetupDepartmentAction;
 use Domain\Organisation\Actions\UpdateDepartmentAction;
+use Domain\People\Actions\BulkDeletePeopleAction;
+use Domain\People\Actions\Contracts\BulkDeletePeopleActionInterface;
 use Domain\People\Actions\Contracts\CreateAddressActionInterface;
 use Domain\People\Actions\Contracts\CreatePersonActionInterface;
 use Domain\People\Actions\Contracts\CreatePersonUserActionInterface;
@@ -349,6 +351,7 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(UpdateDepartmentActionInterface::class, UpdateDepartmentAction::class);
 
         // People Contracts
+        $this->app->bind(BulkDeletePeopleActionInterface::class, BulkDeletePeopleAction::class);
         $this->app->bind(CreateAddressActionInterface::class, CreateAddressAction::class);
         $this->app->bind(CreatePersonActionInterface::class, CreatePersonAction::class);
         $this->app->bind(CreatePersonUserActionInterface::class, CreatePersonUserAction::class);

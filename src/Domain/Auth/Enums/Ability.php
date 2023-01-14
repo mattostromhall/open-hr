@@ -22,6 +22,7 @@ enum Ability: string
     case CREATE_USER = 'create-user';
     case UPDATE_USER = 'update-user';
     case DELETE_USER = 'delete-user';
+    case BULK_DELETE_USERS = 'bulk-delete-users';
     case IMPERSONATE_USERS = 'impersonate-users';
     case VIEW_EXPENSE = 'view-expense';
     case CREATE_EXPENSE = 'create-expense';
@@ -56,6 +57,7 @@ enum Ability: string
     case CREATE_PERSON = 'create-person';
     case UPDATE_PERSON = 'update-person';
     case DELETE_PERSON = 'delete-person';
+    case BULK_DELETE_PEOPLE = 'bulk-delete-people';
     case MANAGE_DIRECT_REPORTS = 'manage-direct-reports';
     case VIEW_OBJECTIVE = 'view-objective';
     case CREATE_OBJECTIVE = 'create-objective';

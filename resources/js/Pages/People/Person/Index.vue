@@ -64,6 +64,12 @@ function toggleSelected(select: boolean) {
 function isSelected(id: number) {
     return selected.value.includes(id)
 }
+
+function bulkDelete() {
+    Inertia.post('/people/bulk-delete', {
+        people: selected.value
+    })
+}
 </script>
 
 <template>

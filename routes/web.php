@@ -28,6 +28,7 @@ use App\Http\Notifications\Controllers\OrganisationNotificationController;
 use App\Http\Notifications\Controllers\ReadAllNotificationsController;
 use App\Http\Notifications\Controllers\ReadNotificationController;
 use App\Http\People\Controllers\AddressController;
+use App\Http\People\Controllers\BulkDeletePeopleController;
 use App\Http\People\Controllers\DirectReportController;
 use App\Http\People\Controllers\PersonController;
 use App\Http\People\Controllers\PersonProfileController;
@@ -149,6 +150,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('person.update');
     Route::delete('/people/{person}', [PersonController::class, 'destroy'])
         ->name('person.destroy');
+    Route::post('/people/bulk-delete', BulkDeletePeopleController::class)
+        ->name('person.bulk-delete');
 
     Route::post('/people/{person}/direct-reports', DirectReportController::class)
         ->name('person.direct-reports');

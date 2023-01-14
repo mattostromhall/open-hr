@@ -66,6 +66,12 @@ class PersonPolicy
             );
     }
 
+    public function bulkDelete(User $user): bool
+    {
+        return $user->can(Ability::BULK_DELETE_PEOPLE->value)
+            && $user->can(Ability::BULK_DELETE_USERS->value);
+    }
+
     public function manageDirectReports(User $user, Person $person): bool
     {
         return $user->can(Ability::MANAGE_DIRECT_REPORTS->value)
