@@ -15,6 +15,7 @@ use App\Http\Dashboard\Controllers\DashboardController;
 use App\Http\Dashboard\Controllers\DepartmentDashboardController;
 use App\Http\Dashboard\Controllers\ManagementDashboardController;
 use App\Http\Dashboard\Controllers\OrganisationDashboardController;
+use App\Http\Departments\Controllers\BulkDeleteDepartmentsController;
 use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Departments\Controllers\DepartmentMemberController;
 use App\Http\Expenses\Controllers\ExpenseController;
@@ -304,6 +305,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('department.update');
     Route::delete('/departments/{department}', [DepartmentController::class, 'destroy'])
         ->name('department.destroy');
+    Route::post('/departments/bulk-delete', BulkDeleteDepartmentsController::class)
+        ->name('department.bulk-delete');
 
     Route::post('/departments/{department}/members', DepartmentMemberController::class)
         ->name('department.members');

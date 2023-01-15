@@ -111,8 +111,10 @@ use Domain\Notifications\Actions\ReadAllNotificationsAction;
 use Domain\Notifications\Actions\SendEmailNotificationAction;
 use Domain\Notifications\Actions\UpdateNotificationAction;
 use Domain\Organisation\Actions\AmendDepartmentAction;
+use Domain\Organisation\Actions\BulkDeleteDepartmentsAction;
 use Domain\Organisation\Actions\CompleteSetupAction;
 use Domain\Organisation\Actions\Contracts\AmendDepartmentActionInterface;
+use Domain\Organisation\Actions\Contracts\BulkDeleteDepartmentsActionInterface;
 use Domain\Organisation\Actions\Contracts\CompleteSetupActionInterface;
 use Domain\Organisation\Actions\Contracts\CreateDepartmentActionInterface;
 use Domain\Organisation\Actions\Contracts\CreateOrganisationActionInterface;
@@ -341,6 +343,7 @@ class OpenHRServiceProvider extends ServiceProvider
 
         // Organisation Contracts
         $this->app->bind(AmendDepartmentActionInterface::class, AmendDepartmentAction::class);
+        $this->app->bind(BulkDeleteDepartmentsActionInterface::class, BulkDeleteDepartmentsAction::class);
         $this->app->bind(CompleteSetupActionInterface::class, CompleteSetupAction::class);
         $this->app->bind(CreateDepartmentActionInterface::class, CreateDepartmentAction::class);
         $this->app->bind(CreateOrganisationActionInterface::class, CreateOrganisationAction::class);

@@ -9,7 +9,7 @@ it('bulk deletes the people', function () {
 
     $people->each(fn (Person $person) => $this->assertNotSoftDeleted($person));
 
-    $action->execute($people->pluck('id')->toArray());
+    $action->execute($people->pluck('user_id')->toArray());
 
     $people->each(fn (Person $person) => $this->assertSoftDeleted($person));
 });

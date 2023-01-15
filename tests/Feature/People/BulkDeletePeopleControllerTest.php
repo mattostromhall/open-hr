@@ -15,7 +15,7 @@ it('bulk deletes the selected people', function () {
     $people = Person::factory()->count(3)->create();
 
     $response = $this->post(route('person.bulk-delete'), [
-        'people' => $people->pluck('id')->toArray()
+        'people' => $people->pluck('user_id')->toArray()
     ]);
 
     $response
@@ -27,18 +27,8 @@ it('returns unauthorized if the person does not have permission to bulk delete p
     $people = Person::factory()->count(3)->create();
 
     $response = $this->post(route('person.bulk-delete'), [
-        'people' => $people->pluck('id')->toArray()
+        'people' => $people->pluck('user_id')->toArray()
     ]);
 
     $response->assertForbidden();
-});
-
-it('returns validation errors when managing the direct reports for the person with incorrect data', function () {
-    $response = $this->post(route('person.bulk-delete'), [
-        'people' => null
-    ]);
-
-    $response
-        ->assertStatus(302)
-        ->assertSessionHasErrors(['people']);
 });

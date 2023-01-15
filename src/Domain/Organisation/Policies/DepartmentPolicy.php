@@ -48,6 +48,11 @@ class DepartmentPolicy
         return $user->can(Ability::DELETE_DEPARTMENT->value);
     }
 
+    public function bulkDelete(User $user): bool
+    {
+        return $user->can(Ability::BULK_DELETE_DEPARTMENTS->value);
+    }
+
     public function dashboard(User $user): bool
     {
         return $user->isA(Role::HEAD_OF_DEPARTMENT->value);
