@@ -169,7 +169,7 @@ function deletePerson() {
                                 @reset="rolesForm.clearErrors('roles')"
                             />
                         </div>
-                        <p class="mt-3 space-x-1 text-sm text-gray-500">
+                        <p class="mt-3 space-x-1 space-y-0.5 text-sm text-gray-500">
                             Grants the following abilities:
                             <span
                                 v-for="ability in abilities"
