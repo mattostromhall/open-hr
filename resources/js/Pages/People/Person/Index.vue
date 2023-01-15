@@ -68,6 +68,8 @@ function isSelected(id: number) {
 function bulkDelete() {
     Inertia.post('/people/bulk-delete', {
         people: selected.value
+    }, {
+        onSuccess: () => toggleSelected(false)
     })
 }
 </script>
@@ -133,6 +135,7 @@ function bulkDelete() {
                             <button
                                 type="button"
                                 class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
+                                @click="bulkDelete"
                             >
                                 Delete all
                             </button>
