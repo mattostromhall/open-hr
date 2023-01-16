@@ -55,6 +55,7 @@ use App\Http\Recruitment\Controllers\SuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\UnsuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\VacancyApplicationController;
 use App\Http\Recruitment\Controllers\VacancyController;
+use App\Http\Reports\Controllers\BulkDeleteReportsController;
 use App\Http\Reports\Controllers\GenerateReportController;
 use App\Http\Reports\Controllers\RelationshipOptionsController;
 use App\Http\Setup\Controllers\SetupController;
@@ -385,6 +386,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('report.update');
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])
         ->name('report.destroy');
+    Route::post('/reports/bulk-delete', BulkDeleteReportsController::class)
+        ->name('report.bulk-delete');
 
     Route::post('/reports/generate', [GenerateReportController::class, 'store'])
         ->name('report.generate.store');

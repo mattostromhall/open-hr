@@ -13,6 +13,10 @@ import SearchInput from '@/Components/Controls/SearchInput.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {debounce, omit} from 'lodash'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import SimpleModal from '@/Components/SimpleModal.vue'
+import RedButton from '@/Components/Controls/RedButton.vue'
+import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 
 const props = defineProps<{
     search?: string,
@@ -64,6 +68,19 @@ function isSelected(id: number) {
 const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
     props.reports.data.map((report) => [report.id, false])
 ))
+
+const showDeleteModal: Ref<boolean> = ref(false)
+
+function bulkDelete() {
+    Inertia.post('/reports/bulk-delete', {
+        reports: selected.value
+    }, {
+        onSuccess: () => {
+            toggleSelected(false)
+            showDeleteModal.value = false
+        }
+    })
+}
 </script>
 
 <template>
@@ -122,14 +139,47 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
                             <button
                                 type="button"
                                 class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
-                            >
-                                Bulk edit
-                            </button>
-                            <button
-                                type="button"
-                                class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
+                                @click="showDeleteModal = true"
                             >
                                 Delete all
+                                <SimpleModal
+                                    v-model="showDeleteModal"
+                                    modal-classes="px-4 pt-5 pb-4 text-left sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+                                >
+                                    <div class="sm:flex sm:items-start">
+                                        <div class="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                            <ExclamationTriangleIcon class="h-6 w-6 text-red-600" />
+                                        </div>
+                                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                            <h3
+                                                id="modal-title"
+                                                class="text-lg font-medium leading-6 text-gray-900"
+                                            >
+                                                Confirm Delete
+                                            </h3>
+                                            <div class="mt-2">
+                                                <p class="text-sm text-gray-500">
+                                                    Are you sure you want to delete the {{ selected.length }} selected Reports? This action cannot be undone.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                        <RedButton
+                                            type="button"
+                                            class="w-full sm:w-auto sm:ml-3"
+                                            @click="bulkDelete"
+                                        >
+                                            Confirm
+                                        </RedButton>
+                                        <GreyOutlineButton
+                                            class="w-full sm:w-auto mt-3 sm:mt-0"
+                                            @click="showDeleteModal = false"
+                                        >
+                                            Cancel
+                                        </GreyOutlineButton>
+                                    </div>
+                                </SimpleModal>
                             </button>
                         </div>
 
