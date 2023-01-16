@@ -18,6 +18,7 @@ use App\Http\Dashboard\Controllers\OrganisationDashboardController;
 use App\Http\Departments\Controllers\BulkDeleteDepartmentsController;
 use App\Http\Departments\Controllers\DepartmentController;
 use App\Http\Departments\Controllers\DepartmentMemberController;
+use App\Http\Expenses\Controllers\BulkDeleteExpenseTypesController;
 use App\Http\Expenses\Controllers\ExpenseController;
 use App\Http\Expenses\Controllers\ExpenseTypeController;
 use App\Http\Expenses\Controllers\ReviewExpenseController;
@@ -323,6 +324,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('expense-type.update');
     Route::delete('/expense-types/{expense_type}', [ExpenseTypeController::class, 'destroy'])
         ->name('expense-type.destroy');
+    Route::post('/expense-types/bulk-delete', BulkDeleteExpenseTypesController::class)
+        ->name('expense-type.bulk-delete');
 
     Route::get('/expenses', [ExpenseController::class, 'index'])
         ->name('expense.index');

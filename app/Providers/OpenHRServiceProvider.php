@@ -55,7 +55,9 @@ use Domain\Auth\Actions\UpdateActiveAction;
 use Domain\Auth\Actions\UpdateEmailAction;
 use Domain\Auth\Actions\UpdatePasswordAction;
 use Domain\Expenses\Actions\AmendExpenseAction;
+use Domain\Expenses\Actions\BulkDeleteExpenseTypesAction;
 use Domain\Expenses\Actions\Contracts\AmendExpenseActionInterface;
+use Domain\Expenses\Actions\Contracts\BulkDeleteExpenseTypesActionInterface;
 use Domain\Expenses\Actions\Contracts\CreateExpenseActionInterface;
 use Domain\Expenses\Actions\Contracts\CreateExpenseTypeActionInterface;
 use Domain\Expenses\Actions\Contracts\DeleteExpenseActionInterface;
@@ -309,6 +311,7 @@ class OpenHRServiceProvider extends ServiceProvider
 
         // Expense Contracts
         $this->app->bind(AmendExpenseActionInterface::class, AmendExpenseAction::class);
+        $this->app->bind(BulkDeleteExpenseTypesActionInterface::class, BulkDeleteExpenseTypesAction::class);
         $this->app->bind(CreateExpenseActionInterface::class, CreateExpenseAction::class);
         $this->app->bind(CreateExpenseTypeActionInterface::class, CreateExpenseTypeAction::class);
         $this->app->bind(DeleteExpenseActionInterface::class, DeleteExpenseAction::class);
