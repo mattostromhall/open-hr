@@ -8,7 +8,9 @@ import usePerson from '../Hooks/usePerson'
 import useNotifications from '../Hooks/useNotifications'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
 import useSidebar from '../Composables/useSidebar'
+import usePermissions from '../Hooks/usePermissions'
 
+const {can} = usePermissions()
 const person = usePerson()
 const sidebar = useSidebar()
 const {showNotifications} = useNotificationsSlideOver()
@@ -106,6 +108,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </Link>
 
                             <Link
+                                v-if="can('view-people')"
                                 href="/people"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white"
                                 :class="{
@@ -121,7 +124,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </Link>
 
                             <Link
-                                href="/people"
+                                href="/performance"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white"
                                 :class="{
                                     'hover:bg-indigo-500 hover:bg-opacity-75': $page.url !== '/performance',
@@ -162,6 +165,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                             </Link>
 
                             <Link
+                                v-if="can('view-report')"
                                 href="/reports"
                                 class="group flex items-center rounded-md p-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
@@ -246,6 +250,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </Link>
 
                     <Link
+                        v-if="can('view-people')"
                         href="/people"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white"
                         :class="{
@@ -302,6 +307,7 @@ const notificationCount: ComputedRef<number> = computed(() => useNotifications()
                     </Link>
 
                     <Link
+                        v-if="can('view-report')"
                         href="/reports"
                         class="group flex items-center rounded-md p-2 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                     >

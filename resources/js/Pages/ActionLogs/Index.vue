@@ -11,6 +11,9 @@ import NumberInput from '../../Components/Controls/NumberInput.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import IndigoLink from '../../Components/Controls/IndigoLink.vue'
+import usePermissions from '../../Hooks/usePermissions'
+
+const {isAn} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -46,7 +49,10 @@ const id: Ref<number> = ref(1)
     <PageHeading>
         Action Logs
         <template #link>
-            <LightIndigoLink href="/organisation/dashboard">
+            <LightIndigoLink
+                v-if="isAn('admin')"
+                href="/organisation/dashboard"
+            >
                 Dashboard
             </LightIndigoLink>
         </template>

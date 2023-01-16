@@ -12,11 +12,14 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     holiday: Holiday,
     requester: string
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -62,7 +65,10 @@ function submit(): void {
     <PageHeading>
         <span class="font-medium">Editing</span> - Holiday request by {{ requester }}
         <template #link>
-            <LightIndigoLink :href="`/holidays/${holiday.id}`">
+            <LightIndigoLink
+                v-if="can('view-holiday')"
+                :href="`/holidays/${holiday.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

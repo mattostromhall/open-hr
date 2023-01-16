@@ -9,13 +9,16 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Breadcrumb, Holiday, TabbedContentItem} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
-    approved: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
-    pending: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number},
-    rejected: Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number}
+    approved: (Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number})[],
+    pending: (Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number})[],
+    rejected: (Pick<Holiday, 'id' | 'start_at' | 'finish_at' | 'half_day' | 'notes'> & {duration: number})[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [{
     display: 'Holidays'
@@ -53,7 +56,10 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         Holidays
         <template #link>
-            <LightIndigoLink href="/holidays/calendar">
+            <LightIndigoLink
+                v-if="can('view-holiday-calendar')"
+                href="/holidays/calendar"
+            >
                 View calendar
             </LightIndigoLink>
         </template>

@@ -8,6 +8,7 @@ import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps({
     requester: {
@@ -27,6 +28,8 @@ const props = defineProps({
         default: 1
     }
 })
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -76,7 +79,10 @@ function reject(): void {
     <PageHeading>
         Review Holiday Request
         <template #link>
-            <LightIndigoLink href="/holidays/calendar">
+            <LightIndigoLink
+                v-if="can('view-holiday-calendar')"
+                href="/holidays/calendar"
+            >
                 View calendar
             </LightIndigoLink>
         </template>

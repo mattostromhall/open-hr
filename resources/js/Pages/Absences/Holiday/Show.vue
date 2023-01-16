@@ -13,11 +13,14 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     holiday: Holiday,
     requester: string
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -52,7 +55,10 @@ function deleteHoliday() {
     <PageHeading>
         <span class="font-medium">Viewing</span> - Holiday request
         <template #link>
-            <LightIndigoLink :href="`/holidays/${holiday.id}/edit`">
+            <LightIndigoLink
+                v-if="can('update-holiday')"
+                :href="`/holidays/${holiday.id}/edit`"
+            >
                 Edit
             </LightIndigoLink>
         </template>

@@ -14,12 +14,15 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import DocumentList from '../../Files/Documents/DocumentList.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     sickness: Sickness,
     logger: string,
     documents: DocumentListItem[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -47,10 +50,16 @@ function deleteSickness() {
         <span class="font-medium">Viewing</span> - Logged Sickness
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink href="/sicknesses">
+                <LightIndigoLink
+                    v-if="can('view-sickness')"
+                    href="/sicknesses"
+                >
                     All Sick Days
                 </LightIndigoLink>
-                <LightIndigoLink :href="`/sicknesses/${sickness.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-sickness')"
+                    :href="`/sicknesses/${sickness.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
             </div>

@@ -17,11 +17,14 @@ import SimpleModal from '@/Components/SimpleModal.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     search?: string,
     reports: Paginated<Pick<Report, 'id' | 'label' | 'last_ran'>>
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -91,7 +94,10 @@ function bulkDelete() {
     <PageHeading>
         Reports
         <template #link>
-            <IndigoLink href="/reports/create">
+            <IndigoLink
+                v-if="can('create-report')"
+                href="/reports/create"
+            >
                 Create Report
             </IndigoLink>
         </template>

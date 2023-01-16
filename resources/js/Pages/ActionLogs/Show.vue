@@ -6,6 +6,7 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 defineProps<{
     actionLogs: (ActionLog & {
@@ -13,6 +14,8 @@ defineProps<{
         person: Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>
     })[]
 }>()
+
+const {isAn} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -36,7 +39,10 @@ function calculateTimeAgo(actionDate: string) {
     <PageHeading>
         Viewing Action Log
         <template #link>
-            <LightIndigoLink href="/organisation/dashboard">
+            <LightIndigoLink
+                v-if="isAn('admin')"
+                href="/organisation/dashboard"
+            >
                 Dashboard
             </LightIndigoLink>
         </template>

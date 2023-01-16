@@ -11,6 +11,7 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import type {Breadcrumb} from '../../../types'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps({
     holidayEvents: {
@@ -18,6 +19,8 @@ const props = defineProps({
         default: () => []
     }
 })
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -54,7 +57,10 @@ const calendarOptions = {
     <PageHeading>
         Holiday Calendar
         <template #link>
-            <LightIndigoLink href="/holidays">
+            <LightIndigoLink
+                v-if="can('view-holiday')"
+                href="/holidays"
+            >
                 Manage holiday
             </LightIndigoLink>
         </template>
