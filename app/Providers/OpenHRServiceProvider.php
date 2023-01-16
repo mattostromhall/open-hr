@@ -237,7 +237,9 @@ use Domain\Recruitment\Actions\SubmitApplicationAction;
 use Domain\Recruitment\Actions\UpdateApplicationStatusAction;
 use Domain\Recruitment\Actions\UpdateVacancyAction;
 use Illuminate\Support\ServiceProvider;
+use Support\Actions\BulkDeleteReportsAction;
 use Support\Actions\CaptureExceptionAction;
+use Support\Actions\Contracts\BulkDeleteReportsActionInterface;
 use Support\Actions\Contracts\CaptureExceptionActionInterface;
 use Support\Actions\Contracts\CreateActionLogActionInterface;
 use Support\Actions\Contracts\CreateCsvActionInterface;
@@ -268,7 +270,7 @@ class OpenHRServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Support Contracts
-        $this->app->bind(ReportBuilderInterface::class, ReportBuilder::class);
+        $this->app->bind(BulkDeleteReportsActionInterface::class, BulkDeleteReportsAction::class);
         $this->app->bind(CaptureExceptionActionInterface::class, CaptureExceptionAction::class);
         $this->app->bind(CreateActionLogActionInterface::class, CreateActionLogAction::class);
         $this->app->bind(CreateCsvActionInterface::class, CreateCsvAction::class);
@@ -276,6 +278,7 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(CreateReportActionInterface::class, CreateReportAction::class);
         $this->app->bind(DeleteReportActionInterface::class, DeleteReportAction::class);
         $this->app->bind(GenerateReportActionInterface::class, GenerateReportAction::class);
+        $this->app->bind(ReportBuilderInterface::class, ReportBuilder::class);
         $this->app->bind(StripScriptTagsActionInterface::class, StripScriptTagsAction::class);
         $this->app->bind(UpdateReportActionInterface::class, UpdateReportAction::class);
 
