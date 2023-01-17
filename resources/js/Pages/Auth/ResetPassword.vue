@@ -46,7 +46,9 @@ export default {
 </script>
 
 <template>
-    <Head title="Reset Password" />
+    <Head>
+        <title>Reset Password</title>
+    </Head>
 
     <form @submit.prevent="submit">
         <div>

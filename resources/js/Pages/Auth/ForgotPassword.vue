@@ -34,7 +34,9 @@ export default {
 </script>
 
 <template>
-    <Head title="Forgot Password" />
+    <Head>
+        <title>Forgot Password</title>
+    </Head>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <h1 class="text-4xl font-bold text-center text-indigo-400">
