@@ -9,11 +9,14 @@ import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     vacancy: Vacancy,
     contact: Pick<Person, 'id' | 'full_name'>
 }>()
+
+const {can} = usePermissions()
 
 const showDeleteModal: Ref<boolean> = ref(false)
 
@@ -29,6 +32,7 @@ function deleteVacancy() {
                 Overview
             </h3>
             <RedButton
+                v-if="can('delete-vacancy')"
                 type="button"
                 @click="showDeleteModal = true"
             >

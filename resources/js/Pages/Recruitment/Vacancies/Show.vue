@@ -8,6 +8,7 @@ import Overview from './Overview.vue'
 import Applications from './Applications.vue'
 import type {Breadcrumb, Person} from '../../../types'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     active: TabbedContentItem['identifier'],
@@ -15,6 +16,8 @@ const props = defineProps<{
     contact: Pick<Person, 'id' | 'full_name'>,
     applications: Paginated<Omit<Application, 'cover_letter'>>
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -49,10 +52,16 @@ const tabs: TabbedContentItem[] = [
         Viewing - {{ vacancy.title }}
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/vacancies/${vacancy.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-vacancy')"
+                    :href="`/vacancies/${vacancy.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
-                <LightIndigoLink href="/vacancies">
+                <LightIndigoLink
+                    v-if="can('view-vacancies')"
+                    href="/vacancies"
+                >
                     All Vacancies
                 </LightIndigoLink>
             </div>

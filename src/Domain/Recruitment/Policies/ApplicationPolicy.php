@@ -38,4 +38,9 @@ class ApplicationPolicy
         return $user->can(Ability::DELETE_APPLICATION->value)
             && $user->person->owns($application->vacancy, 'contact_id');
     }
+
+    public function bulkDelete(User $user): bool
+    {
+        return $user->can(Ability::BULK_DELETE_APPLICATIONS->value);
+    }
 }

@@ -15,12 +15,15 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     vacancy: Vacancy,
     contacts: SelectOption[],
     contractTypes: ContractType[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -61,7 +64,10 @@ function submit() {
     <PageHeading>
         <span class="font-medium">Editing</span> - {{ vacancy.title }}
         <template #link>
-            <LightIndigoLink :href="`/vacancies/${vacancy.id}`">
+            <LightIndigoLink
+                v-if="can('view-vacancy')"
+                :href="`/vacancies/${vacancy.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

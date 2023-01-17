@@ -8,6 +8,7 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Inertia} from '@inertiajs/inertia'
 import DocumentDownloadList from '../../../Components/DocumentDownloadList.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     vacancy: Pick<Vacancy, 'id' | 'title'>,
@@ -15,6 +16,8 @@ const props = defineProps<{
     application: Application & TimeStamp,
     cv: Document
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -51,7 +54,10 @@ function unsuccessful() {
     <PageHeading>
         Application for Vacancy - {{ vacancy.title }}
         <template #link>
-            <LightIndigoLink :href="`/vacancies/${vacancy.id}`">
+            <LightIndigoLink
+                v-if="can('view-vacancy')"
+                :href="`/vacancies/${vacancy.id}`"
+            >
                 View Vacancy
             </LightIndigoLink>
         </template>
@@ -68,7 +74,7 @@ function unsuccessful() {
                 </h3>
                 <div class="flex space-x-6">
                     <button
-                        v-if="application.status === 3"
+                        v-if="application.status === 3 && can('update-application')"
                         type="button"
                         class="text-sm text-indigo-600 hover:text-indigo-700"
                         @click="pending"
@@ -76,7 +82,7 @@ function unsuccessful() {
                         Mark as pending
                     </button>
                     <button
-                        v-if="application.status !== 3"
+                        v-if="application.status !== 3 && can('update-application')"
                         type="button"
                         class="text-sm text-indigo-600 hover:text-indigo-700"
                         @click="unsuccessful"
@@ -84,14 +90,14 @@ function unsuccessful() {
                         Mark as unsuccessful
                     </button>
                     <IndigoButton
-                        v-if="application.status === 2"
+                        v-if="application.status === 2 && can('update-application')"
                         type="button"
                         @click="pending"
                     >
                         Mark as pending
                     </IndigoButton>
                     <IndigoButton
-                        v-if="application.status !== 2"
+                        v-if="application.status !== 2 && can('update-application')"
                         type="button"
                         @click="successful"
                     >

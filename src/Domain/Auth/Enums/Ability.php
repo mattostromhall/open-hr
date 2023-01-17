@@ -90,6 +90,7 @@ enum Ability: string
     case VIEW_APPLICATION = 'view-application';
     case UPDATE_APPLICATION = 'update-application';
     case DELETE_APPLICATION = 'delete-application';
+    case BULK_DELETE_APPLICATIONS = 'bulk-delete-applications';
     case VIEW_REPORT = 'view-report';
     case CREATE_REPORT = 'create-report';
     case UPDATE_REPORT = 'update-report';

@@ -50,6 +50,7 @@ use App\Http\Performance\Controllers\StartTrainingController;
 use App\Http\Performance\Controllers\TrainingController;
 use App\Http\Recruitment\Controllers\ApplicationController;
 use App\Http\Recruitment\Controllers\ApplicationThanksController;
+use App\Http\Recruitment\Controllers\BulkDeleteApplicationsController;
 use App\Http\Recruitment\Controllers\PendingApplicationController;
 use App\Http\Recruitment\Controllers\SuccessfulApplicationController;
 use App\Http\Recruitment\Controllers\UnsuccessfulApplicationController;
@@ -362,6 +363,8 @@ Route::middleware(['auth', 'active', 'setup'])->group(function () {
         ->name('application.show');
     Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])
         ->name('application.destroy');
+    Route::post('/applications/bulk-delete', BulkDeleteApplicationsController::class)
+        ->name('application.bulk-delete');
     Route::post('/applications/{application}/pending', PendingApplicationController::class)
         ->name('application.pending');
     Route::post('/applications/{application}/successful', SuccessfulApplicationController::class)

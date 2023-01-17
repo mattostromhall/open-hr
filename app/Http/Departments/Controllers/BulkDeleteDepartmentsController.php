@@ -3,7 +3,6 @@
 namespace App\Http\Departments\Controllers;
 
 use App\Http\Departments\Requests\BulkDeleteDepartmentsRequest;
-use App\Http\People\Requests\BulkDeletePeopleRequest;
 use App\Http\Support\Controllers\Controller;
 use Domain\Organisation\Actions\Contracts\BulkDeleteDepartmentsActionInterface;
 use Domain\Organisation\Models\Department;
