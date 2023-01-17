@@ -6,11 +6,14 @@ import Create from '../Tasks/Create.vue'
 import type {Objective, Task} from '../../../types'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 defineProps<{
     objective: Objective,
     tasks: Task[]
 }>()
+
+const {can} = usePermissions()
 
 const showCreateForm: Ref<boolean> = ref(false)
 </script>
@@ -34,7 +37,10 @@ const showCreateForm: Ref<boolean> = ref(false)
             >
                 No Tasks
             </h3>
-            <div class="mt-6 flex justify-center">
+            <div
+                v-if="can('create-task')"
+                class="mt-6 flex justify-center"
+            >
                 <IndigoButton @click="showCreateForm = true">
                     <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                     {{ tasks.length > 0 ? 'Set another Task' : 'Set Task' }}

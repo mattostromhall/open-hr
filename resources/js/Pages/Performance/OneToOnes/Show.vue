@@ -13,6 +13,7 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     oneToOne: OneToOne,
@@ -22,6 +23,8 @@ const props = defineProps<{
     personStatus: string,
     managerStatus: string
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -53,7 +56,10 @@ function deleteOneToOne() {
         <span class="font-medium">Viewing</span> - One-to-one
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/one-to-ones/${oneToOne.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-one-to-one')"
+                    :href="`/one-to-ones/${oneToOne.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
                 <LightIndigoLink href="/performance?active=upcoming">
@@ -78,7 +84,7 @@ function deleteOneToOne() {
                         @submit.prevent="deleteOneToOne"
                     >
                         <RedButton
-                            v-if="! oneToOne.completed_at"
+                            v-if="! oneToOne.completed_at && can('delete-one-to-one')"
                             type="button"
                             @click="showDeleteModal = true"
                         >
@@ -122,7 +128,7 @@ function deleteOneToOne() {
                         </SimpleModal>
                     </form>
                     <form
-                        v-if="! oneToOne.completed_at"
+                        v-if="! oneToOne.completed_at && can('complete-one-to-one')"
                         @submit.prevent="complete"
                     >
                         <IndigoButton>Mark as complete</IndigoButton>

@@ -83,7 +83,9 @@ function amend(): void {
 </script>
 
 <template>
-    <Head title="One-to-one Invite" />
+    <Head>
+        <title>One-to-one Invite</title>
+    </Head>
 
     <section class="p-8 sm:w-full sm:max-w-5xl">
         <div class="bg-white shadow sm:rounded-lg">

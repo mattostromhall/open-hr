@@ -17,6 +17,7 @@ import SelectInput from '@/Components/Controls/SelectInput.vue'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     oneToOne: OneToOne,
@@ -27,6 +28,8 @@ const props = defineProps<{
     managerStatus: string,
     recurrenceIntervals: RecurrenceInterval[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -66,7 +69,10 @@ function submit(): void {
     <PageHeading>
         <span class="font-medium">Editing</span> - One-to-one
         <template #link>
-            <LightIndigoLink :href="`/one-to-ones/${oneToOne.id}`">
+            <LightIndigoLink
+                v-if="can('view-one-to-one')"
+                :href="`/one-to-ones/${oneToOne.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

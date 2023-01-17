@@ -4,10 +4,13 @@ import {CalendarIcon, ChevronRightIcon, PlusIcon, UsersIcon} from '@heroicons/vu
 import {Link} from '@inertiajs/inertia-vue3'
 import type {OneToOne, OneToOneStatus} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 defineProps<{
     oneToOnes: OneToOne[]
 }>()
+
+const {can} = usePermissions()
 
 const emit = defineEmits(['setActive'])
 
@@ -42,7 +45,10 @@ function requestOneToOne() {
             <h3 class="mt-2 text-sm font-medium text-gray-900">
                 No Upcoming One-to-ones
             </h3>
-            <div class="mt-6 flex justify-center">
+            <div
+                v-if="can('create-one-to-one')"
+                class="mt-6 flex justify-center"
+            >
                 <IndigoButton @click="requestOneToOne">
                     <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                     Request

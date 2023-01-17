@@ -7,6 +7,7 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Address, Breadcrumb, Department, Person, Role, User} from '../../../types'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     user: Pick<User, 'id'|'email'|'active'>,
@@ -18,6 +19,8 @@ const props = defineProps<{
     roles: Role[],
     allRoles: Role[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -64,7 +67,10 @@ function impersonate() {
     <PageHeading>
         <span class="font-normal">Viewing - </span>{{ person.full_name }}
         <template #link>
-            <LightIndigoLink :href="`/people/${person.id}/edit`">
+            <LightIndigoLink
+                v-if="can('update-person')"
+                :href="`/people/${person.id}/edit`"
+            >
                 Manage
             </LightIndigoLink>
         </template>
@@ -84,7 +90,10 @@ function impersonate() {
                         View {{ person.full_name }}'s details below.
                     </p>
                 </div>
-                <form @submit.prevent="impersonate">
+                <form
+                    v-if="can('impersonate-users')"
+                    @submit.prevent="impersonate"
+                >
                     <IndigoButton>Impersonate</IndigoButton>
                 </form>
             </div>

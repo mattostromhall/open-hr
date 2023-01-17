@@ -8,10 +8,13 @@ import type {Ref} from 'vue'
 import Edit from './Edit.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {Link} from '@inertiajs/inertia-vue3'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     tasks: Task[]
 }>()
+
+const {can} = usePermissions()
 
 const editing: Ref<Set<number>> = ref(new Set())
 
@@ -71,7 +74,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
                         complete
                     </p>
                     <form
-                        v-if="! task.completed_at"
+                        v-if="! task.completed_at && can('complete-task')"
                         @submit.prevent="complete(task)"
                     >
                         <IndigoButton>Mark as complete</IndigoButton>
@@ -85,6 +88,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
                 </div>
                 <div class="flex justify-end p-4 space-x-2 sm:p-6">
                     <button
+                        v-if="can('update-task')"
                         class="text-indigo-600"
                         type="button"
                         @click="edit(task)"
@@ -92,6 +96,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
                         <PencilIcon class="h-4 w-4" />
                     </button>
                     <SimpleDropdown
+                        v-if="can('delete-task')"
                         v-model="showDeleteDropdown[task.id]"
                         position="below-right"
                         class="h-4"

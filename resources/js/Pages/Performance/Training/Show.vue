@@ -13,6 +13,7 @@ import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     training: Training,
@@ -20,6 +21,8 @@ const props = defineProps<{
     state: string,
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -66,10 +69,16 @@ function deleteTraining() {
         <span class="font-medium">Viewing</span> - {{ training.description }}
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/training/${training.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-training')"
+                    :href="`/training/${training.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
-                <LightIndigoLink href="/training">
+                <LightIndigoLink
+                    v-if="can('create-training')"
+                    href="/training"
+                >
                     Request Training
                 </LightIndigoLink>
             </div>
@@ -87,6 +96,7 @@ function deleteTraining() {
                 </h3>
                 <div class="flex space-x-2">
                     <RedButton
+                        v-if="can('delete-training')"
                         type="button"
                         @click="showDeleteModal = true"
                     >
@@ -129,13 +139,13 @@ function deleteTraining() {
                         </form>
                     </SimpleModal>
                     <form
-                        v-if="training.status === 2 && training.state === 1"
+                        v-if="training.status === 2 && training.state === 1 && can('update-training')"
                         @submit.prevent="start"
                     >
                         <IndigoButton>Start</IndigoButton>
                     </form>
                     <form
-                        v-if="training.status === 2 && training.state === 2"
+                        v-if="training.status === 2 && training.state === 2 && can('complete-training')"
                         @submit.prevent="complete"
                     >
                         <IndigoButton>Mark as complete</IndigoButton>

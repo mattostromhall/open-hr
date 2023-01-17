@@ -12,11 +12,14 @@ import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import {useForm} from '@inertiajs/inertia-vue3'
 import type {Breadcrumb, Objective, Person} from '../../../types'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     objective: Objective,
     person: Pick<Person, 'first_name' | 'last_name' | 'full_name'>
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -50,7 +53,10 @@ function submit(): void {
     <PageHeading>
         <span class="font-medium">Editing</span> - {{ objective.title }}
         <template #link>
-            <LightIndigoLink :href="`/objectives/${objective.id}`">
+            <LightIndigoLink
+                v-if="can('view-objective')"
+                :href="`/objectives/${objective.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

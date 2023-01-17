@@ -3,10 +3,13 @@ import {ChevronRightIcon, PlusIcon, BookmarkSlashIcon} from '@heroicons/vue/24/o
 import {Link} from '@inertiajs/inertia-vue3'
 import type {Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 defineProps<{
     notStarted: Training[]
 }>()
+
+const {can} = usePermissions()
 
 const emit = defineEmits(['setActive'])
 
@@ -24,7 +27,10 @@ function requestTraining() {
             <h3 class="mt-2 text-sm font-medium text-gray-900">
                 No un-started Training!
             </h3>
-            <div class="mt-6 flex justify-center">
+            <div
+                v-if="can('create-training')"
+                class="mt-6 flex justify-center"
+            >
                 <IndigoButton @click="requestTraining">
                     <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                     Request

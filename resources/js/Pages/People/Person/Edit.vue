@@ -12,6 +12,7 @@ import DirectReports from './DirectReports.vue'
 import type {Address, Breadcrumb, Role, TabbedContentItem, User} from '../../../types'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     active: ActiveTab,
@@ -24,6 +25,8 @@ const props = defineProps<{
     roles: Role[],
     allRoles: Role[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -72,7 +75,10 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         <span class="font-normal">Editing - </span>{{ person.full_name }}
         <template #link>
-            <LightIndigoLink :href="`/people/${person.id}`">
+            <LightIndigoLink
+                v-if="can('view-person')"
+                :href="`/people/${person.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

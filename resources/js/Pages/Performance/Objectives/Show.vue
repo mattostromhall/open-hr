@@ -14,11 +14,14 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     objective: Objective,
     tasks: Task[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -62,7 +65,10 @@ function deleteObjective() {
         <span class="font-medium">Viewing</span> - {{ objective.title }}
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/objectives/${objective.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-objective')"
+                    :href="`/objectives/${objective.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
                 <LightIndigoLink href="/performance?active=current">
@@ -87,6 +93,7 @@ function deleteObjective() {
                         @submit.prevent="deleteObjective"
                     >
                         <RedButton
+                            v-if="can('delete-objective')"
                             type="button"
                             @click="showDeleteModal = true"
                         >
@@ -130,7 +137,7 @@ function deleteObjective() {
                         </SimpleModal>
                     </form>
                     <form
-                        v-if="! objective.completed_at"
+                        v-if="! objective.completed_at && can('complete-objective')"
                         @submit.prevent="complete"
                     >
                         <IndigoButton>Mark as complete</IndigoButton>

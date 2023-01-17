@@ -15,11 +15,14 @@ import {Inertia} from '@inertiajs/inertia'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 import type {Address, Person} from '../../../types'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>,
     address: Address
 }>()
+
+const {can} = usePermissions()
 
 interface AddressData {
     id?: number
@@ -71,10 +74,16 @@ function deleteAddress() {
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
                     No address
                 </h3>
-                <p class="mt-1 text-sm text-gray-500">
+                <p
+                    v-if="can('create-address')"
+                    class="mt-1 text-sm text-gray-500"
+                >
                     Add an address to this account
                 </p>
-                <div class="mt-6 flex justify-center">
+                <div
+                    v-if="can('create-address')"
+                    class="mt-6 flex justify-center"
+                >
                     <IndigoButton @click="showForm = true">
                         <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Add Address
@@ -96,7 +105,7 @@ function deleteAddress() {
                             </p>
                         </div>
                         <RedButton
-                            v-if="address"
+                            v-if="address && can('delete-address')"
                             class="!px-3"
                             type="button"
                             @click="showDeleteModal = true"
