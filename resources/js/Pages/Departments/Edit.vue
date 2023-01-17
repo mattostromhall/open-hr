@@ -9,6 +9,7 @@ import type {Ref} from 'vue'
 import Information from './Information.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     department: Department,
@@ -16,6 +17,8 @@ const props = defineProps<{
     people: SelectOption[],
     headOptions: SelectOption[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -54,7 +57,10 @@ const tabs: TabbedContentItem[] = [
     <PageHeading>
         Edit Department
         <template #link>
-            <LightIndigoLink :href="`/departments/${department.id}`">
+            <LightIndigoLink
+                v-if="can('view-document')"
+                :href="`/departments/${department.id}`"
+            >
                 View
             </LightIndigoLink>
         </template>

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import {PaperClipIcon} from '@heroicons/vue/24/outline'
 import type {Document} from '../types'
+import usePermissions from '../Hooks/usePermissions'
 
 defineProps<{
     documents?: Document[] | Document
 }>()
+
+const {can} = usePermissions()
 </script>
 
 <template>
@@ -23,7 +26,10 @@ defineProps<{
                     <PaperClipIcon class="h-5 w-5 shrink-0 text-gray-400" />
                     <span class="ml-2 w-0 flex-1 truncate">{{ document.name }}.{{ document.extension }}</span>
                 </div>
-                <div class="ml-4 shrink-0">
+                <div
+                    v-if="can('download-document')"
+                    class="ml-4 shrink-0"
+                >
                     <a
                         :href="document.path"
                         class="font-medium text-indigo-600 hover:text-indigo-500"
@@ -39,7 +45,10 @@ defineProps<{
                 <PaperClipIcon class="h-5 w-5 shrink-0 text-gray-400" />
                 <span class="ml-2 w-0 flex-1 truncate">{{ documents.name }}.{{ documents.extension }}</span>
             </div>
-            <div class="ml-4 shrink-0">
+            <div
+                v-if="can('download-document')"
+                class="ml-4 shrink-0"
+            >
                 <a
                     :href="documents.path"
                     class="font-medium text-indigo-600 hover:text-indigo-500"

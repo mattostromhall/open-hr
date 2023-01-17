@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
 import {Inertia} from '@inertiajs/inertia'
+import usePermissions from '../../Hooks/usePermissions'
+
+const {isA, isAn} = usePermissions()
 
 function select(event: Event) {
     return Inertia.visit(`/dashboard${(event.target as HTMLSelectElement).value}`)
@@ -28,6 +31,7 @@ function select(event: Event) {
                 </option>
 
                 <option
+                    v-if="isA('manager')"
                     value="/management"
                     :selected="$page.url === '/dashboard/management'"
                 >
@@ -35,6 +39,7 @@ function select(event: Event) {
                 </option>
 
                 <option
+                    v-if="isA('head-of-department')"
                     value="/department"
                     :selected="$page.url === '/dashboard/department'"
                 >
@@ -42,6 +47,7 @@ function select(event: Event) {
                 </option>
 
                 <option
+                    v-if="isAn('admin')"
                     value="/organisation"
                     :selected="$page.url === '/dashboard/organisation'"
                 >
@@ -70,6 +76,7 @@ function select(event: Event) {
                     />
                 </Link>
                 <Link
+                    v-if="isA('manager')"
                     href="/dashboard/management"
                     class="group relative min-w-0 flex-1 overflow-hidden bg-white p-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
                     :class="{
@@ -85,6 +92,7 @@ function select(event: Event) {
                     />
                 </Link>
                 <Link
+                    v-if="isA('head-of-department')"
                     href="/dashboard/department"
                     class="group relative min-w-0 flex-1 overflow-hidden bg-white p-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
                     :class="{
@@ -100,6 +108,7 @@ function select(event: Event) {
                     />
                 </Link>
                 <Link
+                    v-if="isAn('admin')"
                     href="/dashboard/organisation"
                     class="group relative min-w-0 flex-1 overflow-hidden rounded-r-lg bg-white p-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
                     :class="{

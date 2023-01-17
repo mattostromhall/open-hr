@@ -10,10 +10,13 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 defineProps<{
     people: SelectOption[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -41,7 +44,10 @@ const form: InertiaForm<DepartmentData> = useForm({
     <PageHeading>
         Create Department
         <template #link>
-            <LightIndigoLink href="/departments">
+            <LightIndigoLink
+                v-if="can('view-department')"
+                href="/departments"
+            >
                 All Departments
             </LightIndigoLink>
         </template>

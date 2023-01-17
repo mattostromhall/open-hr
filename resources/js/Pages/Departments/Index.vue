@@ -16,6 +16,7 @@ import SimpleModal from '@/Components/SimpleModal.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     search?: string,
@@ -28,6 +29,8 @@ const props = defineProps<{
         }
     )>
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -93,7 +96,10 @@ function bulkDelete() {
     <PageHeading>
         Departments
         <template #link>
-            <IndigoLink href="/departments/create">
+            <IndigoLink
+                v-if="can('create-department')"
+                href="/departments/create"
+            >
                 Add Department
             </IndigoLink>
         </template>
@@ -116,10 +122,16 @@ function bulkDelete() {
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
                     No Departments
                 </h3>
-                <p class="mt-1 text-sm text-gray-500">
+                <p
+                    v-if="can('create-department')"
+                    class="mt-1 text-sm text-gray-500"
+                >
                     Get started by adding a new Department.
                 </p>
-                <div class="mt-6 flex justify-center">
+                <div
+                    v-if="can('create-department')"
+                    class="mt-6 flex justify-center"
+                >
                     <IndigoLink href="expense-types/create">
                         <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Add
@@ -139,6 +151,7 @@ function bulkDelete() {
                             class="absolute top-0 left-12 flex h-12 items-center space-x-3 bg-gray-50 sm:left-16"
                         >
                             <button
+                                v-if="can('bulk-delete-departments')"
                                 type="button"
                                 class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
                                 @click="showDeleteModal = true"
@@ -249,11 +262,15 @@ function bulkDelete() {
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         <Link
+                                            v-if="can('view-person')"
                                             class="text-indigo-600"
                                             :href="`/people/${department.head.id}`"
                                         >
                                             {{ department.head.full_name }}
                                         </Link>
+                                        <span v-else>
+                                            {{ department.head.full_name }}
+                                        </span>
                                     </td>
                                     <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">
                                         {{ department.members_count }} members
@@ -261,12 +278,14 @@ function bulkDelete() {
                                     <td class="flex justify-end whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6">
                                         <div class="flex items-center space-x-3">
                                             <Link
+                                                v-if="can('view-department')"
                                                 :href="`/departments/${department.id}`"
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >
                                                 <EyeIcon class="h-4 w-4" /><span class="sr-only">, {{ department.name }}</span>
                                             </Link>
                                             <Link
+                                                v-if="can('update-department')"
                                                 :href="`/departments/${department.id}/edit`"
                                                 class="text-indigo-600 hover:text-indigo-900"
                                             >

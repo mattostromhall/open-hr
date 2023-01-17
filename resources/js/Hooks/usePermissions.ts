@@ -18,8 +18,10 @@ export default () => {
     }
 
     function isA(role: string): boolean {
-        return !! roles().value?.find(
-            (assignedRole: Role) => assignedRole.name === role || assignedRole.title === role
+        return !! roles().value?.find((assignedRole: Role) =>
+            assignedRole.name === 'admin'
+            || assignedRole.name === role
+            || assignedRole.title === role
         )
     }
 

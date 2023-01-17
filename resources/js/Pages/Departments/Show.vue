@@ -13,12 +13,15 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     department: Department,
     head: Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>,
     members: (Pick<Person, 'id' | 'first_name' | 'last_name' | 'full_name'>)[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -48,7 +51,10 @@ function deleteDepartment() {
         <span class="font-medium">Viewing</span> - {{ department.name }}
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/departments/${department.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-department')"
+                    :href="`/departments/${department.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
             </div>
