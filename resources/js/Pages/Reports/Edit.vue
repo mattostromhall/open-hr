@@ -17,6 +17,7 @@ import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     report: Report,
@@ -26,6 +27,9 @@ const props = defineProps<{
     },
     downloadPath?: string
 }>()
+
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -144,7 +148,10 @@ function generate() {
     <PageHeading>
         Editing Report - {{ report.label }}
         <template #link>
-            <LightIndigoLink href="/reports">
+            <LightIndigoLink
+                v-if="can('view-report')"
+                href="/reports"
+            >
                 All Reports
             </LightIndigoLink>
         </template>

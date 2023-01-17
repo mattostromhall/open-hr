@@ -120,10 +120,16 @@ function bulkDelete() {
                 <h3 class="mt-2 text-sm font-medium text-gray-900">
                     No Reports
                 </h3>
-                <p class="mt-1 text-sm text-gray-500">
+                <p
+                    v-if="can('create-report')"
+                    class="mt-1 text-sm text-gray-500"
+                >
                     Get started by creating a new Report.
                 </p>
-                <div class="mt-6 flex justify-center">
+                <div
+                    v-if="can('create-report')"
+                    class="mt-6 flex justify-center"
+                >
                     <IndigoLink href="expense-types/create">
                         <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Create
@@ -143,6 +149,7 @@ function bulkDelete() {
                             class="absolute top-0 left-12 flex h-12 items-center space-x-3 bg-gray-50 sm:left-16"
                         >
                             <button
+                                v-if="can('delete-report')"
                                 type="button"
                                 class="inline-flex items-center rounded border border-gray-300 bg-white py-1.5 px-2.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30"
                                 @click="showDeleteModal = true"
@@ -250,12 +257,14 @@ function bulkDelete() {
                                     </td>
                                     <td class="flex justify-end whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6">
                                         <Link
+                                            v-if="can('update-report')"
                                             :href="`/reports/${report.id}/edit`"
                                             class="text-indigo-600 hover:text-indigo-900"
                                         >
                                             <PencilIcon class="h-4 w-4" /><span class="sr-only">, {{ report.label }}</span>
                                         </Link>
                                         <SimpleDropdown
+                                            v-if="can('delete-report')"
                                             v-model="showDeleteDropdown[report.id]"
                                             position="above-right"
                                         >

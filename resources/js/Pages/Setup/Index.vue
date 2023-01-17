@@ -22,13 +22,13 @@ const props = defineProps({
     }
 })
 
-const setupStages: SetupStages = reactive({
+const setup: SetupStages = reactive({
     stages: [1, 2],
     current: props.stage
 })
 
 const setupText: ComputedRef<string> = computed(() => {
-    if (setupStages.current === 2) {
+    if (setup.current === 2) {
         return 'Add your personal information'
     }
 
@@ -45,7 +45,9 @@ export default {
 </script>
 
 <template>
-    <Head title="Setup" />
+    <Head>
+        <title>Setup</title>
+    </Head>
 
     <section class="mt-8 w-full">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -59,21 +61,21 @@ export default {
         <div
             class="py-8 px-4 bg-white shadow sm:px-10 sm:mx-auto sm:w-full sm:rounded-lg mb-8"
             :class="{
-                'sm:max-w-md': setupStages.current === 1,
-                'sm:max-w-3xl': setupStages.current === 2
+                'sm:max-w-md': setup.current === 1,
+                'sm:max-w-3xl': setup.current === 2
             }"
         >
             <CreateOrganisation
-                v-if="setupStages.current === 1"
-                @next-step="setupStages.current = 2"
+                v-if="setup.current === 1"
+                @next-step="setup.current = 2"
             />
             <CreatePerson
-                v-if="setupStages.current === 2"
+                v-if="setup.current === 2"
                 :user="user"
             />
             <ProgressStages
-                :stages="setupStages.stages"
-                :current="setupStages.current"
+                :stages="setup.stages"
+                :current="setup.current"
             />
         </div>
     </section>
