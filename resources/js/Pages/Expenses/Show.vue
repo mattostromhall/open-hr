@@ -13,6 +13,7 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     expense: Expense,
@@ -20,6 +21,9 @@ const props = defineProps<{
     status: string,
     documents: DocumentListItem[]
 }>()
+
+const {can} = usePermissions()
+
 const breadcrumbs: Breadcrumb[] = [
     {
         link: '/expenses',
@@ -47,7 +51,10 @@ function deleteExpense() {
         <span class="font-medium">Viewing</span> - Expense
         <template #link>
             <div class="flex space-x-2">
-                <LightIndigoLink :href="`/expenses/${expense.id}/edit`">
+                <LightIndigoLink
+                    v-if="can('update-expense')"
+                    :href="`/expenses/${expense.id}/edit`"
+                >
                     Edit
                 </LightIndigoLink>
                 <LightIndigoLink href="/expenses">
@@ -67,6 +74,7 @@ function deleteExpense() {
                     Expense Information
                 </h3>
                 <RedButton
+                    v-if="can('delete-expense')"
                     type="button"
                     @click="showDeleteModal = true"
                 >

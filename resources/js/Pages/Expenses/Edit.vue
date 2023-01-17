@@ -20,6 +20,7 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import DocumentList from '../Files/Documents/DocumentList.vue'
 import currencies from '../../Shared/currencies'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../Hooks/usePermissions'
 
 const props = defineProps<{
     expense: Expense,
@@ -27,6 +28,8 @@ const props = defineProps<{
     expenseTypes: SelectOption[],
     documents: DocumentListItem[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -84,7 +87,10 @@ function submit(): void {
 
     <PageHeading>
         <span class="font-medium">Editing</span> - Submitted Expenses by {{ requester }}
-        <template #link>
+        <template
+            v-if="can('view-expense')"
+            #link
+        >
             <LightIndigoLink :href="`/expenses/${expense.id}`">
                 View
             </LightIndigoLink>

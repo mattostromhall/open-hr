@@ -9,6 +9,9 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import type {Breadcrumb} from '../../../types'
+import usePermissions from '../../../Hooks/usePermissions'
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -33,7 +36,10 @@ const form: InertiaForm<{type: string}> = useForm({
     <PageHeading>
         Create Expense Type
         <template #link>
-            <LightIndigoLink href="/expense-types">
+            <LightIndigoLink
+                v-if="can('view-expense-type')"
+                href="/expense-types"
+            >
                 All Expense Types
             </LightIndigoLink>
         </template>

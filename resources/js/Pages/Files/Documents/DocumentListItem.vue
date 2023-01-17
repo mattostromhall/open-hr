@@ -10,10 +10,13 @@ import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {useDateFormat} from '@vueuse/core'
 import useFileSizeFormatter from '../../../Composables/useFileSizeFormatter'
 import {InertiaForm, useForm} from '@inertiajs/inertia-vue3'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     item: DocumentListItem
 }>()
+
+const {can} = usePermissions()
 
 const download: Ref<HTMLAnchorElement | null> = ref(null)
 
@@ -98,7 +101,7 @@ function submit() {
         </td>
         <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
             <SimpleDropdown
-                v-if="item.kind === 'folder'"
+                v-if="item.kind === 'folder' && can('delete-folder')"
                 v-model="showDeleteDropdown"
                 position="below-right"
             >
@@ -119,7 +122,7 @@ function submit() {
                 </template>
             </SimpleDropdown>
             <a
-                v-if="item.kind !== 'folder'"
+                v-if="item.kind !== 'folder' && can('download-document')"
                 ref="download"
                 :href="item.path"
                 class="text-indigo-600 hover:text-indigo-900"

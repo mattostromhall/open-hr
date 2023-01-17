@@ -5,10 +5,13 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 defineProps<{
     organisationNotifications: (Notification & {created_at: string})[]
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
@@ -25,7 +28,10 @@ const breadcrumbs: Breadcrumb[] = [
     <PageHeading>
         Organisation Notifications
         <template #link>
-            <LightIndigoLink href="/organisation/notifications/create">
+            <LightIndigoLink
+                v-if="can('create-organisation-notification')"
+                href="/organisation/notifications/create"
+            >
                 Add Notification
             </LightIndigoLink>
         </template>

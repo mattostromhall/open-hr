@@ -4,12 +4,15 @@ import ListItem from './DocumentListItem.vue'
 import AddDirectory from './AddDirectory.vue'
 import {ArrowLeftCircleIcon} from '@heroicons/vue/24/outline'
 import {Link} from '@inertiajs/inertia-vue3'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     items: DocumentListItem[],
     path?: string,
     backPath?: string
 }>()
+
+const {can} = usePermissions()
 </script>
 
 <template>
@@ -71,7 +74,7 @@ const props = defineProps<{
                                 :item="item"
                             />
                             <AddDirectory
-                                v-if="props.path"
+                                v-if="props.path && can('create-folder')"
                                 :path="path"
                             />
                         </tbody>

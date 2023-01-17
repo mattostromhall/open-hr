@@ -11,6 +11,7 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import UploadDocuments from './UploadDocuments.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
+import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
     path: string,
@@ -21,6 +22,8 @@ const props = defineProps<{
     documentList: DocumentListItem[],
     backPath?: string
 }>()
+
+const {can} = usePermissions()
 
 const breadcrumbParts = props.path
     .substring(11)
@@ -70,7 +73,10 @@ function hideDocumentsModal() {
     <PageHeading>
         Documents
         <template #link>
-            <IndigoButton @click="showDocumentsModal">
+            <IndigoButton
+                v-if="can('upload-document')"
+                @click="showDocumentsModal"
+            >
                 Add Documents
                 <SimpleModal
                     v-model="showAddDocuments"
