@@ -6,21 +6,14 @@ import CreateOrganisation from '@/Pages/Setup/CreateOrganisation.vue'
 import ProgressStages from '@/Components/ProgressStages.vue'
 import CreatePerson from '@/Pages/Setup/CreatePerson.vue'
 
+const props = defineProps<{
+    stage: number
+}>()
+
 interface SetupStages {
     stages: number[],
     current: number
 }
-
-const props = defineProps({
-    user: {
-        type: Object,
-        required: true
-    },
-    stage: {
-        type: Number,
-        default: 1
-    }
-})
 
 const setup: SetupStages = reactive({
     stages: [1, 2],
@@ -69,10 +62,7 @@ export default {
                 v-if="setup.current === 1"
                 @next-step="setup.current = 2"
             />
-            <CreatePerson
-                v-if="setup.current === 2"
-                :user="user"
-            />
+            <CreatePerson v-if="setup.current === 2" />
             <ProgressStages
                 :stages="setup.stages"
                 :current="setup.current"

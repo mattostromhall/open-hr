@@ -2,7 +2,7 @@
 import {useDateFormat} from '@vueuse/core'
 import {Head, useForm} from '@inertiajs/inertia-vue3'
 import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import type {Breadcrumb, HolidayStatus} from '../../../types'
+import type {Breadcrumb, Holiday, HolidayStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import PageHeading from '@/Components/PageHeading.vue'
@@ -10,24 +10,12 @@ import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import usePermissions from '../../../Hooks/usePermissions'
 
-const props = defineProps({
-    requester: {
-        type: String,
-        required: true
-    },
-    holiday: {
-        type: Object,
-        required: true
-    },
-    status: {
-        type: String,
-        default: 'pending'
-    },
-    duration: {
-        type: Number,
-        default: 1
-    }
-})
+const props = defineProps<{
+    requester: string,
+    holiday: Holiday,
+    status: string,
+    duration: number
+}>()
 
 const {can} = usePermissions()
 

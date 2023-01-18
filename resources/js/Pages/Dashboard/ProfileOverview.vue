@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import {Link} from '@inertiajs/inertia-vue3'
+import type {Person} from '../../types'
 
-defineProps({
-    person: {
-        type: Object,
-        required: true
-    },
-    holidayRemaining: {
-        type: Number,
-        default: 0
-    },
-    sickDaysRemaining: {
-        type: Number,
-        default: 0
-    }
-})
+defineProps<{
+    person: Pick<Person, 'id' | 'full_name' | 'initials' | 'position'>,
+    holidayRemaining: number,
+    sickDaysRemaining: number
+}>()
 </script>
 
 <template>

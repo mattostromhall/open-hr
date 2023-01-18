@@ -85,13 +85,14 @@ export default {
                         :disabled="form.processing"
                         class="w-full"
                     >
-                        <Link
-                            href="/login"
-                            class="block mt-3 text-sm text-gray-600 hover:text-gray-900 underline"
-                        >
-                            Already registered?
-                        </Link>
-                    </indigobutton>
+                        Create Account
+                    </IndigoButton>
+                    <Link
+                        href="/login"
+                        class="block mt-3 text-sm text-gray-600 hover:text-gray-900 underline"
+                    >
+                        Already registered?
+                    </Link>
                 </div>
             </form>
         </div>
