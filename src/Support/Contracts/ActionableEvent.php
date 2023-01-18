@@ -7,7 +7,7 @@ use Support\Enums\Action;
 
 interface ActionableEvent
 {
-    public function person(): Person;
+    public function person(): ?Person;
 
     public function action(): Action;
 

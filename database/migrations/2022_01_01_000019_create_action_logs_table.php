@@ -15,6 +15,7 @@ return new class () extends Migration {
         Schema::create('action_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')
+                ->nullable()
                 ->constrained();
             $table->string('action');
             $table->text('payload');

@@ -23,11 +23,11 @@ class LogAction implements ShouldQueue
     {
         $this->createActionLog->execute(
             new ActionLogData(
-                person: $event->person(),
                 action: $event->action(),
                 payload: $event->payload(),
                 actionable_id: $event->actionableId(),
-                actionable_type: $event->actionableType()
+                actionable_type: $event->actionableType(),
+                person: $event->person()
             )
         );
     }

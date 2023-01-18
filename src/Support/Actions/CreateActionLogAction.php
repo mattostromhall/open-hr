@@ -11,7 +11,7 @@ class CreateActionLogAction implements CreateActionLogActionInterface
     public function execute(ActionLogData $data): ActionLog
     {
         return ActionLog::create([
-            'person_id' => $data->person->id,
+            'person_id' => $data->person?->id,
             'action' => $data->action,
             'payload' => $data->payload,
             'actionable_id' => $data->actionable_id,
