@@ -5,16 +5,10 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 
-const props = defineProps({
-    email: {
-        type: String,
-        default: ''
-    },
-    token: {
-        type: String,
-        default: ''
-    }
-})
+const props = defineProps<{
+    email?: string,
+    token?: string
+}>()
 
 interface ResetPasswordForm {
     token: string,
@@ -24,8 +18,8 @@ interface ResetPasswordForm {
 }
 
 const form: InertiaForm<ResetPasswordForm> = useForm({
-    token: props.token,
-    email: props.email,
+    token: props.token ?? '',
+    email: props.email ?? '',
     password: '',
     password_confirmation: '',
 })

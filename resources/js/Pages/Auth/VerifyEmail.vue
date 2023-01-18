@@ -3,12 +3,9 @@ import {computed} from 'vue'
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3'
 import type {ComputedRef} from 'vue'
 
-const props = defineProps({
-    status: {
-        type: String,
-        default: ''
-    }
-})
+const props = defineProps<{
+    status?: string
+}>()
 
 const form = useForm({})
 

@@ -5,12 +5,9 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
-defineProps({
-    status: {
-        type: String,
-        default: undefined
-    }
-})
+defineProps<{
+    status?: string
+}>()
 
 interface ForgotPasswordForm {
     email: string
