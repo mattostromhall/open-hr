@@ -355,6 +355,22 @@ export interface ReportableColumn {
     type: string
 }
 
+export interface CalendarEvent {
+    title: string,
+    start: string,
+    end: string,
+    color: string,
+    classNames: string
+}
+
+export interface HolidayEvent extends CalendarEvent {
+    extendedProps: Holiday
+}
+
+export interface SicknessEvent extends CalendarEvent {
+    extendedProps: Sickness
+}
+
 export interface Breadcrumb {
     link?: string,
     display: string

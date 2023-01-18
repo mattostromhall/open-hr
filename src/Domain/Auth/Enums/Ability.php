@@ -18,6 +18,7 @@ enum Ability: string
     case CREATE_SICKNESS = 'create-sickness';
     case UPDATE_SICKNESS = 'update-sickness';
     case DELETE_SICKNESS = 'delete-sickness';
+    case VIEW_SICKNESS_CALENDAR = 'view-sickness-calendar';
     case VIEW_USER = 'view-user';
     case CREATE_USER = 'create-user';
     case UPDATE_USER = 'update-user';

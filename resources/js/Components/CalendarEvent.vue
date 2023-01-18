@@ -99,7 +99,7 @@ const {show, calendarEvent, hideCalendarEvent} = useCalendarSlideOver()
                                         </div>
                                     </dl>
                                 </div>
-                                <div>
+                                <div v-if="calendarEvent.status">
                                     <h3 class="mb-1 font-medium text-gray-900">
                                         Status
                                     </h3>

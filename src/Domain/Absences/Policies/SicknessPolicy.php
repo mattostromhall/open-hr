@@ -55,6 +55,11 @@ class SicknessPolicy
             );
     }
 
+    public function viewCalendar(User $user): bool
+    {
+        return $user->can(Ability::VIEW_SICKNESS_CALENDAR->value);
+    }
+
     public function manage(User $user): bool
     {
         return $user->isA(Role::MANAGER->value);

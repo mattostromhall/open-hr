@@ -10,19 +10,19 @@ import useCalendarSlideOver from '../../../Composables/useCalendarSlideOver'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
-import type {Breadcrumb, HolidayEvent} from '../../../types'
+import type {Breadcrumb, SicknessEvent} from '../../../types'
 import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
-    holidayEvents: HolidayEvent[]
+    sicknessEvents: SicknessEvent[]
 }>()
 
 const {isA} = usePermissions()
 
 const breadcrumbs: Breadcrumb[] = [
     {
-        link: '/holidays',
-        display: 'Holidays'
+        link: '/sicknesses',
+        display: 'Sicknesses'
     },
     {
         display: 'Calendar'
@@ -39,7 +39,7 @@ const calendarOptions = {
         center: 'title',
         end: 'today prev,next prevYear,nextYear'
     },
-    events: props.holidayEvents,
+    events: props.sicknessEvents,
     displayEventTime: false,
     weekends: false,
     eventClick: ({event}: EventClickArg) => showCalendarEvent(event._def.extendedProps)
@@ -48,17 +48,17 @@ const calendarOptions = {
 
 <template>
     <Head>
-        <title>Holiday Calendar</title>
+        <title>Sickness Calendar</title>
     </Head>
 
     <PageHeading>
-        Holiday Calendar
+        Sickness Calendar
         <template #link>
             <LightIndigoLink
                 v-if="isA('manager')"
-                href="/holidays/manage"
+                href="/sicknesses/manage"
             >
-                Manage holiday
+                Manage Sicknesses
             </LightIndigoLink>
         </template>
     </PageHeading>
