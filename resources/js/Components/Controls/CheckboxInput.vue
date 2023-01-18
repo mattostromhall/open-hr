@@ -1,18 +1,9 @@
 <script setup lang="ts">
-defineProps({
-    modelValue: {
-        type: Boolean,
-        default: false
-    },
-    inputId: {
-        type: String,
-        default: ''
-    },
-    inputName: {
-        type: String,
-        default: ''
-    }
-})
+defineProps<{
+    modelValue?: boolean,
+    inputId?: string,
+    inputName?: string
+}>()
 
 const emit = defineEmits(['update:modelValue', 'checked'])
 

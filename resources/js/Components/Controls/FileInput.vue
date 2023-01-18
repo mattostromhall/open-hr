@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, reactive, ref} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
-import type {FileInput, FileType} from '../../types'
+import type {FileInput} from '../../types'
 
 const props = defineProps({
     modelValue: File,

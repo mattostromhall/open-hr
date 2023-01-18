@@ -2,24 +2,12 @@
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 
-const props = defineProps({
-    modelValue: {
-        type: String,
-        default: ''
-    },
-    error: {
-        type: String,
-        default: ''
-    },
-    inputId: {
-        type: String,
-        default: ''
-    },
-    inputName: {
-        type: String,
-        default: ''
-    }
-})
+const props = defineProps<{
+    modelValue?: string,
+    error?: string,
+    inputId?: string,
+    inputName?: string
+}>()
 
 const emit = defineEmits(['update:modelValue', 'reset'])
 
