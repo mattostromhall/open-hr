@@ -9,11 +9,6 @@ use Support\DataTransferObjects\ActionLogData;
 
 class LogAction implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
     public function __construct(protected CreateActionLogActionInterface $createActionLog)
     {
         //

@@ -16,7 +16,7 @@ class PerformanceViewModel extends ViewModel
     public function manager()
     {
         return person()->manager?->only('id', 'full_name')
-            ?? person()->department->head->only('id', 'full_name');
+            ?? person()->department?->head->only('id', 'full_name');
     }
 
     public function upcomingOneToOnes()

@@ -12,7 +12,7 @@ import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
-    manager: Pick<Person, 'id'|'full_name'>,
+    manager?: Pick<Person, 'id'|'full_name'>,
     upcomingOneToOnes: OneToOne[],
     previousOneToOnes: OneToOne[],
     objectives: Objective[]

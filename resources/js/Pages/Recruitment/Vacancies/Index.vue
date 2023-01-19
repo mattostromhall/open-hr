@@ -3,10 +3,11 @@ import {Head} from '@inertiajs/inertia-vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'
-import type {ContractType, SelectOption, TabbedContentItem, Vacancy} from '../../../types'
+import type {Breadcrumb, ContractType, SelectOption, TabbedContentItem, Vacancy} from '../../../types'
 import Post from './Post.vue'
 import Open from './Open.vue'
 import Closed from './Closed.vue'
+import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 defineProps<{
     active: TabbedContentItem['identifier'],
@@ -15,6 +16,12 @@ defineProps<{
     open: (Pick<Vacancy, 'id' | 'title' | 'location' | 'contract_type' | 'open_at' | 'close_at'>)[]
     closed: (Pick<Vacancy, 'id' | 'title' | 'location' | 'contract_type' | 'open_at' | 'close_at'>)[]
 }>()
+
+const breadcrumbs: Breadcrumb[] = [
+    {
+        display: 'Vacancies'
+    }
+]
 
 const tabs: TabbedContentItem[] = [
     {
@@ -48,6 +55,11 @@ const tabs: TabbedContentItem[] = [
             </LightIndigoLink>
         </template>
     </PageHeading>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+        dashboard="/dashboard/organisation"
+        class="pt-8 px-8"
+    />
     <TabbedContent
         v-slot="{setActive, isActive}"
         :active="active"

@@ -20,14 +20,7 @@ use Tests\TestCase;
 */
 
 uses(TestCase::class, RefreshDatabase::class)
-    ->beforeEach(function () {
-        Artisan::call('scaffold:defaults');
-        Model::unsetEventDispatcher();
-    })
-//    ->beforeEach(function () {
-//        $person = setupCompanyAndUser();
-//        $this->actingAs($person->user);
-//    })
+    ->beforeEach(fn () => Artisan::call('scaffold:defaults'))
     ->in('Feature');
 
 /*

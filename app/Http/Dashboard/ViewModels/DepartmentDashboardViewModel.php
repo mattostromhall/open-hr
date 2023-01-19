@@ -8,24 +8,24 @@ use Illuminate\Support\Collection;
 
 class DepartmentDashboardViewModel extends ViewModel
 {
-    public function __construct(protected Department $department)
+    public function __construct(protected ?Department $department = null)
     {
         //
     }
 
-    public function department(): Department
+    public function department(): ?Department
     {
         return $this->department;
     }
 
-    public function head()
+    public function head(): ?string
     {
-        return $this->department->head->full_name;
+        return $this->department?->head->full_name;
     }
 
-    public function memberCount(): int
+    public function memberCount(): ?int
     {
-        return $this->department->members()->count();
+        return $this->department?->members()->count();
     }
 
     public function organisationNotifications(): Collection

@@ -17,12 +17,7 @@ class PersonUpdated implements ActionableEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public Person $person;
+    public ?Person $person;
 
     public function __construct(public Person $personModel)
     {
@@ -34,7 +29,7 @@ class PersonUpdated implements ActionableEvent
         return new PrivateChannel('channel-name');
     }
 
-    public function person(): Person
+    public function person(): ?Person
     {
         return $this->person;
     }

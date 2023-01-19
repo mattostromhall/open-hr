@@ -43,7 +43,7 @@ function requestOneToOne() {
         >
             <UsersIcon class="mx-auto h-12 w-12 text-gray-400" />
             <h3 class="mt-2 text-sm font-medium text-gray-900">
-                No Upcoming One-to-ones
+                No Previous One-to-ones
             </h3>
             <div
                 v-if="can('create-one-to-one')"

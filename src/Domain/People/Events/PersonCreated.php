@@ -2,7 +2,6 @@
 
 namespace Domain\People\Events;
 
-use Domain\Organisation\Models\Department;
 use Domain\People\Models\Person;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -18,7 +17,7 @@ class PersonCreated implements ActionableEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    public Person $person;
+    public ?Person $person;
 
     public function __construct(public Person $personModel)
     {
@@ -30,7 +29,7 @@ class PersonCreated implements ActionableEvent
         return new PrivateChannel('channel-name');
     }
 
-    public function person(): Person
+    public function person(): ?Person
     {
         return $this->person;
     }

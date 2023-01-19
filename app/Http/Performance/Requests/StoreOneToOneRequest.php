@@ -13,9 +13,9 @@ class StoreOneToOneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'person_id' => ['required', 'numeric'],
-            'manager_id' => ['required', 'numeric'],
-            'requester_id' => ['required', 'numeric'],
+            'person_id' => ['required', 'numeric', 'exists:people,id'],
+            'manager_id' => ['required', 'numeric', 'exists:people,id'],
+            'requester_id' => ['required', 'numeric', 'exists:people,id'],
             'person_status' => ['required', new Enum(OneToOneStatus::class)],
             'manager_status' => ['required', new Enum(OneToOneStatus::class)],
             'scheduled_at' => ['required', 'date', 'after_or_equal:today'],

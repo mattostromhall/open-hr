@@ -9,9 +9,10 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePerson from '../../../Hooks/usePerson'
 import type {OneToOne} from '../../../types'
 import type {Person} from '../../../types'
+import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 
 const props = defineProps<{
-    manager: Pick<Person, 'id'|'full_name'>,
+    manager?: Pick<Person, 'id'|'full_name'>,
 }>()
 
 type OneToOneRequestData = Omit<OneToOne, 'id' | 'status' | 'completed_at'>
@@ -22,7 +23,7 @@ const person = usePerson()
 
 const form: InertiaForm<OneToOneRequestData> = useForm({
     person_id: person.value.id,
-    manager_id: props.manager.id,
+    manager_id: props.manager?.id ?? 0,
     requester_id: person.value.id,
     person_status: 2,
     manager_status: 1,
@@ -44,7 +45,19 @@ function submit(): void {
 
 <template>
     <div class="space-y-6 sm:w-full sm:max-w-3xl sm:px-6 lg:col-span-9 lg:px-0">
-        <form @submit.prevent="submit">
+        <div
+            v-if="! manager"
+            class="bg-white py-6 px-4 text-center shadow sm:rounded-md sm:p-6"
+        >
+            <ExclamationTriangleIcon class="mx-auto h-12 w-12 text-gray-400" />
+            <h3 class="mt-2 text-sm font-medium text-gray-900">
+                You need a Manager to be assigned to you in order to request a One-to-one.
+            </h3>
+        </div>
+        <form
+            v-else
+            @submit.prevent="submit"
+        >
             <div class="shadow sm:rounded-md">
                 <div class="space-y-6 bg-white py-6 px-4 sm:rounded-t-md sm:p-6">
                     <div>

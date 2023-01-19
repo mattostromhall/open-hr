@@ -30,7 +30,7 @@ class VacancyCreated implements ActionableEvent
         return new PrivateChannel('channel-name');
     }
 
-    public function person(): Person
+    public function person(): ?Person
     {
         return $this->person;
     }

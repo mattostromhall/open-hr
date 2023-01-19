@@ -16,7 +16,7 @@ defineProps<{
         >
             <TrophyIcon class="mx-auto h-12 w-12 text-gray-400" />
             <h3 class="mt-2 text-sm font-medium text-gray-900">
-                You haven't completed any Training yet!
+                No Training completed yet!
             </h3>
         </div>
         <div

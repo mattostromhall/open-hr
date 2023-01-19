@@ -18,7 +18,7 @@ class OrganisationCreated implements ActionableEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    public Person $person;
+    public ?Person $person;
 
     public function __construct(public Organisation $organisation)
     {
@@ -30,7 +30,7 @@ class OrganisationCreated implements ActionableEvent
         return new PrivateChannel('channel-name');
     }
 
-    public function person(): Person
+    public function person(): ?Person
     {
         return $this->person;
     }
