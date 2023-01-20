@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {Head, useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/vue3'
 import type {Breadcrumb, Holiday, HolidayStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -37,7 +36,7 @@ interface ReviewHolidayData {
 const start = useDateFormat(props.holiday.start_at, 'DD/MM/YYYY')
 const finish = useDateFormat(props.holiday.finish_at, 'DD/MM/YYYY')
 
-const form: InertiaForm<ReviewHolidayData> = useForm({
+const form: ReviewHolidayData = useForm({
     notes: props.holiday.notes ?? undefined,
     status: props.holiday.status
 })

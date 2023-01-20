@@ -2,7 +2,7 @@
 import type {ComputedRef} from 'vue'
 import type {Paginator, PaginatorLink} from '../../types'
 import {computed} from 'vue'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/vue/20/solid'
 
 const props = defineProps<{

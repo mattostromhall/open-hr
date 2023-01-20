@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import {CalendarIcon, ChevronRightIcon, FaceSmileIcon} from '@heroicons/vue/24/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import type {Sickness} from '../../../types'
 
 defineProps<{

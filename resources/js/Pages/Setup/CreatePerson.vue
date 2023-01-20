@@ -2,9 +2,9 @@
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import {Inertia} from '@inertiajs/inertia'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import {router} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
@@ -64,7 +64,7 @@ function submit(): void {
 }
 
 function skipStage(): void {
-    Inertia.post('/setup')
+    router.post('/setup')
 }
 </script>
 

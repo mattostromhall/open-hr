@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {Breadcrumb, Person, TabbedContentItem, Training} from '../../../types'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import AssignTraining from './AssignTraining.vue'
 import Started from './Started.vue'

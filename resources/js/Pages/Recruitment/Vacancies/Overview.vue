@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import type {Person, Vacancy} from '../../../types'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import RedButton from '@/Components/Controls/RedButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -21,7 +21,7 @@ const {can} = usePermissions()
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteVacancy() {
-    return Inertia.delete(`/vacancies/${props.vacancy.id}`)
+    return router.delete(`/vacancies/${props.vacancy.id}`)
 }
 </script>
 

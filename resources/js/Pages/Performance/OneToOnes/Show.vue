@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Breadcrumb, OneToOne} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -37,13 +37,13 @@ const breadcrumbs: Breadcrumb[] = [
 ]
 
 function complete() {
-    return Inertia.post(`/one-to-ones/${props.oneToOne.id}/complete`)
+    return router.post(`/one-to-ones/${props.oneToOne.id}/complete`)
 }
 
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteOneToOne() {
-    return Inertia.delete(`/one-to-ones/${props.oneToOne.id}`)
+    return router.delete(`/one-to-ones/${props.oneToOne.id}`)
 }
 </script>
 

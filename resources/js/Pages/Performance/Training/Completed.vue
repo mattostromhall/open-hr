@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ChevronRightIcon, TrophyIcon} from '@heroicons/vue/24/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import type {Training} from '../../../types'
 
 defineProps<{

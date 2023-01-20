@@ -7,9 +7,9 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import {Inertia} from '@inertiajs/inertia'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -80,7 +80,7 @@ const abilities = computed(() => {
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deletePerson() {
-    return Inertia.delete(`/people/${props.person.id}`)
+    return router.delete(`/people/${props.person.id}`)
 }
 </script>
 

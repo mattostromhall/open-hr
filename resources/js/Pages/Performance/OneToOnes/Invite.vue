@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
-import {Head, useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import type {OneToOne, OneToOneStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type {Breadcrumb, Holiday} from '../../../types'
 import {useDateFormat} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import {computed} from 'vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -43,7 +43,7 @@ const status = computed(() => statusMap[props.holiday.status])
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteHoliday() {
-    return Inertia.delete(`/holidays/${props.holiday.id}`)
+    return router.delete(`/holidays/${props.holiday.id}`)
 }
 </script>
 

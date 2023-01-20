@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import type {Department, SelectOption} from '../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'

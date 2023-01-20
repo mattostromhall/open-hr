@@ -1,9 +1,10 @@
 import {computed} from 'vue'
-import {usePage} from '@inertiajs/inertia-vue3'
+import {usePage} from '@inertiajs/vue3'
 import type {Ability, OpenHRPageProps, Role} from '../types'
 
 export default () => {
-    const permissions = usePage<OpenHRPageProps>().props.value.permissions
+    const props: unknown = usePage().props
+    const permissions = (props as OpenHRPageProps).permissions
 
     function roles() {
         return computed(() => {

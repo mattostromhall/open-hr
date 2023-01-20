@@ -3,7 +3,7 @@ import type {DocumentListItem} from '../../../types'
 import ListItem from './DocumentListItem.vue'
 import AddDirectory from './AddDirectory.vue'
 import {ArrowLeftCircleIcon} from '@heroicons/vue/24/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{

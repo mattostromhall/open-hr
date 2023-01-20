@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {FolderPlusIcon} from '@heroicons/vue/24/outline'
 import TextInput from '../../../Components/Controls/TextInput.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import {computed, nextTick, ref} from 'vue'
 import type {Ref, ComputedRef} from 'vue'
 import IndigoButton from '../../../Components/Controls/IndigoButton.vue'
@@ -23,7 +22,7 @@ const path: ComputedRef<string> = computed(() =>
     name.value.startsWith('/') ? `${props.path}${name.value}` : `${props.path}/${name.value}`
 )
 
-const form: InertiaForm<DirectoryData> = useForm({
+const form: DirectoryData = useForm({
     path: ''
 })
 

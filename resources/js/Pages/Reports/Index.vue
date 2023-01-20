@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import {computed, reactive, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import type {Breadcrumb, Report, Paginated, Paginator} from '../../types'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
@@ -35,7 +35,7 @@ const breadcrumbs: Breadcrumb[] = [
 let search: Ref<string | undefined> = ref(props.search)
 
 watch(search, debounce(function (search) {
-    Inertia.get('/reports', search
+    router.get('/reports', search
         ? {search}
         : undefined,
     {
@@ -75,7 +75,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function bulkDelete() {
-    Inertia.post('/reports/bulk-delete', {
+    router.post('/reports/bulk-delete', {
         reports: selected.value
     }, {
         onSuccess: () => {

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import type {Application, Breadcrumb, Document, TimeStamp, Vacancy} from '../../../types'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import DocumentDownloadList from '../../../Components/DocumentDownloadList.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import usePermissions from '../../../Hooks/usePermissions'
@@ -34,15 +34,15 @@ const breadcrumbs: Breadcrumb[] = [
 ]
 
 function pending() {
-    Inertia.post(`/applications/${props.application.id}/pending`)
+    router.post(`/applications/${props.application.id}/pending`)
 }
 
 function successful() {
-    Inertia.post(`/applications/${props.application.id}/successful`)
+    router.post(`/applications/${props.application.id}/successful`)
 }
 
 function unsuccessful() {
-    Inertia.post(`/applications/${props.application.id}/unsuccessful`)
+    router.post(`/applications/${props.application.id}/unsuccessful`)
 }
 </script>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {TransitionRoot, TransitionChild} from '@headlessui/vue'
 import {BellIcon, AcademicCapIcon, ChartBarIcon, FolderIcon, HomeIcon, UserIcon, UsersIcon, XMarkIcon} from '@heroicons/vue/24/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
 import usePerson from '../Hooks/usePerson'

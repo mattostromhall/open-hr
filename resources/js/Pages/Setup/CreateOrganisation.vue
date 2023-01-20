@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import {computed} from 'vue'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
 import type {ComputedRef} from 'vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
@@ -15,7 +14,7 @@ interface OrganisationSetup {
     logo?: File
 }
 
-const form: InertiaForm<OrganisationSetup> = useForm({
+const form: OrganisationSetup = useForm({
     name: '',
     logo: undefined
 })

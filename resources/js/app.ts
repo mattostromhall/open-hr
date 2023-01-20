@@ -1,10 +1,9 @@
 import Main from '@/Layouts/Main.vue'
 import {createApp, h} from 'vue'
 import type {DefineComponent} from 'vue'
-import {createInertiaApp} from '@inertiajs/inertia-vue3'
-import {InertiaProgress} from '@inertiajs/progress'
+import {createInertiaApp} from '@inertiajs/vue3'
 import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers'
-import '../css/app.css'
+import '../css/App.css'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel'
 
@@ -19,11 +18,10 @@ createInertiaApp({
             }
             return page as Promise<DefineComponent>
         }),
-    setup({ el, app, props, plugin }) {
-        createApp({ render: () => h(app, props) })
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) })
             .use(plugin)
             .mount(el)
     },
+    progress: { color: '#4B5563' }
 })
-
-InertiaProgress.init({ color: '#4B5563' })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, Link, useForm} from '@inertiajs/vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
@@ -19,7 +18,7 @@ interface LoginForm {
     remember: boolean
 }
 
-const form: InertiaForm<LoginForm> = useForm({
+const form: LoginForm = useForm({
     email: '',
     password: '',
     remember: false

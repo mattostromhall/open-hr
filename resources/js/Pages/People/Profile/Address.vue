@@ -2,8 +2,8 @@
 import {PlusIcon} from '@heroicons/vue/24/solid'
 import {EnvelopeIcon, ExclamationTriangleIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -11,7 +11,7 @@ import CountryInput from '@/Components/Controls/CountryInput.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 import type {Address, Person} from '../../../types'
@@ -53,7 +53,7 @@ function submit(): void {
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteAddress() {
-    return Inertia.delete(`/addresses/${props.address.id}`, {
+    return router.delete(`/addresses/${props.address.id}`, {
         preserveState : false,
         onSuccess: () => {
             showDeleteModal.value = false

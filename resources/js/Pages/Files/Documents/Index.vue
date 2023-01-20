@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import type {Ref} from 'vue'
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import type {Breadcrumb, Documentable, DocumentListItem} from '../../../types'
 import {FolderIcon} from '@heroicons/vue/24/outline'

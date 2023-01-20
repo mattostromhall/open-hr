@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ChevronRightIcon, PlusIcon, BookmarkSlashIcon} from '@heroicons/vue/24/outline'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import type {Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import usePermissions from '../../../Hooks/usePermissions'

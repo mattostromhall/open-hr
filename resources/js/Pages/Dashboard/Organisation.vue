@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import OrganisationNotifications from './OrganisationNotifications.vue'
 import OrganisationQuickLinks from './OrganisationQuickLinks.vue'
 import OrganisationOverview from './OrganisationOverview.vue'

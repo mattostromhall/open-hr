@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {Breadcrumb, Notification} from '../../../types'
 import {useTimeAgo} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'

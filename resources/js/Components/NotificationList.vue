@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import {ChevronRightIcon} from '@heroicons/vue/24/solid'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
 import type {Notification} from '../types'

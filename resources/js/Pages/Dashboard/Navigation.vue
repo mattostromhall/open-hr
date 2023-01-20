@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/inertia-vue3'
-import {Inertia} from '@inertiajs/inertia'
+import {Link} from '@inertiajs/vue3'
+import {router} from '@inertiajs/vue3'
 import usePermissions from '../../Hooks/usePermissions'
 
 const {isA, isAn} = usePermissions()
 
 function select(event: Event) {
-    return Inertia.visit(`/dashboard${(event.target as HTMLSelectElement).value}`)
+    return router.visit(`/dashboard${(event.target as HTMLSelectElement).value}`)
 }
 </script>
 

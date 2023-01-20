@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import type {Breadcrumb, Holiday} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -8,7 +7,7 @@ import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
@@ -39,7 +38,7 @@ const halfDayOptions = [
     {value: 'pm', display: 'PM'}
 ]
 
-const form: InertiaForm<UpdateHolidayData> = useForm({
+const form: UpdateHolidayData = useForm({
     person_id: props.holiday.person_id,
     status: props.holiday.status,
     start_at: props.holiday.start_at,

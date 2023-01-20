@@ -1,4 +1,4 @@
-import type {PageProps} from '@inertiajs/inertia'
+import type {PageProps} from '@inertiajs/core'
 
 export type Currency = 'GBP' | 'USD' | 'EUR'
 

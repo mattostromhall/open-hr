@@ -8,7 +8,7 @@ import type {Notification} from '../types'
 import NotificationList from '@/Components/NotificationList.vue'
 import useNotificationsSlideOver from '../Composables/useNotificationsSlideOver'
 import usePerson from '../Hooks/usePerson'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 
 type ActiveTab = 'unread'|'read'
 

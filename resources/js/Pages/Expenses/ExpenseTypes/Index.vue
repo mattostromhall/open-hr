@@ -2,7 +2,7 @@
 import type {Breadcrumb, ExpenseType, Paginated, Paginator} from '../../../types'
 import type {ComputedRef, Ref} from 'vue'
 import {computed, reactive, ref, watch} from 'vue'
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
@@ -10,7 +10,7 @@ import {ClipboardDocumentListIcon, PencilIcon, PlusIcon, TrashIcon} from '@heroi
 import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import {debounce, omit} from 'lodash'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
@@ -35,7 +35,7 @@ const breadcrumbs: Breadcrumb[] = [
 let search: Ref<string | undefined> = ref(props.search)
 
 watch(search, debounce(function (search) {
-    Inertia.get('/expense-types', search
+    router.get('/expense-types', search
         ? {search}
         : undefined,
     {
@@ -74,7 +74,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function bulkDelete() {
-    Inertia.post('/expense-types/bulk-delete', {
+    router.post('/expense-types/bulk-delete', {
         expenseTypes: selected.value
     }, {
         onSuccess: () => {

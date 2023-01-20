@@ -1,15 +1,16 @@
 import {computed} from 'vue'
-import {usePage} from '@inertiajs/inertia-vue3'
+import {usePage} from '@inertiajs/vue3'
 import type {OpenHRPageProps} from '../types'
 import {isPersonPageProp} from '../types'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 
 export default () => {
     return computed(() => {
-        const person = usePage<OpenHRPageProps>().props.value.auth.person
+        const props: unknown = usePage().props
+        const person = (props as OpenHRPageProps).auth.person
 
         if (! isPersonPageProp(person)) {
-            Inertia.visit('/login')
+            router.visit('/login')
             throw new Error('No authenticated person')
         }
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import type {Objective} from '../../types'
 defineProps<{
     objectives: (Pick<Objective, 'id' | 'title' | 'description'>)[]

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Task} from '../../../types'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import {reactive, ref} from 'vue'
 import type {Ref} from 'vue'
 import Edit from './Edit.vue'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
@@ -35,7 +35,7 @@ function overdue(task: Task): boolean {
 }
 
 function complete(task: Task) {
-    return Inertia.post(`/tasks/${task.id}/complete`)
+    return router.post(`/tasks/${task.id}/complete`)
 }
 
 const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(

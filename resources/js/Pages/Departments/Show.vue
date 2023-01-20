@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import type {Breadcrumb, Department, Person} from '../../types'
 import type {ComputedRef} from 'vue'
 import {computed} from 'vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -38,7 +38,7 @@ const size: ComputedRef<number> = computed(() => props.members.length)
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteDepartment() {
-    return Inertia.delete(`/departments/${props.department.id}`)
+    return router.delete(`/departments/${props.department.id}`)
 }
 </script>
 

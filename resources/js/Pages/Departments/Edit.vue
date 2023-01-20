@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import type {Breadcrumb, Department, SelectOption, TabbedContentItem} from '../../types'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'

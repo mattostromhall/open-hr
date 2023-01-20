@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -24,7 +23,7 @@ type ReportSicknessData = Omit<Sickness, 'id' | 'person_id'> & {
 
 const emit = defineEmits(['setActive'])
 
-const form: InertiaForm<ReportSicknessData> = useForm({
+const form: ReportSicknessData = useForm({
     person_id: undefined,
     start_at: '',
     finish_at: undefined,

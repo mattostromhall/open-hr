@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {ContractType, SelectOption, Vacancy} from '../../../types'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import {useForm} from '@inertiajs/inertia-vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
+import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'

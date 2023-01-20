@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import {ClockIcon, DocumentTextIcon, FaceFrownIcon, UsersIcon, ReceiptRefundIcon} from '@heroicons/vue/24/outline'
 </script>
 

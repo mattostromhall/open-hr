@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -11,7 +10,7 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Breadcrumb, Sickness} from '../../../types'
 import {computed} from 'vue'
 import type {ComputedRef} from 'vue'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
@@ -37,7 +36,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type LogSicknessData = Omit<Sickness, 'id' | 'person_id'> & {documents?: File | File[]}
 
-const form: InertiaForm<LogSicknessData> = useForm({
+const form: LogSicknessData = useForm({
     _method: 'put',
     start_at: props.sickness.start_at,
     finish_at: props.sickness.finish_at,

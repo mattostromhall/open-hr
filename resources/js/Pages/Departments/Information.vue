@@ -5,8 +5,8 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import type {Department, SelectOption} from '../../types'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 
 const props = defineProps<{
     department: Department,

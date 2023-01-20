@@ -5,8 +5,8 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import EditorInput from '@/Components/Controls/EditorInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import type {Objective, Task} from '../../../types'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 
 const props = defineProps<{
     objective: Objective

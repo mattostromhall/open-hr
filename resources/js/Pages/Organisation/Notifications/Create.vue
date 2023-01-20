@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Head, useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'

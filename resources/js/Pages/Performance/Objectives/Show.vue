@@ -4,8 +4,8 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {useDateFormat} from '@vueuse/core'
 import type {Breadcrumb, Objective, Task} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import {Inertia} from '@inertiajs/inertia'
-import {Head} from '@inertiajs/inertia-vue3'
+import {router} from '@inertiajs/vue3'
+import {Head} from '@inertiajs/vue3'
 import Tasks from '@/Pages/Performance/Objectives/Tasks.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
@@ -46,13 +46,13 @@ function status(objective: Objective): string {
 }
 
 function complete() {
-    return Inertia.post(`/objectives/${props.objective.id}/complete`)
+    return router.post(`/objectives/${props.objective.id}/complete`)
 }
 
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteObjective() {
-    return Inertia.delete(`/objectives/${props.objective.id}`)
+    return router.delete(`/objectives/${props.objective.id}`)
 }
 </script>
 

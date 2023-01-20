@@ -3,8 +3,8 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import type {User} from '../../../types'
 
 const props = defineProps<{

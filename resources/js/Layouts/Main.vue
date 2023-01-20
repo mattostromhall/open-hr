@@ -4,13 +4,13 @@ import ShowSidebarButton from '@/Components/ShowSidebarButton.vue'
 import FlashMessages from '@/Components/FlashMessages.vue'
 import Notifications from '@/Components/Notifications.vue'
 import SecondaryIndigoButton from '../Components/Controls/SecondaryIndigoButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import useImpersonation from '../Hooks/useImpersonation'
 
 const impersonating = useImpersonation()
 
 function cancelImpersonation() {
-    Inertia.delete('/users/impersonate')
+    router.delete('/users/impersonate')
 }
 </script>
 

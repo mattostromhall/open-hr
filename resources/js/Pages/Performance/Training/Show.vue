@@ -3,10 +3,10 @@ import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Breadcrumb, Person, Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import {Head, useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {Head, useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import RedButton from '@/Components/Controls/RedButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -56,7 +56,7 @@ function complete() {
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteTraining() {
-    return Inertia.delete(`/training/${props.training.id}`)
+    return router.delete(`/training/${props.training.id}`)
 }
 </script>
 

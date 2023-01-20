@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {Vacancy} from '../../../types'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import Specification from './Specification.vue'

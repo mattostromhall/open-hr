@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import {computed, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import type {Breadcrumb, Department, Person, Paginated, Paginator} from '../../types'
@@ -9,7 +9,7 @@ import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EyeIcon, PencilIcon, PlusIcon, TagIcon} from '@heroicons/vue/24/outline'
 import Pagination from '@/Components/Controls/Pagination.vue'
 import SearchInput from '@/Components/Controls/SearchInput.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import {debounce, omit} from 'lodash'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 import SimpleModal from '@/Components/SimpleModal.vue'
@@ -41,7 +41,7 @@ const breadcrumbs: Breadcrumb[] = [
 let search: Ref<string | undefined> = ref(props.search)
 
 watch(search, debounce(function (search) {
-    Inertia.get('/departments', search
+    router.get('/departments', search
         ? {search}
         : undefined,
     {
@@ -77,7 +77,7 @@ function isSelected(id: number) {
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function bulkDelete() {
-    Inertia.post('/departments/bulk-delete', {
+    router.post('/departments/bulk-delete', {
         departments: selected.value
     }, {
         onSuccess: () => {

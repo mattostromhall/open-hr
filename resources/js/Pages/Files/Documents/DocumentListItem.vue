@@ -5,11 +5,11 @@ import {FolderIcon} from '@heroicons/vue/24/solid'
 import {computed, ref} from 'vue'
 import type {Ref} from 'vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {useDateFormat} from '@vueuse/core'
 import useFileSizeFormatter from '../../../Composables/useFileSizeFormatter'
-import {InertiaForm, useForm} from '@inertiajs/inertia-vue3'
+import {InertiaForm, useForm} from '@inertiajs/vue3'
 import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
@@ -40,7 +40,7 @@ function downloadDocument() {
 
 function navigate() {
     props.item.kind === 'folder'
-        ? Inertia.visit(props.item.path)
+        ? router.visit(props.item.path)
         : downloadDocument()
 
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
-import {useForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import FileInput from '@/Components/Controls/FileInput.vue'
 import FilePreview from '@/Components/FilePreview.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -22,7 +21,7 @@ interface DocumentsData {
     documentable_type: DocumentableType
 }
 
-const form: InertiaForm<DocumentsData> = useForm({
+const form: DocumentsData = useForm({
     path: props.path,
     documents: undefined,
     documentable_id: props.documentable.id,

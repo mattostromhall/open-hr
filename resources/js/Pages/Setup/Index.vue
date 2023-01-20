@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed, reactive} from 'vue'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import type {ComputedRef} from 'vue'
 import CreateOrganisation from '@/Pages/Setup/CreateOrganisation.vue'
 import ProgressStages from '@/Components/ProgressStages.vue'

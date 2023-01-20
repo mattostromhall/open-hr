@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import RequestHoliday from './RequestHoliday.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import Approved from './Approved.vue'

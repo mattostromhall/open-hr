@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import type {Ref} from 'vue'
 import {KeyIcon, EnvelopeIcon, UserCircleIcon} from '@heroicons/vue/24/outline'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PersonalInformation from './PersonalInformation.vue'
 import Credentials from './Credentials.vue'
 import PersonAddress from './Address.vue'

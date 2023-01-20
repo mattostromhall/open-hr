@@ -2,7 +2,7 @@
 import {useTimeAgo} from '@vueuse/core'
 import type {ActionLog, Breadcrumb, Person} from '../../types'
 import {PencilIcon, PlusIcon, TrashIcon} from '@heroicons/vue/24/outline'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'

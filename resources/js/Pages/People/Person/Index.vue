@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {Head, Link} from '@inertiajs/inertia-vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import {computed, ref, watch} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import type {Breadcrumb, Department, Paginated, Paginator, Person, User} from '../../../types'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import PageHeading from '@/Components/PageHeading.vue'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
@@ -39,7 +39,7 @@ const breadcrumbs: Breadcrumb[] = [
 let search: Ref<string | undefined> = ref(props.search)
 
 watch(search, debounce(function (search) {
-    Inertia.get('/people', search
+    router.get('/people', search
         ? {search}
         : undefined,
     {
@@ -75,7 +75,7 @@ function isSelected(id: number) {
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function bulkDelete() {
-    Inertia.post('/people/bulk-delete', {
+    router.post('/people/bulk-delete', {
         people: selected.value
     }, {
         onSuccess: () => {

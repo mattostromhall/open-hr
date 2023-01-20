@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type {Breadcrumb, DocumentListItem, Sickness} from '../../../types'
 import {useDateFormat} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import DocumentDownloadList from '@/Components/DocumentDownloadList.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -37,7 +37,7 @@ const breadcrumbs: Breadcrumb[] = [
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteSickness() {
-    return Inertia.delete(`/sicknesses/${props.sickness.id}`)
+    return router.delete(`/sicknesses/${props.sickness.id}`)
 }
 </script>
 

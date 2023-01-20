@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -23,7 +22,7 @@ const halfDayOptions = [
     {value: 'pm', display: 'PM'}
 ]
 
-const form: InertiaForm<HolidayRequestData> = useForm({
+const form: HolidayRequestData = useForm({
     person_id: person.value.id,
     status: 1,
     start_at: '',

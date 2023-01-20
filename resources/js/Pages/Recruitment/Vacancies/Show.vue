@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {Application, Paginated, TabbedContentItem, Vacancy} from '../../../types'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import TabbedContent from '@/Components/TabbedContent.vue'

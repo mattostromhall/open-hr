@@ -5,7 +5,7 @@ import {computed} from 'vue'
 import IndigoLink from '@/Components/Controls/IndigoLink.vue'
 import SecondaryIndigoButton from '@/Components/Controls/SecondaryIndigoButton.vue'
 import {useClipboard} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 
 const props = defineProps<{
     status: StatusCode,

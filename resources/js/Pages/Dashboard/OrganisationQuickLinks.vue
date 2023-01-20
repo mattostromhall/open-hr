@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import {BackwardIcon, BellIcon, BookOpenIcon, ChartBarIcon, TagIcon, ClipboardDocumentListIcon} from '@heroicons/vue/24/outline'
 </script>
 

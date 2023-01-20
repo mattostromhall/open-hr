@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type {Breadcrumb, DocumentListItem, Expense} from '../../types'
 import {useDateFormat} from '@vueuse/core'
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import DocumentList from '../Files/Documents/DocumentList.vue'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
@@ -38,7 +38,7 @@ const breadcrumbs: Breadcrumb[] = [
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function deleteExpense() {
-    return Inertia.delete(`/expenses/${props.expense.id}`)
+    return router.delete(`/expenses/${props.expense.id}`)
 }
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head} from '@inertiajs/inertia-vue3'
+import {Head} from '@inertiajs/vue3'
 import '@fullcalendar/core/vdom'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'

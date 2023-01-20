@@ -5,8 +5,8 @@ import DateInput from '@/Components/Controls/DateInput.vue'
 import EditorInput from '@/Components/Controls/EditorInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import type {Task} from '../../../types'
-import {useForm} from '@inertiajs/inertia-vue3'
-import type {InertiaForm} from '@inertiajs/inertia-vue3'
+import {useForm} from '@inertiajs/vue3'
+import type {InertiaForm} from '@inertiajs/vue3'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 
 const props = defineProps<{

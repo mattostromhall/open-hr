@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue'
-import {Head, Link, useForm} from '@inertiajs/inertia-vue3'
+import {Head, Link, useForm} from '@inertiajs/vue3'
 import type {ComputedRef} from 'vue'
 
 const props = defineProps<{

@@ -2,7 +2,7 @@
 import {computed, reactive, ref} from 'vue'
 import type {ComputedRef, Ref} from 'vue'
 import type {Application, ApplicationStatus} from '../../../types'
-import {Link} from '@inertiajs/inertia-vue3'
+import {Link} from '@inertiajs/vue3'
 import CheckboxInput from '@/Components/Controls/CheckboxInput.vue'
 import {EnvelopeIcon, EyeIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import type {Paginated, Paginator} from '../../../types'
@@ -14,7 +14,7 @@ import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import usePermissions from '../../../Hooks/usePermissions'
-import {Inertia} from '@inertiajs/inertia'
+import {router} from '@inertiajs/vue3'
 
 const props = defineProps<{
     applications: Paginated<Omit<Application, 'cover_letter'>>
@@ -65,7 +65,7 @@ const showDeleteDropdown: {[id: number]: boolean} = reactive(Object.fromEntries(
 const showDeleteModal: Ref<boolean> = ref(false)
 
 function bulkDelete() {
-    Inertia.post('/applications/bulk-delete', {
+    router.post('/applications/bulk-delete', {
         applications: selected.value
     }, {
         onSuccess: () => {
