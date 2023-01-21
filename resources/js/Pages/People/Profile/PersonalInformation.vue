@@ -3,7 +3,6 @@ import EmailInput from '@/Components/Controls/EmailInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -14,7 +13,7 @@ const props = defineProps<{
     person: Pick<Person, 'id' | 'full_name' | 'title' | 'first_name' | 'last_name' | 'initials' | 'pronouns' | 'dob' | 'contact_number' | 'contact_email'>
 }>()
 
-interface PersonalInformationData {
+type PersonalInformationData = {
     first_name: string,
     last_name: string,
     dob: string,
@@ -25,7 +24,7 @@ interface PersonalInformationData {
     pronouns?: string
 }
 
-const form: InertiaForm<PersonalInformationData> = useForm({
+const form = useForm<PersonalInformationData>({
     first_name: props.person.first_name,
     last_name: props.person.last_name,
     dob: props.person.dob,

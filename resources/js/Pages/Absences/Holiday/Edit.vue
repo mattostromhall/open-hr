@@ -38,7 +38,7 @@ const halfDayOptions = [
     {value: 'pm', display: 'PM'}
 ]
 
-const form: UpdateHolidayData = useForm({
+const form = useForm<UpdateHolidayData>({
     person_id: props.holiday.person_id,
     status: props.holiday.status,
     start_at: props.holiday.start_at,

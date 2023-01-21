@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import {useDateFormat} from '@vueuse/core'
-import {Head, InertiaForm, useForm} from '@inertiajs/vue3'
+import {Head, useForm} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Address, Breadcrumb, Department, Person, Role, User} from '../../../types'
@@ -32,7 +32,7 @@ const breadcrumbs: Breadcrumb[] = [
     }
 ]
 
-const form: InertiaForm<{id: number}> = useForm({
+const form = useForm<{id: number}>({
     id: props.person.id
 })
 

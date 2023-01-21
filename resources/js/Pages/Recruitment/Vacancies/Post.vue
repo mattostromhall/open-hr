@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {ContractType, SelectOption, Vacancy} from '../../../types'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -21,7 +20,7 @@ type VacancyData = Omit<Vacancy, 'id' | 'contact_id' | 'public_id'> & {contact_i
 
 const emit = defineEmits(['setActive'])
 
-const form: InertiaForm<VacancyData> = useForm({
+const form = useForm<VacancyData>({
     contact_id: undefined,
     title: '',
     description: '',

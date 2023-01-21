@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -29,7 +28,7 @@ const directReportOptions: ComputedRef<({
     }
 }))
 
-const form: InertiaForm<TrainingRequestData> = useForm({
+const form = useForm<TrainingRequestData>({
     person_id: undefined,
     status: 2,
     state: 1,

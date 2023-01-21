@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
 import SelectInput from '@/Components/Controls/SelectInput.vue'
@@ -17,13 +16,13 @@ const props = defineProps<{
     documents: DocumentListItem[]
 }>()
 
-interface ReviewExpenseData {
+type ReviewExpenseData = {
     expense_type_id: number,
     status: ExpenseStatus,
     notes?: string
 }
 
-const form: InertiaForm<ReviewExpenseData> = useForm({
+const form = useForm<ReviewExpenseData>({
     expense_type_id: props.expense.expense_type_id,
     status: props.expense.status,
     notes: props.expense.notes ?? undefined

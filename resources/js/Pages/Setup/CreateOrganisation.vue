@@ -9,12 +9,12 @@ import ImagePreview from '@/Components/ImagePreview.vue'
 
 const emit = defineEmits(['nextStep'])
 
-interface OrganisationSetup {
+type OrganisationSetup = {
     name: string,
     logo?: File
 }
 
-const form: OrganisationSetup = useForm({
+const form = useForm<OrganisationSetup>({
     name: '',
     logo: undefined
 })

@@ -3,7 +3,6 @@ import {PlusIcon} from '@heroicons/vue/24/solid'
 import {EnvelopeIcon, ExclamationTriangleIcon, TrashIcon} from '@heroicons/vue/24/outline'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -24,18 +23,11 @@ const props = defineProps<{
 
 const {can} = usePermissions()
 
-interface AddressData {
-    id?: number
-    address_line: string,
-    country: string,
-    town_city: string,
-    region: string,
-    postal_code: string
-}
+type AddressData = Omit<Address, 'id'> & {id: number}
 
 const showForm: Ref<boolean> = ref(!!props.address?.id)
 
-const form: InertiaForm<AddressData> = useForm({
+const form = useForm<AddressData>({
     id: props.address?.id,
     address_line: props.address?.address_line ?? '',
     country: props.address?.country ?? '',

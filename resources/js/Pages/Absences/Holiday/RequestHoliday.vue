@@ -22,7 +22,7 @@ const halfDayOptions = [
     {value: 'pm', display: 'PM'}
 ]
 
-const form: HolidayRequestData = useForm({
+const form = useForm<HolidayRequestData>({
     person_id: person.value.id,
     status: 1,
     start_at: '',

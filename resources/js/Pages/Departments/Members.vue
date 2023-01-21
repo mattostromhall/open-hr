@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {Department, SelectOption} from '../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -13,11 +12,11 @@ const props = defineProps<{
     people: SelectOption[]
 }>()
 
-interface MemberData {
+type MemberData = {
     members: number[]
 }
 
-const form: InertiaForm<MemberData> = useForm({
+const form = useForm<MemberData>({
     members: props.members
 })
 

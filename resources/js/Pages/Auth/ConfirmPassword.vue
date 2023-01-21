@@ -4,11 +4,11 @@ import FormLabel from '@/Components/Controls/FormLabel.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 
-interface ConfirmPasswordForm {
+type ConfirmPasswordForm = {
     password: string
 }
 
-const form: ConfirmPasswordForm = useForm({
+const form = useForm<ConfirmPasswordForm>({
     password: '',
 })
 

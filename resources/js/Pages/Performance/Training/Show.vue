@@ -4,7 +4,6 @@ import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import type {Breadcrumb, Person, Training} from '../../../types'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RedButton from '@/Components/Controls/RedButton.vue'
 import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
@@ -36,7 +35,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type TrainingStateData = Pick<Training, 'status' | 'state'>
 
-const form: InertiaForm<TrainingStateData> = useForm({
+const form = useForm<TrainingStateData>({
     status: props.training.status,
     state: props.training.state
 })

@@ -3,7 +3,6 @@ import {ArrowDownTrayIcon, BookmarkSquareIcon, ExclamationTriangleIcon, PlusSmal
 import Condition from './ReportCondition.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import type {Breadcrumb, Report, ReportableColumn, ReportCondition, ReportConditionSet} from '../../types'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {Head, useForm} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -43,7 +42,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type ReportData = Omit<Report, 'id' | 'last_ran'>
 
-const form: InertiaForm<ReportData> = useForm({
+const form = useForm<ReportData>({
     label: props.report.label,
     model: props.report.model,
     condition_sets: props.report.condition_sets

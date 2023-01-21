@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {Breadcrumb, ContractType, SelectOption, Vacancy} from '../../../types'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -38,7 +37,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type VacancyData = Omit<Vacancy, 'id' | 'public_id'>
 
-const form: InertiaForm<VacancyData> = useForm({
+const form = useForm<VacancyData>({
     contact_id: props.vacancy.contact_id,
     title: props.vacancy.title,
     description: props.vacancy.description,

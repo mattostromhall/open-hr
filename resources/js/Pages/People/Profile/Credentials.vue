@@ -4,28 +4,27 @@ import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {User} from '../../../types'
 
 const props = defineProps<{
     user: Pick<User, 'id' | 'email'>
 }>()
 
-interface UpdateEmailForm {
+type UpdateEmailForm = {
     email: string
 }
 
-interface UpdatePasswordForm {
+type UpdatePasswordForm = {
     current_password: string,
     password: string,
     password_confirmation: string
 }
 
-const emailForm: InertiaForm<UpdateEmailForm> = useForm({
+const emailForm = useForm<UpdateEmailForm>({
     email: props.user.email
 })
 
-const passwordForm: InertiaForm<UpdatePasswordForm> = useForm({
+const passwordForm = useForm<UpdatePasswordForm>({
     current_password: '',
     password: '',
     password_confirmation: ''

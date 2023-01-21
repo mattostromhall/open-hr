@@ -8,7 +8,6 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {useForm} from '@inertiajs/vue3'
 import type {Breadcrumb, Objective, Person} from '../../../types'
 import Breadcrumbs from '@/Components/Breadcrumbs.vue'
@@ -34,7 +33,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'days_remaining' | 'completed_at'>
 
-const form: InertiaForm<ObjectiveData> = useForm({
+const form = useForm<ObjectiveData>({
     title: props.objective.title,
     description: props.objective.description,
     due_at: props.objective.due_at

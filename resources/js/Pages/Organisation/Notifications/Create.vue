@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -13,7 +12,7 @@ import Breadcrumbs from '@/Components/Breadcrumbs.vue'
 
 type NotificationData = Pick<Notification, 'title'|'body'|'link'>
 
-const form: InertiaForm<NotificationData> = useForm({
+const form = useForm<NotificationData>({
     title: undefined,
     body: '',
     link: undefined

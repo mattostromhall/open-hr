@@ -5,7 +5,6 @@ import EmailInput from '@/Components/Controls/EmailInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {ComplexSelectOption, Department, Person} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -47,7 +46,7 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
     {value: 'yearly', display: 'Yearly'}
 ]
 
-const form: InertiaForm<InformationData> = useForm({
+const form = useForm<InformationData>({
     user_id: props.person.user_id,
     first_name: props.person.first_name,
     last_name: props.person.last_name,

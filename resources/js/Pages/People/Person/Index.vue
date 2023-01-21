@@ -129,7 +129,7 @@ function bulkDelete() {
                     v-if="can('create-person')"
                     class="mt-6 flex justify-center"
                 >
-                    <IndigoLink href="expense-types/create">
+                    <IndigoLink href="/people/create">
                         <PlusIcon class="mr-2 -ml-1 h-5 w-5" />
                         Add
                     </IndigoLink>

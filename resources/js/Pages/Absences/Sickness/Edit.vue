@@ -34,9 +34,14 @@ const breadcrumbs: Breadcrumb[] = [
     }
 ]
 
-type LogSicknessData = Omit<Sickness, 'id' | 'person_id'> & {documents?: File | File[]}
+type LogSicknessData = Omit<Sickness, 'id' | 'person_id'>
+    &
+    {
+        _method: 'put',
+        documents?: File | File[]
+    }
 
-const form: LogSicknessData = useForm({
+const form = useForm<LogSicknessData>({
     _method: 'put',
     start_at: props.sickness.start_at,
     finish_at: props.sickness.finish_at,

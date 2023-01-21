@@ -6,7 +6,6 @@ import IndigoButton from '@/Components/Controls/IndigoButton.vue'
 import SearchableSelectInput from '@/Components/Controls/SearchableSelectInput.vue'
 import type {Department, SelectOption} from '../../types'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 
 const props = defineProps<{
     department: Department,
@@ -15,7 +14,7 @@ const props = defineProps<{
 
 type DepartmentData = Omit<Department, 'id'>
 
-const form: InertiaForm<DepartmentData> = useForm({
+const form = useForm<DepartmentData>({
     name: props.department.name,
     head_of_department_id: props.department.head_of_department_id
 })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
@@ -44,11 +43,14 @@ const breadcrumbs: Breadcrumb[] = [
 
 type UpdateExpenseData = Omit<Expense, 'id'>
     &
-    {documents: File | File[] | undefined}
+    {
+        _method: 'put',
+        documents: File | File[] | undefined
+    }
 
 const person = usePerson()
 
-const form: InertiaForm<UpdateExpenseData> = useForm({
+const form = useForm<UpdateExpenseData>({
     _method: 'put',
     person_id: person.value.id,
     expense_type_id: props.expense.expense_type_id,

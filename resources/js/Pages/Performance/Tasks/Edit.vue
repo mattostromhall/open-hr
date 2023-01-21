@@ -6,7 +6,6 @@ import EditorInput from '@/Components/Controls/EditorInput.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import type {Task} from '../../../types'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 
 const props = defineProps<{
@@ -17,7 +16,7 @@ const emit = defineEmits(['cancel', 'updated'])
 
 type TaskData = Omit<Task, 'id' | 'days_remaining' | 'completed_at'>
 
-const form: InertiaForm<TaskData> = useForm({
+const form = useForm<TaskData>({
     objective_id: props.task.objective_id,
     description: props.task.description,
     due_at: props.task.due_at

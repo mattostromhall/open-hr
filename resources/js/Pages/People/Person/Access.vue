@@ -8,7 +8,6 @@ import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
@@ -23,27 +22,27 @@ const props = defineProps<{
     allRoles: Role[]
 }>()
 
-interface UpdateEmailForm {
+type UpdateEmailForm = {
     email: string
 }
 
-interface UpdateActiveForm {
+type UpdateActiveForm = {
     active: boolean
 }
 
-interface UpdateRolesForm {
+type UpdateRolesForm = {
     roles: string[]
 }
 
-const emailForm: InertiaForm<UpdateEmailForm> = useForm({
+const emailForm = useForm<UpdateEmailForm>({
     email: props.user.email
 })
 
-const activeForm: InertiaForm<UpdateActiveForm> = useForm({
+const activeForm = useForm<UpdateActiveForm>({
     active: props.user.active
 })
 
-const rolesForm: InertiaForm<UpdateRolesForm> = useForm({
+const rolesForm = useForm<UpdateRolesForm>({
     roles: props.roles.map(role => role.name)
 })
 

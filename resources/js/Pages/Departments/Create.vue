@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {Breadcrumb, Department, SelectOption} from '../../types'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -30,7 +29,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type DepartmentData = Pick<Department, 'name'> & {head_of_department_id?: number}
 
-const form: InertiaForm<DepartmentData> = useForm({
+const form = useForm<DepartmentData>({
     name: '',
     head_of_department_id: undefined
 })

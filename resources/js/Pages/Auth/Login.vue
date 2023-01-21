@@ -12,13 +12,13 @@ defineProps<{
     deactivated?: string
 }>()
 
-interface LoginForm {
+type LoginForm = {
     email: string,
     password: string,
     remember: boolean
 }
 
-const form: LoginForm = useForm({
+const form = useForm<LoginForm>({
     email: '',
     password: '',
     remember: false

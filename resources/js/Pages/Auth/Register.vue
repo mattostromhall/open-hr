@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, Link, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
@@ -9,7 +8,7 @@ import type {ConfirmablePassword, User} from '../../types'
 
 type RegisterForm = Pick<User, 'email'> & ConfirmablePassword
 
-const form: InertiaForm<RegisterForm> = useForm({
+const form = useForm<RegisterForm>({
     email: '',
     password: '',
     password_confirmation: ''

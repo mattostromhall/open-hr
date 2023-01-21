@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type {InertiaForm} from '@inertiajs/vue3'
 import {useForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import EditorInput from '@/Components/Controls/EditorInput.vue'
@@ -23,7 +22,7 @@ type ApplicationData = Omit<Application, 'id' | 'vacancy_id'>
         cv?: File
     }
 
-const form: InertiaForm<ApplicationData> = useForm({
+const form = useForm<ApplicationData>({
     vacancy_public_id: props.vacancy.public_id,
     status: 1,
     name: '',

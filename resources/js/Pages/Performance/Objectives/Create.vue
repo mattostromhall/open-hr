@@ -6,7 +6,6 @@ import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
-import type {InertiaForm} from '@inertiajs/vue3'
 import {useForm} from '@inertiajs/vue3'
 import type {Objective, Person} from '../../../types'
 import {computed} from 'vue'
@@ -27,7 +26,7 @@ const directReportOptions: ComputedRef<({
 
 type ObjectiveData = Omit<Objective, 'id' | 'person_id' | 'days_remaining' | 'completed_at'> & {person_id?: number}
 
-const form: InertiaForm<ObjectiveData> = useForm({
+const form = useForm<ObjectiveData>({
     person_id: undefined,
     title: '',
     description: '',

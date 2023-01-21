@@ -4,7 +4,6 @@ import TextInput from '@/Components/Controls/TextInput.vue'
 import PhoneInput from '@/Components/Controls/PhoneInput.vue'
 import {useForm} from '@inertiajs/vue3'
 import {router} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {ref} from 'vue'
 import type {Ref} from 'vue'
@@ -32,7 +31,7 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
 
 const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
-const form: InertiaForm<PersonData> = useForm({
+const form = useForm<PersonData>({
     user_id: user.value.id,
     first_name: '',
     last_name: '',

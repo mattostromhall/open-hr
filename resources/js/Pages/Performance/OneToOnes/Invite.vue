@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useDateFormat} from '@vueuse/core'
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {OneToOne, OneToOneStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -21,14 +20,14 @@ const props = defineProps<{
 
 const person = usePerson()
 
-interface InviteData {
+type InviteData = {
     scheduled_at: string,
     person_status: OneToOneStatus,
     manager_status: OneToOneStatus,
     notes?: string
 }
 
-const form: InertiaForm<InviteData> = useForm({
+const form = useForm<InviteData>({
     scheduled_at: props.oneToOne.scheduled_at,
     person_status: props.oneToOne.person_status,
     manager_status: props.oneToOne.manager_status,

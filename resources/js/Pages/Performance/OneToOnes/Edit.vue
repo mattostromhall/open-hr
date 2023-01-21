@@ -4,7 +4,6 @@ import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -48,7 +47,7 @@ const person = usePerson()
 
 const canChangeRecurrence: ComputedRef<boolean> = computed(() => props.oneToOne.manager_id === person.value.id)
 
-const form: InertiaForm<UpdateOneToOneData> = useForm({
+const form = useForm<UpdateOneToOneData>({
     scheduled_at: props.oneToOne.scheduled_at,
     completed_at: props.oneToOne.completed_at,
     recurring: props.oneToOne.recurring,

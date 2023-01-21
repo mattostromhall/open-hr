@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {Training, TrainingStatus} from '../../../types'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -11,12 +10,12 @@ const props = defineProps<{
     status: string
 }>()
 
-interface ReviewTrainingData {
+type ReviewTrainingData = {
     status: TrainingStatus,
     notes?: string
 }
 
-const form: InertiaForm<ReviewTrainingData> = useForm({
+const form = useForm<ReviewTrainingData>({
     status: props.training.status,
     notes: props.training.notes ?? undefined
 })

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -34,7 +33,7 @@ const directReportOptions: ComputedRef<({
     }
 }))
 
-const form: InertiaForm<OneToOneScheduleData> = useForm({
+const form = useForm<OneToOneScheduleData>({
     person_id: undefined,
     manager_id: person.value.id,
     requester_id: person.value.id,

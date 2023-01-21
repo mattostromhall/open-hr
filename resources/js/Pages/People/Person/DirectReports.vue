@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {Person} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -22,7 +21,7 @@ const directReportOptions = props.people
         }
     })
 
-const form: InertiaForm<{direct_reports: number[]}> = useForm({
+const form = useForm<{direct_reports: number[]}>({
     direct_reports: props.directReports
 })
 

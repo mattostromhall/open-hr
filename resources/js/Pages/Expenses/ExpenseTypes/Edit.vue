@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
@@ -27,7 +26,7 @@ const breadcrumbs: Breadcrumb[] = [
     }
 ]
 
-const form: InertiaForm<{type: string}> = useForm({
+const form = useForm<{type: string}>({
     type: props.expenseType.type
 })
 </script>

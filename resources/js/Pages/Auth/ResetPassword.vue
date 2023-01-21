@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import PasswordInput from '@/Components/Controls/PasswordInput.vue'
@@ -10,14 +9,14 @@ const props = defineProps<{
     token?: string
 }>()
 
-interface ResetPasswordForm {
+type ResetPasswordForm = {
     token: string,
     email: string,
     password: string,
     password_confirmation: string
 }
 
-const form: InertiaForm<ResetPasswordForm> = useForm({
+const form = useForm<ResetPasswordForm>({
     token: props.token ?? '',
     email: props.email ?? '',
     password: '',

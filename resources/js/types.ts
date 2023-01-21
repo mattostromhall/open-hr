@@ -40,6 +40,11 @@ export type Operator = '=' | '!=' | '<' | '>' | '<=' | '>=' | 'like'
 
 export type StatusCode = 500 | 503 | 404 | 403
 
+export type ConfirmablePassword = {
+    password: string,
+    password_confirmation: string
+}
+
 export interface PaginatorLink {
     url: string | null,
     label: string,
@@ -124,11 +129,6 @@ export interface Notification {
     body: string,
     link?: string,
     read: boolean
-}
-
-export interface ConfirmablePassword {
-    password: string,
-    password_confirmation: string
 }
 
 export interface User {

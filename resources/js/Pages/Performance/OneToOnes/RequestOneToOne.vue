@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -21,7 +20,7 @@ const emit = defineEmits(['setActive'])
 
 const person = usePerson()
 
-const form: InertiaForm<OneToOneRequestData> = useForm({
+const form = useForm<OneToOneRequestData>({
     person_id: person.value.id,
     manager_id: props.manager?.id ?? 0,
     requester_id: person.value.id,

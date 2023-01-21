@@ -9,7 +9,7 @@ import {router} from '@inertiajs/vue3'
 import SimpleDropdown from '@/Components/SimpleDropdown.vue'
 import {useDateFormat} from '@vueuse/core'
 import useFileSizeFormatter from '../../../Composables/useFileSizeFormatter'
-import {InertiaForm, useForm} from '@inertiajs/vue3'
+import {useForm} from '@inertiajs/vue3'
 import usePermissions from '../../../Hooks/usePermissions'
 
 const props = defineProps<{
@@ -47,11 +47,11 @@ function navigate() {
 
 const showDeleteDropdown: Ref<boolean> = ref(false)
 
-interface DirectoryData {
+type DirectoryData = {
     path: string
 }
 
-const form: InertiaForm<DirectoryData> = useForm({
+const form = useForm<DirectoryData>({
     path: props.item.path
 })
 

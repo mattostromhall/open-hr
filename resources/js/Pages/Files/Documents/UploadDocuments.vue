@@ -14,14 +14,14 @@ const props = defineProps<{
 
 const emit = defineEmits(['uploaded'])
 
-interface DocumentsData {
+type DocumentsData = {
     path: string,
     documents?: File | File[],
     documentable_id: number,
     documentable_type: DocumentableType
 }
 
-const form: DocumentsData = useForm({
+const form = useForm<DocumentsData>({
     path: props.path,
     documents: undefined,
     documentable_id: props.documentable.id,

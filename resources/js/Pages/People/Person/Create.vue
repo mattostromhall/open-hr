@@ -6,7 +6,6 @@ import {useForm} from '@inertiajs/vue3'
 import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
-import type {InertiaForm} from '@inertiajs/vue3'
 import type {Breadcrumb, ComplexSelectOption, ConfirmablePassword, Currency, Department, Person, User} from '../../../types'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
@@ -63,7 +62,7 @@ const remunerationIntervalOptions: ComplexSelectOption[] = [
 
 const remunerationCurrencies: Currency[] = ['GBP', 'EUR', 'USD']
 
-const form: InertiaForm<PersonUserData> = useForm({
+const form = useForm<PersonUserData>({
     email: '',
     password: '',
     password_confirmation: '',

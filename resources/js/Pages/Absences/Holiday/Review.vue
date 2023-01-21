@@ -28,7 +28,7 @@ const breadcrumbs: Breadcrumb[] = [
     },
 ]
 
-interface ReviewHolidayData {
+type ReviewHolidayData = {
     notes?: string,
     status: HolidayStatus
 }
@@ -36,7 +36,7 @@ interface ReviewHolidayData {
 const start = useDateFormat(props.holiday.start_at, 'DD/MM/YYYY')
 const finish = useDateFormat(props.holiday.finish_at, 'DD/MM/YYYY')
 
-const form: ReviewHolidayData = useForm({
+const form = useForm<ReviewHolidayData>({
     notes: props.holiday.notes ?? undefined,
     status: props.holiday.status
 })

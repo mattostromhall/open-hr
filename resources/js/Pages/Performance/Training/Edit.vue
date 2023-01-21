@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import TextInput from '@/Components/Controls/TextInput.vue'
 import TextAreaInput from '@/Components/Controls/TextAreaInput.vue'
@@ -35,7 +34,7 @@ const breadcrumbs: Breadcrumb[] = [
 
 type TrainingData = Omit<Training, 'id'>
 
-const form: InertiaForm<TrainingData> = useForm({
+const form = useForm<TrainingData>({
     person_id: props.training.person_id,
     status: props.training.status,
     state: props.training.state,

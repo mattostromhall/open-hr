@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {Head, useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import FormLabel from '@/Components/Controls/FormLabel.vue'
 import EmailInput from '@/Components/Controls/EmailInput.vue'
 import IndigoButton from '@/Components/Controls/IndigoButton.vue'
@@ -9,11 +8,11 @@ defineProps<{
     status?: string
 }>()
 
-interface ForgotPasswordForm {
+type ForgotPasswordForm = {
     email: string
 }
 
-const form: InertiaForm<ForgotPasswordForm> = useForm({
+const form = useForm<ForgotPasswordForm>({
     email: '',
 })
 

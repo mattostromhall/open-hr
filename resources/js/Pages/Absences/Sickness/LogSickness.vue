@@ -18,7 +18,7 @@ const emit = defineEmits(['setActive'])
 
 const person = usePerson()
 
-const form: LogSicknessData = useForm({
+const form = useForm<LogSicknessData>({
     person_id: person.value.id,
     start_at: '',
     finish_at: undefined,

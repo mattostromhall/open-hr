@@ -10,7 +10,7 @@ const props = defineProps<{
     path: string
 }>()
 
-interface DirectoryData {
+type DirectoryData = {
     path: string
 }
 
@@ -22,7 +22,7 @@ const path: ComputedRef<string> = computed(() =>
     name.value.startsWith('/') ? `${props.path}${name.value}` : `${props.path}/${name.value}`
 )
 
-const form: DirectoryData = useForm({
+const form = useForm<DirectoryData>({
     path: ''
 })
 

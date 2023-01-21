@@ -23,7 +23,7 @@ type ReportSicknessData = Omit<Sickness, 'id' | 'person_id'> & {
 
 const emit = defineEmits(['setActive'])
 
-const form: ReportSicknessData = useForm({
+const form = useForm<ReportSicknessData>({
     person_id: undefined,
     start_at: '',
     finish_at: undefined,

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useForm} from '@inertiajs/vue3'
-import type {InertiaForm} from '@inertiajs/vue3'
 import RequiredIcon from '@/Components/RequiredIcon.vue'
 import DateInput from '@/Components/Controls/DateInput.vue'
 import NumberInput from '@/Components/Controls/NumberInput.vue'
@@ -31,7 +30,7 @@ const emit = defineEmits(['setActive'])
 
 const person = usePerson()
 
-const form: InertiaForm<SubmitExpenseData> = useForm({
+const form = useForm<SubmitExpenseData>({
     person_id: person.value.id,
     expense_type_id: undefined,
     status: 1,
