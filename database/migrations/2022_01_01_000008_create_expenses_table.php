@@ -18,7 +18,8 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignId('expense_type_id')
-                ->constrained();
+                ->constrained()
+                ->cascadeOnDelete();
             $table->unsignedTinyInteger('status')->index();
             $table->float('value');
             $table->string('value_currency');
