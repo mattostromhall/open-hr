@@ -39,7 +39,7 @@ class UnsetTaskAction implements UnsetTaskActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->objective->person->user->email],
+                    recipients: [$data->objective->person->email],
                     subject: 'A Task has been unset',
                     body: "A Task has been unset - {$data->description}. Deadline - {$data->due_at->toDateString()}"
                 )

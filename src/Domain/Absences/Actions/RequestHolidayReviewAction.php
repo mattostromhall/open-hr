@@ -42,7 +42,7 @@ class RequestHolidayReviewAction implements RequestHolidayReviewActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$manager->user->email],
+                recipients: [$manager->email],
                 subject: 'New holiday request',
                 body: "Holiday requested by {$data->person->fullName}, click here to review.",
                 link: route('holiday.review.show', [

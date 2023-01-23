@@ -41,7 +41,7 @@ class ReviewExpenseAction implements ReviewExpenseActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->person->user->email],
+                    recipients: [$data->person->email],
                     subject: 'Submitted Expense reviewed',
                     body: "Your submitted Expense has been updated to {$data->status->statusDisplay()}",
                     link: route('expense.show', [

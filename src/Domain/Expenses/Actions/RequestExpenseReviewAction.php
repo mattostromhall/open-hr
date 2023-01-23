@@ -42,7 +42,7 @@ class RequestExpenseReviewAction implements RequestExpenseReviewActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$manager->user->email],
+                recipients: [$manager->email],
                 subject: 'Expense Submitted',
                 body: "Expense submitted by {$data->person->full_name}, click here to review.",
                 link: route('expense.review.show', [

@@ -47,7 +47,7 @@ class CancelOneToOneAction implements CancelOneToOneActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->person->user->email],
+                    recipients: [$data->person->email],
                     subject: 'One-to-one cancelled',
                     body: "One-to-one scheduled at {$data->scheduled_at->toDateString()} has been cancelled."
                 )
@@ -55,7 +55,7 @@ class CancelOneToOneAction implements CancelOneToOneActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->manager->user->email],
+                    recipients: [$data->manager->email],
                     subject: 'One-to-one cancelled',
                     body: "One-to-one scheduled at {$data->scheduled_at->toDateString()} has been cancelled."
                 )

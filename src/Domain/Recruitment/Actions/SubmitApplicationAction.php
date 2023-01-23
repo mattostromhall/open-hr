@@ -50,7 +50,7 @@ class SubmitApplicationAction implements SubmitApplicationActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$data->application_data->vacancy->contact->user->email],
+                recipients: [$data->application_data->vacancy->contactEmail()],
                 subject: 'New Application',
                 body: "A new Application has been submitted for - {$data->application_data->vacancy->title}, click here to review.",
                 link: route('vacancy.show', [

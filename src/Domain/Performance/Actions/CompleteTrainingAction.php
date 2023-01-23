@@ -43,7 +43,7 @@ class CompleteTrainingAction implements CompleteTrainingActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$manager->user->email],
+                    recipients: [$manager->email],
                     subject: 'Training completed',
                     body: "Training - {$training->description} completed by {$training->person->fullName}",
                     link: route('training.show', [

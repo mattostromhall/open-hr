@@ -43,7 +43,7 @@ class CancelTrainingAction implements CancelTrainingActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$manager->user->email],
+                recipients: [$manager->email],
                 subject: 'Training request cancelled',
                 body: "Training request for {$data->person->fullName} - {$data->description} has been cancelled."
             )

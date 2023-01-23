@@ -41,7 +41,7 @@ class ReviewTrainingAction implements ReviewTrainingActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->person->user->email],
+                    recipients: [$data->person->email],
                     subject: 'Training request reviewed',
                     body: "Your Training request has been updated to {$data->status->statusDisplay()}",
                     link: route('training.show', [

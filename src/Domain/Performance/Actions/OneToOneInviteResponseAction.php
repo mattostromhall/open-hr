@@ -48,7 +48,7 @@ class OneToOneInviteResponseAction implements OneToOneInviteResponseActionInterf
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$requester->user->email],
+                recipients: [$requester->email],
                 subject: "A One-to-one has been {$this->status($oneToOne->status)}",
                 body: "A One-to-one between {$requester->full_name} and {$requested->full_name}, scheduled at {$data->scheduled_at->toDateTimeString()}, has been {$this->status($oneToOne->status)}",
                 link: route('one-to-one.invite.show', [
@@ -71,7 +71,7 @@ class OneToOneInviteResponseAction implements OneToOneInviteResponseActionInterf
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$requested->user->email],
+                recipients: [$requested->email],
                 subject: "A One-to-one has been {$this->status($oneToOne->status)}",
                 body: "A One-to-one between {$requester->full_name} and {$requested->full_name}, scheduled at {$data->scheduled_at->toDateTimeString()}, has been {$this->status($oneToOne->status)}",
                 link: route('one-to-one.invite.show', [

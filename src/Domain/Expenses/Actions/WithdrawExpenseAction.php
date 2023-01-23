@@ -43,7 +43,7 @@ class WithdrawExpenseAction implements WithdrawExpenseActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$manager->user->email],
+                    recipients: [$manager->email],
                     subject: 'Expense Withdrawn',
                     body: "Expense for {$data->date->toDateString()} has withdrawn by {$data->person->full_name}."
                 )

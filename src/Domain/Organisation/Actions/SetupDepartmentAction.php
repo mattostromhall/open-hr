@@ -44,7 +44,7 @@ class SetupDepartmentAction implements SetupDepartmentActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$data->head_of_department->user->email],
+                recipients: [$data->head_of_department->email],
                 subject: 'Assigned as Head of Department',
                 body: "You have been made the Head of Department for {$data->name}",
                 link: route('department.show', [

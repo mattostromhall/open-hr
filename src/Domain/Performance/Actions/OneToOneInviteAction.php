@@ -39,7 +39,7 @@ class OneToOneInviteAction implements OneToOneInviteActionInterface
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$requested->user->email],
+                recipients: [$requested->email],
                 subject: 'A One-to-one has been requested',
                 body: "A One-to-one has been requested by {$requester->full_name} at {$data->scheduled_at->toDateTimeString()}",
                 link: route('one-to-one.invite.show', [

@@ -39,7 +39,7 @@ class CancelSicknessAction implements CancelSicknessActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$manager->user->email],
+                    recipients: [$manager->email],
                     subject: 'Sickness Cancelled',
                     body: "Sickness for {$data->person->full_name}, starting at {$data->start_at->toDateString()} has been cancelled."
                 )

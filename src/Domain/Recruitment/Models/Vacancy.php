@@ -68,4 +68,9 @@ class Vacancy extends Model
     {
         return $this->morphMany(Document::class, 'documentable');
     }
+
+    public function contactEmail(): string
+    {
+        return $this->contact->email;
+    }
 }

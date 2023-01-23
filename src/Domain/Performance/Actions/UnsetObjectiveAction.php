@@ -38,7 +38,7 @@ class UnsetObjectiveAction implements UnsetObjectiveActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$data->person->user->email],
+                    recipients: [$data->person->email],
                     subject: 'An Objective has been unset',
                     body: "An Objective has been unset - {$data->title}. Deadline - {$data->due_at->toDateString()}"
                 )

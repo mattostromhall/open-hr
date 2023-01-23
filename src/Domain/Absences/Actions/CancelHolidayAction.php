@@ -39,7 +39,7 @@ class CancelHolidayAction implements CancelHolidayActionInterface
 
             $this->sendEmail->execute(
                 new EmailNotificationData(
-                    recipients: [$manager->user->email],
+                    recipients: [$manager->email],
                     subject: 'Holiday Request Cancelled',
                     body: "Holiday Request for {$data->person->full_name}, starting at {$data->start_at->toDateString()} has been cancelled."
                 )

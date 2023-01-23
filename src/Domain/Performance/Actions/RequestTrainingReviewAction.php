@@ -42,7 +42,7 @@ class RequestTrainingReviewAction implements RequestTrainingReviewActionInterfac
 
         $this->sendEmail->execute(
             new EmailNotificationData(
-                recipients: [$manager->user->email],
+                recipients: [$manager->email],
                 subject: 'Training request',
                 body: "Training requested by {$data->person->fullName}, click here to review.",
                 link: route('training.review.show', [
