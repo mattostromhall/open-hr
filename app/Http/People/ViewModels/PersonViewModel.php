@@ -58,6 +58,12 @@ class PersonViewModel extends ViewModel
         return $this->person->directReports->pluck('id');
     }
 
+    public function isHeadOfDepartment(): bool
+    {
+        return (bool) Department::query()
+            ->firstWhere('head_of_department_id', $this->person->id);
+    }
+
     public function roles()
     {
         return $this->user->assignedRoles();

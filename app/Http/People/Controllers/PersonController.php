@@ -2,6 +2,7 @@
 
 namespace App\Http\People\Controllers;
 
+use App\Http\People\Requests\DeletePersonRequest;
 use App\Http\People\Requests\StorePersonUserRequest;
 use App\Http\People\Requests\UpdatePersonRequest;
 use App\Http\People\ViewModels\CreatePersonViewModel;
@@ -94,12 +95,12 @@ class PersonController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Person $person, DeletePersonUserActionInterface $deletePerson): RedirectResponse
+    public function destroy(DeletePersonRequest $request, Person $person, DeletePersonUserActionInterface $deletePerson): RedirectResponse
     {
         $this->authorize('delete', $person);
 
         $deleted = DB::transaction(
-            fn () => $deletePerson->execute($person, $person->user)
+            fn () => $deletePerson->execute($request->deletePersonData())
         );
 
         if (! $deleted) {

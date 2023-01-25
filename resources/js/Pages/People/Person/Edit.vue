@@ -20,6 +20,7 @@ const props = defineProps<{
     person: Person,
     people: (Pick<Person, 'id'|'full_name'>)[],
     departments: Department[],
+    isHeadOfDepartment: boolean,
     address: Address,
     directReports: number[],
     roles: Role[],

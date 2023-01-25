@@ -123,6 +123,7 @@ use Domain\Organisation\Actions\Contracts\CreateOrganisationActionInterface;
 use Domain\Organisation\Actions\Contracts\DeleteDepartmentActionInterface;
 use Domain\Organisation\Actions\Contracts\DissolveDepartmentActionInterface;
 use Domain\Organisation\Actions\Contracts\ManageDepartmentMembersActionInterface;
+use Domain\Organisation\Actions\Contracts\ReassignHeadOfDepartmentActionInterface;
 use Domain\Organisation\Actions\Contracts\SetupDepartmentActionInterface;
 use Domain\Organisation\Actions\Contracts\UpdateDepartmentActionInterface;
 use Domain\Organisation\Actions\CreateDepartmentAction;
@@ -130,6 +131,7 @@ use Domain\Organisation\Actions\CreateOrganisationAction;
 use Domain\Organisation\Actions\DeleteDepartmentAction;
 use Domain\Organisation\Actions\DissolveDepartmentAction;
 use Domain\Organisation\Actions\ManageDepartmentMembersAction;
+use Domain\Organisation\Actions\ReassignHeadOfDepartmentAction;
 use Domain\Organisation\Actions\SetupDepartmentAction;
 use Domain\Organisation\Actions\UpdateDepartmentAction;
 use Domain\People\Actions\BulkDeletePeopleAction;
@@ -356,6 +358,7 @@ class OpenHRServiceProvider extends ServiceProvider
         $this->app->bind(DeleteDepartmentActionInterface::class, DeleteDepartmentAction::class);
         $this->app->bind(DissolveDepartmentActionInterface::class, DissolveDepartmentAction::class);
         $this->app->bind(ManageDepartmentMembersActionInterface::class, ManageDepartmentMembersAction::class);
+        $this->app->bind(ReassignHeadOfDepartmentActionInterface::class, ReassignHeadOfDepartmentAction::class);
         $this->app->bind(SetupDepartmentActionInterface::class, SetupDepartmentAction::class);
         $this->app->bind(UpdateDepartmentActionInterface::class, UpdateDepartmentAction::class);
 

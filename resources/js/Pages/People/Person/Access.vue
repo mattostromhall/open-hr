@@ -76,11 +76,24 @@ const abilities = computed(() => {
     )
 })
 
-const showDeleteModal: Ref<boolean> = ref(false)
+type DeleteForm = {
+    _method: 'delete',
+    new_manager_id?: number,
+    new_head_of_department_id?: number
+}
+
+const deleteForm = useForm<DeleteForm>({
+    _method: 'delete',
+    new_manager_id: undefined,
+    new_head_of_department_id: undefined
+})
 
 function deletePerson() {
-    return router.delete(`/people/${props.person.id}`)
+
+    return deleteForm.post(`/people/${props.person.id}`)
 }
+
+const showDeleteModal: Ref<boolean> = ref(false)
 </script>
 
 <template>
