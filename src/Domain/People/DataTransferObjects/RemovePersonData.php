@@ -7,7 +7,7 @@ use Domain\Organisation\Models\Department;
 use Domain\People\Models\Person;
 use Support\DataTransferObjects\DataTransferObject;
 
-class DeletePersonData extends DataTransferObject
+class RemovePersonData extends DataTransferObject
 {
     public function __construct(
         public readonly Person $person,

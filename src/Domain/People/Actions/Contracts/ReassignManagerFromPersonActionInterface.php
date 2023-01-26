@@ -6,5 +6,5 @@ use Domain\People\Models\Person;
 
 interface ReassignManagerFromPersonActionInterface
 {
-    public function execute(Person $person, int $newManagerId): bool;
+    public function execute(Person $person, ?int $newManagerId = null): bool;
 }

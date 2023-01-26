@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import type {Ref} from 'vue'
+import {computed, ref} from 'vue'
+import type {ComputedRef, Ref} from 'vue'
 import {Head} from '@inertiajs/vue3'
 import PageHeading from '@/Components/PageHeading.vue'
 import LightIndigoLink from '@/Components/Controls/LightIndigoLink.vue'
@@ -66,6 +66,8 @@ const tabs: TabbedContentItem[] = [
         display: 'Manage Access'
     }
 ]
+
+const isManager: ComputedRef<boolean> = computed(() => props.directReports.length > 0)
 </script>
 
 <template>
@@ -115,6 +117,9 @@ const tabs: TabbedContentItem[] = [
             :person="person"
             :user="user"
             :roles="roles"
+            :people="people"
+            :is-manager="isManager"
+            :is-head-of-department="isHeadOfDepartment"
             :all-roles="allRoles"
         />
     </TabbedContent>

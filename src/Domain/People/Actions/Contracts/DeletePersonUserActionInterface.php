@@ -2,9 +2,10 @@
 
 namespace Domain\People\Actions\Contracts;
 
-use Domain\People\DataTransferObjects\DeletePersonData;
+use Domain\Auth\Models\User;
+use Domain\People\Models\Person;
 
 interface DeletePersonUserActionInterface
 {
-    public function execute(DeletePersonData $data): bool;
+    public function execute(Person $person, User $user): bool;
 }

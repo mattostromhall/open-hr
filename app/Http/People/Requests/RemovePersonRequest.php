@@ -4,7 +4,7 @@ namespace App\Http\People\Requests;
 
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Department;
-use Domain\People\DataTransferObjects\DeletePersonData;
+use Domain\People\DataTransferObjects\RemovePersonData;
 use Domain\People\DataTransferObjects\PersonData;
 use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rules\Enum;
 use Support\Enums\Currency;
 
-class DeletePersonRequest extends FormRequest
+class RemovePersonRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -23,9 +23,9 @@ class DeletePersonRequest extends FormRequest
         ];
     }
 
-    public function deletePersonData(): DeletePersonData
+    public function removePersonData(): RemovePersonData
     {
-        return DeletePersonData::from([
+        return RemovePersonData::from([
             'person' => $this->person,
             'user' => $this->person->user,
             'department' => Department::query()->firstWhere('head_of_department_id', $this->person->id),

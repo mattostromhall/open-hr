@@ -8,16 +8,19 @@ import RedButton from '@/Components/Controls/RedButton.vue'
 import GreyOutlineButton from '@/Components/Controls/GreyOutlineButton.vue'
 import ToggleInput from '@/Components/Controls/ToggleInput.vue'
 import {useForm} from '@inertiajs/vue3'
-import {router} from '@inertiajs/vue3'
 import SimpleModal from '@/Components/SimpleModal.vue'
 import type {Ref} from 'vue'
 import {ref} from 'vue'
 import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 import type {Person, Role, User} from '../../../types'
+import SelectInput from '@/Components/Controls/SelectInput.vue'
 
 const props = defineProps<{
     person: Pick<Person, 'id'|'full_name'>,
     user: Pick<User, 'id'|'email'|'active'>,
+    people: (Pick<Person, 'id'|'full_name'>)[],
+    isManager: boolean,
+    isHeadOfDepartment: boolean,
     roles: Role[],
     allRoles: Role[]
 }>()
@@ -74,6 +77,13 @@ const abilities = computed(() => {
             .flatMap(role => role.abilities)
             .map(ability => ability.title)
     )
+})
+
+const peopleOptions = props.people.map(person => {
+    return {
+        value: person.id,
+        display: person.full_name
+    }
 })
 
 type DeleteForm = {
@@ -237,14 +247,58 @@ const showDeleteModal: Ref<boolean> = ref(false)
                                     >
                                         Confirm Delete
                                     </h3>
-                                    <div class="mt-2">
+                                    <div v-if="isManager || isHeadOfDepartment">
+                                        <p class="text-sm text-gray-500 my-2">
+                                            This person is a Manager/Head of Department, please select the person to reassign these to.
+                                        </p>
+                                        <form @submit.prevent="deletePerson">
+                                            <div
+                                                v-if="isManager"
+                                                class="mt-4"
+                                            >
+                                                <FormLabel>New Manager</FormLabel>
+                                                <div class="mt-1">
+                                                    <SelectInput
+                                                        v-model.number="deleteForm.new_manager_id"
+                                                        :error="deleteForm.errors.new_manager_id"
+                                                        input-id="new_manager_id"
+                                                        input-name="new_manager_id"
+                                                        :options="peopleOptions"
+                                                        placeholder="Choose a manager"
+                                                        @reset="deleteForm.clearErrors('new_manager_id')"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div
+                                                v-if="isHeadOfDepartment"
+                                                class="mt-4"
+                                            >
+                                                <FormLabel>New Head of Department</FormLabel>
+                                                <div class="mt-1">
+                                                    <SelectInput
+                                                        v-model.number="deleteForm.new_head_of_department_id"
+                                                        :error="deleteForm.errors.new_head_of_department_id"
+                                                        input-id="new_head_of_department_id"
+                                                        input-name="new_head_of_department_id"
+                                                        :options="peopleOptions"
+                                                        placeholder="Choose a head of department"
+                                                        @reset="deleteForm.clearErrors('new_head_of_department_id')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div
+                                        v-else
+                                        class="mt-2"
+                                    >
                                         <p class="text-sm text-gray-500">
                                             Are you sure you want to delete {{ person.full_name }}? This action cannot be undone.
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                            <div class="mt-6 sm:flex sm:flex-row-reverse">
                                 <RedButton class="w-full sm:w-auto sm:ml-3">
                                     Confirm
                                 </RedButton>
