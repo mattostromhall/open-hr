@@ -3,6 +3,7 @@
 namespace Domain\People\Actions;
 
 use Domain\Auth\Actions\Contracts\CreateUserActionInterface;
+use Domain\Files\Actions\Contracts\CreateDirectoryActionInterface;
 use Domain\People\Actions\Contracts\CreatePersonActionInterface;
 use Domain\People\Actions\Contracts\CreatePersonUserActionInterface;
 use Domain\People\DataTransferObjects\PersonData;
@@ -10,8 +11,11 @@ use Domain\People\DataTransferObjects\PersonUserData;
 
 class CreatePersonUserAction implements CreatePersonUserActionInterface
 {
-    public function __construct(protected CreateUserActionInterface $createUser, protected CreatePersonActionInterface $createPerson)
-    {
+    public function __construct(
+        protected CreateUserActionInterface $createUser,
+        protected CreatePersonActionInterface $createPerson,
+        protected CreateDirectoryActionInterface $createDirectory
+    ) {
         //
     }
 
@@ -44,6 +48,8 @@ class CreatePersonUserAction implements CreatePersonUserActionInterface
                 holiday_carried: $data->holiday_carried
             )
         );
+
+        $this->createDirectory->execute("documents/people/{$data->first_name} {$data->last_name}");
 
         return [$user, $person];
     }
