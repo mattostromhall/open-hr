@@ -9,7 +9,7 @@ use Domain\Recruitment\Models\Vacancy;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -21,9 +21,9 @@ it('submits an application when the correct data is provided', function () {
     $response = $this->post(route('application.store'), [
         'vacancy_public_id' => $vacancy->public_id,
         'status' => ApplicationStatus::PENDING->value,
-        'name' => faker()->name(),
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'name' => fake()->name(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'cv' => UploadedFile::fake()->create('document.pdf', 10)
     ]);
 

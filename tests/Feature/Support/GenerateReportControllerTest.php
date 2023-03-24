@@ -6,7 +6,7 @@ use Domain\People\Models\Person;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Models\Report;
 
@@ -20,7 +20,7 @@ it('generates a report when the correct data is provided', function () {
     $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('report.generate.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -44,7 +44,7 @@ it('generates a report when the correct data is provided', function () {
 
 it('returns unauthorized if the person does not have permission to generate a report', function () {
     $response = $this->post(route('report.generate.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -65,7 +65,7 @@ it('returns unauthorized if the person does not have permission to generate a re
 
 it('returns validation errors when generating a report with incorrect data', function () {
     $response = $this->post(route('report.generate.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => '',
         'condition_sets' => []
     ]);

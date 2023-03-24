@@ -8,7 +8,7 @@ use Domain\Performance\Enums\TrainingStatus;
 use Domain\Performance\Models\Training;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Enums\Currency;
 
@@ -53,8 +53,8 @@ it('creates a training request when the correct data is provided', function () {
         'person_id' => $this->person->id,
         'status' => TrainingStatus::PENDING->value,
         'state' => TrainingState::TODO->value,
-        'description' => faker()->text(),
-        'provider' => faker()->company(),
+        'description' => fake()->text(),
+        'provider' => fake()->company(),
         'cost' => 500,
         'cost_currency' => Currency::GBP->value
     ]);
@@ -69,8 +69,8 @@ it('returns unauthorized if the person does not have permission to create traini
         'person_id' => $this->person->id,
         'status' => TrainingStatus::PENDING->value,
         'state' => TrainingState::TODO->value,
-        'description' => faker()->text(),
-        'provider' => faker()->company(),
+        'description' => fake()->text(),
+        'provider' => fake()->company(),
         'cost' => 500,
         'cost_currency' => Currency::GBP->value
     ]);
@@ -150,8 +150,8 @@ it('updates the training when the correct data is provided', function () {
     $response = $this->put(route('training.update', ['training' => $training]), [
         'status' => TrainingStatus::APPROVED->value,
         'state' => TrainingState::STARTED->value,
-        'description' => faker()->text(),
-        'provider' => faker()->company(),
+        'description' => fake()->text(),
+        'provider' => fake()->company(),
         'cost' => 500,
         'cost_currency' => Currency::GBP->value
     ]);
@@ -167,8 +167,8 @@ it('returns unauthorized if the person does not have permission to update the tr
     $response = $this->put(route('training.update', ['training' => $training]), [
         'status' => TrainingStatus::APPROVED->value,
         'state' => TrainingState::STARTED->value,
-        'description' => faker()->text(),
-        'provider' => faker()->company(),
+        'description' => fake()->text(),
+        'provider' => fake()->company(),
         'cost' => 500,
         'cost_currency' => Currency::GBP->value
     ]);

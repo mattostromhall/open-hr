@@ -6,7 +6,7 @@ use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Enums\Currency;
 

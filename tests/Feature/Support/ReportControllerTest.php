@@ -5,7 +5,7 @@ use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Models\Report;
 
@@ -71,7 +71,7 @@ it('creates a report when the correct data is provided', function () {
     $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('report.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -94,7 +94,7 @@ it('creates a report when the correct data is provided', function () {
 
 it('returns unauthorized if the person does not have permission to create a report', function () {
     $response = $this->post(route('report.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -115,7 +115,7 @@ it('returns unauthorized if the person does not have permission to create a repo
 
 it('returns validation errors when creating a report with incorrect data', function () {
     $response = $this->post(route('report.store'), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => '',
         'condition_sets' => []
     ]);
@@ -154,7 +154,7 @@ it('updates the report when the correct data is provided', function () {
     $report = Report::factory()->create();
 
     $response = $this->put(route('report.update', ['report' => $report]), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -179,7 +179,7 @@ it('returns unauthorized if the person does not have permission to update the re
     $report = Report::factory()->create();
 
     $response = $this->put(route('report.update', ['report' => $report]), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => 'objective',
         'condition_sets' => [
             [
@@ -202,7 +202,7 @@ it('returns validation errors when updating the report with incorrect data', fun
     $report = Report::factory()->create();
 
     $response = $this->put(route('report.update', ['report' => $report]), [
-        'label' => faker()->word(),
+        'label' => fake()->word(),
         'model' => '',
         'condition_sets' => []
     ]);

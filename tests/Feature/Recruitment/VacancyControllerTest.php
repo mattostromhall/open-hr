@@ -8,7 +8,7 @@ use Domain\Recruitment\Models\Application;
 use Domain\Recruitment\Models\Vacancy;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Enums\Currency;
 
@@ -55,8 +55,8 @@ it('posts a vacancy when the correct data is provided', function () {
 
     $response = $this->post(route('vacancy.store'), [
         'contact_id' => $this->person->id,
-        'title' => faker()->text(),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(),
+        'description' => fake()->randomHtml(),
         'location' => 'remote',
         'contract_type' => ContractType::FULL_TIME->value,
         'remuneration' => 70000,
@@ -73,8 +73,8 @@ it('posts a vacancy when the correct data is provided', function () {
 it('returns unauthorized if the person does not have permission to create a vacancy', function () {
     $response = $this->post(route('vacancy.store'), [
         'contact_id' => $this->person->id,
-        'title' => faker()->text(),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(),
+        'description' => fake()->randomHtml(),
         'location' => 'remote',
         'contract_type' => ContractType::FULL_TIME->value,
         'remuneration' => 70000,
@@ -187,8 +187,8 @@ it('updates the vacancy when the correct data is provided', function () {
 
     $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
         'contact_id' => $this->person->id,
-        'title' => faker()->text(),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(),
+        'description' => fake()->randomHtml(),
         'location' => 'remote',
         'contract_type' => ContractType::FULL_TIME->value,
         'remuneration' => 70000,
@@ -207,8 +207,8 @@ it('returns unauthorized if the person does not have permission to update the va
 
     $response = $this->put(route('vacancy.update', ['vacancy' => $vacancy]), [
         'contact_id' => $this->person->id,
-        'title' => faker()->text(),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(),
+        'description' => fake()->randomHtml(),
         'location' => 'remote',
         'contract_type' => ContractType::FULL_TIME->value,
         'remuneration' => 70000,

@@ -4,7 +4,7 @@ use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Enums\RemunerationInterval;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Enums\Currency;
 
@@ -19,17 +19,17 @@ beforeEach(function () {
 it('creates a new person when the correct data is provided', function () {
     $response = $this->post(route('setup.person'), [
         'user_id' => $this->user->id,
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'position' => faker()->jobTitle(),
-        'remuneration' => faker()->numberBetween(10000, 100000),
+        'position' => fake()->jobTitle(),
+        'remuneration' => fake()->numberBetween(10000, 100000),
         'remuneration_interval' => RemunerationInterval::YEARLY->value,
         'remuneration_currency' => Currency::GBP->value,
         'base_holiday_allocation' => 25,
         'sickness_allocation' => 10,
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'started_on' => now()->subYear()
     ]);
 

@@ -6,7 +6,7 @@ use Domain\Recruitment\DataTransferObjects\VacancyData;
 use Domain\Recruitment\Enums\ContractType;
 use Illuminate\Support\Str;
 use Support\Actions\StripScriptTagsAction;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 use Support\Enums\Currency;
 
 it('creates a vacancy', function () {
@@ -17,7 +17,7 @@ it('creates a vacancy', function () {
         contact: $person,
         public_id: Str::uuid(),
         title: 'Web Developer',
-        description: faker()->randomHtml(),
+        description: fake()->randomHtml(),
         location: 'UK',
         contract_type: ContractType::FULL_TIME,
         remuneration: 70000,

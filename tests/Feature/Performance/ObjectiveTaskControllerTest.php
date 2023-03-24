@@ -6,7 +6,7 @@ use Domain\People\Models\Person;
 use Domain\Performance\Models\Objective;
 use Domain\Performance\Models\Task;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -22,7 +22,7 @@ it('creates a task for the objective when the correct data is provided', functio
     $objective = Objective::factory()->for($person)->create();
 
     $response = $this->post(route('task.store', ['objective' => $objective]), [
-        'description' => faker()->randomHtml(),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(2)
     ]);
 
@@ -35,7 +35,7 @@ it('returns unauthorized if the person does not have permission to create a task
     $objective = Objective::factory()->create();
 
     $response = $this->post(route('task.store', ['objective' => $objective]), [
-        'description' => faker()->randomHtml(),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(2)
     ]);
 
@@ -64,7 +64,7 @@ it('updates the task when the correct data is provided', function () {
     $task = Task::factory()->for($objective)->create();
 
     $response = $this->put(route('task.update', ['task' => $task]), [
-        'description' => faker()->randomHtml(),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(25),
         'completed_at' => now()->addDays(5)
     ]);
@@ -78,7 +78,7 @@ it('returns unauthorized if the person does not have permission to update the ta
     $task = Task::factory()->create();
 
     $response = $this->put(route('task.update', ['task' => $task]), [
-        'description' => faker()->randomHtml(),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(25),
         'completed_at' => now()->addDays(5)
     ]);

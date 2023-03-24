@@ -6,7 +6,7 @@ use Domain\Recruitment\Enums\ContractType;
 use Domain\Recruitment\Models\Vacancy;
 use Support\Actions\StripScriptTagsAction;
 use Support\Enums\Currency;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 it('updates a vacancy', function () {
     $vacancy = Vacancy::factory()->create();
@@ -16,7 +16,7 @@ it('updates a vacancy', function () {
         contact: $vacancy->contact,
         public_id: $vacancy->public_id,
         title: $vacancy->title,
-        description: faker()->randomHtml(),
+        description: fake()->randomHtml(),
         location: $vacancy->location,
         contract_type: ContractType::FIXED_TERM,
         contract_length: '1 year',

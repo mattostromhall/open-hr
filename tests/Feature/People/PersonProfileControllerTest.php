@@ -6,7 +6,7 @@ use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -50,11 +50,11 @@ it('updates the profile when the correct data is provided', function () {
     $this->person->assign(Role::PERSON);
 
     $response = $this->patch(route('profile.update', ['person' => $this->person]), [
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
     ]);
 
     $response
@@ -64,11 +64,11 @@ it('updates the profile when the correct data is provided', function () {
 
 it('returns unauthorized if the person does not have permission to update the person profile', function () {
     $response = $this->patch(route('profile.update', ['person' => $this->person]), [
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
     ]);
 
     $response->assertForbidden();

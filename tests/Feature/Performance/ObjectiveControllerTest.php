@@ -5,7 +5,7 @@ use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
 use Domain\Performance\Models\Objective;
 use Inertia\Testing\AssertableInertia as Assert;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -18,8 +18,8 @@ it('creates an objective when the correct data is provided', function () {
 
     $response = $this->post(route('objective.store'), [
         'person_id' => $this->person->id,
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(100),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(30)
     ]);
 
@@ -31,8 +31,8 @@ it('creates an objective when the correct data is provided', function () {
 it('returns unauthorized if the person does not have permission to create an objective', function () {
     $response = $this->post(route('objective.store'), [
         'person_id' => $this->person->id,
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(100),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(30)
     ]);
 
@@ -111,8 +111,8 @@ it('updates the objective when the correct data is provided', function () {
     $objective = Objective::factory()->for($person)->create();
 
     $response = $this->put(route('objective.update', ['objective' => $objective]), [
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(100),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(25),
         'completed_at' => now()->addDays(30)
     ]);
@@ -126,8 +126,8 @@ it('returns unauthorized if the person does not have permission to update the ob
     $objective = Objective::factory()->create();
 
     $response = $this->put(route('objective.update', ['objective' => $objective]), [
-        'title' => faker()->text(100),
-        'description' => faker()->randomHtml(),
+        'title' => fake()->text(100),
+        'description' => fake()->randomHtml(),
         'due_at' => now()->addDays(25),
         'completed_at' => now()->addDays(30)
     ]);

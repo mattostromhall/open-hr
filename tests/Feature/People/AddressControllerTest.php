@@ -4,7 +4,7 @@ use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Address;
 use Domain\People\Models\Person;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -16,11 +16,11 @@ it('creates a new address when the correct data is provided', function () {
     $this->person->assign(Role::PERSON);
 
     $response = $this->post(route('address.store', ['person' => $this->person]), [
-        'address_line' => faker()->streetAddress(),
-        'country' => faker()->country(),
-        'region' => faker()->text(10),
-        'town_city' => faker()->city(),
-        'postal_code' => faker()->postcode()
+        'address_line' => fake()->streetAddress(),
+        'country' => fake()->country(),
+        'region' => fake()->text(10),
+        'town_city' => fake()->city(),
+        'postal_code' => fake()->postcode()
     ]);
 
     $response
@@ -30,11 +30,11 @@ it('creates a new address when the correct data is provided', function () {
 
 it('returns unauthorized if the person does not have permission to create an address', function () {
     $response = $this->post(route('address.store', ['person' => $this->person]), [
-        'address_line' => faker()->streetAddress(),
-        'country' => faker()->country(),
-        'region' => faker()->text(10),
-        'town_city' => faker()->city(),
-        'postal_code' => faker()->postcode()
+        'address_line' => fake()->streetAddress(),
+        'country' => fake()->country(),
+        'region' => fake()->text(10),
+        'town_city' => fake()->city(),
+        'postal_code' => fake()->postcode()
     ]);
 
     $response->assertForbidden();
@@ -59,11 +59,11 @@ it('updates the address when the correct data is provided', function () {
     $address = Address::factory()->for($this->person)->create();
 
     $response = $this->put(route('address.update', ['address' => $address]), [
-        'address_line' => faker()->streetAddress(),
-        'country' => faker()->country(),
-        'region' => faker()->text(10),
-        'town_city' => faker()->city(),
-        'postal_code' => faker()->postcode()
+        'address_line' => fake()->streetAddress(),
+        'country' => fake()->country(),
+        'region' => fake()->text(10),
+        'town_city' => fake()->city(),
+        'postal_code' => fake()->postcode()
     ]);
 
     $response
@@ -75,11 +75,11 @@ it('returns unauthorized if the person does not have permission to update the ad
     $address = Address::factory()->create();
 
     $response = $this->put(route('address.update', ['address' => $address]), [
-        'address_line' => faker()->streetAddress(),
-        'country' => faker()->country(),
-        'region' => faker()->text(10),
-        'town_city' => faker()->city(),
-        'postal_code' => faker()->postcode()
+        'address_line' => fake()->streetAddress(),
+        'country' => fake()->country(),
+        'region' => fake()->text(10),
+        'town_city' => fake()->city(),
+        'postal_code' => fake()->postcode()
     ]);
 
     $response->assertForbidden();

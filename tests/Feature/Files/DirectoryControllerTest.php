@@ -3,7 +3,7 @@
 use Domain\Auth\Enums\Role;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
@@ -15,7 +15,7 @@ it('creates a directory for the path provided', function () {
     $this->person->assign(Role::ADMIN);
 
     $response = $this->post(route('directory.store'), [
-        'path' => 'test/' . faker()->text(10)
+        'path' => 'test/' . fake()->text(10)
     ]);
 
     $response
@@ -25,7 +25,7 @@ it('creates a directory for the path provided', function () {
 
 it('returns unauthorized if the person does not have permission to create directories', function () {
     $response = $this->post(route('directory.store'), [
-        'path' => 'test/' . faker()->text(10)
+        'path' => 'test/' . fake()->text(10)
     ]);
 
     $response->assertForbidden();
@@ -44,7 +44,7 @@ it('returns validation errors when submitting an expense with incorrect data', f
 
 it('deletes the directory at the path provided', function () {
     $this->person->assign(Role::ADMIN);
-    $path = 'test/' . faker()->text(10);
+    $path = 'test/' . fake()->text(10);
 
     $createResponse = $this->post(route('directory.store'), [
         'path' => $path
@@ -65,7 +65,7 @@ it('deletes the directory at the path provided', function () {
 
 it('returns unauthorized if the person does not have permission to delete directories', function () {
     $this->person->assign(Role::ADMIN);
-    $path = 'test/' . faker()->text(10);
+    $path = 'test/' . fake()->text(10);
 
     $createResponse = $this->post(route('directory.store'), [
         'path' => $path

@@ -23,6 +23,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('model:prune', [
             '--model' => [Notification::class],
         ])->daily();
+
+        $schedule->command('cache:prune-stale-tags')
+            ->hourly();
     }
 
     /**

@@ -34,8 +34,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->registerPolicies();
-
         Gate::define('create-directory', [DirectoryPolicy::class, 'create']);
         Gate::define('delete-directory', [DirectoryPolicy::class, 'delete']);
         Gate::define('manage-performance', [PerformancePolicy::class, 'manage']);

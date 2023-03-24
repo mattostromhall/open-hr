@@ -7,7 +7,7 @@ use Domain\People\Enums\RemunerationInterval;
 use Domain\People\Models\Person;
 use Inertia\Testing\AssertableInertia as Assert;
 
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 use Support\Enums\Currency;
 
@@ -100,25 +100,25 @@ it('returns unauthorized when creating if the person does not have permission to
 
 it('creates a new user and person when the correct data is provided', function () {
     $this->person->assign(Role::HEAD_OF_DEPARTMENT);
-    $password = faker()->password(8);
+    $password = fake()->password(8);
 
     $response = $this->post(route('person.store'), [
         // User
-        'email' => faker()->companyEmail(),
+        'email' => fake()->companyEmail(),
         'password' => $password,
         'password_confirmation' => $password,
         // Person
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'position' => faker()->jobTitle(),
-        'remuneration' => faker()->numberBetween(10000, 100000),
+        'position' => fake()->jobTitle(),
+        'remuneration' => fake()->numberBetween(10000, 100000),
         'remuneration_interval' => RemunerationInterval::YEARLY->value,
         'remuneration_currency' => Currency::GBP->value,
         'base_holiday_allocation' => 25,
         'sickness_allocation' => 10,
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'started_on' => now()->subYear()
     ]);
 
@@ -128,25 +128,25 @@ it('creates a new user and person when the correct data is provided', function (
 });
 
 it('returns unauthorized if the person does not have permission to create a person', function () {
-    $password = faker()->password(8);
+    $password = fake()->password(8);
 
     $response = $this->post(route('person.store'), [
         // User
-        'email' => faker()->companyEmail(),
+        'email' => fake()->companyEmail(),
         'password' => $password,
         'password_confirmation' => $password,
         // Person
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'position' => faker()->jobTitle(),
-        'remuneration' => faker()->numberBetween(10000, 100000),
+        'position' => fake()->jobTitle(),
+        'remuneration' => fake()->numberBetween(10000, 100000),
         'remuneration_interval' => RemunerationInterval::YEARLY->value,
         'remuneration_currency' => Currency::GBP->value,
         'base_holiday_allocation' => 25,
         'sickness_allocation' => 10,
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'started_on' => now()->subYear()
     ]);
 
@@ -236,17 +236,17 @@ it('updates the person when the correct data is provided', function () {
 
     $response = $this->put(route('person.update', ['person' => $this->person]), [
         'user_id' => $this->person->user->id,
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'position' => faker()->jobTitle(),
-        'remuneration' => faker()->numberBetween(10000, 100000),
+        'position' => fake()->jobTitle(),
+        'remuneration' => fake()->numberBetween(10000, 100000),
         'remuneration_interval' => RemunerationInterval::YEARLY->value,
         'remuneration_currency' => Currency::GBP->value,
         'base_holiday_allocation' => 25,
         'sickness_allocation' => 10,
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'started_on' => now()->subYear(),
         'hex_code' => '#000000'
     ]);
@@ -259,17 +259,17 @@ it('updates the person when the correct data is provided', function () {
 it('returns unauthorized if the person does not have permission to update the person', function () {
     $response = $this->put(route('person.update', ['person' => $this->person]), [
         'user_id' => $this->person->user->id,
-        'first_name' => faker()->firstName(),
-        'last_name' => faker()->lastName(),
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'dob' => now()->subYears(30),
-        'position' => faker()->jobTitle(),
-        'remuneration' => faker()->numberBetween(10000, 100000),
+        'position' => fake()->jobTitle(),
+        'remuneration' => fake()->numberBetween(10000, 100000),
         'remuneration_interval' => RemunerationInterval::YEARLY->value,
         'remuneration_currency' => Currency::GBP->value,
         'base_holiday_allocation' => 25,
         'sickness_allocation' => 10,
-        'contact_number' => faker()->phoneNumber(),
-        'contact_email' => faker()->email(),
+        'contact_number' => fake()->phoneNumber(),
+        'contact_email' => fake()->email(),
         'started_on' => now()->subYear(),
         'hex_code' => '#000000'
     ]);

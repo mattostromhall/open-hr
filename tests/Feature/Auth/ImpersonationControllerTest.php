@@ -4,7 +4,7 @@ use Domain\Auth\Enums\Role;
 use Domain\Auth\Models\User;
 use Domain\Organisation\Models\Organisation;
 use Domain\People\Models\Person;
-use function Pest\Faker\faker;
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     Organisation::factory()->create();
